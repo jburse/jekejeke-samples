@@ -8,16 +8,16 @@ The samples are organized along the main components of
 Jekejeke Prolog. We thus find samples for the Runtime Library,
 the Development Enviroment and the Minlog Extension.
 
-# Runtime Library Examples
+# Runtime Library Samples
 
 The following samples have already been uploaded.
-- jekrun/benchdist: Benchmark Module "distributed"
+- [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist): Benchmark Module "distributed"
 
-# Developent Environment Examples
+# Development Environment Samples
 
 Nothing yet.
 
-# Minlog Extenion Examples
+# Minlog Extension Samples
 
 Nothing yet.
 
