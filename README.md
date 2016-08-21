@@ -11,7 +11,10 @@ the Development Enviroment and the Minlog Extension.
 # Runtime Library Samples
 
 The following samples have already been uploaded.
-- [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist): Benchmark Module "distributed"
+- [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark):
+  Benchmark ISO Performance
+- [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist):
+  Benchmark Module "distributed"
 
 # Development Environment Samples
 
@@ -24,9 +27,9 @@ Nothing yet.
 # Issues and Contributing
 
 Feel free to fork for non-commercial attributed use. There
-are is no warranty for the samples, you might try a pull
+ is no warranty for the samples. You might try a pull
 request if you find issues, but there is also no service
-agreement. Note also that Jekejeke is a trademark.
+agreement by us. Note also that Jekejeke is a trademark.
 
 Jan Burse, 21.08.2016
 

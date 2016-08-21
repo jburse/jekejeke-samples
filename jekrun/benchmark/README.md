@@ -1,19 +1,13 @@
 # What is this?
 
-This directory contains test cases for the new module "distributed".
-This module provides work distribution predicates balance/3 and
-setup_balance/4. We test these predicates for a collatz computation
-and a CLP(FD) queens problem.
-
-There is also a small compatibility library for SWI-Prolog that
-re-implememts the module "distribued" so that the same test
-cases can be run on SWI-Prolog as well. We see similar parallel
-scaling in Jekejeke Prolog and SWI-Prolog.
+This directory contains test cases for the Prolog ISO core
+functionality. We test some pure Prolog problems. We don't
+test assert or file I/O.
 
 # Jekejeke Prolog Variant
 
 To use the Jekejeke Prolog variant load the following file:
-- [harness/jekejeke.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchdist/harness/jekejeke.p):
+- [harness/jekejeke.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/bechmark/harness/jekejeke.p):
   Jekejeke Prolog main file.
 
 You can directly point the Jekejeke Prolog interpreter to the raw file,
@@ -21,26 +15,23 @@ no need to download the GitHub repository.
 
 After loading the files use the following predicates to run the test
 cases. For slower devices such as Android use the r-predicates:
-- **suite:** Collatz Computation from 10000-20000 (8 resp. 12 times).
-- **suite2:** CLP(FD) 8-Queens Problem (17 times).
-- **rsuite:** Collatz Computation from 1000-2000 (8 resp. 12 times).
-- **rsuite2:** CLP(FD) 6-Queens Problem (4 times).
+- **suite:** Benchmark for ISO Core Prolog (normal iteration).
+- **rsuite2:** Benchmark for ISO Core Prolog (reduced iteration).
 
 # SWI-Prolog Variant
 
 To use the SWI-Prolog variant load the following file:
-- [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchdist/harness/swi.p):
+- [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/bechmark/harness/swi.p):
   SWI-Prolog main file.
 
 After loading the files use the following predicates to run
 the test cases:
-- **suite:** Collatz Computation from 10000-20000 (8 resp. 12 times).
-- **suite2:** CLP(FD) 8-Queens Problem (133 times).
+- **suite:** Benchmark for ISO Core Prolog (normal iteration).
 
 # Results Gallery
 
 To see some results on our machines look at this directory:
-- [galery](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchdist/galery):
+- [galery](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/bechmark/galery):
   Results Gallery
 
 Our machines so far include a Lenovo Ideapad 700, a Lenovo Carbon X1
