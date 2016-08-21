@@ -51,7 +51,7 @@ rqueens :-
    search(X, [], _).
 
 % rdataqueens(-List)
-rdataqueens([1,2,3,4,5,6]).
+rdataqueens([1,2,3,4,5,6,7]).
 
 /*****************************************************************/
 /* The Solver                                                    */

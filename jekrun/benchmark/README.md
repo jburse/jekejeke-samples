@@ -21,7 +21,7 @@ cases. For slower devices such as Android use the r-predicates:
 # SWI-Prolog Variant
 
 To use the SWI-Prolog variant load the following file:
-- [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/swi.p)):
+- [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/swi.p):
   SWI-Prolog main file.
 
 After loading the files use the following predicates to run

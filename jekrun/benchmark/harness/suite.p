@@ -53,7 +53,7 @@ rsuite :-
    bench(12, rpoly, T4, G4),
    bench(1201, rqsort, T5, G5),
    bench(1, tictac, T6, G6),
-   bench(3, rqueens, T7, G7),
+   bench(6, rqueens, T7, G7),
    bench(301, query, T8, G8),
    bench(3, mtak, T9, G9),
    bench(1, perfect, T10, G10),
