@@ -28,6 +28,10 @@
 :- use_module(library(runtime/distributed)).
 :- use_module(library(advanced/arith)).
 
+/*****************************************************************/
+/* Normal Test Cases                                             */
+/*****************************************************************/
+
 many :-
    between(10000, 20000, X), collatz(X, _).
 
@@ -51,6 +55,38 @@ first4 :-
 
 first8 :-
    once(balance(between(10000, 20000, X), (collatz(X, _), X = 16666), 8)).
+
+/*****************************************************************/
+/* Reduced Test Cases                                            */
+/*****************************************************************/
+
+rmany :-
+   between(1000, 2000, X), collatz(X, _).
+
+rmany2 :-
+   balance(between(1000, 2000, X), collatz(X, _), 2).
+
+rmany4 :-
+   balance(between(1000, 2000, X), collatz(X, _), 4).
+
+rmany8 :-
+   balance(between(1000, 2000, X), collatz(X, _), 8).
+
+rfirst :-
+   once((between(1000, 2000, X), collatz(X, _), X = 1666)).
+
+rfirst2 :-
+   once(balance(between(1000, 2000, X), (collatz(X, _), X = 1666), 2)).
+
+rfirst4 :-
+   once(balance(between(1000, 2000, X), (collatz(X, _), X = 1666), 4)).
+
+rfirst8 :-
+   once(balance(between(1000, 2000, X), (collatz(X, _), X = 1666), 8)).
+
+/*****************************************************************/
+/* The Collatz Functio                                           */
+/*****************************************************************/
 
 collatz(1, 0) :- !.
 collatz(I, N) :- 1 =:= I/\1, !,

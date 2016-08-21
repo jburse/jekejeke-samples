@@ -30,6 +30,10 @@
 :- ensure_loaded('../tests/collatz').
 :- ensure_loaded('../tests/queens3').
 
+/*****************************************************************/
+/* Normal Test Cases                                             */
+/*****************************************************************/
+
 suite :-
    bench(3001, dummy, _, _),
    bench(8, many, T1, G1),
@@ -59,3 +63,38 @@ suite2 :-
    G is G1+G2+G3+G4+G5+G6+G7+G8,
    write('Total'),
    show(T, G), nl.
+
+/*****************************************************************/
+/* Reduced Test Cases                                             */
+/*****************************************************************/
+
+rsuite :-
+   bench(3001, dummy, _, _),
+   bench(8, rmany, T1, G1),
+   bench(8, rmany2, T2, G2),
+   bench(8, rmany4, T3, G3),
+   bench(8, rmany8, T4, G4),
+   bench(12, rfirst, T5, G5),
+   bench(12, rfirst2, T6, G6),
+   bench(12, rfirst4, T7, G7),
+   bench(12, rfirst8, T8, G8),
+   T is T1+T2+T3+T4+T5+T6+T7+T8,
+   G is G1+G2+G3+G4+G5+G6+G7+G8,
+   write('Total'),
+   show(T, G), nl.
+
+rsuite2 :-
+   bench(3001, dummy, _, _),
+   bench(17, rqueens, T1, G1),
+   bench(17, rqueens2, T2, G2),
+   bench(17, rqueens4, T3, G3),
+   bench(17, rqueens8, T4, G4),
+   bench(17, rsetup, T5, G5),
+   bench(17, rsetup2, T6, G6),
+   bench(17, rsetup4, T7, G7),
+   bench(17, rsetup8, T8, G8),
+   T is T1+T2+T3+T4+T5+T6+T7+T8,
+   G is G1+G2+G3+G4+G5+G6+G7+G8,
+   write('Total'),
+   show(T, G), nl.
+
