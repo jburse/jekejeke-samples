@@ -16,7 +16,7 @@ no need to download the GitHub repository.
 After loading the files use the following predicates to run the test
 cases. For slower devices such as Android use the r-predicates:
 - **suite:** Benchmark for ISO Core Prolog (normal iteration).
-- **rsuite2:** Benchmark for ISO Core Prolog (reduced iteration).
+- **rsuite:** Benchmark for ISO Core Prolog (reduced iteration).
 
 # SWI-Prolog Variant
 
