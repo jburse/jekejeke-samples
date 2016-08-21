@@ -31,6 +31,7 @@ uptime(X) :-
    statistics(uptime, X).
 
 gctime(X) :-
-   statistics(gctime, X).
+   statistics(gctime, X), !.
+gctime(0).
 
 :- ensure_loaded(suite).
