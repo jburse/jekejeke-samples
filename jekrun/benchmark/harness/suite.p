@@ -50,7 +50,7 @@ rsuite :-
    bench(1201, rnrev, T1, G1),
    bench(15, crypt, T2, G2),
    bench(6001, rderiv, T3, G3),
-   bench(16, rpoly, T4, G4),
+   bench(32, rpoly, T4, G4),
    bench(801, rqsort, T5, G5),
    bench(1, tictac, T6, G6),
    bench(12, rqueens, T7, G7),
