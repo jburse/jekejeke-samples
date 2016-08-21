@@ -68,28 +68,28 @@ setup8 :-
 /*****************************************************************/
 
 rqueens :-
-   cross(4, X, Y), modellabel(4, [X,Y|_]).
+   cross(5, X, Y), modellabel(5, [X,Y|_]).
 
 rqueens2 :-
-   balance(cross(4, X, Y), modellabel(4, [X,Y|_]), 2).
+   balance(cross(5, X, Y), modellabel(5, [X,Y|_]), 2).
 
 rqueens4 :-
-   balance(cross(4, X, Y), modellabel(4, [X,Y|_]), 4).
+   balance(cross(5, X, Y), modellabel(5, [X,Y|_]), 4).
 
 rqueens8 :-
-   balance(cross(4, X, Y), modellabel(4, [X,Y|_]), 8).
+   balance(cross(5, X, Y), modellabel(5, [X,Y|_]), 8).
 
 rsetup :-
-   model(4, [X,Y|Z]), cross(4, X, Y), label([X,Y|Z]).
+   model(5, [X,Y|Z]), cross(5, X, Y), label([X,Y|Z]).
 
 rsetup2 :-
-   setup_balance(model(4, [X,Y|Z]), cross(4, X, Y), label([X,Y|Z]), 2).
+   setup_balance(model(5, [X,Y|Z]), cross(5, X, Y), label([X,Y|Z]), 2).
 
 rsetup4 :-
-   setup_balance(model(4, [X,Y|Z]), cross(4, X, Y), label([X,Y|Z]), 4).
+   setup_balance(model(5, [X,Y|Z]), cross(5, X, Y), label([X,Y|Z]), 4).
 
 rsetup8 :-
-   setup_balance(model(4, [X,Y|Z]), cross(4, X, Y), label([X,Y|Z]), 8).
+   setup_balance(model(5, [X,Y|Z]), cross(5, X, Y), label([X,Y|Z]), 8).
 
 /*****************************************************************/
 /* The Queens Problem                                            */

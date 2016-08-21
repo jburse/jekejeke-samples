@@ -12,8 +12,8 @@ scaling in Jekejeke Prolog and SWI-Prolog.
 
 After loading the files use the following predicates to run
 the test cases:
-- **suite:** Collatz Computation from 10000-20000.
-- **suite2:** 8-Queens Problem.
+- **suite:** Collatz Computation from 10000-20000 (8 resp. 12 times).
+- **suite2:** 8-Queens Problem (17 times).
 
 # Jekejeke Prolog Variant
 
@@ -26,8 +26,8 @@ no need to download the GitHub repository.
 
 To allow for testing of slower Android devices there are also
 the following predicates to run reduced test cases:
-- **rsuite:** Collatz Computation from 1000-2000.
-- **rsuite2:** 4-Queens Problem.
+- **rsuite:** Collatz Computation from 1000-2000 (8 resp. 12 times).
+- **rsuite2:** 5-Queens Problem (8 times).
 
 # SWI-Prolog Variant
 
