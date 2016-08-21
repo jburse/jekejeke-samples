@@ -1,5 +1,7 @@
 /**
  * CLP(FD) Prolog code for eight queens puzzle.
+ * With balance/3 and setup_balance/3 test cases.
+ * SWI-Prolog version.
  *
  * Originally conceived in by Max Bezzel for the 8x8 checker board.
  * Used by Edsger Dijkstra to illustrate the

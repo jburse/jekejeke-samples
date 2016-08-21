@@ -1,5 +1,6 @@
 /**
  * Balanced execution of the collatz function.
+ * Jekejeke Prolog version.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
