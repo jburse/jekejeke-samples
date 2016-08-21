@@ -1,5 +1,6 @@
 /**
  * The Prolog text that defines the test suite.
+ * Jekejeke Prolog version.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
