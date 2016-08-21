@@ -3,17 +3,13 @@
 This directory contains test cases for the new module "distributed".
 This module provides work distribution predicates balance/3 and
 setup_balance/4. We test these predicates for a collatz computation
-and a 8-queens problem.
+and a CLP(FD) queens problem.
 
 There is also a small compatibility library for SWI-Prolog that
 re-implememts the module "distribued" so that the same test
 cases can be run on SWI-Prolog as well. We see similar parallel
 scaling in Jekejeke Prolog and SWI-Prolog.
 
-After loading the files use the following predicates to run
-the test cases:
-- **suite:** Collatz Computation from 10000-20000 (8 resp. 12 times).
-- **suite2:** 8-Queens Problem (17 times).
 
 # Jekejeke Prolog Variant
 
@@ -24,16 +20,23 @@ To use the Jekejeke Prolog variant load the following file:
 You can directly point the Jekejeke Prolog interpreter to the raw file,
 no need to download the GitHub repository.
 
-To allow for testing of slower Android devices there are also
-the following predicates to run reduced test cases:
+After loading the files use the following predicates to run the test
+cases. For slower devices such as Android use the r-predicates:
+- **suite:** Collatz Computation from 10000-20000 (8 resp. 12 times).
+- **suite2:** CLP(FD) 8-Queens Problem (17 times).
 - **rsuite:** Collatz Computation from 1000-2000 (8 resp. 12 times).
-- **rsuite2:** 6-Queens Problem (4 times).
+- **rsuite2:** CLP(FD) 6-Queens Problem (4 times).
 
 # SWI-Prolog Variant
 
 To use the SWI-Prolog variant load the following file:
 - [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchdist/harness/swi.p):
   SWI-Prolog main file.
+
+After loading the files use the following predicates to run
+the test cases:
+- **suite:** Collatz Computation from 10000-20000 (8 resp. 12 times).
+- **suite2:** CLP(FD) 8-Queens Problem (133 times).
 
 # Issues and Contributing
 
