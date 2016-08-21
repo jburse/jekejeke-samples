@@ -11,7 +11,7 @@ the Development Enviroment and the Minlog Extension.
 # Runtime Library Samples
 
 The following samples have already been uploaded.
-- [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark):
+- [jekrun/benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark):
   Benchmark ISO Performance
 - [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist):
   Benchmark Module "distributed"

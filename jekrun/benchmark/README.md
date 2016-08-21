@@ -7,7 +7,7 @@ test assert or file I/O.
 # Jekejeke Prolog Variant
 
 To use the Jekejeke Prolog variant load the following file:
-- [harness/jekejeke.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/bechmark/harness/jekejeke.p):
+- [harness/jekejeke.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/jekejeke.p):
   Jekejeke Prolog main file.
 
 You can directly point the Jekejeke Prolog interpreter to the raw file,
@@ -21,7 +21,7 @@ cases. For slower devices such as Android use the r-predicates:
 # SWI-Prolog Variant
 
 To use the SWI-Prolog variant load the following file:
-- [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/bechmark/harness/swi.p):
+- [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/swi.p)):
   SWI-Prolog main file.
 
 After loading the files use the following predicates to run
@@ -31,7 +31,7 @@ the test cases:
 # Results Gallery
 
 To see some results on our machines look at this directory:
-- [galery](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/bechmark/galery):
+- [galery](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark/galery):
   Results Gallery
 
 Our machines so far include a Lenovo Ideapad 700, a Lenovo Carbon X1
