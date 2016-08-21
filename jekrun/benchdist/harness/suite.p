@@ -69,7 +69,7 @@ suite2 :-
 /*****************************************************************/
 
 rsuite :-
-   bench(3001, dummy, _, _),
+   bench(301, dummy, _, _),
    bench(8, rmany, T1, G1),
    bench(8, rmany2, T2, G2),
    bench(8, rmany4, T3, G3),
@@ -84,7 +84,7 @@ rsuite :-
    show(T, G), nl.
 
 rsuite2 :-
-   bench(3001, dummy, _, _),
+   bench(301, dummy, _, _),
    bench(17, rqueens, T1, G1),
    bench(17, rqueens2, T2, G2),
    bench(17, rqueens4, T3, G3),

@@ -33,6 +33,84 @@
 :- use_module(library(runtime/distributed)).
 :- use_module(library(advanced/arith)).
 :- use_module(library(finite/clpfd)).
+:- use_module(library(basic/lists)).
+
+/*****************************************************************/
+/* Normal Test Cases                                             */
+/*****************************************************************/
+
+queens :-
+   cross(8, X, Y), modellabel(8, [X,Y|_]).
+
+queens2 :-
+   balance(cross(8, X, Y), modellabel(8, [X,Y|_]), 2).
+
+queens4 :-
+   balance(cross(8, X, Y), modellabel(8, [X,Y|_]), 4).
+
+queens8 :-
+   balance(cross(8, X, Y), modellabel(8, [X,Y|_]), 8).
+
+setup :-
+   model(8, [X,Y|Z]), cross(8, X, Y), label([X,Y|Z]).
+
+setup2 :-
+   setup_balance(model(8, [X,Y|Z]), cross(8, X, Y), label([X,Y|Z]), 2).
+
+setup4 :-
+   setup_balance(model(8, [X,Y|Z]), cross(8, X, Y), label([X,Y|Z]), 4).
+
+setup8 :-
+   setup_balance(model(8, [X,Y|Z]), cross(8, X, Y), label([X,Y|Z]), 8).
+
+/*****************************************************************/
+/* Reduced Test Cases                                            */
+/*****************************************************************/
+
+rqueens :-
+   cross(4, X, Y), modellabel(4, [X,Y|_]).
+
+rqueens2 :-
+   balance(cross(4, X, Y), modellabel(4, [X,Y|_]), 2).
+
+rqueens4 :-
+   balance(cross(4, X, Y), modellabel(4, [X,Y|_]), 4).
+
+rqueens8 :-
+   balance(cross(4, X, Y), modellabel(4, [X,Y|_]), 8).
+
+rsetup :-
+   model(4, [X,Y|Z]), cross(4, X, Y), label([X,Y|Z]).
+
+rsetup2 :-
+   setup_balance(model(4, [X,Y|Z]), cross(4, X, Y), label([X,Y|Z]), 2).
+
+rsetup4 :-
+   setup_balance(model(4, [X,Y|Z]), cross(4, X, Y), label([X,Y|Z]), 4).
+
+rsetup8 :-
+   setup_balance(model(4, [X,Y|Z]), cross(4, X, Y), label([X,Y|Z]), 8).
+
+/*****************************************************************/
+/* The Queens Problem                                            */
+/*****************************************************************/
+
+% modellabel(+Integer, -List)
+modellabel(N, X) :-
+   model(N, X),
+   label(X).
+
+% model(+Integer, -List)
+model(N, X) :-
+   length(X, N),
+   X ins 1..N,
+   noattack_list(X),
+   all_different(X).
+
+% cross(+Integer, -Integer, -Integer)
+cross(N, X, Y) :-
+   between(1, N, X),
+   between(1, N, Y).
 
 % noattack_from(+List, +Variable, +Integer)
 noattack_from([], _, _).
@@ -47,36 +125,3 @@ noattack_list([]).
 noattack_list([X|Y]) :-
    noattack_from(Y, X, 1),
    noattack_list(Y).
-
-% model3(-List)
-model3(X) :-
-   X = [_,_,_,_,_,_,_,_],
-   X ins 1..8,
-   noattack_list(X),
-   all_different(X).
-
-% queens3(-List)
-queens3(X) :-
-   model3(X),
-   label(X).
-
-% cross(-Integer, -Integer)
-cross(X, Y) :-
-   between(1, 8, X),
-   between(1, 8, Y).
-
-queens :- cross(X, Y), queens3([X,Y|_]).
-
-queens2 :- balance(cross(X, Y), queens3([X,Y|_]), 2).
-
-queens4 :- balance(cross(X, Y), queens3([X,Y|_]), 4).
-
-queens8 :- balance(cross(X, Y), queens3([X,Y|_]), 8).
-
-setup :- model3([X,Y|Z]), cross(X, Y), label([X,Y|Z]).
-
-setup2 :- setup_balance(model3([X,Y|Z]), cross(X, Y), label([X,Y|Z]), 2).
-
-setup4 :- setup_balance(model3([X,Y|Z]), cross(X, Y), label([X,Y|Z]), 4).
-
-setup8 :- setup_balance(model3([X,Y|Z]), cross(X, Y), label([X,Y|Z]), 8).
