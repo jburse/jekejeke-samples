@@ -36,6 +36,31 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+/*****************************************************************/
+/* Normal Test Cases                                             */
+/*****************************************************************/
+
+% poly
+poly :-
+    poly_add(1, poly(x,[term(1,-1)]), X1),
+    poly_add(X1, poly(y,[term(1,1)]), X2),
+    poly_add(X2, poly(z,[term(1,-1)]), X3),
+    poly_exp(10, X3, _).
+
+/*****************************************************************/
+/* Reduced Test Cases                                            */
+/*****************************************************************/
+
+% rpoly
+rpoly :-
+    poly_add(1, poly(x,[term(1,-1)]), X1),
+    poly_add(X1, poly(y,[term(1,1)]), X2),
+    poly_exp(10, X2, _).
+
+/*****************************************************************/
+/* The Simplifier                                                */
+/*****************************************************************/
+
 % make_poly(+Sum, +Var, -Expr)
 make_poly([], _, 0) :- !.
 make_poly(Terms, Var, poly(Var,Terms)).
@@ -124,10 +149,3 @@ poly_exp(N, Poly, Result) :-
 	M is N - 1,
 	poly_exp(M, Poly, Part),
 	poly_mul(Poly, Part, Result).
-
-% poly
-poly :-
-    poly_add(1, poly(x,[term(1,-1)]), X1),
-    poly_add(X1, poly(y,[term(1,1)]), X2),
-    poly_add(X2, poly(z,[term(1,-1)]), X3),
-    poly_exp(10, X3, _).

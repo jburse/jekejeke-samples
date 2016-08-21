@@ -29,6 +29,34 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+/*****************************************************************/
+/* Normal Test Cases                                             */
+/*****************************************************************/
+
+% queens
+queens :-
+   dataqueens(X),
+   search(X, [], _).
+
+% dataqueens(-List)
+dataqueens([1,2,3,4,5,6,7,8,9]).
+
+/*****************************************************************/
+/* Reduced Test Cases                                            */
+/*****************************************************************/
+
+% rqueens
+rqueens :-
+   rdataqueens(X),
+   search(X, [], _).
+
+% rdataqueens(-List)
+rdataqueens([1,2,3,4,5,6]).
+
+/*****************************************************************/
+/* The Solver                                                    */
+/*****************************************************************/
+
 % nodiag(+List, +Integer, +Integer)
 nodiag([], _, _).
 nodiag([N|L], B, D) :-
@@ -48,11 +76,3 @@ search([H|T], History, [Q|M]) :-
 	qdelete(T, Q, H, L1),
 	nodiag(History, Q, 1),
 	search(L1, [Q|History], M).
-
-% dataqueens(-List)
-dataqueens([1,2,3,4,5,6,7,8,9]).
-
-% queens
-queens :-
-   dataqueens(X),
-   search(X, [], _).
