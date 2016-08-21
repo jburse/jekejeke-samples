@@ -1,9 +1,8 @@
 # What is this?
 
 This directory contains test cases for the new module "distributed".
-This module provides work distribution predicates balance/3 and
-setup_balance/4. We test these predicates for a collatz computation
-and a CLP(FD) queens problem.
+This module provides work distribution meta-predicates. We tested these
+predicates for a Collatz computation and a CLP(FD) queens problem.
 
 There is also a small compatibility library for SWI-Prolog that
 re-implememts the module "distribued" so that the same test
