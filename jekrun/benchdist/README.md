@@ -27,7 +27,7 @@ no need to download the GitHub repository.
 To allow for testing of slower Android devices there are also
 the following predicates to run reduced test cases:
 - **rsuite:** Collatz Computation from 1000-2000 (8 resp. 12 times).
-- **rsuite2:** 5-Queens Problem (8 times).
+- **rsuite2:** 6-Queens Problem (4 times).
 
 # SWI-Prolog Variant
 
