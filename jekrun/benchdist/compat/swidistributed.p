@@ -53,8 +53,8 @@ setup_balance(S, G, T, N) :-
 :- meta_predicate sys_clean_threads(0,?,0).
 sys_clean_threads(_, 0, F) :- F.
 sys_clean_threads(G, N, F) :- N > 0,
+   M is N-1,
    sys_clean_thread(G,
-      M is N-1,
       sys_clean_threads(G, M, F)).
 
 /**********************************************************/
