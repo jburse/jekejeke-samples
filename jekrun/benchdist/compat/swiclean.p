@@ -29,24 +29,33 @@
 /* Clean Thread                                           */
 /**********************************************************/
 
-:- meta_predicate sys_clean_thread(0).
-sys_clean_thread(G) :-
+% sys_clean_thread(+Goal, +Goal)
+:- meta_predicate sys_clean_thread(0, 0).
+sys_clean_thread(G, F) :-
    setup_call_cleanup(
-       sys_thread_init(G, I),
-       nondet,
-       sys_thread_fini(I)).
+       sys_thread_init(G, T),
+       F,
+       sys_thread_fini(T)).
 
-:- meta_predicate sys_thread_init(0,?).
-sys_thread_init(G, I) :-
-   thread_create(G, I, [detach(false)]).
+% sys_thread_init(+Goal, -Thread)
+:- meta_predicate sys_thread_init(0, ?).
+sys_thread_init(G, T) :-
+   thread_create(G, T, [detach(false)]).
 
-sys_thread_fini(I) :-
-   catch(thread_signal(I, throw(error(system_error(user_close),_))), _, true),
-   thread_join(I, _).
+% sys_thread_fini(+Thread)
+sys_thread_fini(T) :-
+   catch(thread_signal(T,
+      throw(error(system_error(user_close), _))), _, true),
+   thread_join(T, _).
 
 /**********************************************************/
-/* Non-Det Utilities                                      */
+/* Clean Queue                                            */
 /**********************************************************/
 
-nondet.
-nondet :- fail.
+% sys_clean_queue(+Integer, -Queue, +Goal)
+:- meta_predicate sys_clean_queue(?, ?, 0).
+sys_clean_queue(N, Q, F) :-
+   setup_call_cleanup(
+       message_queue_create(Q, [max_size(N)]),
+       F,
+       message_queue_destroy(Q)).
