@@ -15,6 +15,8 @@ The following samples have already been uploaded.
   Benchmark ISO Performance
 - [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist):
   Benchmark Module "distributed"
+- [jekrun/reference](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/reference):
+  Tutorials for the Language Reference
 
 # Development Environment Samples
 
