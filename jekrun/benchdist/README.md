@@ -43,8 +43,7 @@ To see some results on our machines look at this directory:
   Results Gallery
 
 Our machines so far include a Lenovo Ideapad 700 (4 Cores/8
-Hyperthreads), a Lenovo Carbon X1 (2 Cores/4 Hyperthreads)
-and a Sony Experia Tablet (4 Cores).
+Hyperthreads) and a Sony Experia Tablet (4 Cores).
 
 On the non-Android devices we tested Jekejeke Prolog and
 SWI-Prolog. On the Android device we tested only
@@ -57,4 +56,4 @@ is no warranty for the samples. You might try a pull
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 21.08.2016
+Jan Burse, 21.08.2016 (Updated 23.08.2016)
