@@ -29,12 +29,12 @@
 /* Clean Thread                                           */
 /**********************************************************/
 
-% sys_clean_thread(+Goal, +Goal)
-:- meta_predicate sys_clean_thread(0, 0).
-sys_clean_thread(G, F) :-
+% sys_clean_thread(+Goal)
+:- meta_predicate sys_clean_thread(0).
+sys_clean_thread(G) :-
    setup_call_cleanup(
        sys_thread_init(G, T),
-       F,
+       nondet,
        sys_thread_fini(T)).
 
 % sys_thread_init(+Goal, -Thread)
@@ -47,3 +47,11 @@ sys_thread_fini(T) :-
    catch(thread_signal(T,
       throw(error(system_error(user_close), _))), _, true),
    thread_join(T, _).
+
+/**********************************************************/
+/* Non-Det Utilities                                      */
+/**********************************************************/
+
+% nondet
+nondet.
+nondet :- fail.

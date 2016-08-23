@@ -34,9 +34,9 @@ balance(G, T, N) :-
    term_variables((G, T), J),
    pipe_new(N, F),
    pipe_new(N, B),
-   sys_clean_thread(sys_put_all(I, G, F, N),
-       sys_clean_threads(sys_put_all(J, (sys_take_all(I, F, 1), T), B, 1), N,
-           sys_take_all(J, B, N))).
+   sys_clean_thread(sys_put_all(I, G, F, N)),
+   sys_clean_threads(sys_put_all(J, (sys_take_all(I, F, 1), T), B, 1), N),
+   sys_take_all(J, B, N).
 
 % setup_balance(+Goal, +Goal, +Goal, +Integer)
 :- meta_predicate setup_balance(0,0,0,?).
@@ -45,17 +45,17 @@ setup_balance(S, G, T, N) :-
    term_variables((S, G, T), J),
    pipe_new(N, F),
    pipe_new(N, B),
-   sys_clean_thread(sys_put_all(I, G, F, N),
-      sys_clean_threads(sys_put_all(J, (S, sys_take_all(I, F, 1), T), B, 1), N,
-         sys_take_all(J, B, N))).
+   sys_clean_thread(sys_put_all(I, G, F, N)),
+   sys_clean_threads(sys_put_all(J, (S, sys_take_all(I, F, 1), T), B, 1), N),
+   sys_take_all(J, B, N).
 
-% sys_clean_threads(+Goal, +Integer, +Goal)
-:- meta_predicate sys_clean_threads(0,?,0).
-sys_clean_threads(_, 0, F) :- F.
-sys_clean_threads(G, N, F) :- N > 0,
+% sys_clean_threads(+Goal, +Integer)
+:- meta_predicate sys_clean_threads(0,?).
+sys_clean_threads(_, 0) :- !.
+sys_clean_threads(G, N) :- N > 0,
    M is N-1,
-   sys_clean_thread(G,
-      sys_clean_threads(G, M, F)).
+   sys_clean_thread(G),
+   sys_clean_threads(G, M).
 
 /**********************************************************/
 /* Pipe Utilities                                         */
