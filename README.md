@@ -24,7 +24,9 @@ The following samples have already been uploaded.
 
 # Development Environment Samples
 
-Nothing yet.
+The following samples have already been uploaded.
+- [jekdev/reference](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/reference):
+  Tutorial for the Language Reference.
 
 # Minlog Extension Samples
 
