@@ -1,8 +1,8 @@
 # What is this?
 
-This repostory contains mainly Prolog text samples for
-Jekejeke Prolog. Here and then you might see other artefacts
-such as Java code, SQL code, XML code, etc...
+This repostory contains Prolog text samples for Jekejeke
+Prolog. Here and then you might see other artefacts
+such as Java code, SQL code, XML documents, etc...
 
 The samples are organized along the main components of
 Jekejeke Prolog. We thus find samples for the Runtime Library,
