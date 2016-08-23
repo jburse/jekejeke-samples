@@ -12,11 +12,13 @@ the Development Enviroment and the Minlog Extension.
 
 The following samples have already been uploaded.
 - [jekrun/benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark):
-  Benchmark ISO Performance
+  Benchmark ISO Performance.
 - [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist):
-  Benchmark Module "distributed"
+  Benchmark Module "distributed".
 - [jekrun/reference](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/reference):
-  Tutorials for the Language Reference
+  Tutorial for the Language Reference.
+- [jekrun/interface](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/interface):
+  Tutorial for the Programming Interface.
 
 # Development Environment Samples
 
