@@ -19,6 +19,8 @@ The following samples have already been uploaded.
   Tutorial for the Language Reference.
 - [jekrun/interface](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/interface):
   Tutorial for the Programming Interface.
+- [jekrun/frequent](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/frequent):
+  Tutorial for the Frequent Predicates.
 
 # Development Environment Samples
 
