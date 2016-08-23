@@ -41,7 +41,8 @@
 /*****************************************************************/
 
 queens :-
-   cross(8, X, Y), modellabel(8, [X,Y|_]).
+   cross(8, X, Y),
+   modellabel(8, [X,Y|_]).
 
 queens2 :-
    balance(cross(8, X, Y), modellabel(8, [X,Y|_]), 2).
@@ -53,7 +54,9 @@ queens8 :-
    balance(cross(8, X, Y), modellabel(8, [X,Y|_]), 8).
 
 setup :-
-   model(8, [X,Y|Z]), cross(8, X, Y), label([X,Y|Z]).
+   model(8, [X,Y|Z]),
+   cross(8, X, Y),
+   label([X,Y|Z]).
 
 setup2 :-
    setup_balance(model(8, [X,Y|Z]), cross(8, X, Y), label([X,Y|Z]), 2).
@@ -69,7 +72,8 @@ setup8 :-
 /*****************************************************************/
 
 rqueens :-
-   cross(6, X, Y), modellabel(6, [X,Y|_]).
+   cross(6, X, Y),
+   modellabel(6, [X,Y|_]).
 
 rqueens2 :-
    balance(cross(6, X, Y), modellabel(6, [X,Y|_]), 2).
@@ -81,7 +85,9 @@ rqueens8 :-
    balance(cross(6, X, Y), modellabel(6, [X,Y|_]), 8).
 
 rsetup :-
-   model(6, [X,Y|Z]), cross(6, X, Y), label([X,Y|Z]).
+   model(6, [X,Y|Z]),
+   cross(6, X, Y),
+   label([X,Y|Z]).
 
 rsetup2 :-
    setup_balance(model(6, [X,Y|Z]), cross(6, X, Y), label([X,Y|Z]), 2).
@@ -118,7 +124,7 @@ noattack_from([], _, _).
 noattack_from([Y|Z], X, N) :-
    X+N #\= Y,
    Y+N #\= X,
-   M is N+1,
+   M is N + 1,
    noattack_from(Z, X, M).
 
 % noattack_list(+List)

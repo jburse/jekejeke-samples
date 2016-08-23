@@ -34,7 +34,8 @@
 /*****************************************************************/
 
 many :-
-   between(10000, 20000, X), collatz(X, _).
+   between(10000, 20000, X),
+   collatz(X, _).
 
 many2 :-
    balance(between(10000, 20000, X), collatz(X, _), 2).
@@ -46,23 +47,29 @@ many8 :-
    balance(between(10000, 20000, X), collatz(X, _), 8).
 
 first :-
-   once((between(10000, 20000, X), collatz(X, _), X = 16666)).
+   once((  between(10000, 20000, X),
+           collatz(X, _),
+           X = 16666)).
 
 first2 :-
-   once(balance(between(10000, 20000, X), (collatz(X, _), X = 16666), 2)).
+   once(balance(between(10000, 20000, X), (  collatz(X, _),
+                                             X = 16666), 2)).
 
 first4 :-
-   once(balance(between(10000, 20000, X), (collatz(X, _), X = 16666), 4)).
+   once(balance(between(10000, 20000, X), (  collatz(X, _),
+                                             X = 16666), 4)).
 
 first8 :-
-   once(balance(between(10000, 20000, X), (collatz(X, _), X = 16666), 8)).
+   once(balance(between(10000, 20000, X), (  collatz(X, _),
+                                             X = 16666), 8)).
 
 /*****************************************************************/
 /* Reduced Test Cases                                            */
 /*****************************************************************/
 
 rmany :-
-   between(1000, 2000, X), collatz(X, _).
+   between(1000, 2000, X),
+   collatz(X, _).
 
 rmany2 :-
    balance(between(1000, 2000, X), collatz(X, _), 2).
@@ -74,23 +81,34 @@ rmany8 :-
    balance(between(1000, 2000, X), collatz(X, _), 8).
 
 rfirst :-
-   once((between(1000, 2000, X), collatz(X, _), X = 1666)).
+   once((  between(1000, 2000, X),
+           collatz(X, _),
+           X = 1666)).
 
 rfirst2 :-
-   once(balance(between(1000, 2000, X), (collatz(X, _), X = 1666), 2)).
+   once(balance(between(1000, 2000, X), (  collatz(X, _),
+                                           X = 1666), 2)).
 
 rfirst4 :-
-   once(balance(between(1000, 2000, X), (collatz(X, _), X = 1666), 4)).
+   once(balance(between(1000, 2000, X), (  collatz(X, _),
+                                           X = 1666), 4)).
 
 rfirst8 :-
-   once(balance(between(1000, 2000, X), (collatz(X, _), X = 1666), 8)).
+   once(balance(between(1000, 2000, X), (  collatz(X, _),
+                                           X = 1666), 8)).
 
 /*****************************************************************/
 /* The Collatz Function                                          */
 /*****************************************************************/
 
 collatz(1, 0) :- !.
-collatz(I, N) :- 1 =:= I/\1, !,
-   I0 is I*3+1, collatz(I0, N0), N is N0+1.
 collatz(I, N) :-
-   I0 is I>>1,  collatz(I0, N0), N is N0+1.
+   1 =:=
+   I /\ 1, !,
+   I0 is I*3 + 1,
+   collatz(I0, N0),
+   N is N0 + 1.
+collatz(I, N) :-
+   I0 is I >> 1,
+   collatz(I0, N0),
+   N is N0 + 1.
