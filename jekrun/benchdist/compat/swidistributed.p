@@ -32,22 +32,22 @@
 balance(G, T, N) :-
    term_variables(G, I),
    term_variables((G, T), J),
-   sys_clean_queue(N, F,
-      sys_clean_thread(sys_put_all(I, G, F, N),
-         sys_clean_queue(N, B,
-            sys_clean_threads(sys_put_all(J, (sys_take_all(I, F, 1), T), B, 1), N,
-               sys_take_all(J, B, N))))).
+   pipe_new(N, F),
+   pipe_new(N, B),
+   sys_clean_thread(sys_put_all(I, G, F, N),
+       sys_clean_threads(sys_put_all(J, (sys_take_all(I, F, 1), T), B, 1), N,
+           sys_take_all(J, B, N))).
 
 % setup_balance(+Goal, +Goal, +Goal, +Integer)
 :- meta_predicate setup_balance(0,0,0,?).
 setup_balance(S, G, T, N) :-
    term_variables(G, I),
    term_variables((S, G, T), J),
-   sys_clean_queue(N, F,
-      sys_clean_thread(sys_put_all(I, G, F, N),
-         sys_clean_queue(N, B,
-            sys_clean_threads(sys_put_all(J, (S, sys_take_all(I, F, 1), T), B, 1), N,
-               sys_take_all(J, B, N))))).
+   pipe_new(N, F),
+   pipe_new(N, B),
+   sys_clean_thread(sys_put_all(I, G, F, N),
+      sys_clean_threads(sys_put_all(J, (S, sys_take_all(I, F, 1), T), B, 1), N,
+         sys_take_all(J, B, N))).
 
 % sys_clean_threads(+Goal, +Integer, +Goal)
 :- meta_predicate sys_clean_threads(0,?,0).
@@ -98,6 +98,10 @@ sys_put_all2(_, _, _, _).
 /**********************************************************/
 /* Pipe API                                               */
 /**********************************************************/
+
+% pipe_new(+Integer, -Queue)
+pipe_new(N, Q) :-
+   message_queue_create(Q, [max_size(N)]).
 
 % pipe_take(+Queue -Term)
 pipe_take(Q, T) :-

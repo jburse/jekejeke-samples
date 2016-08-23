@@ -47,15 +47,3 @@ sys_thread_fini(T) :-
    catch(thread_signal(T,
       throw(error(system_error(user_close), _))), _, true),
    thread_join(T, _).
-
-/**********************************************************/
-/* Clean Queue                                            */
-/**********************************************************/
-
-% sys_clean_queue(+Integer, -Queue, +Goal)
-:- meta_predicate sys_clean_queue(?, ?, 0).
-sys_clean_queue(N, Q, F) :-
-   setup_call_cleanup(
-       message_queue_create(Q, [max_size(N)]),
-       F,
-       message_queue_destroy(Q)).
