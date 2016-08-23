@@ -60,19 +60,21 @@ rdataqueens([1,2,3,4,5,6,7]).
 % nodiag(+List, +Integer, +Integer)
 nodiag([], _, _).
 nodiag([N|L], B, D) :-
-	D =\= N - B,
-	D =\= B - N,
-	D1 is D + 1,
-	nodiag(L, B, D1).
+   D =\=
+   N - B,
+   D =\=
+   B - N,
+   D1 is D + 1,
+   nodiag(L, B, D1).
 
 % qdelete(+List, -Integer, +Integer, -List)
 qdelete(L, A, A, L).
 qdelete([H|T], X, A, [A|R]) :-
-	qdelete(T, X, H, R).
+   qdelete(T, X, H, R).
 
 % search(+List, +List, -List)
 search([], _, []).
 search([H|T], History, [Q|M]) :-
-	qdelete(T, Q, H, L1),
-	nodiag(History, Q, 1),
-	search(L1, [Q|History], M).
+   qdelete(T, Q, H, L1),
+   nodiag(History, Q, 1),
+   search(L1, [Q|History], M).

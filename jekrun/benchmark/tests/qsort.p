@@ -36,14 +36,14 @@
 
 % qsort
 qsort :-
-    dataqsort(X),
-    qsort(X, [], _).
+   dataqsort(X),
+   qsort(X, [], _).
 
 % dataqsort(+List)
 dataqsort([27,74,17,33,94,18,46,83,65,2,32,53,28,85,99,
-           47,28,82,6,11,55,29,39,81,90,37,10,0,66,51,
-           7,21,85,27,31,63,75,4,95,99,11,28,61,74,18,
-           92,40,53,59,8]).
+             47,28,82,6,11,55,29,39,81,90,37,10,0,66,51,
+             7,21,85,27,31,63,75,4,95,99,11,28,61,74,18,
+             92,40,53,59,8]).
 
 /*****************************************************************/
 /* Reduced Test Cases                                            */
@@ -51,12 +51,12 @@ dataqsort([27,74,17,33,94,18,46,83,65,2,32,53,28,85,99,
 
 % rqsort
 rqsort :-
-    rdataqsort(X),
-    qsort(X, [], _).
+   rdataqsort(X),
+   qsort(X, [], _).
 
 % rdataqsort(+List)
 rdataqsort([27,74,17,33,94,18,46,83,65,2,32,53,28,85,99,
-           47,28,82,6,11,55,29,39,81,90,37,10]).
+              47,28,82,6,11,55,29,39,81,90,37,10]).
 
 /*****************************************************************/
 /* The Sort Algorithm                                            */
@@ -65,15 +65,15 @@ rdataqsort([27,74,17,33,94,18,46,83,65,2,32,53,28,85,99,
 % partition(+List, +Integer, -List, -List)
 partition([], _, [], []).
 partition([X|L], Y, [X|L1], L2) :-
-	X =< Y, !,
-	partition(L, Y, L1, L2).
+   X =< Y, !,
+   partition(L, Y, L1, L2).
 partition([X|L], Y, L1, [X|L2]) :-
-	partition(L, Y, L1, L2).
+   partition(L, Y, L1, L2).
 
 % qsort(+List, +List, -List)
 qsort([], R, R).
 qsort([X|L], R0, R) :-
-	partition(L, X, L1, L2),
-	qsort(L2, R0, R1),
-	qsort(L1, [X|R1], R).
+   partition(L, X, L1, L2),
+   qsort(L2, R0, R1),
+   qsort(L1, [X|R1], R).
 

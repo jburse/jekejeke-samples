@@ -55,29 +55,58 @@ rcalc :-
 /*****************************************************************/
 
 % expr(-Integer)
-expr(Z) --> "-", !, term(X), {Y is -X}, expr_rest(Y, Z).
-expr(Y) --> term(X), expr_rest(X, Y).
+expr(Z) --> "-", !,
+   term(X),
+   {Y is - X},
+   expr_rest(Y, Z).
+expr(Y) -->
+   term(X),
+   expr_rest(X, Y).
 
 % expr_rest(+Integer, -Integer)
-expr_rest(X, T) --> "+", !, term(Y), {Z is X+Y}, expr_rest(Z, T).
-expr_rest(X, T) --> "-", !, term(Y), {Z is X-Y}, expr_rest(Z, T).
-expr_rest(X ,X) --> [].
+expr_rest(X, T) --> "+", !,
+   term(Y),
+   {Z is X + Y},
+   expr_rest(Z, T).
+expr_rest(X, T) --> "-", !,
+   term(Y),
+   {Z is X - Y},
+   expr_rest(Z, T).
+expr_rest(X, X) --> [].
 
 % term(-Integer)
-term(Y) --> factor(X), term_rest(X, Y).
+term(Y) -->
+   factor(X),
+   term_rest(X, Y).
 
 % term_rest(+Integer, -Integer)
-term_rest(X, T) --> "*", !, factor(Y), {Z is X*Y}, factor_rest(Z, T).
-term_rest(X, T) --> "/", !, factor(Y), {Z is X/Y}, factor_rest(Z, T).
+term_rest(X, T) --> "*", !,
+   factor(Y),
+   {Z is X * Y},
+   factor_rest(Z, T).
+term_rest(X, T) --> "/", !,
+   factor(Y),
+   {Z is X/Y},
+   factor_rest(Z, T).
 term_rest(X, X) --> [].
 
 % factor(-Integer)
-factor(X) --> "(", !, expr(X), ")".
-factor(Y) --> digit(X), factor_rest(X, Y).
+factor(X) --> "(", !,
+   expr(X), ")".
+factor(Y) -->
+   digit(X),
+   factor_rest(X, Y).
 
 % factor_rest(+Integer, -Integer)
-factor_rest(X, T) --> digit(Y), !, {Z is X*10+Y}, factor_rest(Z, T).
+factor_rest(X, T) -->
+   digit(Y), !,
+   {Z is X*10 + Y},
+   factor_rest(Z, T).
 factor_rest(X, X) --> [].
 
 % digit(-Integer)
-digit(Y) --> [X], {48=<X, X=<57, Y is X-48}.
+digit(Y) -->
+   [X],
+   {48 =< X,
+    X =< 57,
+    Y is X - 48}.

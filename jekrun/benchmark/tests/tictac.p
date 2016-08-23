@@ -57,16 +57,17 @@ other(x, o).
 
 % tie(+Board, +Player)
 tie(X, P) :-
-  \+ move(X, P, _).
+   \+ move(X, P, _).
 
 % best(+Board, +Player, -Board)
 best(X, P, Y) :-
-  move(X, P, Y),
-  (win(Y, P) -> true;
-    other(P, Q),
-    \+ tie(Y, Q),
-    \+ best(Y, Q, _)).
+   move(X, P, Y),
+   (  win(Y, P) -> true
+   ;  other(P, Q),
+      \+ tie(Y, Q),
+      \+ best(Y, Q, _)).
 
 % tictac
 tictac :-
-  init(X), best(X, x, _).
+   init(X),
+   best(X, x, _).

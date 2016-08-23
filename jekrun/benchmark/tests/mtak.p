@@ -30,17 +30,17 @@
 
 % fun(+Integer, +Integer, +Integer, -Integer)
 fun(X, Y, Z, A) :-
-	X =< Y, !,
-	Z = A.
+   X =< Y, !,
+   Z = A.
 fun(X, Y, Z, A) :-
-	X1 is X - 1,
-	fun(X1, Y, Z, A1),
-	Y1 is Y - 1,
-	fun(Y1, Z, X, A2),
-	Z1 is Z - 1,
-	fun(Z1, X, Y, A3),
-	fun(A1, A2, A3, A).
+   X1 is X - 1,
+   fun(X1, Y, Z, A1),
+   Y1 is Y - 1,
+   fun(Y1, Z, X, A2),
+   Z1 is Z - 1,
+   fun(Z1, X, Y, A3),
+   fun(A1, A2, A3, A).
 
 % mtak
 mtak :-
-    fun(18, 12, 6, _).
+   fun(18, 12, 6, _).

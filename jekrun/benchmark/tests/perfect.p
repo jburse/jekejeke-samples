@@ -31,19 +31,25 @@
  */
 
 % between1(+Integer, +Integer, -Integer)
-between1(Lo, Hi, _) :- Lo > Hi, !, fail.
+between1(Lo, Hi, _) :-
+   Lo > Hi, !, fail.
 between1(Lo, _, Lo).
-between1(Lo, Hi, X) :- Lo2 is Lo+1, between1(Lo2, Hi, X).
+between1(Lo, Hi, X) :-
+   Lo2 is Lo + 1,
+   between1(Lo2, Hi, X).
 
 % sumlist1(+List, -Integer)
 sumlist1([], 0).
-sumlist1([X|Y], R) :- sumlist1(Y, H), R is X+H.
+sumlist1([X|Y], R) :-
+   sumlist1(Y, H),
+   R is X + H.
 
 % perfect(+Integer, -Integer)
 perfect(Hi, X) :-
    between1(1, Hi, X),
    Y is X // 2,
-   findall(Z, (between1(1,Y,Z), (X rem Z =:= 0)), L),
+   findall(Z, (  between1(1, Y, Z),
+                 X rem Z =:= 0), L),
    sumlist1(L, X).
 
 % perfect

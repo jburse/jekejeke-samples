@@ -36,23 +36,26 @@
 
 % ops8(-Expr)
 ops8(E) :-
-	d((x + 1) * ((^(x, 2) + 2) * (^(x, 3) + 3)), x, E).
+   d((x+1)*((x^2+2)*(x^3+3)), x, E).
 
 % divide10(-Expr)
 divide10(E) :-
-	d(((((((((x / x) / x) / x) / x) / x) / x) / x) / x) / x, x, E).
+   d(x/x/x/x/x/x/x/x/x/x, x, E).
 
 % log10(-Expr)
 log10(E) :-
-	d(log(log(log(log(log(log(log(log(log(log(x)))))))))), x, E).
+   d(log(log(log(log(log(log(log(log(log(log(x)))))))))), x, E).
 
 % times10(-Expr)
 times10(E) :-
-	d(((((((((x * x) * x) * x) * x) * x) * x) * x) * x) * x, x, E).
+   d(x*x*x*x*x*x*x*x*x*x, x, E).
 
 % deriv
 deriv :-
-	ops8(_), divide10(_), log10(_), times10(_).
+   ops8(_),
+   divide10(_),
+   log10(_),
+   times10(_).
 
 /*****************************************************************/
 /* Reduced Test Cases                                            */
@@ -60,49 +63,52 @@ deriv :-
 
 % ops4(-Expr)
 ops4(E) :-
-	d((x + 1) * (^(x, 2) + 2), x, E).
+   d((x+1)*(x^2+2), x, E).
 
 % divide5(-Expr)
 divide5(E) :-
-	d((((x / x) / x) / x) / x, x, E).
+   d(x/x/x/x/x, x, E).
 
 % log5(-Expr)
 log5(E) :-
-	d(log(log(log(log(log(x))))), x, E).
+   d(log(log(log(log(log(x))))), x, E).
 
 % times5(-Expr)
 times5(E) :-
-	d((((x * x) * x) * x) * x, x, E).
+   d(x*x*x*x*x, x, E).
 
 % rderiv
 rderiv :-
-	ops4(_), divide5(_), log5(_), times5(_).
+   ops4(_),
+   divide5(_),
+   log5(_),
+   times5(_).
 
 /*****************************************************************/
 /* The Derivator                                                 */
 /*****************************************************************/
 
 % d(+Expr, +Var, -Expr)
-d(U + V, X, DU + DV) :- !,
-	d(U, X, DU),
-	d(V, X, DV).
-d(U - V, X, DU - DV) :- !,
-	d(U, X, DU),
-	d(V, X, DV).
-d(U * V, X, DU * V + U * DV) :- !,
-	d(U, X, DU),
-	d(V, X, DV).
-d(U / V, X, (DU * V - U * DV) / ^(V, 2)) :- !,
-	d(U, X, DU),
-	d(V, X, DV).
-d(^(U, N), X, DU * N * ^(U, N1)) :- !,
-	N1 is N - 1,
-	d(U, X, DU).
+d(U+V, X, DU+DV) :- !,
+   d(U, X, DU),
+   d(V, X, DV).
+d(U-V, X, DU-DV) :- !,
+   d(U, X, DU),
+   d(V, X, DV).
+d(U*V, X, DU*V+U*DV) :- !,
+   d(U, X, DU),
+   d(V, X, DV).
+d(U/V, X, (DU*V-U*DV)/V^2) :- !,
+   d(U, X, DU),
+   d(V, X, DV).
+d(U^N, X, DU*N*U^N1) :- !,
+   N1 is N - 1,
+   d(U, X, DU).
 d(-U, X, -DU) :- !,
-	d(U, X, DU).
-d(exp(U), X, exp(U) * DU) :- !,
-	d(U, X, DU).
-d(log(U), X, DU / U) :- !,
-	d(U, X, DU).
+   d(U, X, DU).
+d(exp(U), X, exp(U)*DU) :- !,
+   d(U, X, DU).
+d(log(U), X, DU/U) :- !,
+   d(U, X, DU).
 d(X, X, 1) :- !.
 d(_, _, 0).
