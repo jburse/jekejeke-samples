@@ -1,5 +1,6 @@
 /**
- * ECLiPSe Constraint Logic Programming System code for the test harness.
+ * B-Prolog code for the test harness.
+ * Since consult/1 is used code will be interpreted.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -25,18 +26,21 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-% ?- ensure_loaded('//C/Projects/Jekejeke/Prototyping/samples/jekrun/benchmark/harness/eclipse.p').
+% ?- set_prolog_flag(redefine_builtin, on).
+% ?- consult('C:\\Projects\\Jekejeke\\Prototyping\\samples\\jekrun\\benchmark\\harness\\bprolog.p').
 
 uptime(X) :-
-   statistics(times, [_,_,T]),
-   X is round(T*1000).
+   statistics(runtime, [X|_]).
 
 gctime(X) :-
-   statistics(gc_time, T),
-   X is round(T*1000).
+   statistics(gc_time, X).
 
-:- use_module(library(iso)).
+ensure_loaded(X) :-
+    atom_concat('C:\\Projects\\Jekejeke\\Prototyping\\samples\\jekrun\\benchmark\\harness\\', X, H),
+    atom_concat(H, '.p', Y),
+    consult(Y).
+
 :- op(1150, fx, meta_predicate).
-:- get_flag(prolog_suffix, L), append(L, [`.p`], R), set_flag(prolog_suffix, R).
+meta_predicate(_).
 
 :- ensure_loaded(suite).

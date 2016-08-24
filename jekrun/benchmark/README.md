@@ -22,6 +22,8 @@ To use the a Prolog variant load the following file:
   ECLiPSe CLP main file.
 - [harness/ciao.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/ciao.p):
   Ciao Prolog main file.
+- [harness/bprolog.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/bprolog.p):
+  B-Prolog main file.
 
 In the Jekejeke Prolog interpreter you can directly point
 an URL to the raw file, no need to download the
