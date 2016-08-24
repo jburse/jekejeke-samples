@@ -20,6 +20,8 @@ To use the a Prolog variant load the following file:
   GNU-Prolog main file.
 - [harness/eclipse.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/eclipse.p):
   ECLiPSe CLP main file.
+- [harness/ciao.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/ciao.p):
+  Ciao Prolog main file.
 
 In the Jekejeke Prolog interpreter you can directly point
 an URL to the raw file, no need to download the
@@ -42,4 +44,4 @@ is no warranty for the samples. You might try a pull
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 21.08.2016 (Updated 23.08.2016)
+Jan Burse, 21.08.2016 (Updated 24.08.2016)
