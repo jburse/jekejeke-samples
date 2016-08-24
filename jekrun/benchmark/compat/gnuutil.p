@@ -1,5 +1,6 @@
 /**
- * SWI Prolog code for the test harness.
+ * The Prolog text for the testing utilities.
+ * Version that doesn't use meta_predicate declarations.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -25,15 +26,28 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-% ?- ensure_loaded('/Projects/Jekejeke/Prototyping/samples/jekrun/benchmark/harness/swi.p').
+for(_).
+for(N) :- N > 1, M is N - 1, for(M).
 
-uptime(T) :-
-   statistics(walltime, [T|_]).
+test(N, X) :- for(N), call(X), fail.
+test(_, _).
 
-gctime(T) :-
-   statistics(garbage_collection, [_,_,T|_]).
+show(T, G) :-
+   write('\tin '),
+   write(T),
+   write('\t('),
+   write(G),
+   write(' gc) ms'), nl.
 
-:- set_prolog_flag(double_quotes, codes).
-user:prolog_file_type(p, prolog).
+bench(M, X, T, G) :-
+   uptime(T1),
+   gctime(G1),
+   test(M, X),
+   uptime(T2),
+   gctime(G2),
+   T is T2 - T1,
+   G is G2 - G1,
+   write(X),
+   show(T, G).
 
-:- ensure_loaded(suite).
+dummy.

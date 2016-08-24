@@ -1,5 +1,5 @@
 /**
- * SWI Prolog code for the test harness.
+ * GNU Prolog code for the test harness.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -25,15 +25,11 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-% ?- ensure_loaded('/Projects/Jekejeke/Prototyping/samples/jekrun/benchmark/harness/swi.p').
+% ?- consult('C:\\Projects\\Jekejeke\\Prototyping\\samples\\jekrun\\benchmark\\harness\\gprolog.p').
 
-uptime(T) :-
-   statistics(walltime, [T|_]).
+uptime(X) :-
+   real_time(X).
 
-gctime(T) :-
-   statistics(garbage_collection, [_,_,T|_]).
+gctime(0).
 
-:- set_prolog_flag(double_quotes, codes).
-user:prolog_file_type(p, prolog).
-
-:- ensure_loaded(suite).
+:- include('../compat/gnusuite.p').
