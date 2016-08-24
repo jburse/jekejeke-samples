@@ -36,4 +36,4 @@ gctime(T) :-
 :- set_prolog_flag(double_quotes, codes).
 user:prolog_file_type(p, prolog).
 
-:- ensure_loaded(swisuite).
+:- ensure_loaded('../compat/swisuite').

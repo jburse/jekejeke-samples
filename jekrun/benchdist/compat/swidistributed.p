@@ -105,10 +105,8 @@ pipe_new(N, Q) :-
 
 % pipe_take(+Queue -Term)
 pipe_take(Q, T) :-
-   catch(thread_get_message(Q, T), _,
-      throw(error(system_error(user_close), _))).
+   thread_get_message(Q, T).
 
 % pipe_put(+Queue +Term)
 pipe_put(Q, T) :-
-   catch(thread_send_message(Q, T), _,
-      throw(error(system_error(user_close), _))).
+   thread_send_message(Q, T).
