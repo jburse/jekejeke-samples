@@ -16,7 +16,7 @@ To use the a Prolog variant load the following file:
   Jekejeke Prolog main file.
 - [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/swi.p):
   SWI-Prolog main file.
-- [harness/gnu.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/gnu.p):
+- [harness/gprolog.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/gprolog.p):
   GNU-Prolog main file.
 - [harness/eclipse.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchmark/harness/eclipse.p):
   ECLiPSe CLP main file.
