@@ -1,14 +1,10 @@
 # What is this?
 
-These are the test results for our ISO core functionality benchmark.
+These are the test results for our module "distributed" benchmark.
 
 The following Prolog systems were tested:
 - **jekejeke:** Jekejeke Prolog Runtime Library 1.1.6
-- **eclipse:** ECLiPSe CLP Version 6.1 #222 (x86_64_nt)
 - **swi:** SWI-Prolog (Multi-threaded, 64 bits, Version 7.3.25)
-- **gprolog:** GNU Prolog 1.4.4 (64 bits)
-- **ciao:** Ciao Prolog 1.15-1781
-- **bprolog:** B-Prolog Version 8.1
 
 # Issues and Contributing
 
