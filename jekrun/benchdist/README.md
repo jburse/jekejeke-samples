@@ -18,10 +18,12 @@ To use the Jekejeke Prolog variant load the following file:
 You can directly point the Jekejeke Prolog interpreter to the raw file,
 no need to download the GitHub repository.
 
-After loading the files use the following predicates to run the test
-cases. For slower devices such as Android use the r-predicates:
+After loading the files use the following predicates to run the test cases:
 - **suite:** Collatz Computation from 10000-20000 (8 resp. 12 times).
 - **suite2:** CLP(FD) 8-Queens Problem (17 times).
+- **suite3:** Collatz Computation from pool (8 times).
+
+For slower devices such as Android use the r-predicates
 - **rsuite:** Collatz Computation from 1000-2000 (8 resp. 12 times).
 - **rsuite2:** CLP(FD) 6-Queens Problem (4 times).
 
@@ -31,10 +33,10 @@ To use the SWI-Prolog variant load the following file:
 - [harness/swi.p](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/benchdist/harness/swi.p):
   SWI-Prolog main file.
 
-After loading the files use the following predicates to run
-the test cases:
+After loading the files use the following predicates to run the test cases:
 - **suite:** Collatz Computation from 10000-20000 (8 resp. 12 times).
 - **suite2:** CLP(FD) 8-Queens Problem (133 times).
+- **suite3:** Collatz Computation from pool (8 times).
 
 # Results Gallery
 
