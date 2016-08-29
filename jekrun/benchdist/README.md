@@ -58,4 +58,4 @@ is no warranty for the samples. You might try a pull
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 21.08.2016 (Updated 23.08.2016)
+Jan Burse, 21.08.2016 (Updated 29.08.2016)
