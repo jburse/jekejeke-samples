@@ -25,10 +25,20 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+:- module(clean, [sys_clean_thread/1,
+                  sys_clean_threads/2,
+                  sys_clean_retract/1]).
+
 /**********************************************************/
 /* Clean Thread                                           */
 /**********************************************************/
 
+/**
+ * sys_clean_thread(G):
+ * The predicate succeeds to create and start a new thread for a
+ * copy of the goal G, and also installs a clean-up handler to abort
+ * and join the thread.
+ */
 % sys_clean_thread(+Goal)
 :- meta_predicate sys_clean_thread(0).
 sys_clean_thread(G) :-
@@ -36,6 +46,20 @@ sys_clean_thread(G) :-
        sys_thread_init(G, T),
        nondet,
        sys_thread_fini(T)).
+
+/**
+ * sys_clean_threads(G, N):
+ * The predicate succeeds to create and start N new threads for
+ * copies of the goal G, and also installs a clean-up handler to
+ * abortcand join the threads.
+ */
+% sys_clean_threads(+Goal, +Integer)
+:- meta_predicate sys_clean_threads(0,?).
+sys_clean_threads(_, 0) :- !.
+sys_clean_threads(G, N) :- N > 0,
+   M is N-1,
+   sys_clean_thread(G),
+   sys_clean_threads(G, M).
 
 % sys_thread_init(+Goal, -Thread)
 :- meta_predicate sys_thread_init(0, ?).
@@ -55,3 +79,14 @@ sys_thread_fini(T) :-
 % nondet
 nondet.
 nondet :- fail.
+
+/**********************************************************/
+/* Retract Utility                                        */
+/**********************************************************/
+
+sys_clean_retract(V) :- var(V),
+   throw(error(instantiation_error, _)).
+sys_clean_retract((H :- B)) :- !,
+   clause(H, B, R), erase(R).
+sys_clean_retract(H) :-
+   clause(H, true, R), erase(R).
