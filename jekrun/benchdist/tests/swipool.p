@@ -1,6 +1,6 @@
 /**
  * Balanced execution of pool extraction.
- * Jekejeke Prolog version.
+ * SWI-Prolog version.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
