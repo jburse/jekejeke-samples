@@ -26,8 +26,7 @@
  */
 
 :- module(clean, [sys_clean_thread/1,
-                  sys_clean_threads/2,
-                  sys_clean_retract/1]).
+                  sys_clean_threads/2]).
 
 /**********************************************************/
 /* Clean Thread                                           */
@@ -79,14 +78,3 @@ sys_thread_fini(T) :-
 % nondet
 nondet.
 nondet :- fail.
-
-/**********************************************************/
-/* Retract Utility                                        */
-/**********************************************************/
-
-sys_clean_retract(V) :- var(V),
-   throw(error(instantiation_error, _)).
-sys_clean_retract((H :- B)) :- !,
-   clause(H, B, R), erase(R).
-sys_clean_retract(H) :-
-   clause(H, true, R), erase(R).

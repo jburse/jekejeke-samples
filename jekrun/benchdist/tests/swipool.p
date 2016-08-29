@@ -34,24 +34,31 @@
 /*****************************************************************/
 
 pool :-
-   makepool(10000, 20000), retract(pool(X)), collatz(X, _).
+   make(10000, 20000), remove(X), collatz(X, _).
 
 pool2 :-
-   makepool(10000, 20000), horde((sys_clean_retract(pool(X)), collatz(X, _)), 2).
+   make(10000, 20000), horde((remove(X), collatz(X, _)), 2).
 
 pool4 :-
-   makepool(10000, 20000), horde((sys_clean_retract(pool(X)), collatz(X, _)), 4).
+   make(10000, 20000), horde((remove(X), collatz(X, _)), 4).
 
 pool8 :-
-   makepool(10000, 20000), horde((sys_clean_retract(pool(X)), collatz(X, _)), 8).
+   make(10000, 20000), horde((remove(X), collatz(X, _)), 8).
 
 /*****************************************************************/
 /* Pool Creation                                                 */
 /*****************************************************************/
 
-% makepool(+Integer, +Integer)
-makepool(F, T) :-
+% make(+Integer, +Integer)
+make(F, T) :-
    between(F, T, X),
-   assertz(pool(X)),
+%   assertz(pool(X)),
+   recordz(pool, X),
    fail.
-makepool(_, _).
+make(_, _).
+
+% remove(-Integer)
+remove(X) :-
+% clause(pool(X), true, R).
+   recorded(pool, X, R),
+   erase(R).
