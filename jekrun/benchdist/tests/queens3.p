@@ -132,5 +132,3 @@ noattack_list([]).
 noattack_list([X|Y]) :-
    noattack_from(Y, X, 1),
    noattack_list(Y).
-
-% Testing ETag

@@ -62,5 +62,3 @@ bench(M, X, T, G) :-
 
 % dummy
 dummy.
-
-% Testin ETag

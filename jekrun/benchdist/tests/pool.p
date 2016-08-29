@@ -1,6 +1,6 @@
 /**
- * Balanced execution of the collatz function.
- * SWI-Prolog version.
+ * Balanced execution of pool extraction.
+ * Jekejeke Prolog version.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -26,42 +26,36 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded('../compat/swidistributed').
+:- use_module(library(runtime/distributed)).
+:- use_module(library(advanced/arith)).
 
 /*****************************************************************/
 /* Normal Test Cases                                             */
 /*****************************************************************/
 
-many :-
-   between(10000, 20000, X), collatz(X, _).
+pool :-
+   makepool(10000, 20000),
+   retract(pool(X)),
+   collatz(X, _).
 
-many2 :-
-   balance(between(10000, 20000, X), collatz(X, _), 2).
+pool2 :-
+   makepool(10000, 20000),
+   balance(retract(pool(X)), collatz(X, _), 2).
 
-many4 :-
-   balance(between(10000, 20000, X), collatz(X, _), 4).
+pool4 :-
+   makepool(10000, 20000),
+   balance(retract(pool(X)), collatz(X, _), 4).
 
-many8 :-
-   balance(between(10000, 20000, X), collatz(X, _), 8).
-
-first :-
-   once((between(10000, 20000, X), collatz(X, _), X = 16666)).
-
-first2 :-
-   once(balance(between(10000, 20000, X), (collatz(X, _), X = 16666), 2)).
-
-first4 :-
-   once(balance(between(10000, 20000, X), (collatz(X, _), X = 16666), 4)).
-
-first8 :-
-   once(balance(between(10000, 20000, X), (collatz(X, _), X = 16666), 8)).
+pool8 :-
+   makepool(10000, 20000),
+   balance(retract(pool(X)), collatz(X, _), 8).
 
 /*****************************************************************/
-/* The Collatz Function                                          */
+/* Pool Creation                                                 */
 /*****************************************************************/
 
-collatz(1, 0) :- !.
-collatz(I, N) :- 1 =:= I/\1, !,
-   I0 is I*3+1, collatz(I0, N0), N is N0+1.
-collatz(I, N) :-
-   I0 is I>>1,  collatz(I0, N0), N is N0+1.
+% makepool(+Integer, +Integer)
+makepool(F, T) :-
+   between(F, T, X),
+   assertz(pool(X)), fail.
+makepool(_, _).

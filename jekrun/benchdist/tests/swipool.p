@@ -1,11 +1,6 @@
 /**
- * CLP(FD) Prolog code for eight queens puzzle.
- * With balance/3 and setup_balance/3 test cases.
- * SWI-Prolog version.
- *
- * Originally conceived in by Max Bezzel for the 8x8 checker board.
- * Used by Edsger Dijkstra to illustrate the
- * Depth-first backtracking search algorithm.
+ * Balanced execution of pool extraction.
+ * Jekejeke Prolog version.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -32,67 +27,30 @@
  */
 
 :- ensure_loaded('../compat/swidistributed').
-:- use_module(library(clpfd)).
 
 /*****************************************************************/
 /* Normal Test Cases                                             */
 /*****************************************************************/
 
-queens :- 
-   cross(X, Y), modellabel([X,Y|_]).
+pool :-
+   makepool(10000, 20000), retract(pool(X)), collatz(X, _).
 
-queens2 :- 
-   balance(cross(X, Y), modellabel([X,Y|_]), 2).
+pool2 :-
+   makepool(10000, 20000), balance(retract(pool(X)), collatz(X, _), 2).
 
-queens4 :- 
-   balance(cross(X, Y), modellabel([X,Y|_]), 4).
+pool4 :-
+   makepool(10000, 20000), balance(retract(pool(X)), collatz(X, _), 4).
 
-queens8 :- 
-   balance(cross(X, Y), modellabel([X,Y|_]), 8).
-
-setup :- 
-   model([X,Y|Z]), cross(X, Y), label([X,Y|Z]).
-
-setup2 :- 
-   setup_balance(model([X,Y|Z]), cross(X, Y), label([X,Y|Z]), 2).
-
-setup4 :- 
-   setup_balance(model([X,Y|Z]), cross(X, Y), label([X,Y|Z]), 4).
-
-setup8 :- 
-   setup_balance(model([X,Y|Z]), cross(X, Y), label([X,Y|Z]), 8).
+pool8 :-
+   makepool(10000, 20000), balance(retract(pool(X)), collatz(X, _), 8).
 
 /*****************************************************************/
-/* The Queens Problem                                            */
+/* Pool Creation                                                 */
 /*****************************************************************/
 
-% modellabel(-List)
-modellabel(X) :-
-   model(X),
-   label(X).
-
-% model(-List)
-model(X) :-
-   X = [_,_,_,_,_,_,_,_],
-   X ins 1..8,
-   noattack_list(X),
-   all_different(X).
-
-% cross(-Integer, -Integer)
-cross(X, Y) :-
-   between(1, 8, X),
-   between(1, 8, Y).
-   
-% noattack_from(+List, +Variable, +Integer)
-noattack_from([], _, _).
-noattack_from([Y|Z], X, N) :-
-   X+N #\= Y,
-   Y+N #\= X,
-   M is N+1,
-   noattack_from(Z, X, M).
-
-% noattack_list(+List)
-noattack_list([]).
-noattack_list([X|Y]) :-
-   noattack_from(Y, X, 1),
-   noattack_list(Y).
+% makepool(+Integer, +Integer)
+makepool(F, T) :-
+   between(F, T, X),
+   assertz(pool(X)),
+   fail.
+makepool(_, _).
