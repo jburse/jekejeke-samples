@@ -4,7 +4,7 @@
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
- * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
+ * otherwise agreed upon, XLOG Technologies GmbH creates no warranties
  * regarding the provided information. XLOG Technologies GmbH assumes
  * no liability that any problems might be solved with the information
  * provided by XLOG Technologies GmbH.
@@ -33,46 +33,42 @@
 /* Normal Test Cases                                             */
 /*****************************************************************/
 
-pool :-
-   make(10000, 20000),
+pool :- create,
    remove(X),
    collatz(X, _).
 
-pool2 :-
-   make(10000, 20000),
+pool2 :- create,
    horde((  remove(X),
             collatz(X, _)), 2).
 
-pool4 :-
-   make(10000, 20000),
+pool4 :- create,
    horde((  remove(X),
             collatz(X, _)), 4).
 
-pool8 :-
-   make(10000, 20000),
+pool8 :- create,
    horde((  remove(X),
             collatz(X, _)), 8).
 
 gotcha :-
-   once((  make(10000, 20000),
+   once((  create,
            remove(X),
            collatz(X, _),
            X = 16666)).
 
 gotcha2 :-
-   once((  make(10000, 20000),
+   once((  create,
            horde((  remove(X),
                     collatz(X, _),
                     X = 16666), 2))).
 
 gotcha4 :-
-   once((  make(10000, 20000),
+   once((  create,
            horde((  remove(X),
                     collatz(X, _),
                     X = 16666), 4))).
 
 gotcha8 :-
-   once((  make(10000, 20000),
+   once((  create,
            horde((  remove(X),
                     collatz(X, _),
                     X = 16666), 8))).
@@ -81,24 +77,40 @@ gotcha8 :-
 /* Pool Creation                                                 */
 /*****************************************************************/
 
-% make(+Integer, +Integer)
-make(F, T) :-
+:- dynamic pool/2.
+:- dynamic subpool/3.
+
+% create
+create :-
    call_cleanup(
-      sys_setup_make(F, T),
-      sys_fini_make).
+      sys_setup_create,
+      sys_fini_create).
 
-% sys_setup_make(+Integer, +Integer)
+% sys_setup_create
 % Leave a choice point!
-sys_setup_make(F, T) :-
-   between(F, T, X),
-   assertz(pool(X)), fail.
-sys_setup_make(_, _).
-sys_setup_make(_, _) :- fail.
+sys_setup_create :-
+   between(454, 909, Y),
+   A is Y // 22,
+   B is Y rem 22,
+   assertz(pool(A, B)), fail.
+sys_setup_create :-
+   between(10000, 20000, X),
+   Y is X // 22,
+   C is X rem 22,
+   A is Y // 22,
+   B is Y rem 22,
+   assertz(subpool(A, B, C)), fail.
+sys_setup_create.
+sys_setup_create :- fail.
 
-% sys_fini_make
-sys_fini_make :-
-   retractall(pool(_)).
+% sys_fini_create
+sys_fini_create :-
+   retractall(pool(_)),
+   retractall(subpool(_, _)).
 
 % remove(-Integer)
 remove(X) :-
-   retract(pool(X)).
+   retract(pool(A, B)),
+   Y is A*22 + B,
+   retract(subpool(A, B, C)),
+   X is Y*22 + C.

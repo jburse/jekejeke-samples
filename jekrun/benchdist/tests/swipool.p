@@ -34,31 +34,69 @@
 /*****************************************************************/
 
 pool :-
-   make(10000, 20000), remove(X), collatz(X, _).
+   create, remove(X), collatz(X, _).
 
 pool2 :-
-   make(10000, 20000), horde((remove(X), collatz(X, _)), 2).
+   create, horde((remove(X), collatz(X, _)), 2).
 
 pool4 :-
-   make(10000, 20000), horde((remove(X), collatz(X, _)), 4).
+   create, horde((remove(X), collatz(X, _)), 4).
 
 pool8 :-
-   make(10000, 20000), horde((remove(X), collatz(X, _)), 8).
+   create, horde((remove(X), collatz(X, _)), 8).
+
+gotcha :-
+   once((create, remove(X), collatz(X, _), X = 16666)).
+
+gotcha2 :-
+   once((create, horde((remove(X), collatz(X, _), X = 16666), 2))).
+
+gotcha4 :-
+   once((create, horde((remove(X), collatz(X, _), X = 16666), 4))).
+
+gotcha8 :-
+   once((create, horde((remove(X), collatz(X, _), X = 16666), 8))).
 
 /*****************************************************************/
 /* Pool Creation                                                 */
 /*****************************************************************/
 
-% make(+Integer, +Integer)
-make(F, T) :-
-   between(F, T, X),
-%   assertz(pool(X)),
-   recordz(pool, X),
+:- dynamic pool/2.
+:- dynamic subpool/3.
+
+% create
+create :-
+   call_cleanup(
+       sys_setup_create,
+       sys_fini_create).
+
+% sys_setup_create
+% Leave a choice point!
+sys_setup_create :-
+   between(454, 909, Y),
+   A is Y // 22,
+   B is Y rem 22,
+   assertz(pool(A, B)),
    fail.
-make(_, _).
+sys_setup_create :-
+   between(10000, 20000, X),
+   Y is X // 22,
+   C is X rem 22,
+   A is Y // 22,
+   B is Y rem 22,
+   assertz(subpool(A, B, C)),
+   fail.
+sys_setup_create.
+sys_setup_create :- fail.
+
+% sys_fini_create
+sys_fini_create :-
+   retractall(pool(_)),
+   retractall(subpool(_,_)).
 
 % remove(-Integer)
 remove(X) :-
-% clause(pool(X), true, R).
-   recorded(pool, X, R),
-   erase(R).
+   retract(pool(A, B)),
+   Y is A * 22 + B,
+   retract(subpool(A, B, C)),
+   X is Y * 22 + C.
