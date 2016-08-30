@@ -34,31 +34,71 @@
 /*****************************************************************/
 
 pool :-
-   makepool(10000, 20000),
-   retract(pool(X)),
+   make(10000, 20000),
+   remove(X),
    collatz(X, _).
 
 pool2 :-
-   makepool(10000, 20000),
-   horde((  retract(pool(X)),
+   make(10000, 20000),
+   horde((  remove(X),
             collatz(X, _)), 2).
 
 pool4 :-
-   makepool(10000, 20000),
-   horde((  retract(pool(X)),
+   make(10000, 20000),
+   horde((  remove(X),
             collatz(X, _)), 4).
 
 pool8 :-
-   makepool(10000, 20000),
-   horde((  retract(pool(X)),
+   make(10000, 20000),
+   horde((  remove(X),
             collatz(X, _)), 8).
+
+gotcha :-
+   once((  make(10000, 20000),
+           remove(X),
+           collatz(X, _),
+           X = 16666)).
+
+gotcha2 :-
+   once((  make(10000, 20000),
+           horde((  remove(X),
+                    collatz(X, _),
+                    X = 16666), 2))).
+
+gotcha4 :-
+   once((  make(10000, 20000),
+           horde((  remove(X),
+                    collatz(X, _),
+                    X = 16666), 4))).
+
+gotcha8 :-
+   once((  make(10000, 20000),
+           horde((  remove(X),
+                    collatz(X, _),
+                    X = 16666), 8))).
 
 /*****************************************************************/
 /* Pool Creation                                                 */
 /*****************************************************************/
 
-% makepool(+Integer, +Integer)
-makepool(F, T) :-
+% make(+Integer, +Integer)
+make(F, T) :-
+   call_cleanup(
+      sys_setup_make(F, T),
+      sys_fini_make).
+
+% sys_setup_make(+Integer, +Integer)
+% Leave a choice point!
+sys_setup_make(F, T) :-
    between(F, T, X),
    assertz(pool(X)), fail.
-makepool(_, _).
+sys_setup_make(_, _).
+sys_setup_make(_, _) :- fail.
+
+% sys_fini_make
+sys_fini_make :-
+   retractall(pool(_)).
+
+% remove(-Integer)
+remove(X) :-
+   retract(pool(X)).
