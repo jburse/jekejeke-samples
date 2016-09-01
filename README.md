@@ -27,6 +27,8 @@ The following samples have already been uploaded:
 The following samples have already been uploaded:
 - [jekdev/reference](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/reference):
   Tutorial for the Language Reference.
+- [jekdev/compliance](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/compliance):
+  ISO core compliance test suite.
 
 # Minlog Extension Samples
 
@@ -41,5 +43,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 21.08.2016 (Updated 23.08.2016)
+Jan Burse, 21.08.2016 (Updated 01.09.2016)
 
