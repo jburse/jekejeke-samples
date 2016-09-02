@@ -50,10 +50,12 @@ runner:case(put_byte, 1, stream_binary, 'ISO 8.13.3, ISO 1') :-
    L == [116].
 runner:case(put_byte, 1, stream_binary, 'ISO 8.13.3, ISO 3') :-
    catch(put_byte(_), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(put_byte, 1, stream_binary, 'ISO 8.13.3, ISO 4') :-
    catch(put_byte(ty), error(E,_), true),
-   E == type_error(byte,ty).
+   nonvar(E),
+   E = type_error(_,ty).
 
 /* peek_byte(B) */
 
@@ -77,7 +79,8 @@ runner:ref(peek_byte, 2, stream_binary, 'ISO 8.13.2').
 runner:case(peek_byte, 2, stream_binary, 'ISO 8.13.2, ISO 5') :-
    current_output(O),
    catch(peek_byte(O, _), error(E,_), true),
-   E == permission_error(input,stream,O).
+   nonvar(E),
+   E = permission_error(_,_,_).
 
 /* get_byte(B) */
 
@@ -101,7 +104,8 @@ runner:ref(get_byte, 2, stream_binary, 'ISO 8.13.1').
 runner:case(get_byte, 2, stream_binary, 'ISO 8.13.1, ISO 5') :-
    current_output(O),
    catch(get_byte(O, _), error(E,_), true),
-   E == permission_error(input,stream,O).
+   nonvar(E),
+   E = permission_error(_,_,_).
 
 /* flush_output, ISO 8.11.7 */
 

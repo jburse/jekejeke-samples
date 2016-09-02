@@ -63,28 +63,36 @@ runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 6') :-
    \+ foo(a,b) =.. [foo,b,a].
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 7') :-
    catch(_ =.. _, error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 8') :-
    catch(_ =.. [foo,a|_], error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 9') :-
    catch(_ =.. [foo|bar], error(E,_), true),
-   E == type_error(list,[foo|bar]).
+   nonvar(E),
+   E = type_error(list,_).
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 10') :-
    catch(_ =.. [_,bar], error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 11') :-
    catch(_ =.. [3,1], error(E,_), true),
-   E == type_error(atom,3).
+   nonvar(E),
+   E = type_error(atom,3).
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 12') :-
    catch(_ =.. [1.1,foo], error(E,_), true),
-   E == type_error(atom,1.1).
+   nonvar(E),
+   E = type_error(atom,1.1).
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 13') :-
    catch(_ =.. [a(b),foo], error(E,_), true),
-   E == type_error(atom,a(b)).
+   nonvar(E),
+   E = type_error(atom,a(b)).
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 14') :-
    catch(_ =.. 4, error(E,_), true),
-   E == type_error(list,4).
+   nonvar(E),
+   E = type_error(list,4).
 
 /* functor(X, N, A) */
 
@@ -126,28 +134,35 @@ runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 11') :-
    functor([], [], 0).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 12') :-
    catch(functor(_, _, 3), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 13') :-
    catch(functor(_, foo, _), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 14') :-
    catch(functor(_, foo, a), error(E,_), true),
-   E == type_error(integer,a).
+   nonvar(E),
+   E = type_error(integer,a).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 15') :-
    catch(functor(_, 1.5, 1), error(E,_), true),
-   E == type_error(atom,1.5).
+   nonvar(E),
+   E = type_error(atom,1.5).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 16') :-
    catch(functor(_, foo(a), 1), error(E,_), true),
-   E == type_error(atomic,foo(a)).
+   nonvar(E),
+   E = type_error(_,foo(a)).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 17') :-
    current_prolog_flag(max_arity, A),
    X is A + 1,
    catch(functor(_, foo, X), error(E,_), true),
-   E == representation_error(max_arity).
+   nonvar(E),
+   E = representation_error(_).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 18') :-
    X is - 1,
    catch(functor(_, foo, X), error(E,_), true),
-   E == domain_error(not_less_than_zero,X).
+   nonvar(E),
+   E = domain_error(not_less_than_zero,X).
 
 /* arg(K, X, Y) */
 
@@ -171,16 +186,20 @@ runner:case(arg, 3, structure_term, 'ISO 8.5.2.4, ISO 7') :-
    \+ arg(3, foo(3,4), _).
 runner:case(arg, 3, structure_term, 'ISO 8.5.2.4, ISO 8') :-
    catch(arg(_, foo(a,b), a), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(arg, 3, structure_term, 'ISO 8.5.2.4, ISO 9') :-
    catch(arg(1, _, a), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(arg, 3, structure_term, 'ISO 8.5.2.4, ISO 10') :-
    catch(arg(0, atom, _), error(E,_), true),
-   E == type_error(compound,atom).
+   nonvar(E),
+   E = type_error(compound,atom).
 runner:case(arg, 3, structure_term, 'ISO 8.5.2.4, ISO 11') :-
    catch(arg(0, 3, _), error(E,_), true),
-   E == type_error(compound,3).
+   nonvar(E),
+   E = type_error(_,3).
 
 /* X = Y */
 

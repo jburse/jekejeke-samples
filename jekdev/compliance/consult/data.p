@@ -156,7 +156,7 @@ runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 12') :-
    B == call(C).
 runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 13') :-
    catch(retract((_ :-
-                    in_eec(_))), error(E,_), true),
+                    insect(_))), error(E,_), true),
    E == instantiation_error.
 runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 14') :-
    catch(retract((4 :- _)), error(E,_), true),
@@ -192,17 +192,21 @@ runner:case(asserta, 1, consult_data, 'ISO 8.9.1.4, ISO 3') :-
               call(X))).
 runner:case(asserta, 1, consult_data, 'ISO 8.9.1.4, ISO 4') :-
    catch(asserta(_), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(asserta, 1, consult_data, 'ISO 8.9.1.4, ISO 5') :-
    catch(asserta(4), error(E,_), true),
-   E == type_error(callable,4).
+   nonvar(E),
+   E = type_error(callable,4).
 runner:case(asserta, 1, consult_data, 'ISO 8.9.1.4, ISO 6') :-
    catch((  asserta((foo :- 4)),
             retract((foo :- 4))), error(E,_), true),
-   E == type_error(callable,4).
+   nonvar(E),
+   E = type_error(callable,4).
 runner:case(asserta, 1, consult_data, 'ISO 8.9.1.4, ISO 7') :-
    catch(asserta((atom(_) :- true)), error(E,_), true),
-   E == permission_error(modify,static_procedure,atom/1).
+   nonvar(E),
+   E = permission_error(_,_,atom/1).
 
 /* assertz(C) */
 
@@ -223,17 +227,21 @@ runner:case(assertz, 1, consult_data, 'ISO 8.9.2.4, ISO 3') :-
            -> call(X))).
 runner:case(assertz, 1, consult_data, 'ISO 8.9.2.4, ISO 4') :-
    catch(assertz(_), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(assertz, 1, consult_data, 'ISO 8.9.2.4, ISO 5') :-
    catch(assertz(4), error(E,_), true),
-   E == type_error(callable,4).
+   nonvar(E),
+   E = type_error(callable,4).
 runner:case(assertz, 1, consult_data, 'ISO 8.9.2.4, ISO 6') :-
    catch((  assertz((foo :- 4)),
             retract((foo :- 4))), error(E,_), true),
-   E == type_error(callable,4).
+   nonvar(E),
+   E = type_error(callable,4).
 runner:case(assertz, 1, consult_data, 'ISO 8.9.2.4, ISO 7') :-
    catch(assertz((atom(_) :- true)), error(E,_), true),
-   E == permission_error(modify,static_procedure,atom/1).
+   nonvar(E),
+   E = permission_error(_,_,atom/1).
 
 /* abolish(P) */
 
@@ -246,19 +254,22 @@ foo(a, b).
 runner:case(abolish, 1, consult_data, 'ISO 8.9.4.4, ISO 1') :-
    abolish(foo/2),
    catch(foo(_, _), error(E,_), true),
-   E == existence_error(procedure,foo/2),
+   nonvar(E),
+   E = existence_error(procedure,foo/2),
    assertz(foo(a, b)).
 runner:case(abolish, 1, consult_data, 'ISO 8.9.4.4, ISO 2') :-
    catch(abolish(foo/_), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(abolish, 1, consult_data, 'ISO 8.9.4.4, ISO 3') :-
    catch(abolish(foo), error(E,_), true),
-   E == type_error(predicate_indicator,foo).
+   nonvar(E),
+   E = type_error(predicate_indicator,foo).
 runner:case(abolish, 1, consult_data, 'ISO 8.9.4.4, ISO 4') :-
    catch(abolish(foo(_)), error(E,_), true),
-   E = type_error(predicate_indicator,A),
-   nonvar(A),
-   A = foo(_).
+   nonvar(E),
+   E = type_error(predicate_indicator,foo(_)).
 runner:case(abolish, 1, consult_data, 'ISO 8.9.4.4, ISO 5') :-
    catch(abolish(abolish/1), error(E,_), true),
-   E == permission_error(modify,static_procedure,abolish/1).
+   nonvar(E),
+   E = permission_error(_,_,abolish/1).

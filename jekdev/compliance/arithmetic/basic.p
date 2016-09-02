@@ -202,30 +202,30 @@ runner:case(/, -3, arithmetic_basic, 'ISO 9.1.7, ISO 29') :-
 
 runner:ref(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4').
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 1') :-
-   1 is 0 ^ 0.
+   1 is 0^0.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 2') :-
-   3.0 is 3 ^ 1.0.
+   3.0 is 3^1.0.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 3') :-
-   -27 is -3 ^ 3.
+   -27 is -3^3.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 4') :-
-   7625597484987 is 3 ^ 27.
+   7625597484987 is 3^27.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 5') :-
-   7625597484987 is 3 ^ 3^3.
+   7625597484987 is 3^3^3.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 7') :-
-   1 is 1 ^ -1.
+   1 is 1^ -1.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 9') :-
-   0.3535533905932738 is 2 ^ -1.5.
+   0.3535533905932738 is 2^ -1.5.
 % See also http://eclipseclp.org/wiki/Prolog/IsoErrata
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 1') :-
-   catch(_ is 2 ^ -1, error(E,_), true),
+   catch(_ is 2^ -1, error(E,_), true),
    E == type_error(float,2).
 % See also http://eclipseclp.org/wiki/Prolog/IsoErrata
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 2') :-
-   catch(_ is 0 ^ -1, error(E,_), true),
+   catch(_ is 0^ -1, error(E,_), true),
    E == evaluation_error(zero_divisor).
 % We return decimal here, this will fail
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 3') :-
-   3.0 is 3.0 ^ 1.
+   3.0 is 3.0^1.
 % We return decimal here, this will fail
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 4') :-
-   -27.0 is -3.0 ^ 3.
+   -27.0 is -3.0^3.

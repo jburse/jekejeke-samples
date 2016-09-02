@@ -246,13 +246,15 @@ runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 5a') :-
    with_output_to(atom(A), catch(b(_), error(_,_), true)), !,
    A = '_B'.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 5b') :-
-   with_output_to(atom(_), catch(b(_), error(E,_), true)), !,
+   with_output_to(atom(_), catch(b(_), error(E,_), true)),
+   nonvar(E),
    E = instantiation_error.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 6a') :-
    with_output_to(atom(A), catch(b(3), error(_,_), true)), !,
    A = ''.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 6b') :-
-   with_output_to(atom(_), catch(b(3), error(E,_), true)), !,
+   with_output_to(atom(_), catch(b(3), error(E,_), true)),
+   nonvar(E),
    E = type_error(callable,_).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 7a') :-
    Z = !,
@@ -281,7 +283,8 @@ runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 9a') :-
    with_output_to(atom(A), catch(call((  write(3), _)), error(_,_), true)), !,
    A = '3'.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 9b') :-
-   with_output_to(atom(_), catch(call((  write(3), _)), error(E,_), true)), !,
+   with_output_to(atom(_), catch(call((  write(3), _)), error(E,_), true)),
+   nonvar(E),
    E = instantiation_error.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 10a') :-
    with_output_to(atom(A), catch(call((  write(3),
@@ -289,20 +292,26 @@ runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 10a') :-
    A = '3'.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 10b') :-
    with_output_to(atom(_), catch(call((  write(3),
-                                         call(1))), error(E,_), true)), !,
+                                         call(1))), error(E,_), true)),
+   nonvar(E),
    E = type_error(callable,_).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 11') :-
    catch(call(_), error(E,_), true),
+   nonvar(E),
    E = instantiation_error.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 12') :-
    catch(call(1), error(E,_), true),
+   nonvar(E),
    E = type_error(callable,_).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 13') :-
    catch(call((  fail, 1)), error(E,_), true),
+   nonvar(E),
    E = type_error(callable,_).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 14') :-
-   with_output_to(atom(_), catch(call((  write(3), 1)), error(E,_), true)), !,
+   with_output_to(atom(_), catch(call((  write(3), 1)), error(E,_), true)),
+   nonvar(E),
    E = type_error(callable,_).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 15') :-
    catch(call((  1; true)), error(E,_), true),
+   nonvar(E),
    E = type_error(callable,_).

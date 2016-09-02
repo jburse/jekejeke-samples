@@ -87,16 +87,20 @@ runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 8c') :-
    Y == Z.
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 3') :-
    catch(call(',', atom(1), 3), error(E,_), true),
-   E == type_error(callable,(atom(1),3)).
+   nonvar(E),
+   E = type_error(callable,_).
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 4') :-
    catch(call(',', integer(1), 3), error(E,_), true),
-   E == type_error(callable,(integer(1),3)).
+   nonvar(E),
+   E = type_error(callable,_).
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 5') :-
    catch(call(_, _), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 6') :-
    catch(call(3, _), error(E,_), true),
-   E == type_error(callable,3).
+   nonvar(E),
+   E = type_error(callable,3).
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 7') :-
    call(call(call(call(call(call(call(makerec, S), X), Y), Z), U), V), W),
    S == rec(X,Y,Z,U,V,W).

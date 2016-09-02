@@ -47,7 +47,7 @@
 
 runner:ref(setup_call_cleanup, 3, control_signal, 'WG17 N215').
 
-nondet :- true.
+nondet.
 nondet :- fail.
 
 % a), d) interrupts
@@ -144,10 +144,13 @@ runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, ISO 4') :-
                                           ;  throw(x))), fail).
 runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, XLOG 10') :-
    setup_call_cleanup(true, nondet, X = 1), !,
-   var(X).
+   X == 1.
 runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, XLOG 11') :-
-   setup_call_cleanup(true, true, X = 1),
+   setup_call_cleanup(true, nondet, X = 1),
    var(X).
+runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, XLOG 12') :-
+   setup_call_cleanup(true, true, X = 1),
+   X == 1.
 
 runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, ISO 15') :-
    findall(X, with_output_to(atom(X), catch(setup_call_cleanup(S = 1, (  G = 2
@@ -179,7 +182,7 @@ runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, ISO 27') :-
 runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, ISO 9') :-
    setup_call_cleanup(true, true, fail).
 % will fail, clean-up determinism, not part of ISO proposal
-runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, XLOG 12') :-
+runner:case(setup_call_cleanup, 3, control_signal, 'WG17 N215, XLOG 13') :-
    setup_call_cleanup(true, nondet, fail), !.
 
 /* call_cleanup(G, C) */
@@ -249,10 +252,13 @@ runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, ISO 4') :-
                               ;  throw(x))), fail).
 runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, XLOG 10') :-
    call_cleanup(nondet, X = 1), !,
-   var(X).
+   X == 1.
 runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, XLOG 11') :-
-   call_cleanup(true, X = 1),
+   call_cleanup(nondet, X = 1),
    var(X).
+runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, XLOG 12') :-
+   call_cleanup(true, X = 1),
+   X == 1.
 
 % will fail, clean-up exception accumulation, not part of ISO proposal
 runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, ISO 25') :-
@@ -271,5 +277,5 @@ runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, ISO 27') :-
 runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, ISO 9') :-
    call_cleanup(true, fail).
 % will fail, clean-up determinism, not part of ISO proposal
-runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, XLOG 12') :-
+runner:case(call_cleanup, 2, control_signal, 'WG17 N215b, XLOG 13') :-
    call_cleanup(nondet, fail), !.

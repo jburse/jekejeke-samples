@@ -102,13 +102,16 @@ runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 5') :-
    L == R.
 runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 6') :-
    catch(keysort(_, _), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 7') :-
    catch(keysort([77-x|35], _), error(E,_), true),
-   E == type_error(list,[77-x|35]).
+   nonvar(E),
+   E = type_error(list,_).
 runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 8') :-
    catch(keysort([77], _), error(E,_), true),
-   E == type_error(pair,77).
+   nonvar(E),
+   E = type_error(pair,77).
 
 /* bagof(T, A1^...^An^G, L) */
 
@@ -149,25 +152,26 @@ runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 6') :-
    B \== Y,
    A \== B.
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 7') :-
-   bagof(X, Y ^ (  X = 1,
-                   Y = 1
-                ;  X = 2,
-                   Y = 2), S),
+   bagof(X, Y^(  X = 1,
+                 Y = 1
+              ;  X = 2,
+                 Y = 2), S),
    S == [1,2].
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 8') :-
-   bagof(X, Y ^ (  (  X = 1
-                   ;  Y = 1)
-                ;  X = 2,
-                   Y = 2), S),
+   bagof(X, Y^(  (  X = 1
+                 ;  Y = 1)
+              ;  X = 2,
+                 Y = 2), S),
    S = [1,A,2],
    var(A),
    A \== X,
    A \== Y.
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 9') :-
-   catch(bagof(X, (  Y ^ (  X = 1
-                         ;  Y = 2)
+   catch(bagof(X, (  Y^(  X = 1
+                       ;  Y = 2)
                   ;  X = 3), _), error(E,_), true),
-   E == existence_error(procedure,^ /2).
+   nonvar(E),
+   E = existence_error(_,^ /2).
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 10a') :-
    bagof(X, (  X = Y
             ;  X = Z
@@ -207,11 +211,13 @@ runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 12b') :-
    Y == 2,
    L == [1,2,2].
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 13') :-
-   catch(bagof(_, _ ^ _, _), error(E,_), true),
-   E == instantiation_error.
+   catch(bagof(_, _^_, _), error(E,_), true),
+   nonvar(E),
+   E = instantiation_error.
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 14') :-
    catch(bagof(_, 1, _), error(E,_), true),
-   E == type_error(callable,1).
+   nonvar(E),
+   E = type_error(callable,1).
 
 /* sort(L, R) */
 
@@ -237,10 +243,12 @@ runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 4') :-
    ;  R == [B,A]).
 runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 5') :-
    catch(sort(_, _), error(E,_), true),
-   E == instantiation_error.
+   nonvar(E),
+   E = instantiation_error.
 runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 6') :-
    catch(sort([77|35], _), error(E,_), true),
-   E == type_error(list,[77|35]).
+   nonvar(E),
+   E = type_error(list,_).
 
 /* setof(T, A1^...^An^G, L) */
 
@@ -290,25 +298,26 @@ runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 8') :-
    B \== Y,
    A \== B.
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 9') :-
-   setof(X, Y ^ (  X = 1,
-                   Y = 1
-                ;  X = 2,
-                   Y = 2), S),
+   setof(X, Y^(  X = 1,
+                 Y = 1
+              ;  X = 2,
+                 Y = 2), S),
    S == [1,2].
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 10') :-
-   setof(X, Y ^ (  (  X = 1
-                   ;  Y = 1)
-                ;  X = 2,
-                   Y = 2), S),
+   setof(X, Y^(  (  X = 1
+                 ;  Y = 1)
+              ;  X = 2,
+                 Y = 2), S),
    S = [A,1,2],
    var(A),
    A \== X,
    A \== Y.
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 11') :-
-   catch(setof(X, (  Y ^ (  X = 1
-                         ;  Y = 2)
+   catch(setof(X, (  Y^(  X = 1
+                       ;  Y = 2)
                   ;  X = 3), _), error(E,_), true),
-   E == existence_error(procedure,^ /2).
+   nonvar(E),
+   E = existence_error(_,^ /2).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 12a') :-
    setof(X, (  X = Y
             ;  X = Z
@@ -368,7 +377,7 @@ runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 18') :-
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 19') :-
    \+ setof(X, mem(X, [V,U,f(U),f(V)]), [a,b,f(b),f(a)]).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 20') :-
-   setof(X, exists(U,V) ^ mem(X, [V,U,f(U),f(V)]), [a,b,f(a),f(b)]).
+   setof(X, exists(U,V)^mem(X, [V,U,f(U),f(V)]), [a,b,f(a),f(b)]).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 21a') :-
    setof(X, b(X, Y), L),
    Y == 1,
@@ -378,7 +387,7 @@ runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 21b') :-
    Y == 2,
    L == [1,2].
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 22') :-
-   setof(X-Xs, Y ^ setof(Y, b(X, Y), Xs), L),
+   setof(X-Xs, Y^setof(Y, b(X, Y), Xs), L),
    L == [1-[1,2],2-[1,2]].
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 23') :-
    setof(X-Xs, setof(Y, b(X, Y), Xs), L),
