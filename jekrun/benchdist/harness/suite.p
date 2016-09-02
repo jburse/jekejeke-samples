@@ -31,6 +31,7 @@
 :- ensure_loaded('../tests/collatz').
 :- ensure_loaded('../tests/queens3').
 :- ensure_loaded('../tests/pool').
+:- ensure_loaded('../tests/rand').
 
 /*****************************************************************/
 /* Normal Test Cases                                             */
@@ -78,6 +79,17 @@ suite3 :-
    bench(12, gotcha8, T8, G8),
    T is T1+T2+T3+T4+T5+T6+T7 + T8,
    G is G1+G2+G3+G4+G5+G6+G7 + G8,
+   write('Total'),
+   show(T, G), nl.
+
+suite4 :-
+   bench(3001, dummy, _, _),
+   bench(80, rand, T1, G1),
+   bench(80, rand2, T2, G2),
+   bench(80, rand4, T3, G3),
+   bench(80, rand8, T4, G4),
+   T is T1+T2+T3 + T4,
+   G is G1+G2+G3 + G4,
    write('Total'),
    show(T, G), nl.
 

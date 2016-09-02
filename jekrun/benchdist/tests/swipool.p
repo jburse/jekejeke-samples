@@ -91,12 +91,16 @@ sys_setup_create :- fail.
 
 % sys_fini_create
 sys_fini_create :-
-   retractall(pool(_)),
-   retractall(subpool(_,_)).
+   retractall(pool(_,_)),
+   retractall(subpool(_,_,_)).
 
 % remove(-Integer)
 remove(X) :-
-   retract(pool(A, B)),
+   retract_alt(pool(A, B)),
    Y is A * 22 + B,
-   retract(subpool(A, B, C)),
+   retract_alt(subpool(A, B, C)),
    X is Y * 22 + C.
+
+% retract_alt(+Head)
+retract_alt(H) :-
+   clause(H, true, R), erase(R).
