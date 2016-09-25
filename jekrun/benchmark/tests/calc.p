@@ -57,7 +57,7 @@ rcalc :-
 % expr(-Integer)
 expr(Z) --> "-", !,
    term(X),
-   {Y is - X},
+   {Y is -X},
    expr_rest(Y, Z).
 expr(Y) -->
    term(X),
@@ -66,11 +66,11 @@ expr(Y) -->
 % expr_rest(+Integer, -Integer)
 expr_rest(X, T) --> "+", !,
    term(Y),
-   {Z is X + Y},
+   {Z is X+Y},
    expr_rest(Z, T).
 expr_rest(X, T) --> "-", !,
    term(Y),
-   {Z is X - Y},
+   {Z is X-Y},
    expr_rest(Z, T).
 expr_rest(X, X) --> [].
 
@@ -82,7 +82,7 @@ term(Y) -->
 % term_rest(+Integer, -Integer)
 term_rest(X, T) --> "*", !,
    factor(Y),
-   {Z is X * Y},
+   {Z is X*Y},
    factor_rest(Z, T).
 term_rest(X, T) --> "/", !,
    factor(Y),
@@ -100,7 +100,7 @@ factor(Y) -->
 % factor_rest(+Integer, -Integer)
 factor_rest(X, T) -->
    digit(Y), !,
-   {Z is X*10 + Y},
+   {Z is X*10+Y},
    factor_rest(Z, T).
 factor_rest(X, X) --> [].
 
@@ -109,4 +109,4 @@ digit(Y) -->
    [X],
    {48 =< X,
     X =< 57,
-    Y is X - 48}.
+    Y is X-48}.

@@ -35,20 +35,20 @@ sum2(AL, BL, CL) :-
 
 % sum2(+List, +List, +Integer, -List)
 sum2([A|AL], [B|BL], Carry, [C|CL]) :-
-   X is A+B + Carry,
+   X is A+B+Carry,
    C is X rem 10,
-   NewCarry is X // 10,
+   NewCarry is X//10,
    sum2(AL, BL, NewCarry, CL).
 sum2([], BL, 0, BL) :- !.
 sum2(AL, [], 0, AL) :- !.
 sum2([], [B|BL], Carry, [C|CL]) :-
-   X is B + Carry,
-   NewCarry is X // 10,
+   X is B+Carry,
+   NewCarry is X//10,
    C is X rem 10,
    sum2([], BL, NewCarry, CL).
 sum2([A|AL], [], Carry, [C|CL]) :-
-   X is A + Carry,
-   NewCarry is X // 10,
+   X is A+Carry,
+   NewCarry is X//10,
    C is X rem 10,
    sum2([], AL, NewCarry, CL).
 sum2([], [], Carry, [Carry]).
@@ -60,11 +60,11 @@ mult(AL, D, BL) :-
 % mult(+List, +Integer, +Integer, -List)
 mult([], _, Carry, [C,Cend]) :-
    C is Carry rem 10,
-   Cend is Carry // 10.
+   Cend is Carry//10.
 mult([A|AL], D, Carry, [B|BL]) :-
-   X is A*D + Carry,
+   X is A*D+Carry,
    B is X rem 10,
-   NewCarry is X // 10,
+   NewCarry is X//10,
    mult(AL, D, NewCarry, BL).
 
 % zero(+List)

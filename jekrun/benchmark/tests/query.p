@@ -93,12 +93,13 @@ area(argentina, 1080).
 density(C, D) :-
    pop(C, P),
    area(C, A),
-   D is P*100 // A.
+   D is P*100//A.
 
 % query
 query :-
    density(_, D1),
    density(_, D2),
    D1 > D2,
-   T1 is 20 * D1,
-   T2 is 21 * D2, T1 < T2.
+   T1 is 20*D1,
+   T2 is 21*D2,
+   T1 < T2.

@@ -28,7 +28,7 @@
 for(_).
 for(N) :-
    N > 1,
-   M is N - 1,
+   M is N-1,
    for(M).
 
 :- meta_predicate test(?,0).
@@ -51,8 +51,8 @@ bench(M, X, T, G) :-
    test(M, X),
    uptime(T2),
    gctime(G2),
-   T is T2 - T1,
-   G is G2 - G1,
+   T is T2-T1,
+   G is G2-G1,
    write(X),
    show(T, G).
 

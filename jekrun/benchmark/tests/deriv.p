@@ -102,7 +102,7 @@ d(U/V, X, (DU*V-U*DV)/V^2) :- !,
    d(U, X, DU),
    d(V, X, DV).
 d(U^N, X, DU*N*U^N1) :- !,
-   N1 is N - 1,
+   N1 is N-1,
    d(U, X, DU).
 d(-U, X, -DU) :- !,
    d(U, X, DU).

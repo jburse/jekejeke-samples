@@ -77,7 +77,7 @@ poly_add(Poly, poly(Var,Terms2), poly(Var,Terms)) :- !,
 poly_add(poly(Var,Terms1), C, poly(Var,Terms)) :- !,
    add_to_order_zero_term(Terms1, C, Terms).
 poly_add(C1, C2, C) :-
-   C is C1 + C2.
+   C is C1+C2.
 
 % make_term(+Expr, +Integer, +Sum, -Sum)
 make_term(0, _, Terms, Terms) :- !.
@@ -114,7 +114,7 @@ poly_mul(poly(Var,Terms1), C, Res) :- !,
    mul_through(Terms1, C, Terms),
    make_poly(Terms, Var, Res).
 poly_mul(C1, C2, C) :-
-   C is C1 * C2.
+   C is C1*C2.
 
 % term_mul(+Sum, +Sum, -Sum)
 term_mul([], _, []) :- !.
@@ -127,7 +127,7 @@ term_mul([Term|Terms1], Terms2, Terms) :-
 % single_term_mul(+Sum, +Summand, -Sum)
 single_term_mul([], _, []).
 single_term_mul([term(E1,C1)|Terms1], term(E2,C2), [term(E,C)|Terms]) :-
-   E is E1 + E2,
+   E is E1+E2,
    poly_mul(C1, C2, C),
    single_term_mul(Terms1, term(E2,C2), Terms).
 
@@ -142,10 +142,10 @@ mul_through([term(E,Term)|Terms], Poly, Res) :-
 poly_exp(0, _, 1) :- !.
 poly_exp(N, Poly, Result) :-
    N rem 2 =:= 0, !,
-   M is N // 2,
+   M is N//2,
    poly_exp(M, Poly, Part),
    poly_mul(Part, Part, Result).
 poly_exp(N, Poly, Result) :-
-   M is N - 1,
+   M is N-1,
    poly_exp(M, Poly, Part),
    poly_mul(Poly, Part, Result).

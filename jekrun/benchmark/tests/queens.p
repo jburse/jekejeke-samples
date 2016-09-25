@@ -60,11 +60,9 @@ rdataqueens([1,2,3,4,5,6,7]).
 % nodiag(+List, +Integer, +Integer)
 nodiag([], _, _).
 nodiag([N|L], B, D) :-
-   D =\=
-   N - B,
-   D =\=
-   B - N,
-   D1 is D + 1,
+   D =\= N-B,
+   D =\= B-N,
+   D1 is D+1,
    nodiag(L, B, D1).
 
 % qdelete(+List, -Integer, +Integer, -List)
