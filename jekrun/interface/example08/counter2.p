@@ -30,25 +30,25 @@
 
 :- package(library(example08)).
 :- module(counter2, []).
-:- use_module(foreign('Runnable')).
-:- use_module(foreign('Slots')).
+:- reexport(foreign('Runnable')).
+:- reexport(foreign('Slots')).
 
 :- public new/4.
 new(N, Q, W, R) :-
    sys_instance_size(4, R),
-   R:set_arg(1, N),
-   R:set_arg(2, Q),
-   R:set_arg(3, W),
-   R:set_arg(4, 0).
+   example08/counter2:set_at(R, 0, N),
+   example08/counter2:set_at(R, 1, Q),
+   example08/counter2:set_at(R, 2, W),
+   example08/counter2:set_at(R, 3, 0).
 
 :- public run/1.
 :- override run/1.
 run(R) :-
    T is 'System':currentTimeMillis,
-   R:arg(1, N),
-   R:arg(2, Q),
-   R:arg(3, W),
-   R:arg(4, C),
+   example08/counter2:at(R, 0, N),
+   example08/counter2:at(R, 1, Q),
+   example08/counter2:at(R, 2, W),
+   example08/counter2:at(R, 3, C),
    atom_concat('Process ', N, A1),
    atom_concat(A1, ': ', A2),
    number_codes(C, L),
@@ -57,10 +57,10 @@ run(R) :-
    atom_concat(A3, '\n', A4),
    write(W, A4),
    flush_output(W),
-   D is C + 1,
-   R:set_arg(4, D),
+   D is C+1,
+   example08/counter2:set_at(R, 3, D),
    (  D < 10
-   -> S is T + 1000,
+   -> S is T+1000,
       example08/'Queue':post(Q, R, S); true).
 
 

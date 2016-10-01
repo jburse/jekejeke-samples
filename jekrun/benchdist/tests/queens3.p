@@ -142,7 +142,7 @@ noattack_from([], _, _).
 noattack_from([Y|Z], X, N) :-
    X+N #\= Y,
    Y+N #\= X,
-   M is N + 1,
+   M is N+1,
    noattack_from(Z, X, M).
 
 % noattack_list(+List)

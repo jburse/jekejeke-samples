@@ -115,12 +115,11 @@ rfirst8 :-
 
 collatz(1, 0) :- !.
 collatz(I, N) :-
-   1 =:=
-   I /\ 1, !,
-   I0 is I*3 + 1,
+   1 =:= I/\1, !,
+   I0 is I*3+1,
    collatz(I0, N0),
-   N is N0 + 1.
+   N is N0+1.
 collatz(I, N) :-
-   I0 is I >> 1,
+   I0 is I>>1,
    collatz(I0, N0),
-   N is N0 + 1.
+   N is N0+1.

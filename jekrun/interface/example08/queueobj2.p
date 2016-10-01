@@ -26,8 +26,6 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(counter2).
-
 main2 :-
    current_output(W),
    example08/'Queue':new(Q),

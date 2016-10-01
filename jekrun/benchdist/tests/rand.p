@@ -63,7 +63,7 @@ seeds(N, X) :-
 
 % seeds(+Integer, +Integer, -Integer)
 sequence(N, S, X) :-
-   T is S * 1000,
+   T is S*1000,
    random_new(T, R),
    between(1, N, _),
    random_next(R, 1000, X).

@@ -32,6 +32,9 @@
 :- virtual release/1.
 :- foreign(release/1, 'example06.Mutex', release).
 
+:- dynamic console/1.
+:- dynamic lock/1.
+
 init :-
    current_output(X),
    assertz(console(X)),

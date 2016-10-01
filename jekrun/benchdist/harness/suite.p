@@ -47,8 +47,8 @@ suite :-
    bench(12, first2, T6, G6),
    bench(12, first4, T7, G7),
    bench(12, first8, T8, G8),
-   T is T1+T2+T3+T4+T5+T6+T7 + T8,
-   G is G1+G2+G3+G4+G5+G6+G7 + G8,
+   T is T1+T2+T3+T4+T5+T6+T7+T8,
+   G is G1+G2+G3+G4+G5+G6+G7+G8,
    write('Total'),
    show(T, G), nl.
 
@@ -62,8 +62,8 @@ suite2 :-
    bench(17, setup2, T6, G6),
    bench(17, setup4, T7, G7),
    bench(17, setup8, T8, G8),
-   T is T1+T2+T3+T4+T5+T6+T7 + T8,
-   G is G1+G2+G3+G4+G5+G6+G7 + G8,
+   T is T1+T2+T3+T4+T5+T6+T7+T8,
+   G is G1+G2+G3+G4+G5+G6+G7+G8,
    write('Total'),
    show(T, G), nl.
 
@@ -77,8 +77,8 @@ suite3 :-
    bench(12, gotcha2, T6, G6),
    bench(12, gotcha4, T7, G7),
    bench(12, gotcha8, T8, G8),
-   T is T1+T2+T3+T4+T5+T6+T7 + T8,
-   G is G1+G2+G3+G4+G5+G6+G7 + G8,
+   T is T1+T2+T3+T4+T5+T6+T7+T8,
+   G is G1+G2+G3+G4+G5+G6+G7+G8,
    write('Total'),
    show(T, G), nl.
 
@@ -88,8 +88,8 @@ suite4 :-
    bench(80, rand2, T2, G2),
    bench(80, rand4, T3, G3),
    bench(80, rand8, T4, G4),
-   T is T1+T2+T3 + T4,
-   G is G1+G2+G3 + G4,
+   T is T1+T2+T3+T4,
+   G is G1+G2+G3+G4,
    write('Total'),
    show(T, G), nl.
 
@@ -107,8 +107,8 @@ rsuite :-
    bench(12, rfirst2, T6, G6),
    bench(12, rfirst4, T7, G7),
    bench(12, rfirst8, T8, G8),
-   T is T1+T2+T3+T4+T5+T6+T7 + T8,
-   G is G1+G2+G3+G4+G5+G6+G7 + G8,
+   T is T1+T2+T3+T4+T5+T6+T7+T8,
+   G is G1+G2+G3+G4+G5+G6+G7+G8,
    write('Total'),
    show(T, G), nl.
 
@@ -122,8 +122,8 @@ rsuite2 :-
    bench(4, rsetup2, T6, G6),
    bench(4, rsetup4, T7, G7),
    bench(4, rsetup8, T8, G8),
-   T is T1+T2+T3+T4+T5+T6+T7 + T8,
-   G is G1+G2+G3+G4+G5+G6+G7 + G8,
+   T is T1+T2+T3+T4+T5+T6+T7+T8,
+   G is G1+G2+G3+G4+G5+G6+G7+G8,
    write('Total'),
    show(T, G), nl.
 

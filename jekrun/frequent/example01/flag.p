@@ -32,7 +32,7 @@ between(Lo, Hi, _) :-
    Lo > Hi, !, fail.
 between(Lo, _, Lo).
 between(Lo, Hi, X) :-
-   Lo2 is Lo + 1,
+   Lo2 is Lo+1,
    between(Lo2, Hi, X).
 
 % for1(+Integer, +Integer, +Closure)
@@ -44,7 +44,6 @@ for1(_, _, _).
 
 % flag
 flag :-
-   for1(1, 8, X \ (  for1(1, 8, Y \ (  0 =:=
-                                       (X+Y) mod 2
+   for1(1, 8, X \ (  for1(1, 8, Y \ (  0 =:= (X+Y)mod 2
                                     -> write(x)
                                     ;  write(o))), nl)).

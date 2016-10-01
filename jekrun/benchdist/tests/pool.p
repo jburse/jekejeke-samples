@@ -91,14 +91,14 @@ create :-
 % Leave a choice point!
 sys_setup_create :-
    between(454, 909, Y),
-   A is Y // 22,
+   A is Y//22,
    B is Y rem 22,
    assertz(pool(A, B)), fail.
 sys_setup_create :-
    between(10000, 20000, X),
-   Y is X // 22,
+   Y is X//22,
    C is X rem 22,
-   A is Y // 22,
+   A is Y//22,
    B is Y rem 22,
    assertz(subpool(A, B, C)), fail.
 sys_setup_create.
@@ -112,9 +112,9 @@ sys_fini_create :-
 % remove(-Integer)
 remove(X) :-
    retract_alt(pool(A,B)),
-   Y is A*22 + B,
+   Y is A*22+B,
    retract_alt(subpool(A,B,C)),
-   X is Y*22 + C.
+   X is Y*22+C.
 
 % retract_alt(+Head)
 retract_alt(H) :-

@@ -33,16 +33,15 @@ for2(Lo, Hi, _) :-
    Lo > Hi, !.
 for2(Lo, Hi, Closure) :-
    call(Closure, Lo),
-   Lo2 is Lo + 1,
+   Lo2 is Lo+1,
    for2(Lo2, Hi, Closure).
 
 % flag
 flag(R) :-
    functor(R, '', 8),
-   for2(1, 8, X \ S ^ (  arg(X, R, S),
-                         functor(S, '', 8),
-                         for2(1, 8, Y \ T ^ (  arg(Y, S, T),
-                                               (  0 =:=
-                                                  (X+Y) mod 2
-                                               -> T = x
-                                               ;  T = o))))).
+   for2(1, 8, X \ S^(  arg(X, R, S),
+                       functor(S, '', 8),
+                       for2(1, 8, Y \ T^(  arg(Y, S, T),
+                                           (  0 =:= (X+Y)mod 2
+                                           -> T = x
+                                           ;  T = o))))).
