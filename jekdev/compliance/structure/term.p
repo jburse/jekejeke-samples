@@ -42,7 +42,7 @@
 /* Building and Unification                                      */
 /****************************************************************/
 
-/* X = .. Y */
+/* X =.. Y */
 
 runner:ref(=.., 2, structure_term, 'ISO 8.5.3.4').
 runner:case(=.., 2, structure_term, 'ISO 8.5.3.4, ISO 1') :-
@@ -154,12 +154,12 @@ runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 16') :-
    E = type_error(_,foo(a)).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 17') :-
    current_prolog_flag(max_arity, A),
-   X is A + 1,
+   X is A+1,
    catch(functor(_, foo, X), error(E,_), true),
    nonvar(E),
    E = representation_error(_).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 18') :-
-   X is - 1,
+   X is -1,
    catch(functor(_, foo, X), error(E,_), true),
    nonvar(E),
    E = domain_error(not_less_than_zero,X).

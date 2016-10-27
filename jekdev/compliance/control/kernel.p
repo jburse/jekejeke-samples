@@ -199,7 +199,7 @@ runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, XLOG 2') :-
 :- multifile foo/1.
 :- dynamic foo/1.
 foo(X) :-
-   Y is X * 2,
+   Y is X*2,
    throw(test(Y)).
 
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 1') :-

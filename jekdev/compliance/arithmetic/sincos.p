@@ -46,21 +46,21 @@
 
 runner:ref(**, -3, arithmetic_sincos, 'ISO 9.3.1.4').
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 1') :-
-   125.0 is 5 ** 3.
+   125.0 is 5**3.
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 2') :-
-   -125.0 is -5 ** 3.
+   -125.0 is -5**3.
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 3') :-
-   0.2 is 5 ** -1.
+   0.2 is 5** -1.
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 4') :-
-   catch(_ is 77 ** _, error(E,_), true),
+   catch(_ is 77**_, error(E,_), true),
    E == instantiation_error.
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 5') :-
-   catch(_ is foobar ** 2, error(E,_), true),
+   catch(_ is foobar**2, error(E,_), true),
    E == type_error(evaluable,foobar/0).
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 6') :-
-   125.0 is 5 ** 3.0.
+   125.0 is 5**3.0.
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 7') :-
-   1.0 is 0.0 ** 0.
+   1.0 is 0.0**0.
 
 /* sin(X) */
 
@@ -99,8 +99,7 @@ runner:case(cos, -2, arithmetic_sincos, 'ISO 9.3.3.4, ISO 5') :-
 runner:ref(tan, -2, arithmetic_sincos, 'Corr.2 9.3.14.4').
 runner:case(tan, -2, arithmetic_sincos, 'Corr.2 9.3.14.4, XLOG 1') :-
    X is tan(pi/6),
-   1/3 =:=
-   X * X.
+   1/3 =:= X*X.
 runner:case(tan, -2, arithmetic_sincos, 'Corr.2 9.3.14.4, XLOG 2') :-
    0.9999999999999999 is tan(pi/4).
 runner:case(tan, -2, arithmetic_sincos, 'Corr.2 9.3.14.4, XLOG 3') :-
@@ -112,11 +111,10 @@ runner:case(tan, -2, arithmetic_sincos, 'Corr.2 9.3.14.4, XLOG 3') :-
 runner:ref(asin, -2, arithmetic_sincos, 'Corr.2 9.3.11.4').
 runner:case(asin, -2, arithmetic_sincos, 'Corr.2 9.3.11.4, XLOG 1') :-
    0.0 is asin(0).
-runner:case(asin, -2, arithmetic_sincos, 'Corr.2 9.3.11.4, XLOG 2') :- pi =:=
-   asin(sqrt(3/4)) * 3.
+runner:case(asin, -2, arithmetic_sincos, 'Corr.2 9.3.11.4, XLOG 2') :-
+   pi =:= asin(sqrt(3/4))*3.
 runner:case(asin, -2, arithmetic_sincos, 'Corr.2 9.3.11.4, XLOG 3') :-
-   pi/2 =:=
-   asin(1).
+   pi/2 =:= asin(1).
 runner:case(asin, -2, arithmetic_sincos, 'Corr.2 9.3.11.4, XLOG 4') :-
    catch(_ is asin(_), error(E,_), true),
    E == instantiation_error.
@@ -128,10 +126,9 @@ runner:case(asin, -2, arithmetic_sincos, 'Corr.2 9.3.11.4, ISO 3') :-
 
 runner:ref(acos, -2, arithmetic_sincos, 'Corr.2 9.3.12.4').
 runner:case(acos, -2, arithmetic_sincos, 'Corr.2 9.3.12.4, XLOG 1') :-
-   pi/2 =:=
-   acos(0).
+   pi/2 =:= acos(0).
 runner:case(acos, -2, arithmetic_sincos, 'Corr.2 9.3.12.4, XLOG 2') :-
-   3.1415926535897936 is acos(sqrt(3/4)) * 6.
+   3.1415926535897936 is acos(sqrt(3/4))*6.
 runner:case(acos, -2, arithmetic_sincos, 'Corr.2 9.3.12.4, XLOG 3') :-
    0.0 is acos(1).
 runner:case(acos, -2, arithmetic_sincos, 'Corr.2 9.3.12.4, XLOG 4') :-
@@ -146,8 +143,8 @@ runner:case(acos, -2, arithmetic_sincos, 'Corr.2 9.3.12.4, ISO 3') :-
 runner:ref(atan, -2, arithmetic_sincos, 'ISO 9.3.4.4').
 runner:case(atan, -2, arithmetic_sincos, 'ISO 9.3.4.4, ISO 1') :-
    0.0 is atan(0.0).
-runner:case(atan, -2, arithmetic_sincos, 'ISO 9.3.4.4, ISO 2') :- pi =:=
-   atan(1.0) * 4.
+runner:case(atan, -2, arithmetic_sincos, 'ISO 9.3.4.4, ISO 2') :-
+   pi =:= atan(1.0)*4.
 runner:case(atan, -2, arithmetic_sincos, 'ISO 9.3.4.4, ISO 3') :-
    catch(_ is atan(_), error(E,_), true),
    E == instantiation_error.
@@ -223,9 +220,9 @@ runner:case(pi, -1, arithmetic_sincos, 'Corr.2 9.3.15.4, ISO 1') :-
 
 runner:ref(atan2, -3, arithmetic_sincos, 'Corr.2 9.3.13').
 runner:case(atan2, -3, arithmetic_sincos, 'Corr.2 9.3.13, ISO 1') :-
-   0.0 is atan2(1,0) - pi/2.
+   0.0 is atan2(1,0)-pi/2.
 runner:case(atan2, -3, arithmetic_sincos, 'Corr.2 9.3.13, ISO 2') :-
-   0.0 is atan2(0,-1) - pi.
+   0.0 is atan2(0,-1)-pi.
 runner:case(atan2, -3, arithmetic_sincos, 'Corr.2 9.3.13, ISO 3') :-
-   catch(_ is atan2(0, 0), error(E,_), true),
+   catch(_ is atan2(0,0), error(E,_), true),
    E == evaluation_error(undefined).

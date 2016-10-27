@@ -31,3 +31,5 @@
 :- ensure_loaded('../stream/binary').
 :- ensure_loaded('../stream/read').
 :- ensure_loaded('../stream/open').
+
+:- ensure_loaded('../extra/structure').

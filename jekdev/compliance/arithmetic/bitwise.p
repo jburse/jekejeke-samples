@@ -50,40 +50,40 @@ runner:ref(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4').
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 2') :-
    10 is \ \10.
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 3') :-
-   -11 is \ 10.
+   -11 is \10.
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 4') :-
-   catch(_ is \ _, error(E,_), true),
+   catch(_ is \_, error(E,_), true),
    E == instantiation_error.
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 5') :-
-   catch(_ is \ 2.5, error(E,_), true),
+   catch(_ is \2.5, error(E,_), true),
    E == type_error(integer,2.5).
 
 /* X /\ Y */
 
 runner:ref(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, Corrigendum 1').
 runner:case(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, ISO 2') :-
-   8 is 10 /\ 12.
+   8 is 10/\12.
 runner:case(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, ISO 3') :-
-   125 is 17*256+125 /\ 255.
+   125 is 17*256+125/\255.
 runner:case(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, ISO 4') :-
-   4 is -10 /\ 12.
+   4 is -10/\12.
 % runner:case(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, ISO 5') :-
 % catch(_ is 77 /\ _, error(E, _), true), E==instantiation_error.
 runner:case(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, ISO 6') :-
-   catch(_ is foobar /\ 2, error(E,_), true),
+   catch(_ is foobar/\2, error(E,_), true),
    E == type_error(evaluable,foobar/0).
 
 /* X \/ Y */
 
 runner:ref(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, Corrigendum 1').
 runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 2') :-
-   14 is 10 \/ 12.
+   14 is 10\/12.
 runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 3') :-
-   255 is 125 \/ 255.
+   255 is 125\/255.
 runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 4') :-
-   -2 is -10 \/ 12.
+   -2 is -10\/12.
 runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 5') :-
-   catch(_ is 77 \/ _, error(E,_), true),
+   catch(_ is 77\/_, error(E,_), true),
    E == instantiation_error.
 % runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 6') :-
 %     catch(_ is foobar \/ 2, error(E, _), true), E==type_error(evaluable, foobar/0).
@@ -92,11 +92,11 @@ runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 5') :-
 
 runner:ref(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, Corrigendum 1').
 runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 1') :-
-   64 is 16 << 2.
+   64 is 16<<2.
 runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 2') :-
-   76 is 19 << 2.
+   76 is 19<<2.
 runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 3') :-
-   -64 is -16 << 2.
+   -64 is -16<<2.
 % runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 4') :-
 %   catch(_ is 77 << _, error(E, _), true), E==instantiation_error.
 % runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 5') :-
@@ -106,11 +106,11 @@ runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 3') :-
 
 runner:ref(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, Corrigendum 1').
 runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 1') :-
-   4 is 16 >> 2.
+   4 is 16>>2.
 runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 2') :-
-   4 is 19 >> 2.
+   4 is 19>>2.
 runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 3') :-
-   -4 is -16 >> 2.
+   -4 is -16>>2.
 % runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 4') :-
 %   catch(_ is 77 >> _, error(E, _), true), E==instantiation_error.
 % runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 5') :-

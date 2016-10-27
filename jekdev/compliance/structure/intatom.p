@@ -195,7 +195,3 @@ runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 4') :-
    \+ ground(_).
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 5') :-
    ground([]).
-
-/* reference */
-
-/* decimal */

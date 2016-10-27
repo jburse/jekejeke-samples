@@ -116,5 +116,4 @@ runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 5') :-
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 6') :-
    compare(<, foo(a,_), foo(b,_)).
 
-/* term_hash(T, H) */
 

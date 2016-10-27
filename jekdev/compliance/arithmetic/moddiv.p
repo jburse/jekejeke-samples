@@ -88,13 +88,13 @@ runner:case(round, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 6') :-
 
 runner:ref(//, -3, arithmetic_moddiv, 'ISO 9.1.7, Corrigendum 1').
 runner:case(//, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 21') :-
-   0 is 7 // 35.
+   0 is 7//35.
 runner:case(//, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 23') :-
-   10 is 140 // (3+11).
+   10 is 140//(3+11).
 runner:case(//, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 3') :-
-   -2 is -5 // 2.
+   -2 is -5//2.
 runner:case(//, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 4') :-
-   catch(_ is 7 // 0, error(E,_), true),
+   catch(_ is 7//0, error(E,_), true),
    E == evaluation_error(zero_divisor).
 
 /* X rem Y */
@@ -103,9 +103,9 @@ runner:ref(rem, -3, arithmetic_moddiv, 'ISO 9.1.7').
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 1') :-
    1 is 7 rem 3.
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 2') :-
-   0 is 0 rem (3+11).
+   0 is 0 rem(3+11).
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 3') :-
-   1 is 7 rem -2.
+   1 is 7 rem-2.
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 4') :-
    -1 is -5 rem 2.
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 5') :-
@@ -121,7 +121,7 @@ runner:ref(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3').
 runner:case(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3, XLOG 1') :-
    0 is 7 div 35.
 runner:case(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3, XLOG 2') :-
-   10 is 140 div (3+11).
+   10 is 140 div(3+11).
 runner:case(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3, XLOG 3') :-
    -3 is -5 div 2.
 runner:case(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3, XLOG 4') :-
@@ -134,9 +134,9 @@ runner:ref(mod, -3, arithmetic_moddiv, 'ISO 9.1.7').
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 30') :-
    1 is 7 mod 3.
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 31') :-
-   0 is 0 mod (3+11).
+   0 is 0 mod(3+11).
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 32') :-
-   -1 is 7 mod -2.
+   -1 is 7 mod-2.
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 33') :-
    catch(_ is 77 mod _, error(E,_), true),
    E == instantiation_error.

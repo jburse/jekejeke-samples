@@ -73,7 +73,7 @@ runner:case(atom_concat, 3, structure_string, 'ISO 8.16.2.4, ISO 2') :-
 runner:case(atom_concat, 3, structure_string, 'ISO 8.16.2.4, ISO 3') :-
    \+ atom_concat(hello, ' world', 'small world').
 runner:case(atom_concat, 3, structure_string, 'ISO 8.16.2.4, ISO 4a') :-
-   atom_concat(T1, T2, hello),
+   atom_concat(T1, T2, hello), !,
    T1 == '',
    T2 == hello.
 runner:case(atom_concat, 3, structure_string, 'ISO 8.16.2.4, ISO 4b') :-
@@ -98,7 +98,7 @@ runner:case(sub_atom, 5, structure_string, 'ISO 8.16.3.4, ISO 3') :-
    L == 5,
    S == acada.
 runner:case(sub_atom, 5, structure_string, 'ISO 8.16.3.4, ISO 4a') :-
-   sub_atom(abracadabra, B, 2, A, ab),
+   sub_atom(abracadabra, B, 2, A, ab), !,
    B == 0,
    A == 9.
 runner:case(sub_atom, 5, structure_string, 'ISO 8.16.3.4, ISO 4b') :-
@@ -109,13 +109,13 @@ runner:case(sub_atom, 5, structure_string, 'ISO 8.16.3.4, ISO 5') :-
    sub_atom('Banana', 3, 2, _, S),
    S == an.
 runner:case(sub_atom, 5, structure_string, 'ISO 8.16.3.4, ISO 6a') :-
-   sub_atom(charity, _, 3, _, S),
+   sub_atom(charity, _, 3, _, S), !,
    S == cha.
 runner:case(sub_atom, 5, structure_string, 'ISO 8.16.3.4, ISO 6b') :-
    findall(S, sub_atom(charity, _, 3, _, S), [_,S|_]),
    S == har.
 runner:case(sub_atom, 5, structure_string, 'ISO 8.16.3.4, ISO 7a') :-
-   sub_atom(ab, Start, Length, _, Sub_atom),
+   sub_atom(ab, Start, Length, _, Sub_atom), !,
    Start == 0,
    Length == 0,
    Sub_atom = ''.
@@ -136,8 +136,8 @@ runner:case(atom_chars, 2, structure_string, 'ISO 8.16.4.4, ISO 2') :-
    atom_chars([], L),
    L == ['[',']'].
 runner:case(atom_chars, 2, structure_string, 'ISO 8.16.4.4, ISO 3') :-
-   atom_chars('\'', L),
-   L == ['\''].
+   atom_chars('''', L),
+   L == [''''].
 runner:case(atom_chars, 2, structure_string, 'ISO 8.16.4.4, ISO 4') :-
    atom_chars(ant, L),
    L == [a,n,t].
@@ -163,7 +163,7 @@ runner:case(atom_codes, 2, structure_string, 'ISO 8.16.5.4, ISO 2') :-
    atom_codes([], L),
    L == "[]".
 runner:case(atom_codes, 2, structure_string, 'ISO 8.16.5.4, ISO 3') :-
-   atom_codes('\'', L),
+   atom_codes('''', L),
    L == "'".
 runner:case(atom_codes, 2, structure_string, 'ISO 8.16.5.4, ISO 4') :-
    atom_codes(ant, L),
@@ -226,7 +226,7 @@ runner:case(number_chars, 2, structure_string, 'ISO 8.16.7.4, ISO 8') :-
    number_chars(A, ['0',x,f]),
    A == 15.
 runner:case(number_chars, 2, structure_string, 'ISO 8.16.7.4, ISO 9') :-
-   number_chars(A, ['0','\'',a]),
+   number_chars(A, ['0','''',a]),
    A == 97.
 runner:case(number_chars, 2, structure_string, 'ISO 8.16.7.4, ISO 10') :-
    number_chars(A, ['4','.','2']),
