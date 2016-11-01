@@ -38,6 +38,9 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
+:- use_module(library(basic/lists)).
+:- ensure_loaded('../harness/data').
+
 /****************************************************************/
 /* Set Predicates                                               */
 /****************************************************************/
@@ -92,10 +95,6 @@ runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 4') :-
    keysort([f(U)-x,V-y,f(V)-z,U-t], L),
    (  L == [U-t,V-y,f(U)-x,f(V)-z]
    ;  L == [V-y,U-t,f(V)-z,f(U)-x]).
-
-a(1, f(_)).
-a(2, f(_)).
-
 runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 5') :-
    findall(X-Y, a(X, Y), L),
    keysort(L, R),
@@ -194,14 +193,6 @@ runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 11') :-
    A \== X,
    A \== Y,
    L == [1,2].
-
-b(1, 1).
-b(1, 1).
-b(1, 2).
-b(2, 1).
-b(2, 2).
-b(2, 2).
-
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 12a') :-
    bagof(X, b(X, Y), L),
    Y == 1,
@@ -342,42 +333,38 @@ runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 13') :-
    A \== Y,
    L == [1,2].
 
-mem(X, [X|_]).
-mem(X, [_|L]) :-
-   mem(X, L).
-
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 14') :-
-   setof(X, mem(X, [f(U,b),f(V,c)]), L),
+   setof(X, member(X, [f(U,b),f(V,c)]), L),
    (  L == [f(U,b),f(V,c)]
    ;  L == [f(V,c),f(U,b)]).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 15a') :-
-   \+ setof(X, mem(X, [f(U,b),f(V,c)]), [f(a,c),f(a,b)])
-;  \+ setof(X, mem(X, [f(U,b),f(V,c)]), [f(a,b),f(a,c)]).
+   \+ setof(X, member(X, [f(U,b),f(V,c)]), [f(a,c),f(a,b)])
+;  \+ setof(X, member(X, [f(U,b),f(V,c)]), [f(a,b),f(a,c)]).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 15b') :-
-   setof(X, mem(X, [f(U,b),f(V,c)]), [f(a,c),f(a,b)]),
+   setof(X, member(X, [f(U,b),f(V,c)]), [f(a,c),f(a,b)]),
    U == a,
    V == a
-;  setof(X, mem(X, [f(U,b),f(V,c)]), [f(a,b),f(a,c)]),
+;  setof(X, member(X, [f(U,b),f(V,c)]), [f(a,b),f(a,c)]),
    U == a,
    V == a.
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 16') :-
-   setof(X, mem(X, [f(b,U),f(c,V)]), [f(b,a),f(c,a)]),
+   setof(X, member(X, [f(b,U),f(c,V)]), [f(b,a),f(c,a)]),
    U == a,
    V == a.
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 17') :-
-   setof(X, mem(X, [V,U,f(U),f(V)]), L),
+   setof(X, member(X, [V,U,f(U),f(V)]), L),
    (  L == [U,V,f(U),f(V)]
    ;  L == [V,U,f(V),f(U)]).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 18') :-
-   setof(X, mem(X, [V,U,f(U),f(V)]), [a,b,f(a),f(b)]),
+   setof(X, member(X, [V,U,f(U),f(V)]), [a,b,f(a),f(b)]),
    (  U == a,
       V == b
    ;  U == b,
       V == a).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 19') :-
-   \+ setof(X, mem(X, [V,U,f(U),f(V)]), [a,b,f(b),f(a)]).
+   \+ setof(X, member(X, [V,U,f(U),f(V)]), [a,b,f(b),f(a)]).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 20') :-
-   setof(X, exists(U,V)^mem(X, [V,U,f(U),f(V)]), [a,b,f(a),f(b)]).
+   setof(X, exists(U,V)^member(X, [V,U,f(U),f(V)]), [a,b,f(a),f(b)]).
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 21a') :-
    setof(X, b(X, Y), L),
    Y == 1,
@@ -392,14 +379,6 @@ runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 22') :-
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 23') :-
    setof(X-Xs, setof(Y, b(X, Y), Xs), L),
    L == [1-[1,2],2-[1,2]].
-
-d(1, 1).
-d(1, 2).
-d(1, 1).
-d(2, 2).
-d(2, 1).
-d(2, 2).
-
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 24') :-
    setof(X-Xs, bagof(Y, d(X, Y), Xs), L),
    L == [1-[1,2,1],2-[2,1,2]].

@@ -33,3 +33,4 @@
 :- ensure_loaded('../stream/open').
 
 :- ensure_loaded('../extra/structure').
+:- ensure_loaded('../extra/regex').
