@@ -52,6 +52,14 @@ runner:case(char_type, 2, extra_regex, 'XLOG 1.2.1, XLOG 4') :-
 runner:case(char_type, 2, extra_regex, 'XLOG 1.2.1, XLOG 5') :-
    char_type('A', N),
    N == upper.
+runner:case(char_type, 2, extra_regex, 'XLOG 1.2.1, XLOG 6') :-
+   catch(char_type(_, _), error(E,_), true),
+   nonvar(E),
+   E = instantiation_error.
+runner:case(char_type, 2, extra_regex, 'XLOG 1.2.1, XLOG 7') :-
+   catch(char_type(77, _), error(E,_), true),
+   nonvar(E),
+   E = type_error(atom,_).
 
 /* code_type(C, N) */
 runner:ref(code_type, 2, extra_regex, 'XLOG 1.2.2').
@@ -70,18 +78,90 @@ runner:case(code_type, 2, extra_regex, 'XLOG 1.2.2, XLOG 4') :-
 runner:case(code_type, 2, extra_regex, 'XLOG 1.2.2, XLOG 5') :-
    code_type(0'=, N),
    N == graph.
+runner:case(code_type, 2, extra_regex, 'XLOG 1.2.2, XLOG 6') :-
+   catch(code_type(_, _), error(E,_), true),
+   nonvar(E),
+   E = instantiation_error.
+runner:case(code_type, 2, extra_regex, 'XLOG 1.2.2, XLOG 7') :-
+   catch(code_type(foo, _), error(E,_), true),
+   nonvar(E),
+   E = type_error(integer,_).
 
 /* code_upper(C, D) */
 runner:ref(code_upper, 2, extra_regex, 'XLOG 1.2.3').
+runner:case(code_upper, 2, extra_regex, 'XLOG 1.2.3, XLOG 1') :-
+   code_upper(0'_, D),
+   D == 0'_.
+runner:case(code_upper, 2, extra_regex, 'XLOG 1.2.3, XLOG 2') :-
+   code_upper(0xFFFE, D),
+   D == 0xFFFE.
+runner:case(code_upper, 2, extra_regex, 'XLOG 1.2.3, XLOG 3') :-
+   code_upper(0'a, D),
+   D == 0'A.
+runner:case(code_upper, 2, extra_regex, 'XLOG 1.2.3, XLOG 4') :-
+   code_upper(0'A, D),
+   D == 0'A.
+runner:case(code_upper, 2, extra_regex, 'XLOG 1.2.3, XLOG 5') :-
+   catch(code_upper(_, _), error(E,_), true),
+   nonvar(E),
+   E = instantiation_error.
 
 /* code_lower(C, D) */
 runner:ref(code_lower, 2, extra_regex, 'XLOG 1.2.4').
+runner:case(code_lower, 2, extra_regex, 'XLOG 1.2.4, XLOG 1') :-
+   code_lower(0'=, D),
+   D == 0'= .
+runner:case(code_lower, 2, extra_regex, 'XLOG 1.2.4, XLOG 2') :-
+   code_lower(0'0, D),
+   D == 0'0.
+runner:case(code_lower, 2, extra_regex, 'XLOG 1.2.4, XLOG 3') :-
+   code_lower(0'a, D),
+   D == 0'a.
+runner:case(code_lower, 2, extra_regex, 'XLOG 1.2.4, XLOG 4') :-
+   code_lower(0'A, D),
+   D == 0'a.
+runner:case(code_lower, 2, extra_regex, 'XLOG 1.2.4, XLOG 5') :-
+   catch(code_lower(foo, _), error(E,_), true),
+   nonvar(E),
+   E = type_error(integer,_).
 
 /* atom_upper(A, B) */
 runner:ref(atom_upper, 2, extra_regex, 'XLOG 1.2.5').
+runner:case(atom_upper, 2, extra_regex, 'XLOG 1.2.5, XLOG 1') :-
+   atom_upper('_A7', D),
+   D == '_A7'.
+runner:case(atom_upper, 2, extra_regex, 'XLOG 1.2.5, XLOG 2') :-
+   atom_upper('\xFFFE\', D),
+   D == '\xFFFE\'.
+runner:case(atom_upper, 2, extra_regex, 'XLOG 1.2.5, XLOG 3') :-
+   atom_upper(abc, D),
+   D == 'ABC'.
+runner:case(atom_upper, 2, extra_regex, 'XLOG 1.2.5, XLOG 4') :-
+   atom_upper('ABC', D),
+   D == 'ABC'.
+runner:case(atom_upper, 2, extra_regex, 'XLOG 1.2.5, XLOG 5') :-
+   catch(atom_upper(_, _), error(E,_), true),
+   nonvar(E),
+   E = instantiation_error.
 
 /* atom_lower(A, B) */
 runner:ref(atom_lower, 2, extra_regex, 'XLOG 1.2.6').
+runner:case(atom_lower, 2, extra_regex, 'XLOG 1.2.6, XLOG 1') :-
+   atom_lower(=<, D),
+   D == =< .
+runner:case(atom_lower, 2, extra_regex, 'XLOG 1.2.6, XLOG 2') :-
+   atom_lower('123', D),
+   D == '123'.
+runner:case(atom_lower, 2, extra_regex, 'XLOG 1.2.6, XLOG 3') :-
+   atom_lower(abc, D),
+   D == abc.
+runner:case(atom_lower, 2, extra_regex, 'XLOG 1.2.6, XLOG 4') :-
+   atom_lower('ABC', D),
+   D == abc.
+runner:case(atom_lower, 2, extra_regex, 'XLOG 1.2.6, XLOG 5') :-
+   catch(atom_lower(77, _), error(E,_), true),
+   nonvar(E),
+   E = type_error(atom,_).
 
 /* pattern_match(S, P) */
 runner:ref(pattern_match, 2, extra_regex, 'XLOG 1.2.7').

@@ -81,6 +81,7 @@ runner:case(sys_distinct, 2, extra_structure, 'XLOG 1.1.1, XLOG 6') :-
    E = type_error(list,_).
 
 /* sys_keygroup(L, R) */
+/* derived from keysort/2 test cases, sys_keygroup/2 preservres input order */
 runner:ref(sys_keygroup, 2, extra_structure, 'XLOG 1.1.2').
 runner:case(sys_keygroup, 2, extra_structure, 'XLOG 1.1.2, XLOG 1') :-
    sys_keygroup([1-x,1.0-y], L),
@@ -113,12 +114,66 @@ runner:case(sys_keygroup, 2, extra_structure, 'XLOG 1.1.2, XLOG 8') :-
 
 /* hash_code(T, H) */
 runner:ref(hash_code, 2, extra_structure, 'XLOG 1.1.3').
+runner:case(hash_code, 2, extra_structure, 'XLOG 1.1.3, XLOG 1') :-
+   hash_code(1, H),
+   H == 1.
+runner:case(hash_code, 2, extra_structure, 'XLOG 1.1.3, XLOG 2') :-
+   hash_code(1.0, H),
+   H == 1072693248.
+runner:case(hash_code, 2, extra_structure, 'XLOG 1.1.3, XLOG 3') :-
+   hash_code(a, H),
+   H == 97.
+runner:case(hash_code, 2, extra_structure, 'XLOG 1.1.3, XLOG 4') :-
+   hash_code(f(a,b), H),
+   H == 101127.
+runner:case(hash_code, 2, extra_structure, 'XLOG 1.1.3, XLOG 5') :-
+   hash_code(_, H),
+   integer(H).
+runner:case(hash_code, 2, extra_structure, 'XLOG 1.1.3, XLOG 6') :-
+   hash_code(f(_,_), H),
+   integer(H).
 
 /* term_hash(T, H) */
 runner:ref(term_hash, 2, extra_structure, 'XLOG 1.1.4').
+runner:case(term_hash, 2, extra_structure, 'XLOG 1.1.4, XLOG 1') :-
+   term_hash(1, H),
+   H == 1.
+runner:case(term_hash, 2, extra_structure, 'XLOG 1.1.4, XLOG 2') :-
+   term_hash(1.0, H),
+   H == 1072693248.
+runner:case(term_hash, 2, extra_structure, 'XLOG 1.1.4, XLOG 3') :-
+   term_hash(a, H),
+   H == 97.
+runner:case(term_hash, 2, extra_structure, 'XLOG 1.1.4, XLOG 4') :-
+   term_hash(f(a,b), H),
+   H == 101127.
+runner:case(term_hash, 2, extra_structure, 'XLOG 1.1.4, XLOG 5') :-
+   term_hash(_, H),
+   var(H).
+runner:case(term_hash, 2, extra_structure, 'XLOG 1.1.4, XLOG 6') :-
+   term_hash(f(_,_), H),
+   var(H).
 
 /* term_hash(T, D, R, H) */
 runner:ref(term_hash, 4, extra_structure, 'XLOG 1.1.5').
+runner:case(term_hash, 4, extra_structure, 'XLOG 1.1.5, XLOG 1') :-
+   term_hash(1, -1, 0, H),
+   H == 1.
+runner:case(term_hash, 4, extra_structure, 'XLOG 1.1.5, XLOG 2') :-
+   term_hash(1.0, -1, 0, H),
+   H == 1072693248.
+runner:case(term_hash, 4, extra_structure, 'XLOG 1.1.5, XLOG 3') :-
+   term_hash(a, -1, 0, H),
+   H == 97.
+runner:case(term_hash, 4, extra_structure, 'XLOG 1.1.5, XLOG 4') :-
+   term_hash(f(a,b), -1, 100, H),
+   H == 27.
+runner:case(term_hash, 4, extra_structure, 'XLOG 1.1.5, XLOG 5') :-
+   term_hash(_, 1, 0, H),
+   var(H).
+runner:case(term_hash, 4, extra_structure, 'XLOG 1.1.5, XLOG 6') :-
+   term_hash(f(_,_), 1, 0, H),
+   H == 102.
 
 /****************************************************************/
 /* string.p extras                                              */
