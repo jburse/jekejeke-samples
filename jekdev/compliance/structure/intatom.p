@@ -195,3 +195,32 @@ runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 4') :-
    \+ ground(_).
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 5') :-
    ground([]).
+
+/* acyclic_term(X) */
+
+runner:ref(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4').
+runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, ISO 1') :-
+   acyclic_term(a(_,1)).
+runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, ISO 2') :-
+   X = f(X),
+   \+ acyclic_term(X).
+runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 1') :-
+   X = f(X),
+   Y = g(X),
+   \+ acyclic_term(Y).
+runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 2') :-
+   X = f(Y),
+   Y = g(X),
+   Z = h(X),
+   \+ acyclic_term(Z).
+runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 3') :-
+   X = [a,b,c|Y],
+   Y = [d,e,f|Z],
+   Z = [g,h,i],
+   acyclic_term(X).
+runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 4') :-
+   X = [a,b,c|Y],
+   Y = [d,e,f|Z],
+   Z = [g,h,i|X],
+   \+ acyclic_term(X).
+

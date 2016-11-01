@@ -3,6 +3,8 @@
  *
  * Source of test cases is the following standard:
  *   - Prolog General Core ISO/IUEC 13211-1
+ *   - Draft Technical Corrigendum 2, WG17, Ulrich Neumerkel
+ *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2">www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2</a>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -49,7 +51,7 @@
 runner:ref(clause, 2, consult_data, 'ISO 8.8.1.4').
 
 :- dynamic cat/0.
-:- assertz(cat).
+cat.
 
 runner:case(clause, 2, consult_data, 'ISO 8.8.1.4, ISO 1') :-
    clause(cat, true).
@@ -134,19 +136,22 @@ runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 7') :- setup_legs,
 runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 8') :-
    \+ retract((legs(_, _) :- _)), setup_olegs.
 runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 9') :-
-   with_output_to(atom(X), (  retract(insect(I)),
-                              write(I),
-                              retract(insect(bee)))), !,
+   with_output_to(atom(X),
+      (  retract(insect(I)),
+         write(I),
+         retract(insect(bee)))), !,
    X == ant, setup_insect.
 runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 10') :-
-   findall(X, with_output_to(atom(X), (  retract(insect(I)),
-                                         write(I),
-                                         retract(insect(bee)); true)), [_,X|_]),
+   findall(X, with_output_to(atom(X),
+                 (  retract(insect(I)),
+                    write(I),
+                    retract(insect(bee)); true)), [_,X|_]),
    X == bee, setup_insect.
 runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 11') :-
-   findall(X, with_output_to(atom(X), (  retract(insect(I)),
-                                         write(I),
-                                         retract(insect(bee)); true)), [_,_]), setup_insect.
+   findall(X, with_output_to(atom(X),
+                 (  retract(insect(I)),
+                    write(I),
+                    retract(insect(bee)); true)), [_,_]), setup_insect.
 % retract((foo(A) :- A, call(A)))
 runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 12') :-
    assertz((foo(X) :- X
@@ -171,10 +176,10 @@ runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 15') :-
 runner:ref(asserta, 1, consult_data, 'ISO 8.9.1.4').
 
 :- dynamic legs/2.
-:- assertz((legs(A, 6) :-
-              insect(A))).
-:- assertz((legs(A, 7) :- A,
-              call(A))).
+legs(A, 6) :-
+   insect(A).
+legs(A, 7) :- A,
+   call(A).
 
 runner:case(asserta, 1, consult_data, 'ISO 8.9.1.4, ISO 1') :-
    asserta(legs(octopus, 8)),
@@ -273,3 +278,29 @@ runner:case(abolish, 1, consult_data, 'ISO 8.9.4.4, ISO 5') :-
    catch(abolish(abolish/1), error(E,_), true),
    nonvar(E),
    E = permission_error(_,_,abolish/1).
+
+/* retractall(H) */
+
+setup_bee :-
+   assertz(insect(bee)).
+
+runner:ref(retractall, 1, consult_data, 'Corr.2 8.9.5.4').
+runner:case(retractall, 1, consult_data, 'Corr.2 8.9.5.4, ISO 1') :-
+   retractall(insect(bee)),
+   \+ insect(bee), setup_bee.
+runner:case(retractall, 1, consult_data, 'Corr.2 8.9.5.4, ISO 2') :-
+   retractall(insect(_)),
+   \+ insect(_), setup_insect.
+runner:case(retractall, 1, consult_data, 'Corr.2 8.9.5.4, ISO 3') :-
+   retractall(insect(spider)),
+   insect(_).
+runner:case(retractall, 1, consult_data, 'Corr.2 8.9.5.4, ISO 4') :-
+   retractall(mammal(_)).
+runner:case(retractall, 1, consult_data, 'Corr.2 8.9.5.4, ISO 5') :-
+   catch(retractall(3), error(E,_), true),
+   nonvar(E),
+   E = type_error(callable,_).
+runner:case(retractall, 1, consult_data, 'Corr.2 8.9.5.4, ISO 6') :-
+   catch(retractall(retractall(_)), error(E,_), true),
+   nonvar(E),
+   E = permission_error(modify,_,_).
