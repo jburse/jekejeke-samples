@@ -165,9 +165,108 @@ runner:case(atom_lower, 2, extra_regex, 'XLOG 1.2.6, XLOG 5') :-
 
 /* pattern_match(S, P) */
 runner:ref(pattern_match, 2, extra_regex, 'XLOG 1.2.7').
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 1') :-
+   \+ pattern_match(foobarbaz, bar).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 2') :-
+   \+ pattern_match(foobarbaz, 'bar*').
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 3') :-
+   pattern_match(foobarbaz, '*bar*').
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 4') :-
+   \+ pattern_match(foobarbaz, baz).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 5') :-
+   \+ pattern_match(foobarbaz, 'baz*').
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 6') :-
+   pattern_match(foobarbaz, '*baz*').
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 7') :-
+   \+ pattern_match(foobarbaz, foo).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 8') :-
+   pattern_match(foobarbaz, 'foo*').
+
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 9') :-
+   \+ pattern_match('FOOBARBAZ', '*bar', [ignore_case(true)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 10') :-
+   pattern_match(foobarbaz, '*BAZ', [ignore_case(true)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 11') :-
+   \+ pattern_match('FOOBARBAZ', '*foo', [ignore_case(true)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 12') :-
+   pattern_match(foobarbaz, '*FOO*', [ignore_case(true)]).
+
 
 /* pattern_replace(S, P, R, T) */
 runner:ref(pattern_replace, 4, extra_regex, 'XLOG 1.2.8').
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 1') :-
+   \+ pattern_replace(foobarbaz, '*bar', '*tok', _).
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 2') :-
+   \+ pattern_replace(foobarbaz, 'bar*', 'tok*', _).
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 3') :-
+   pattern_replace(foobarbaz, '*bar*', '*tok*', X),
+   X == footokbaz.
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 4') :-
+   \+ pattern_replace(foobarbaz, baz, tok, _).
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 5') :-
+   pattern_replace(foobarbaz, '*baz', '*tok', X),
+   X == foobartok.
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 6') :-
+   pattern_replace(foobarbaz, '*baz*', '*tok*', X),
+   X == foobartok.
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 7') :-
+   \+ pattern_replace(foobarbaz, '*foo', '*tok', _).
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 8') :-
+   pattern_replace(foobarbaz, '*foo*', '*tok*', X),
+   X == tokbarbaz.
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 9') :-
+   pattern_replace(foobarfoobar, '*foo*', '*tok*', X),
+   X == tokbarfoobar.
+
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 10') :-
+   \+ pattern_replace(foobarbaz, 'BAR', tok, _, [ignore_case(true)]).
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 11') :-
+   \+ pattern_replace('FOOBARBAZ', 'baz*', 'tok*', _, [ignore_case(true)]).
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 12') :-
+   \+ pattern_replace(foobarbaz, 'FOO', tok, _, [ignore_case(true)]).
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 13') :-
+   pattern_replace('FOOBARBAZ', 'foo*', 'tok*', X, [ignore_case(true)]),
+   X == 'TOKBARBAZ'.
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 14') :-
+   pattern_replace(foobarfoobar, '*BAR*', '*TOK*', X, [ignore_case(true)]),
+   X == footokfoobar.
+
 
 /* last_pattern_replace(S, P, R, T) */
 runner:ref(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9').
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 1') :-
+   \+ last_pattern_replace(foobarbaz, bar, tok, _).
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 2') :-
+   \+ last_pattern_replace(foobarbaz, '*bar', '*tok', _).
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 3') :-
+   last_pattern_replace(foobarbaz, '*bar*', '*tok*', X),
+   X == footokbaz.
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 4') :-
+   last_pattern_replace(foobarbaz, '*baz', '*tok', X),
+   X == foobartok.
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 5') :-
+   \+ last_pattern_replace(foobarbaz, foo, tok, _).
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 6') :-
+   \+ last_pattern_replace(foobarbaz, '*foo', '*tok', _).
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 7') :-
+   last_pattern_replace(foobarbaz, 'foo*', 'tok*', X),
+   X == tokbarbaz.
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 8') :-
+   last_pattern_replace(foobarbaz, '*foo*', '*tok*', X),
+   X == tokbarbaz.
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 9') :-
+   last_pattern_replace(foobarfoobar, '*bar*', '*tok*', X),
+   X == foobarfootok.
+
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 10') :-
+   \+ last_pattern_replace(foobarbaz, 'BAR*', 'tok*', _, [ignore_case(true)]).
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 11') :-
+   \+ last_pattern_replace('FOOBARBAZ', baz, tok, _, [ignore_case(true)]).
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 12') :-
+   \+ last_pattern_replace(foobarbaz, 'BAZ*', 'tok*', _, [ignore_case(true)]).
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 13') :-
+   last_pattern_replace(foobarbaz, '*BAZ*', '*TOK*', X, [ignore_case(true)]),
+   X == foobartok.
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 14') :-
+   last_pattern_replace('FOOBARFOOBAR', '*foo*', '*tok*', X, [ignore_case(true)]),
+   X == 'FOOBARTOKBAR'.
