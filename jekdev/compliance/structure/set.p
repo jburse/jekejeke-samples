@@ -111,6 +111,12 @@ runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 8') :-
    catch(keysort([77], _), error(E,_), true),
    nonvar(E),
    E = type_error(pair,77).
+runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 9') :-
+   keysort([a-1,'A'-2,a-3,'B'-4,b-5,'B'-6], L),
+   L == ['A'-2,'B'-4,'B'-6,a-1,a-3,b-5].
+runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 10') :-
+   keysort([ü-1,u-2,ü-3,œ-4,o-5,o-6], L),
+   L == [o-5,o-6,u-2,ü-1,ü-3,œ-4].
 
 /* bagof(T, A1^...^An^G, L) */
 
@@ -240,6 +246,12 @@ runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 6') :-
    catch(sort([77|35], _), error(E,_), true),
    nonvar(E),
    E = type_error(list,_).
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 7') :-
+   sort([a,'A',b,'B'], L),
+   L == ['A','B',a,b].
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 8') :-
+   sort([ü,u,œ,o], L),
+   L == [o,u,ü,œ].
 
 /* setof(T, A1^...^An^G, L) */
 

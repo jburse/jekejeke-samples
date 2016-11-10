@@ -115,5 +115,7 @@ runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 5') :-
    compare(>, foo(a,b), north(a)).
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 6') :-
    compare(<, foo(a,_), foo(b,_)).
-
-
+runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 7') :-
+   compare(>, a, 'A').
+runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 8') :-
+   compare(>, œ, ü).
