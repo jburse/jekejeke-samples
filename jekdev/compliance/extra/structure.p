@@ -304,7 +304,7 @@ runner:case(locale_keysort, 2, extra_structure, 'XLOG 1.3.7, XLOG 10') :-
 /* sub_atom(X, Y, Z, U) */
 
 /* last_atom_concat(X, Y, Z) */
-
+/* derived from atom_concat/3 test cases. */
 runner:ref(last_atom_concat, 3, extra_structure, 'XLOG 1.4.1').
 runner:case(last_atom_concat, 3, extra_structure, 'XLOG 1.4.1, XLOG 1') :-
    last_atom_concat(hello, ' world', S),
@@ -329,7 +329,7 @@ runner:case(last_atom_concat, 3, extra_structure, 'XLOG 1.4.1, XLOG 5') :-
 /* last_sub_atom(X, Y, Z, U) */
 
 /* last_sub_atom(X, Y, Z, T, U) */
-
+/* derived from last_sub_atom/5 test cases. */
 runner:ref(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2').
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 1') :-
    last_sub_atom(abracadabra, 0, 5, _, S),
@@ -375,3 +375,38 @@ runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 7b') :-
 /****************************************************************/
 
 /* set_arg(K, X, Y, Z) */
+/* derived from arg/3 test cases. */
+runner:ref(set_arg, 4, extra_structure, 'XLOG 1.5.1').
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 1') :-
+   set_arg(1, foo(a,b), c, foo(c,b)).
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 2') :-
+   set_arg(1, foo(a,b), c, X),
+   X == foo(c,b).
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 3') :-
+   set_arg(1, foo(a,b), c, foo(X,b)),
+   X == c.
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 4') :-
+   set_arg(1, foo(_,b), Y, Z),
+   Z == foo(Y,b).
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 5') :-
+   \+ set_arg(1, foo(a,b), c, f(b,_)).
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 6') :-
+   \+ set_arg(0, foo(a,b), baz, _).
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 7') :-
+   \+ set_arg(3, foo(3,4), _, _).
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 8') :-
+   catch(set_arg(_, foo(a,b), c, _), error(E,_), true),
+   nonvar(E),
+   E = instantiation_error.
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 9') :-
+   catch(set_arg(1, _, c, _), error(E,_), true),
+   nonvar(E),
+   E = instantiation_error.
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 10') :-
+   catch(set_arg(0, atom, c, _), error(E,_), true),
+   nonvar(E),
+   E = type_error(compound,atom).
+runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 11') :-
+   catch(set_arg(0, 3, c, _), error(E,_), true),
+   nonvar(E),
+   E = type_error(_,3).
