@@ -43,7 +43,6 @@
 /****************************************************************/
 
 /* var(X) */
-
 runner:ref(var, 1, structure_intatom, 'ISO 8.3.1.4').
 runner:case(var, 1, structure_intatom, 'ISO 8.3.1.4, ISO 1') :-
    \+ var(foo).
@@ -54,7 +53,6 @@ runner:case(var, 1, structure_intatom, 'ISO 8.3.1.4, ISO 4') :-
    var(_).
 
 /* nonvar(X) */
-
 runner:ref(nonvar, 1, structure_intatom, 'ISO 8.3.7.4').
 % runner:case(nonvar, 1, structure_intatom, _) :- nonvar(3).
 runner:case(nonvar, 1, structure_intatom, 'ISO 8.3.7.4, ISO 1') :-
@@ -70,7 +68,6 @@ runner:case(nonvar, 1, structure_intatom, 'ISO 8.3.7.4, ISO 6') :-
    nonvar(a(b)).
 
 /* atom(X) */
-
 runner:ref(atom, 1, structure_intatom, 'ISO 8.3.2.4').
 runner:case(atom, 1, structure_intatom, 'ISO 8.3.2.4, ISO 1') :-
    atom(atom).
@@ -88,7 +85,6 @@ runner:case(atom, 1, structure_intatom, 'ISO 8.3.2.4, ISO 7') :-
    \+ atom(3.3).
 
 /* integer(X) */
-
 runner:ref(integer, 1, structure_intatom, 'ISO 8.3.3.4').
 runner:case(integer, 1, structure_intatom, 'ISO 8.3.3.4, ISO 1') :-
    integer(3).
@@ -102,7 +98,6 @@ runner:case(integer, 1, structure_intatom, 'ISO 8.3.3.4, ISO 5') :-
    \+ integer(atom).
 
 /* atomic(X) */
-
 runner:ref(atomic, 1, structure_intatom, 'ISO 8.3.5.4').
 runner:case(atomic, 1, structure_intatom, 'ISO 8.3.5.4, ISO 1') :-
    atomic(atom).
@@ -116,7 +111,6 @@ runner:case(atomic, 1, structure_intatom, 'ISO 8.3.5.4, ISO 5') :-
    atomic(3.3).
 
 /* float(X) */
-
 runner:ref(float, 1, structure_intatom, 'ISO 8.3.4.4').
 runner:case(float, 1, structure_intatom, 'ISO 8.3.4.4, ISO 1') :-
    float(3.3).
@@ -130,7 +124,6 @@ runner:case(float, 1, structure_intatom, 'ISO 8.3.4.4, ISO 5') :-
    \+ float(_).
 
 /* compound(X) */
-
 runner:ref(compound, 1, structure_intatom, 'ISO 8.3.6.4').
 runner:case(compound, 1, structure_intatom, 'ISO 8.3.6.4, ISO 1') :-
    \+ compound(33.3).
@@ -150,7 +143,6 @@ runner:case(compound, 1, structure_intatom, 'ISO 8.3.6.4, ISO 8') :-
    compound([b]).
 
 /* number(X) */
-
 runner:ref(number, 1, structure_intatom, 'ISO 8.3.8.4').
 runner:case(number, 1, structure_intatom, 'ISO 8.3.8.4, ISO 1') :-
    number(3).
@@ -164,7 +156,6 @@ runner:case(number, 1, structure_intatom, 'ISO 8.3.8.4, ISO 5') :-
    \+ number(_).
 
 /* callable(X) */
-
 runner:ref(callable, 1, structure_intatom, 'Corr.2 8.3.9.4').
 runner:case(callable, 1, structure_intatom, 'Corr.2 8.3.9.4, ISO 1') :-
    callable(a).
@@ -178,7 +169,6 @@ runner:case(callable, 1, structure_intatom, 'Corr.2 8.3.9.4, XLOG 1') :-
    callable(string).
 
 /* ground(X) */
-
 runner:ref(ground, 1, structure_intatom, 'Corr.2 8.3.10.4').
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, ISO 1') :-
    ground(3).
@@ -197,7 +187,6 @@ runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 5') :-
    ground([]).
 
 /* acyclic_term(X) */
-
 runner:ref(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4').
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, ISO 1') :-
    acyclic_term(a(_,1)).
