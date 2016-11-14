@@ -35,6 +35,8 @@ The following samples have already been uploaded:
 The following samples have already been uploaded:
 - [jekmin/reference](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/reference):
   Tutorial for the Language Reference.
+- [jekmin/compliance](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/compliance):
+  CLP(FD) Test Cases.
 
 # Issues and Contributing
 
@@ -43,5 +45,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 21.08.2016 (Updated 01.09.2016)
+Jan Burse, 21.08.2016 (Updated 14.11.2016)
 
