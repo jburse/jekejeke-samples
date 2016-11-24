@@ -233,44 +233,63 @@ runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 13') :-
    \+ pattern_match('FOOBARBAZ', '*foo', [ignore_case(true)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 14') :-
    pattern_match(foobarbaz, '*FOO*', [ignore_case(true)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 15') :-
+   pattern_match('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '*𐐫𐐬𐐭*', [ignore_case(true)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 16') :-
+   \+ pattern_match('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐮𐐯𐐰*', [ignore_case(true)]).
 
 /* setting boundary=part */
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 15') :-
-   \+ pattern_match(foobarbaz, tak, [boundary(part)]).
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 16') :-
-   pattern_match(foobarbaz, bar, [boundary(part)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 17') :-
-   pattern_match(foobarbaz, foo, [boundary(part)]).
+   \+ pattern_match(foobarbaz, tak, [boundary(part)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 18') :-
+   pattern_match(foobarbaz, bar, [boundary(part)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 19') :-
+   pattern_match(foobarbaz, foo, [boundary(part)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 20') :-
    pattern_match(foobarbaz, baz, [boundary(part)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 21') :-
+   pattern_match('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐃𐐄𐐅', [boundary(part)]).
 
 /* setting boundary=word */
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 19') :-
-   \+ pattern_match('foo bar baz', tak, [boundary(word)]).
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 20') :-
-   pattern_match('foo bar baz', bar, [boundary(word)]).
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 21') :-
-   \+ pattern_match('foo barbaz', bar, [boundary(word)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 22') :-
-   pattern_match('foo bar baz', foo, [boundary(word)]).
+   \+ pattern_match('foo bar baz', tak, [boundary(word)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 23') :-
-   \+ pattern_match('foobar baz', foo, [boundary(word)]).
+   pattern_match('foo bar baz', bar, [boundary(word)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 24') :-
-   pattern_match('foo bar baz', baz, [boundary(word)]).
+   \+ pattern_match('foo barbaz', bar, [boundary(word)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 25') :-
+   pattern_match('foo bar baz', foo, [boundary(word)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 26') :-
+   \+ pattern_match('foobar baz', foo, [boundary(word)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 27') :-
+   pattern_match('foo bar baz', baz, [boundary(word)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 28') :-
    \+ pattern_match('foo barbaz', baz, [boundary(word)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 29') :-
+   pattern_match('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', '𐐃𐐄𐐅', [boundary(word)]).
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 30') :-
+   \+ pattern_match('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐃𐐄𐐅', [boundary(word)]).
 
 /* setting boundary=part, ignore_case=true */
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 26') :-
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 31') :-
    pattern_match(foobarbaz, 'BAR', [boundary(part),ignore_case(true)]).
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 27') :-
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 32') :-
    \+ pattern_match(foobarbaz, 'FOOBAZ', [boundary(part),ignore_case(true)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 33') :-
+   pattern_match('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, [boundary(part),ignore_case(true)]).
 
 /* setting boundary=word, ignore_case=true */
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 28') :-
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 34') :-
    pattern_match('foo bar baz', bar, [boundary(word),ignore_case(true)]).
-runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 29') :-
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 35') :-
    \+ pattern_match('foo bar baz', 'FOO BAZ', [boundary(word),ignore_case(true)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_match, 2, extra_regex, 'XLOG 1.2.7, XLOG 36') :-
+   pattern_match('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, [boundary(word),ignore_case(true)]).
 
 /* pattern_replace(S, P, R, T) */
 /* default settings */
@@ -318,52 +337,76 @@ runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 15') :-
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 16') :-
    pattern_replace(foobarfoobar, '*BAR*', '*TOK*', X, [ignore_case(true)]),
    X == footokfoobar.
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 17') :-
+   pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '*𐐫𐐬𐐭*', '*𐐎𐐏𐐐*', X, [ignore_case(true)]),
+   X == '𐐀𐐁𐐂𐐶𐐷𐐸𐐆𐐇𐐈'.
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 18') :-
+   \+ pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐮𐐯𐐰*', '𐐎𐐏𐐐*', _, [ignore_case(true)]).
 
 /* setting boundary=part */
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 17') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 19') :-
    \+ pattern_replace(foobarbaz, tak, tok, _, [boundary(part)]).
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 18') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 20') :-
    pattern_replace(foobarbaz, bar, tok, X, [boundary(part)]),
    X == footokbaz.
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 19') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 21') :-
    pattern_replace(foobarbaz, foo, tok, X, [boundary(part)]),
    X == tokbarbaz.
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 20') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 22') :-
    pattern_replace(foobarbaz, baz, tok, X, [boundary(part)]),
    X == foobartok.
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 23') :-
+   pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐃𐐄𐐅', '𐐎𐐏𐐐', X, [boundary(part)]),
+   X == '𐐀𐐁𐐂𐐎𐐏𐐐𐐆𐐇𐐈'.
 
 /* setting boundary=word */
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 21') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 24') :-
    \+ pattern_replace('foo bar baz', tak, tok, _, [boundary(word)]).
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 22') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 25') :-
    pattern_replace('foo bar baz', bar, tok, X, [boundary(word)]),
    X == 'foo tok baz'.
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 23') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 26') :-
    \+ pattern_replace('foo barbaz', bar, tok, _, [boundary(word)]).
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 24') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 27') :-
    pattern_replace('foo bar baz', foo, tok, X, [boundary(word)]),
    X == 'tok bar baz'.
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 25') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 28') :-
    \+ pattern_replace('foobar baz', foo, tok, _, [boundary(word)]).
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 26') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 29') :-
    pattern_replace('foo bar baz', baz, tok, X, [boundary(word)]),
    X == 'foo bar tok'.
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 27') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 30') :-
    \+ pattern_replace('foo barbaz', baz, tok, _, [boundary(word)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 31') :-
+   pattern_replace('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', '𐐃𐐄𐐅', '𐐎𐐏𐐐', X, [boundary(word)]),
+   X == '𐐀𐐁𐐂 𐐎𐐏𐐐 𐐆𐐇𐐈'.
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 32') :-
+   \+ pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐃𐐄𐐅', '𐐎𐐏𐐐', _, [boundary(word)]).
 
 /* setting boundary=part, ignore_case=true */
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 28') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 33') :-
    pattern_replace(foobarbaz, 'BAR', tok, X, [boundary(part),ignore_case(true)]),
    X == fooTOKbaz.
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 29') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 34') :-
    \+ pattern_replace(foobarbaz, 'FOOBAZ', tok, _, [boundary(part),ignore_case(true)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 35') :-
+   pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(part),ignore_case(true)]),
+   X == '𐐀𐐁𐐂𐐶𐐷𐐸𐐆𐐇𐐈'.
 
 /* setting boundary=word, ignore_case=true */
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 30') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 36') :-
    pattern_replace('foo bar baz', bar, 'TOK', X, [boundary(word),ignore_case(true)]),
    X == 'foo TOK baz'.
-runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 31') :-
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 37') :-
    \+ pattern_replace('foo bar baz', 'FOO BAZ', tok, _, [boundary(word),ignore_case(true)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(pattern_replace, 4, extra_regex, 'XLOG 1.2.8, XLOG 38') :-
+   pattern_replace('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(word),ignore_case(true)]),
+   X == '𐐀𐐁𐐂 𐐶𐐷𐐸 𐐆𐐇𐐈'.
 
 /* last_pattern_replace(S, P, R, T) */
 /* default settings */
@@ -411,49 +454,73 @@ runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 15') :-
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 16') :-
    last_pattern_replace('FOOBARFOOBAR', '*foo*', '*tok*', X, [ignore_case(true)]),
    X == 'FOOBARTOKBAR'.
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 17') :-
+   last_pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '*𐐫𐐬𐐭*', '*𐐎𐐏𐐐*', X, [ignore_case(true)]),
+   X == '𐐀𐐁𐐂𐐶𐐷𐐸𐐆𐐇𐐈'.
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 18') :-
+   \+ last_pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐮𐐯𐐰*', '𐐎𐐏𐐐*', _, [ignore_case(true)]).
 
 /* setting boundary=part */
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 17') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 19') :-
    \+ last_pattern_replace(foobarbaz, tak, tok, _, [boundary(part)]).
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 18') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 20') :-
    last_pattern_replace(foobarbaz, bar, tok, X, [boundary(part)]),
    X == footokbaz.
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 19') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 21') :-
    last_pattern_replace(foobarbaz, foo, tok, X, [boundary(part)]),
    X == tokbarbaz.
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 20') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 22') :-
    last_pattern_replace(foobarbaz, baz, tok, X, [boundary(part)]),
    X == foobartok.
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 23') :-
+   last_pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐃𐐄𐐅', '𐐎𐐏𐐐', X, [boundary(part)]),
+   X == '𐐀𐐁𐐂𐐎𐐏𐐐𐐆𐐇𐐈'.
 
 /* setting boundary=word */
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 21') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 24') :-
    \+ last_pattern_replace('foo bar baz', tak, tok, _, [boundary(word)]).
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 22') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 25') :-
    last_pattern_replace('foo bar baz', bar, tok, X, [boundary(word)]),
    X == 'foo tok baz'.
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 23') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 26') :-
    \+ last_pattern_replace('foo barbaz', bar, tok, _, [boundary(word)]).
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 24') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 27') :-
    last_pattern_replace('foo bar baz', foo, tok, X, [boundary(word)]),
    X == 'tok bar baz'.
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 25') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 28') :-
    \+ last_pattern_replace('foobar baz', foo, tok, _, [boundary(word)]).
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 26') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 29') :-
    last_pattern_replace('foo bar baz', baz, tok, X, [boundary(word)]),
    X == 'foo bar tok'.
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 27') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 30') :-
    \+ last_pattern_replace('foo barbaz', baz, tok, _, [boundary(word)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 31') :-
+   last_pattern_replace('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', '𐐃𐐄𐐅', '𐐎𐐏𐐐', X, [boundary(word)]),
+   X == '𐐀𐐁𐐂 𐐎𐐏𐐐 𐐆𐐇𐐈'.
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 32') :-
+   \+ last_pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', '𐐃𐐄𐐅', '𐐎𐐏𐐐', _, [boundary(word)]).
 
 /* setting boundary=part, ignore_case=true */
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 28') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 33') :-
    last_pattern_replace(foobarbaz, 'BAR', tok, X, [boundary(part),ignore_case(true)]),
    X == fooTOKbaz.
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 29') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 34') :-
    \+ last_pattern_replace(foobarbaz, 'FOOBAZ', tok, _, [boundary(part),ignore_case(true)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 35') :-
+   last_pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(part),ignore_case(true)]),
+   X == '𐐀𐐁𐐂𐐶𐐷𐐸𐐆𐐇𐐈'.
 
 /* setting boundary=word, ignore_case=true */
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 30') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 36') :-
    last_pattern_replace('foo bar baz', bar, 'TOK', X, [boundary(word),ignore_case(true)]),
    X == 'foo TOK baz'.
-runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 31') :-
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 37') :-
    \+ last_pattern_replace('foo bar baz', 'FOO BAZ', tok, _, [boundary(word),ignore_case(true)]).
+/* unicode >0xFFFF, deseret alphabet */
+runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 1.2.9, XLOG 38') :-
+   last_pattern_replace('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(word),ignore_case(true)]),
+   X == '𐐀𐐁𐐂 𐐶𐐷𐐸 𐐆𐐇𐐈'.
