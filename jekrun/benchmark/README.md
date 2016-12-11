@@ -35,9 +35,9 @@ To see some results on our machines look at this directory:
 - [galery](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark/galery):
   Results Gallery
 
-Our machines so far include a Lenovo Ideapad 700 (4 Cores/8
-Hyperthreads) and a Sony Experia Tablet (4 Cores). On the Android
-device we tested only Jekejeke Prolog.
+We compare our Prolog system with some other Prolog systems on
+some hardware platforms. The hardware platforms include the PC
+platform and the Android platform.
 
 # Issues and Contributing
 
@@ -46,4 +46,4 @@ is no warranty for the samples. You might try a pull
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 21.08.2016 (Updated 24.08.2016)
+Jan Burse, 21.08.2016 (Updated 11.12.2016)
