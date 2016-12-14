@@ -329,3 +329,32 @@ runner:case('sys_mulv sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.11, XLOG 3'
 runner:case('sys_mulv sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.11, XLOG 4') :-
    \+ (  X*Y #= 2,
          X*Y #= 3).
+
+% Array subscripts
+% Not implemented by SWI-Prolog
+runner:ref(array_subscripts, 6, finite_linear, 'CLP(FD) 0.8.8, 1.12').
+runner:case(array_subscripts, 6, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 1') :-
+   X = #(1,2,3),
+   Y #= X[1]+X[2]+X[3],
+   Y == 6.
+runner:case(array_subscripts, 6, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 2') :-
+   X = #(#(1,2,3),#(4,5,6),#(7,8,9)),
+   X[1,3]+X[2,3]+X[3,3] #= Y,
+   Y == 18.
+runner:case(array_subscripts, 6, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 3') :-
+   X = #(#(#(_,A,_))),
+   Y #= X[1,1,2],
+   Y == A.
+runner:case(array_subscripts, 6, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 4') :-
+   X = #(#(#(#(_,_,_),#(_,_,A),#(_,_,_)))),
+   X[1,1,2,3] #= Y,
+   Y == A.
+runner:case(array_subscripts, 6, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 5') :-
+   X = #(#(#(#(#(A,_,B))))),
+   call_residue(Y #= X[1,1,1,1,1]+X[1,1,1,1,3], L),
+   L == [Y#=A+B].
+runner:case(array_subscripts, 6, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 6') :-
+   X = #(#(#(#(#(#(_,_,A),#(_,_,_),#(_,_,B)))))),
+   call_residue(X[1,1,1,1,1,3]+X[1,1,1,1,3,3] #= Y, L),
+   L == [B#=Y-A].
+
