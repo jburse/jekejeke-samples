@@ -35,7 +35,7 @@
 
 :- use_module(library(misc/residue)).
 :- use_module(library(finite/clpfd)).
-% :- ensure_loaded('file:/C:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
+% :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
 
 % sys_abs_lin(+Prod, +Integer, -Prod, -Integer, +Wrap)
 runner:ref(sys_abs_lin, 5, finite_special, 'CLP(FD) 0.8.3, 3.1').

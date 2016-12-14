@@ -35,7 +35,7 @@
 
 :- use_module(library(misc/residue)).
 :- use_module(library(finite/clpfd)).
-% :- ensure_loaded('file:/C:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
+% :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
 
 % sys_reify_in(+Expr, +Set, +Var)
 runner:ref(sys_reify_in, 3, finite_guard, 'CLP(FD) 0.8.3, 5.1').

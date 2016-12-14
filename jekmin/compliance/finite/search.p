@@ -34,7 +34,7 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(finite/clpfd)).
-% :- ensure_loaded('file:/C:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
+% :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
 
 % indomain/1 finite
 runner:ref('indomain finite', 1, finite_search, 'CLP(FD) 0.8.4, 6.1').

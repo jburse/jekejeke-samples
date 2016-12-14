@@ -36,7 +36,7 @@
 :- use_module(library(misc/residue)).
 :- use_module(library(advanced/sets)).
 :- use_module(library(finite/clpfd)).
-% :- ensure_loaded('file:/C:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
+% :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
 
 % sys_expr_range(+Integer, +Integer, -Set)
 runner:ref(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1').

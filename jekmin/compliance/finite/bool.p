@@ -35,7 +35,7 @@
 
 :- use_module(library(misc/residue)).
 :- use_module(library(finite/clpfd)).
-% :- ensure_loaded('file:/C:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
+% :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
 
 % sys_bool(+Expr, +Expr, +Var)
 runner:ref(sys_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.1').

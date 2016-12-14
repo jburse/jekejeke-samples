@@ -9,7 +9,7 @@
 
 :- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
 
-% :- sys_add_path('file:/C:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
+% :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
 
 :- ensure_loaded(suite).
 :- use_module(library(testing/runner)).
