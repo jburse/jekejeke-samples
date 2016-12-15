@@ -365,11 +365,11 @@ runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 7') :-
 runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 8') :-
    catch((  X = #(1,2,3),
             _ #= X[0]), error(E,_), true),
-   E == evaluation_error(partial_function).
+   E == evaluation_error(array_index).
 runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 9') :-
    catch((  X = #(#(1,2,3),#(4,5,6),#(7,8,9)),
             _ #= X[1,4]), error(E,_), true),
-   E == evaluation_error(partial_function).
+   E == evaluation_error(array_index).
 
 /* left hand side */
 runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 10') :-
@@ -403,8 +403,8 @@ runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 16') :-
 runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 17') :-
    catch((  X = #(1,2,3),
             X[0] #= _), error(E,_), true),
-   E == evaluation_error(partial_function).
+   E == evaluation_error(array_index).
 runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 18') :-
    catch((  X = #(#(1,2,3),#(4,5,6),#(7,8,9)),
             X[1,4] #= _), error(E,_), true),
-   E == evaluation_error(partial_function).
+   E == evaluation_error(array_index).
