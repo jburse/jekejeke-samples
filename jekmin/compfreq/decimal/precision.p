@@ -33,6 +33,38 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-% foobar2/0
-runner:ref(foobar1, 0, decimal_precision, 'decimal 0.9.1, 1.1').
-runner:case(foobar1, 0, decimal_precision, 'decimal 0.9.1, 1.1, XLOG 1') :- true.
+:- use_module(library(decimal/helper)).
+:- use_module(library(decimal/scale)).
+
+% dec_log10/2
+runner:ref(dec_log10, 2, decimal_precision, 'decimal 0.9.1, 1.1').
+runner:case(dec_log10, 2, decimal_precision, 'decimal 0.9.1, 1.1, XLOG 1') :-
+   dec_log10(0d1234.0, X),
+   X =:= -3.0913151596972224.
+runner:case(dec_log10, 2, decimal_precision, 'decimal 0.9.1, 1.1, XLOG 2') :-
+   dec_log10(0d1234.0E100, X),
+   X =:= -103.09131515969722.
+
+% dec_decomp/3
+runner:ref(dec_decomp, 3, decimal_precision, 'decimal 0.9.1, 1.2').
+runner:case(dec_decomp, 3, decimal_precision, 'decimal 0.9.1, 1.2, XLOG 1') :-
+   dec_decomp(0d1234.0E100, E, M),
+   E =:= 103,
+   M =:= 0d1.2340.
+runner:case(dec_decomp, 3, decimal_precision, 'decimal 0.9.1, 1.2, XLOG 2') :-
+   dec_decomp(0d1.2340, E, M),
+   E =:= 0,
+   M =:= 0d1.2340.
+
+% bin_decomp/4
+runner:ref(bin_decomp, 4, decimal_precision, 'decimal 0.9.1, 1.3').
+runner:case(bin_decomp, 4, decimal_precision, 'decimal 0.9.1, 1.3, XLOG 1') :-
+   C is new_context(16),
+   bin_decomp(0d1.2340, C, E, M),
+   E =:= 0,
+   M =:= 0d1.2340.
+runner:case(bin_decomp, 4, decimal_precision, 'decimal 0.9.1, 1.3, XLOG 2') :-
+   C is new_context(16),
+   bin_decomp(0d5.6780, C, E, M),
+   E =:= 2,
+   M =:= 0d1.4195.

@@ -33,6 +33,22 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-% foobar2/0
-runner:ref(foobar2, 0, decimal_addmul, 'decimal 0.9.1, 2.1').
-runner:case(foobar2, 0, decimal_addmul, 'decimal 0.9.1, 2.1, XLOG 1') :- true.
+:- use_module(library(decimal/multi)).
+
+% mp_sqrt/3
+runner:ref(mp_sqrt, 3, decimal_addmul, 'decimal 0.9.1, 2.1').
+runner:case(mp_sqrt, 3, decimal_addmul, 'decimal 0.9.1, 2.1, XLOG 1') :-
+   X is mp(sqrt(1000),16),
+   X =:= 0d31.62277660168384.
+runner:case(mp_sqrt, 3, decimal_addmul, 'decimal 0.9.1, 2.1, XLOG 2') :-
+   X is mp(sqrt(0),16),
+   X =:= 0.
+runner:case(mp_sqrt, 3, decimal_addmul, 'decimal 0.9.1, 2.1, XLOG 3') :-
+   catch(_ is mp(sqrt(-1),16), error(E,_), true),
+   E == evaluation_error(undefined).
+
+% mp_abnormal/1.
+runner:ref(mp_abnormal, 1, decimal_addmul, 'decimal 0.9.1, 2.2').
+runner:case(mp_abnormal, 1, decimal_addmul, 'decimal 0.9.1, 2.2, XLOG 1') :-
+   X is mp(- (2/3),16),
+   X =:= -0d0.6666666666666667.

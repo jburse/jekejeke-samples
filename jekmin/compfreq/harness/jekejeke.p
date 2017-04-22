@@ -25,17 +25,29 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+:- use_package(library(jekdev/reference/testing)).
+
+:- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
+
+% :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
+
 :- ensure_loaded(suite).
 :- ensure_loaded(util).
 :- use_module(library(testing/runner)).
 :- use_module(library(testing/diagnose)).
 :- use_module(library(testing/result)).
+:- use_module(library(testing/tracker)).
+:- use_module(library(testing/cover)).
 
 uptime(X) :-
    statistics(uptime, X).
 
 gctime(X) :-
    statistics(gctime, X).
+
+/****************************************************************/
+/* Results                                                      */
+/****************************************************************/
 
 % run_test
 run_test :-
@@ -52,3 +64,31 @@ run_report :-
    set_prolog_flag(sys_locale, en),
    set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/09_results/'),
    result_batch('../../../../../../../../blog/en/docs/15_min/08_compfreq/').
+
+/****************************************************************/
+/* Coverage                                                     */
+/****************************************************************/
+
+:- multifile tracker:text/1.
+
+tracker:text(library(decimal/helper)).
+tracker:text(library(decimal/multi)).
+tracker:text(library(decimal/poly)).
+tracker:text(library(decimal/trigo)).
+
+% run_tracker
+run_tracker :-
+   text(X),
+   absolute_file_name(X, Y),
+   reset_source_property(Y, sys_notrace), fail.
+run_tracker :-
+   bench(tracker_batch), analyze_batch, list_cover_source.
+
+% run_cover
+run_cover :-
+   set_prolog_flag(sys_locale, de),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
+   cover_batch('../../../../../../../blog/docs/15_min/04_frequent/'),
+   set_prolog_flag(sys_locale, en),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
+   cover_batch('../../../../../../../../blog/en/docs/15_min/04_frequent/').
