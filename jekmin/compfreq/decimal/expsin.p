@@ -134,17 +134,59 @@ runner:case(mp_log, 3, decimal_expsin, 'decimal 0.9.1, 3.6, XLOG 4') :-
    X is mp(log(1/3),16),
    X =:= -0d1.098612288668110.
 
+% mp_pow/4.
+runner:ref(mp_pow, 4, decimal_expsin, 'decimal 0.9.1, 3.7').
+runner:case(mp_pow, 4, decimal_expsin, 'decimal 0.9.1, 3.7, XLOG 1') :-
+   X is mp((1/10)**0,16),
+   X =:= 0d1.
+runner:case(mp_pow, 4, decimal_expsin, 'decimal 0.9.1, 3.7, XLOG 2') :-
+   X is mp((1/10)**2,16),
+   X =:= 0d0.01000000000000000.
+runner:case(mp_pow, 4, decimal_expsin, 'decimal 0.9.1, 3.7, XLOG 3') :-
+   X is mp((1/10)** -1,16),
+   X =:= 0d9.999999999999999.
+
 % mp_atan2/4.
-runner:ref(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.7').
-runner:case(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.7, XLOG 1') :-
+runner:ref(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.8').
+runner:case(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.8, XLOG 1') :-
    X is mp(atan2(-1,-1),16),
    X =:= -0d2.356194490192346.
-runner:case(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.7, XLOG 2') :-
+runner:case(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.8, XLOG 2') :-
    X is mp(atan2(1,-1),16),
    X =:= 0d2.356194490192346.
-runner:case(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.7, XLOG 3') :-
+runner:case(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.8, XLOG 3') :-
    X is mp(atan2(-1,1),16),
    X =:= -0d0.7853981633974488.
-runner:case(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.7, XLOG 4') :-
+runner:case(mp_atan2, 4, decimal_expsin, 'decimal 0.9.1, 3.8, XLOG 4') :-
    X is mp(atan2(1,1),16),
    X =:= 0d0.7853981633974488.
+
+% mp_asin/3.
+runner:ref(mp_asin, 3, decimal_expsin, 'decimal 0.9.1, 3.9').
+runner:case(mp_asin, 34, decimal_expsin, 'decimal 0.9.1, 3.9, XLOG 1') :-
+   X is mp(asin(0),16),
+   X =:= 0d0.
+runner:case(mp_asin, 34, decimal_expsin, 'decimal 0.9.1, 3.9, XLOG 2') :-
+   X is mp(asin(1),16),
+   X =:= 0d1.570796326794898.
+runner:case(mp_asin, 34, decimal_expsin, 'decimal 0.9.1, 3.9, XLOG 3') :-
+   X is mp(asin(-1/2),16),
+   X =:= -0d0.5235987755982997.
+runner:case(mp_asin, 34, decimal_expsin, 'decimal 0.9.1, 3.9, XLOG 4') :-
+   X is mp(asin(1/3),16),
+   X =:= 0d0.3398369094541220.
+
+% mp_acos/3.
+runner:ref(mp_acos, 3, decimal_expsin, 'decimal 0.9.1, 3.10').
+runner:case(mp_acos, 3, decimal_expsin, 'decimal 0.9.1, 3.10, XLOG 1') :-
+   X is mp(acos(0),16),
+   X =:= 0d1.570796326794898.
+runner:case(mp_acos, 3, decimal_expsin, 'decimal 0.9.1, 3.10, XLOG 2') :-
+   X is mp(acos(1),16),
+   X =:= 0d0.
+runner:case(mp_acos, 3, decimal_expsin, 'decimal 0.9.1, 3.10, XLOG 3') :-
+   X is mp(acos(-1/2),16),
+   X =:= 0d2.094395102393197.
+runner:case(mp_acos, 3, decimal_expsin, 'decimal 0.9.1, 3.10, XLOG 4') :-
+   X is mp(acos(1/3),16),
+   X =:= 0d1.230959417340776.
