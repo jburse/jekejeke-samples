@@ -12,6 +12,7 @@
 % :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
 
 :- ensure_loaded(suite).
+:- ensure_loaded(util).
 :- use_module(library(testing/runner)).
 :- use_module(library(testing/diagnose)).
 :- use_module(library(testing/result)).
@@ -34,23 +35,13 @@ gctime(X) :-
 
 % run_test
 run_test :-
-   uptime(T1),
-   gctime(G1), runner_batch,
-   uptime(T2),
-   gctime(G2),
-   T is T2-T1,
-   G is G2-G1,
-   write('Tested in '),
-   write(T),
-   write('\t('),
-   write(G),
-   write(' gc) ms'), nl.
+   bench(runner_batch).
 
 % run_diagnose
 run_diagnose :- diagnose_online.
 
-% run_result
-run_result :-
+% run_report
+run_report :-
    set_prolog_flag(sys_locale, de),
    set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/09_results/'),
    result_batch('../../../../../../../blog/docs/15_min/07_compliance/'),
@@ -64,17 +55,7 @@ run_tracker :-
    absolute_file_name(X, Y),
    reset_source_property(Y, sys_notrace), fail.
 run_tracker :-
-   uptime(T1),
-   gctime(G1), tracker_batch,
-   uptime(T2),
-   gctime(G2),
-   T is T2-T1,
-   G is G2-G1,
-   write('Cover in '),
-   write(T),
-   write('\t('),
-   write(G),
-   write(' gc) ms'), nl, analyze_batch, list_cover_source.
+   bench(tracker_batch), analyze_batch, list_cover_source.
 
 % run_cover
 run_cover :-
