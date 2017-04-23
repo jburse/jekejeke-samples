@@ -28,3 +28,6 @@
 :- ensure_loaded('../decimal/precision.p').
 :- ensure_loaded('../decimal/addmul.p').
 :- ensure_loaded('../decimal/expsin.p').
+
+:- ensure_loaded('../groebner/parteval.p').
+:- ensure_loaded('../groebner/simplify.p').

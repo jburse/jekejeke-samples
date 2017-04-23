@@ -75,6 +75,12 @@ tracker:text(library(decimal/helper)).
 tracker:text(library(decimal/multi)).
 tracker:text(library(decimal/poly)).
 tracker:text(library(decimal/trigo)).
+tracker:text(library(groebner/generic)).
+tracker:text(library(groebner/integer)).
+tracker:text(library(groebner/rational)).
+tracker:text(library(groebner/variable)).
+tracker:text(library(groebner/polynom)).
+tracker:text(library(groebner/fraction)).
 
 % run_tracker
 run_tracker :-

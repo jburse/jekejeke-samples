@@ -1,5 +1,5 @@
 /**
- * Prolog code for the extra structure theory test cases.
+ * Prolog code for the multi precision helper and dispatcher.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -35,36 +35,55 @@
 
 :- use_module(library(decimal/helper)).
 :- use_module(library(decimal/scale)).
+:- use_module(library(decimal/multi)).
 
 % dec_log10/2
 runner:ref(dec_log10, 2, decimal_precision, 'decimal 0.9.1, 1.1').
 runner:case(dec_log10, 2, decimal_precision, 'decimal 0.9.1, 1.1, XLOG 1') :-
    dec_log10(0d1234.0, X),
-   X =:= -3.0913151596972224.
+   X == -3.0913151596972224.
 runner:case(dec_log10, 2, decimal_precision, 'decimal 0.9.1, 1.1, XLOG 2') :-
    dec_log10(0d1234.0E100, X),
-   X =:= -103.09131515969722.
+   X == -103.09131515969722.
 
 % dec_decomp/3
 runner:ref(dec_decomp, 3, decimal_precision, 'decimal 0.9.1, 1.2').
 runner:case(dec_decomp, 3, decimal_precision, 'decimal 0.9.1, 1.2, XLOG 1') :-
    dec_decomp(0d1234.0E100, E, M),
-   E =:= 103,
-   M =:= 0d1.2340.
+   E == 103,
+   M == 0d1.2340.
 runner:case(dec_decomp, 3, decimal_precision, 'decimal 0.9.1, 1.2, XLOG 2') :-
    dec_decomp(0d1.2340, E, M),
-   E =:= 0,
-   M =:= 0d1.2340.
+   E == 0,
+   M == 0d1.2340.
 
 % bin_decomp/4
 runner:ref(bin_decomp, 4, decimal_precision, 'decimal 0.9.1, 1.3').
 runner:case(bin_decomp, 4, decimal_precision, 'decimal 0.9.1, 1.3, XLOG 1') :-
    C is new_context(16),
    bin_decomp(0d1.2340, C, E, M),
-   E =:= 0,
-   M =:= 0d1.2340.
+   E == 0,
+   M == 0d1.2340.
 runner:case(bin_decomp, 4, decimal_precision, 'decimal 0.9.1, 1.3, XLOG 2') :-
    C is new_context(16),
    bin_decomp(0d5.6780, C, E, M),
-   E =:= 2,
-   M =:= 0d1.4195.
+   E == 2,
+   M == 0d1.4195.
+
+% mp_abnormal/1.
+runner:ref(mp_abnormal, 1, decimal_precision, 'decimal 0.9.1, 1.4').
+runner:case(mp_abnormal, 1, decimal_precision, 'decimal 0.9.1, 1.4, XLOG 1') :-
+   catch(_ is mp(_,16), error(E,_), true),
+   E == instantiation_error.
+runner:case(mp_abnormal, 1, decimal_precision, 'decimal 0.9.1, 1.4, XLOG 2') :-
+   X is mp(- (2/3),16),
+   X == -0d0.6666666666666667.
+
+% mp_decimal/2.
+runner:ref(mp_decimal, 2, decimal_precision, 'decimal 0.9.1, 1.5').
+runner:case(mp_decimal, 2, decimal_precision, 'decimal 0.9.1, 1.5, XLOG 1') :-
+   X is mp(decimal(3),16),
+   X == 0d3.
+runner:case(mp_decimal, 2, decimal_precision, 'decimal 0.9.1, 1.5, XLOG 2') :-
+   X is mp(decimal(3.141592653589793),16),
+   X == 0d3.141592653589793.
