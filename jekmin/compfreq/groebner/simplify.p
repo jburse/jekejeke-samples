@@ -42,6 +42,14 @@ runner:case(simp_neg, 2, groebner_simplify, 'groebner 0.9.1, 2.1, XLOG 1') :-
    X is -A,
    printable(X, Y),
    Y == -A.
+runner:case(simp_neg, 2, groebner_simplify, 'groebner 0.9.1, 2.1, XLOG 2') :-
+   X is - (A^2-3*A+4),
+   printable(X, Y),
+   Y == -4+3*A-A^2.
+runner:case(simp_neg, 2, groebner_simplify, 'groebner 0.9.1, 2.1, XLOG 3') :-
+   X is - ((A-7)/(B-3)),
+   printable(X, Y),
+   Y == (-7+A)/(3-B).
 
 % simp_add/3
 runner:ref(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2').
@@ -49,6 +57,22 @@ runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2, XLOG 1') :-
    X is 2*A+A,
    printable(X, Y),
    Y == 3*A.
+runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2, XLOG 2') :-
+   X is A+B,
+   printable(X, Y),
+   Y == A+B.
+runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2, XLOG 3') :-
+   X is A+B/A,
+   printable(X, Y),
+   Y == (A^2+B)/A.
+runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2, XLOG 4') :-
+   X is A*(B-1)+B*(A+2),
+   printable(X, Y),
+   Y == -A+(2+2*A)*B.
+runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2, XLOG 5') :-
+   X is 7/(B-3)+(B+2)/5,
+   printable(X, Y),
+   Y == (-29+B-B^2)/(15-5*B).
 
 % simp_sub/3
 runner:ref(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3').
@@ -56,6 +80,22 @@ runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3, XLOG 1') :-
    X is A-2*A,
    printable(X, Y),
    Y == -A.
+runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3, XLOG 2') :-
+   X is A-B,
+   printable(X, Y),
+   Y == A-B.
+runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3, XLOG 3') :-
+   X is A-A/B,
+   printable(X, Y),
+   Y == (-A+A*B)/B.
+runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3, XLOG 4') :-
+   X is A*(B-1)-B*(A+2),
+   printable(X, Y),
+   Y == -A-2*B.
+runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3, XLOG 5') :-
+   X is 7/(B-3)-(B+2)/5,
+   printable(X, Y),
+   Y == (-41-B+B^2)/(15-5*B).
 
 % simp_mul/3
 runner:ref(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4').
@@ -63,6 +103,22 @@ runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4, XLOG 1') :-
    X is A^2*A,
    printable(X, Y),
    Y == A^3.
+runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4, XLOG 2') :-
+   X is A*(A+1),
+   printable(X, Y),
+   Y == A+A^2.
+runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4, XLOG 3') :-
+   X is A*B/A,
+   printable(X, Y),
+   Y == B.
+runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4, XLOG 4') :-
+   X is (B-1)*(A*B+A),
+   printable(X, Y),
+   Y == - ((1-B^2)*A).
+runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4, XLOG 5') :-
+   X is (B-1)/A*((B+1)/A),
+   printable(X, Y),
+   Y == (-1+B^2)/A^2.
 
 % simp_slash/3
 runner:ref(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5').
@@ -70,6 +126,22 @@ runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5, XLOG 1') :-
    X is A/A^2,
    printable(X, Y),
    Y == 1/A.
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5, XLOG 2') :-
+   X is A/(A+1),
+   printable(X, Y),
+   Y == A/(1+A).
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5, XLOG 3') :-
+   X is A/(A/B),
+   printable(X, Y),
+   Y == B.
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5, XLOG 4') :-
+   X is (B^2-1)/(A*B+A),
+   printable(X, Y),
+   Y == (-1+B)/A.
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5, XLOG 5') :-
+   X is (B^2-1)/A/((A*B+A)/A),
+   printable(X, Y),
+   Y == (-1+B)/A.
 
 % simp_int_pow/3
 runner:ref(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6').
@@ -77,3 +149,11 @@ runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6, XLOG 1') :
    X is A^2,
    printable(X, Y),
    Y == A^2.
+runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6, XLOG 2') :-
+   X is (1+A)^5,
+   printable(X, Y),
+   Y == 1+5*A+10*A^2+10*A^3+5*A^4+A^5.
+runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6, XLOG 3') :-
+   X is ((1-A)/(1+A))^3,
+   printable(X, Y),
+   Y == (1-3*A+3*A^2-A^3)/(1+3*A+3*A^2+A^3).
