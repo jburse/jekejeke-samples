@@ -1,5 +1,5 @@
 /**
- * Prolog code for the symbolic fractions partial evaluation.
+ * Prolog test cases for the symbolic fractions partial evaluation.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly

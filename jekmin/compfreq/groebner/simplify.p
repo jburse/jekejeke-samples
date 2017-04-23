@@ -1,5 +1,5 @@
 /**
- * Prolog code for the symbolic fractions simplification.
+ * Prolog test cases for the symbolic fractions simplification.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
