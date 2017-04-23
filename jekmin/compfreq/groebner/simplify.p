@@ -34,27 +34,46 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(groebner/generic)).
+:- use_module(library(misc/residue)).
 
 % simp_neg/2
 runner:ref(simp_neg, 2, groebner_simplify, 'groebner 0.9.1, 2.1').
-runner:case(simp_neg, 2, groebner_simplify, 'groebner 0.9.1, 2.1, XLOG 1') :- true.
+runner:case(simp_neg, 2, groebner_simplify, 'groebner 0.9.1, 2.1, XLOG 1') :-
+   X is -A,
+   printable(X, Y),
+   Y == -A.
 
 % simp_add/3
 runner:ref(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2').
-runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2, XLOG 1') :- true.
+runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2, XLOG 1') :-
+   X is 2*A+A,
+   printable(X, Y),
+   Y == 3*A.
 
 % simp_sub/3
 runner:ref(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3').
-runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3, XLOG 1') :- true.
+runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3, XLOG 1') :-
+   X is A-2*A,
+   printable(X, Y),
+   Y == -A.
 
 % simp_mul/3
 runner:ref(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4').
-runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4, XLOG 1') :- true.
+runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4, XLOG 1') :-
+   X is A^2*A,
+   printable(X, Y),
+   Y == A^3.
 
 % simp_slash/3
 runner:ref(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5').
-runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5, XLOG 1') :- true.
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5, XLOG 1') :-
+   X is A/A^2,
+   printable(X, Y),
+   Y == 1/A.
 
 % simp_int_pow/3
 runner:ref(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6').
-runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6, XLOG 1') :- true.
+runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6, XLOG 1') :-
+   X is A^2,
+   printable(X, Y),
+   Y == A^2.

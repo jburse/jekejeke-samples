@@ -31,3 +31,7 @@
 
 :- ensure_loaded('../groebner/parteval.p').
 :- ensure_loaded('../groebner/simplify.p').
+
+:- ensure_loaded('../gauss/exchstep.p').
+
+:- ensure_loaded('../leibniz/autodiff.p').
