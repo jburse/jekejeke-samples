@@ -37,6 +37,8 @@ The following samples have already been uploaded:
   Tutorial for the Language Reference.
 - [jekmin/compliance](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/compliance):
   CLP(FD) Test Cases.
+- [jekmin/compfreq](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/compfreq):
+  Multiprecision and Symbolic Test Cases.
 
 # Issues and Contributing
 
@@ -45,5 +47,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 21.08.2016 (Updated 14.11.2016)
+Jan Burse, 21.08.2016 (Updated 24.04.2017)
 
