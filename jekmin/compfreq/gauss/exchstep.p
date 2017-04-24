@@ -33,6 +33,42 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-% foobar1/2
-runner:ref(foobar1, 2, gauss_exchstep, 'gauss 0.9.1, 2.1').
-runner:case(foobar1, 2, gauss_exchstep, 'gauss 0.9.1, 2.1, XLOG 1') :- true.
+% mat_cons/3
+runner:ref(mat_cons, 3, gauss_exchstep, 'gauss 0.9.1, 2.1').
+runner:case(mat_cons, 3, gauss_exchstep, 'gauss 0.9.1, 2.1, XLOG 1') :- true.
+
+% mat_at/3
+runner:ref(mat_at, 3, gauss_exchstep, 'gauss 0.9.1, 2.2').
+runner:case(mat_at, 3, gauss_exchstep, 'gauss 0.9.1, 2.2, XLOG 1') :- true.
+
+% mat_at_at/4
+runner:ref(mat_at_at, 4, gauss_exchstep, 'gauss 0.9.1, 2.3').
+runner:case(mat_at_at, 4, gauss_exchstep, 'gauss 0.9.1, 2.3, XLOG 1') :- true.
+
+% mat_len/2
+runner:ref(mat_len, 2, gauss_exchstep, 'gauss 0.9.1, 2.4').
+runner:case(mat_len, 2, gauss_exchstep, 'gauss 0.9.1, 2.4, XLOG 1') :- true.
+
+% mat_neg/2
+runner:ref(mat_neg, 2, gauss_exchstep, 'gauss 0.9.1, 2.5').
+runner:case(mat_neg, 2, gauss_exchstep, 'gauss 0.9.1, 2.5, XLOG 1') :- true.
+
+% mat_add/3
+runner:ref(mat_add, 3, gauss_exchstep, 'gauss 0.9.1, 2.6').
+runner:case(mat_add, 3, gauss_exchstep, 'gauss 0.9.1, 2.6, XLOG 1') :- true.
+
+% mat_sub/3
+runner:ref(mat_sub, 3, gauss_exchstep, 'gauss 0.9.1, 2.7').
+runner:case(mat_sub, 3, gauss_exchstep, 'gauss 0.9.1, 2.7, XLOG 1') :- true.
+
+% mat_mul/3
+runner:ref(mat_mul, 3, gauss_exchstep, 'gauss 0.9.1, 2.8').
+runner:case(mat_mul, 3, gauss_exchstep, 'gauss 0.9.1, 2.8, XLOG 1') :- true.
+
+% mat_slash/3
+runner:ref(mat_slash, 3, gauss_exchstep, 'gauss 0.9.1, 2.9').
+runner:case(mat_slash, 3, gauss_exchstep, 'gauss 0.9.1, 2.9, XLOG 1') :- true.
+
+% mat_int_pow/3
+runner:ref(mat_int_pow, 3, gauss_exchstep, 'gauss 0.9.1, 2.10').
+runner:case(mat_int_pow, 3, gauss_exchstep, 'gauss 0.9.1, 2.10, XLOG 1') :- true.

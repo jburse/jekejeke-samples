@@ -1,5 +1,5 @@
 /**
- * Prolog test cases for the symbolic automatic differentiation.
+ * Prolog test cases for the symbolic series expansion.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -33,6 +33,6 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-% foobar2/2
-runner:ref(foobar2, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1').
-runner:case(foobar2, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1, XLOG 1') :- true.
+% foobar4/2
+runner:ref(foobar4, 2, leibniz_expansion, 'leibniz 0.9.1, 3.1').
+runner:case(foobar4, 2, leibniz_expansion, 'leibniz 0.9.1, 3.1, XLOG 1') :- true.
