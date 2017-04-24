@@ -122,6 +122,12 @@ runner:case(mat_add, 3, gauss_exchstep, 'gauss 0.9.1, 2.6, XLOG 1') :-
    Z is X+Y,
    printable(Z, T),
    T == [[44,55],[22,77]].
+runner:case(mat_add, 3, gauss_exchstep, 'gauss 0.9.1, 2.6, XLOG 2') :-
+   X is [[A,B,A-B]],
+   Y is [[A-B,B,A]],
+   Z is X+Y,
+   printable(Z, T),
+   T == [[2*A-B,2*B,2*A-B]].
 
 % mat_sub/3
 runner:ref(mat_sub, 3, gauss_exchstep, 'gauss 0.9.1, 2.7').
@@ -131,6 +137,12 @@ runner:case(mat_sub, 3, gauss_exchstep, 'gauss 0.9.1, 2.7, XLOG 1') :-
    Z is X-Y,
    printable(Z, T),
    T == [[-22,99],[-110,-33]].
+runner:case(mat_sub, 3, gauss_exchstep, 'gauss 0.9.1, 2.7, XLOG 2') :-
+   X is [[A,B,A-B]],
+   Y is [[A-B,B,A]],
+   Z is X-Y,
+   printable(Z, T),
+   T == [[B,0,-B]].
 
 % mat_mul/3
 runner:ref(mat_mul, 3, gauss_exchstep, 'gauss 0.9.1, 2.8').
@@ -140,6 +152,12 @@ runner:case(mat_mul, 3, gauss_exchstep, 'gauss 0.9.1, 2.8, XLOG 1') :-
    Z is X*Y,
    printable(Z, T),
    T == [[5445,3993],[0,2178]].
+runner:case(mat_mul, 3, gauss_exchstep, 'gauss 0.9.1, 2.8, XLOG 2') :-
+   X is [[A,B,A-B]],
+   Y is [[A-B],[B],[A]],
+   Z is X*Y,
+   printable(Z, T),
+   T == [[2*A^2-2*A*B+B^2]].
 
 % mat_slash/3
 runner:ref(mat_slash, 3, gauss_exchstep, 'gauss 0.9.1, 2.9').
@@ -149,11 +167,32 @@ runner:case(mat_slash, 3, gauss_exchstep, 'gauss 0.9.1, 2.9, XLOG 1') :-
    Z is X/Y,
    printable(Z, T),
    T == [[-37/27,23/27],[-32/27,-2/27]].
+runner:case(mat_slash, 3, gauss_exchstep, 'gauss 0.9.1, 2.9, XLOG 2') :-
+   X is [[1,1/2],[1,1]],
+   Y is [[1,1/B],[1,1]],
+   Z is X/Y,
+   printable(Z, T),
+   T == [[-B/(2-2*B),(2-B)/(2-2*B)],[0,1]].
 
 % mat_int_pow/3
 runner:ref(mat_int_pow, 3, gauss_exchstep, 'gauss 0.9.1, 2.10').
 runner:case(mat_int_pow, 3, gauss_exchstep, 'gauss 0.9.1, 2.10, XLOG 1') :-
+   X is [[1,1/_],[1,1]],
+   Y is X^0,
+   printable(Y, Z),
+   Z == [[1,0],[0,1]].
+runner:case(mat_int_pow, 3, gauss_exchstep, 'gauss 0.9.1, 2.10, XLOG 2') :-
+   X is [[1,1/B],[1,1]],
+   Y is X^3,
+   printable(Y, Z),
+   Z == [[(3+B)/B,(1+3*B)/B^2],[(1+3*B)/B,(3+B)/B]].
+runner:case(mat_int_pow, 3, gauss_exchstep, 'gauss 0.9.1, 2.10, XLOG 3') :-
    X is [[11,77],[-44,22]],
    Y is X^ -1,
    printable(Y, Z),
    Z == [[1/165,-7/330],[2/165,1/330]].
+runner:case(mat_int_pow, 3, gauss_exchstep, 'gauss 0.9.1, 2.10, XLOG 4') :-
+   X is [[1,1/B],[1,1]],
+   Y is X^ -1,
+   printable(Y, Z),
+   Z == [[-B/(1-B),1/(1-B)],[B/(1-B),-B/(1-B)]].

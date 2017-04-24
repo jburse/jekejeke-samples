@@ -33,6 +33,59 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-% foobar2/2
-runner:ref(foobar2, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1').
-runner:case(foobar2, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1, XLOG 1') :- true.
+:- use_module(library(groebner/generic)).
+:- use_module(library(misc/residue)).
+
+% deriv_neg/2
+runner:ref(deriv_neg, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1').
+runner:case(deriv_neg, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1, XLOG 1') :-
+   X is deriv(-A/10,A),
+   printable(X, Y),
+   Y == -1/10.
+runner:case(deriv_neg, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1, XLOG 2') :-
+   X is deriv(-A^2,A),
+   printable(X, Y),
+   Y == - (2*A).
+
+% deriv_add/3
+runner:ref(deriv_add, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.2').
+runner:case(deriv_add, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.2, XLOG 1') :-
+   X is deriv(1+A+A^2,A),
+   printable(X, Y),
+   Y == 1+2*A.
+runner:case(deriv_add, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.2, XLOG 2') :-
+   X is deriv(B*A+C*A^2,A),
+   printable(X, Y),
+   Y == B+2*A*C.
+
+% deriv_sub/3
+runner:ref(deriv_sub, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.3').
+runner:case(deriv_sub, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.3, XLOG 1') :-
+   X is deriv(1+A-A^2,A),
+   printable(X, Y),
+   Y == 1-2*A.
+runner:case(deriv_sub, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.3, XLOG 2') :-
+   X is deriv(B*A-C*A^2,A),
+   printable(X, Y),
+   Y == B-2*A*C.
+
+% deriv_mul/3
+runner:ref(deriv_mul, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.4').
+runner:case(deriv_mul, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.4, XLOG 1') :-
+   X is deriv((A-1)*(B-1)*(C-1),B),
+   printable(X, Y),
+   Y == 1-A-(1-A)*C.
+
+% deriv_slash/3
+runner:ref(deriv_slash, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.5').
+runner:case(deriv_slash, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.5, XLOG 1') :-
+   X is deriv((A-1)*(B-1)/(C-1),B),
+   printable(X, Y),
+   Y == (1-A)/(1-C).
+
+% deriv_int_pow/3
+runner:ref(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.6').
+runner:case(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.6, XLOG 1') :-
+   X is deriv((B-1)^3,B),
+   printable(X, Y),
+   Y == 3-6*B+3*B^2.
