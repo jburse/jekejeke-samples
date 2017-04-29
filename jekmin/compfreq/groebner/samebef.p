@@ -1,5 +1,5 @@
 /**
- * Prolog code for the compliance assessment suite.
+ * Prolog test cases for the symbolic same and before.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -25,17 +25,20 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded('../decimal/precision.p').
-:- ensure_loaded('../decimal/addmul.p').
-:- ensure_loaded('../decimal/expsin.p').
+:- use_package(library(jekdev/reference/testing)).
 
-:- ensure_loaded('../groebner/parteval.p').
-:- ensure_loaded('../groebner/simplify.p').
-:- ensure_loaded('../groebner/samebef.p').
+:- multifile runner:ref/4.
+:- discontiguous runner:ref/4.
 
-:- ensure_loaded('../gauss/onedim.p').
-:- ensure_loaded('../gauss/exchstep.p').
+:- multifile runner:case/4.
+:- discontiguous runner:case/4.
 
-:- ensure_loaded('../leibniz/varchange.p').
-:- ensure_loaded('../leibniz/autodiff.p').
-:- ensure_loaded('../leibniz/expansion.p').
+:- use_module(library(groebner/generic)).
+
+% simp_eq/2
+runner:ref(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1').
+runner:case(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1, XLOG 1') :- true.
+
+% simp_nq/2
+runner:ref(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2').
+runner:case(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2, XLOG 1') :- true.
