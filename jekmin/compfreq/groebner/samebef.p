@@ -37,8 +37,72 @@
 
 % simp_eq/2
 runner:ref(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1').
-runner:case(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1, XLOG 1') :- true.
+runner:case(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1, XLOG 1') :-
+   -3 =:= -3.
+runner:case(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1, XLOG 2') :-
+   \+ 1 =:= 3/5.
+runner:case(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1, XLOG 3') :-
+   \+ 4/7 =:= 5/11.
+runner:case(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1, XLOG 4') :-
+   (A-B)^2+4*A*B =:= (A+B)^2.
+runner:case(simp_eq, 2, groebner_samebef, 'groebner 0.9.2, 3.1, XLOG 5') :-
+   \+ 1/(1+1/A) =:= 1/(1-A).
 
 % simp_nq/2
 runner:ref(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2').
-runner:case(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2, XLOG 1') :- true.
+runner:case(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2, XLOG 1') :-
+   1 =\= 2.
+runner:case(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2, XLOG 2') :-
+   3/5 =\= 1.
+runner:case(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2, XLOG 3') :-
+   \+ 3/4 =\= 3/4.
+runner:case(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2, XLOG 4') :-
+   (A-B)^2 =\= (A+B)^2.
+runner:case(simp_nq, 2, groebner_samebef, 'groebner 0.9.2, 3.2, XLOG 5') :-
+   \+ 1/(1+1/A) =\= A/(A+1).
+
+% eval_ls/2
+runner:ref(eval_ls, 2, groebner_samebef, 'groebner 0.9.2, 3.3').
+runner:case(eval_ls, 2, groebner_samebef, 'groebner 0.9.2, 3.3, XLOG 1') :-
+   \+ -3 < -3.
+runner:case(eval_ls, 2, groebner_samebef, 'groebner 0.9.2, 3.3, XLOG 2') :-
+   2 < 7/3.
+runner:case(eval_ls, 2, groebner_samebef, 'groebner 0.9.2, 3.3, XLOG 3') :-
+   -5/4 < -1.
+runner:case(eval_ls, 2, groebner_samebef, 'groebner 0.9.2, 3.3, XLOG 4') :-
+   \+ 2/7 < 1/6.
+
+% eval_lq/2
+runner:ref(eval_lq, 2, groebner_samebef, 'groebner 0.9.2, 3.4').
+runner:case(eval_lq, 2, groebner_samebef, 'groebner 0.9.2, 3.4, XLOG 1') :-
+   -3 =< 12.
+runner:case(eval_lq, 2, groebner_samebef, 'groebner 0.9.2, 3.4, XLOG 2') :-
+   \+ 1 =< 5/6.
+runner:case(eval_lq, 2, groebner_samebef, 'groebner 0.9.2, 3.4, XLOG 3') :-
+   6/11 =< 1.
+runner:case(eval_lq, 2, groebner_samebef, 'groebner 0.9.2, 3.4, XLOG 4') :-
+   3/4 =< 3/4.
+
+% eval_gr/2
+runner:ref(eval_gr, 2, groebner_samebef, 'groebner 0.9.2, 3.5').
+runner:case(eval_gr, 2, groebner_samebef, 'groebner 0.9.2, 3.5, XLOG 1') :-
+   \+ -3 > 12.
+runner:case(eval_gr, 2, groebner_samebef, 'groebner 0.9.2, 3.5, XLOG 2') :-
+   \+ 2 > 7/3.
+runner:case(eval_gr, 2, groebner_samebef, 'groebner 0.9.2, 3.5, XLOG 3') :-
+   \+ -5/4 > -1.
+runner:case(eval_gr, 2, groebner_samebef, 'groebner 0.9.2, 3.5, XLOG 4') :-
+   \+ 3/4 > 3/4.
+
+% eval_gq/2
+runner:ref(eval_gq, 2, groebner_samebef, 'groebner 0.9.2, 3.6').
+runner:case(eval_gq, 2, groebner_samebef, 'groebner 0.9.2, 3.6, XLOG 1') :-
+   -3 >= -3.
+runner:case(eval_gq, 2, groebner_samebef, 'groebner 0.9.2, 3.6, XLOG 2') :-
+   1 >= 5/6.
+runner:case(eval_gq, 2, groebner_samebef, 'groebner 0.9.2, 3.6, XLOG 3') :-
+   \+ 6/11 >= 1.
+runner:case(eval_gq, 2, groebner_samebef, 'groebner 0.9.2, 3.6, XLOG 4') :-
+   2/7 >= 1/6.
+
+
