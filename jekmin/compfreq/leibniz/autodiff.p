@@ -45,7 +45,7 @@ runner:case(deriv_neg, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1, XLOG 1') :-
 runner:case(deriv_neg, 2, leibniz_autodiff, 'leibniz 0.9.1, 2.1, XLOG 2') :-
    X is deriv(-A^2,A),
    printable(X, Y),
-   Y == - (2*A).
+   Y == -2*A.
 
 % deriv_add/3
 runner:ref(deriv_add, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.2').

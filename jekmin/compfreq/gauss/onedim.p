@@ -116,7 +116,7 @@ runner:case(vec_add, 3, gauss_onedim, 'gauss 0.9.1, 1.6, XLOG 1') :-
    Y is [3/5,7/10,1/10],
    Z is X+Y,
    printable(Z, T),
-   T == [9/10,6/5,3/10].
+   T == [9/10,1+1/5,3/10].
 runner:case(vec_add, 3, gauss_onedim, 'gauss 0.9.1, 1.6, XLOG 2') :-
    X is [A,B,A-B,B-A],
    Y is [B,2*B,3*B,-B],

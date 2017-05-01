@@ -43,7 +43,7 @@ runner:case(eval_neg, 2, groebner_parteval, 'groebner 0.9.1, 1.1, XLOG 1') :-
    printable(X, Y),
    Y == -5.
 runner:case(eval_neg, 2, groebner_parteval, 'groebner 0.9.1, 1.1, XLOG 2') :-
-   X is - (1/3),
+   X is -1/3,
    printable(X, Y),
    Y == -1/3.
 
@@ -56,11 +56,11 @@ runner:case(eval_add, 3, groebner_parteval, 'groebner 0.9.1, 1.2, XLOG 1') :-
 runner:case(eval_add, 3, groebner_parteval, 'groebner 0.9.1, 1.2, XLOG 2') :-
    X is 5+3/8,
    printable(X, Y),
-   Y == 43/8.
+   Y == 5+3/8.
 runner:case(eval_add, 3, groebner_parteval, 'groebner 0.9.1, 1.2, XLOG 3') :-
    X is 5/3+8,
    printable(X, Y),
-   Y == 29/3.
+   Y == 9+2/3.
 runner:case(eval_add, 3, groebner_parteval, 'groebner 0.9.1, 1.2, XLOG 4') :-
    X is 1/3+1/2,
    printable(X, Y),
@@ -75,11 +75,11 @@ runner:case(eval_sub, 3, groebner_parteval, 'groebner 0.9.1, 1.3, XLOG 1') :-
 runner:case(eval_sub, 3, groebner_parteval, 'groebner 0.9.1, 1.3, XLOG 2') :-
    X is 5-3/8,
    printable(X, Y),
-   Y == 37/8.
+   Y == 4+5/8.
 runner:case(eval_sub, 3, groebner_parteval, 'groebner 0.9.1, 1.3, XLOG 3') :-
    X is 5/3-8,
    printable(X, Y),
-   Y == -19/3.
+   Y == -6-1/3.
 runner:case(eval_sub, 3, groebner_parteval, 'groebner 0.9.1, 1.3, XLOG 4') :-
    X is 1/3-1/2,
    printable(X, Y),
@@ -94,11 +94,11 @@ runner:case(eval_mul, 3, groebner_parteval, 'groebner 0.9.1, 1.4, XLOG 1') :-
 runner:case(eval_mul, 3, groebner_parteval, 'groebner 0.9.1, 1.4, XLOG 2') :-
    X is 5*(3/8),
    printable(X, Y),
-   Y == 15/8.
+   Y == 1+7/8.
 runner:case(eval_mul, 3, groebner_parteval, 'groebner 0.9.1, 1.4, XLOG 3') :-
    X is 5/ -3*8,
    printable(X, Y),
-   Y == -40/3.
+   Y == -13-1/3.
 runner:case(eval_mul, 3, groebner_parteval, 'groebner 0.9.1, 1.4, XLOG 4') :-
    X is -1/3*(-1/2),
    printable(X, Y),
@@ -113,7 +113,7 @@ runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 1.5, XLOG 1') :-
 runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 1.5, XLOG 2') :-
    X is 5/(3/8),
    printable(X, Y),
-   Y == 40/3.
+   Y == 13+1/3.
 runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 1.5, XLOG 3') :-
    X is 5/3/ -8,
    printable(X, Y),
