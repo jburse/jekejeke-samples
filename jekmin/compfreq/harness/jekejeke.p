@@ -84,6 +84,8 @@ tracker:text(library(groebner/fraction)).
 tracker:text(library(gauss/element)).
 tracker:text(library(gauss/vector)).
 tracker:text(library(gauss/matrice)).
+tracker:text(library(gauss/ordered)).
+tracker:text(library(gauss/ring)).
 tracker:text(library(leibniz/subst)).
 tracker:text(library(leibniz/deriv)).
 tracker:text(library(leibniz/series)).

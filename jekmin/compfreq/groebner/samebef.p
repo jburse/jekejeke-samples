@@ -128,7 +128,7 @@ runner:case(eval_min, 3, groebner_samebef, 'groebner 0.9.2, 3.7, XLOG 2') :-
    Y == -4.
 runner:case(eval_min, 3, groebner_samebef, 'groebner 0.9.2, 3.7, XLOG 3') :-
    catch(_ is min(2*_,77), error(E,_), true),
-   E == existence_error(procedure,polynom:gen_ls/2).
+   E = type_error(value,polynom(_,[1-2])).
 
 % eval_max/3
 runner:ref(eval_max, 3, groebner_samebef, 'groebner 0.9.2, 3.8').
