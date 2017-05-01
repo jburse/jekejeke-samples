@@ -32,6 +32,7 @@
 :- ensure_loaded('../groebner/parteval.p').
 :- ensure_loaded('../groebner/simplify.p').
 :- ensure_loaded('../groebner/samebef.p').
+:- ensure_loaded('../groebner/nonfrac.p').
 
 :- ensure_loaded('../gauss/onedim.p').
 :- ensure_loaded('../gauss/exchstep.p').
