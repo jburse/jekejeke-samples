@@ -143,3 +143,25 @@ runner:case(eval_max, 3, groebner_samebef, 'groebner 0.9.2, 3.8, XLOG 2') :-
 runner:case(eval_max, 3, groebner_samebef, 'groebner 0.9.2, 3.8, XLOG 3') :-
    catch(_ is max(77,_), error(E,_), true),
    E == evaluation_error(ordered).
+
+% eval_abs/2
+runner:ref(eval_abs, 2, groebner_samebef, 'groebner 0.9.2, 3.9').
+runner:case(eval_abs, 2, groebner_samebef, 'groebner 0.9.2, 3.9, XLOG 1') :-
+   X is abs(5/3),
+   printable(X, Y),
+   Y == 1+2/3.
+runner:case(eval_abs, 2, groebner_samebef, 'groebner 0.9.2, 3.9, XLOG 2') :-
+   X is abs(-5/3),
+   printable(X, Y),
+   Y == 1+2/3.
+
+% eval_sign/2
+runner:ref(eval_sign, 2, groebner_samebef, 'groebner 0.9.2, 3.10').
+runner:case(eval_sign, 2, groebner_samebef, 'groebner 0.9.2, 3.10, XLOG 1') :-
+   X is sign(5/3),
+   printable(X, Y),
+   Y == 1.
+runner:case(eval_sign, 2, groebner_samebef, 'groebner 0.9.2, 3.10, XLOG 2') :-
+   X is sign(-5/3),
+   printable(X, Y),
+   Y == -1.
