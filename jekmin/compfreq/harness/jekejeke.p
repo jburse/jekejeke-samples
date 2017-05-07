@@ -78,7 +78,6 @@ tracker:text(library(decimal/trigo)).
 tracker:text(library(groebner/generic)).
 tracker:text(library(groebner/integer)).
 tracker:text(library(groebner/rational)).
-tracker:text(library(groebner/radical)).
 tracker:text(library(groebner/variable)).
 tracker:text(library(groebner/polynom)).
 tracker:text(library(groebner/fraction)).
@@ -90,6 +89,7 @@ tracker:text(library(gauss/ring)).
 tracker:text(library(leibniz/subst)).
 tracker:text(library(leibniz/deriv)).
 tracker:text(library(leibniz/series)).
+tracker:text(library(leibniz/radical)).
 
 % run_tracker
 run_tracker :-
