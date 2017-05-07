@@ -11,3 +11,6 @@
 :- ensure_loaded('../finite/bool').
 :- ensure_loaded('../finite/guard').
 :- ensure_loaded('../finite/search').
+
+:- ensure_loaded('../misc/bitprop').
+:- ensure_loaded('../misc/numtheo').
