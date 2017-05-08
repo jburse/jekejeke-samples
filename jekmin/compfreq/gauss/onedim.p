@@ -95,6 +95,10 @@ runner:case(vec_sum, 2, gauss_onedim, 'gauss 0.9.1, 1.4, XLOG 2') :-
    Y is sum(X),
    printable(Y, Z),
    Z == A+B.
+runner:case(vec_sum, 2, gauss_onedim, 'gauss 0.9.2, 1.4, XLOG 3') :-
+   X is sum([sqrt(3),sqrt(2)]),
+   printable(X, Y),
+   Y == sqrt(2)+sqrt(3).
 
 % vec_min/2
 runner:ref(vec_min, 2, gauss_onedim, 'gauss 0.9.1, 1.5').

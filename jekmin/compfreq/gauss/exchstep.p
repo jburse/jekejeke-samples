@@ -173,6 +173,11 @@ runner:case(mat_slash, 3, gauss_exchstep, 'gauss 0.9.1, 2.9, XLOG 2') :-
    Z is X/Y,
    printable(Z, T),
    T == [[1/2-1/(2-2*B),1/2+1/(2-2*B)],[0,1]].
+runner:case(mat_slash, 3, gauss_exchstep, 'gauss 0.9.2, 2.9, XLOG 3') :-
+   X is [[3,2],[sqrt(3),sqrt(2)]],
+   Y is X/X,
+   printable(Y, Z),
+   Z == [[1,0],[0,1]].
 
 % mat_int_pow/3
 runner:ref(mat_int_pow, 3, gauss_exchstep, 'gauss 0.9.1, 2.10').
