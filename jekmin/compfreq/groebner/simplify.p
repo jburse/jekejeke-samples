@@ -50,6 +50,10 @@ runner:case(simp_neg, 2, groebner_simplify, 'groebner 0.9.1, 2.1, XLOG 3') :-
    X is - (A-7)/(B-3),
    printable(X, Y),
    Y == - (7-A)/(3-B).
+runner:case(simp_neg, 2, groebner_simplify, 'groebner 0.9.2, 2.1, XLOG 4') :-
+   X is A/(sqrt(2)-sqrt(3)),
+   printable(X, Y),
+   Y == - (sqrt(2)+sqrt(3))*A.
 
 % simp_add/3
 runner:ref(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2').
@@ -73,6 +77,10 @@ runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.1, 2.2, XLOG 5') :-
    X is 7/(B-3)+(B+2)/5,
    printable(X, Y),
    Y == 2/5+1/5*B-7/(3-B).
+runner:case(simp_add, 3, groebner_simplify, 'groebner 0.9.2, 2.2, XLOG 6') :-
+   X is (A+sqrt(2))*(A+sqrt(8)),
+   printable(X, Y),
+   Y == 4+sqrt(18)*A+A^2.
 
 % simp_sub/3
 runner:ref(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3').
@@ -96,6 +104,10 @@ runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.1, 2.3, XLOG 5') :-
    X is 7/(B-3)-(B+2)/5,
    printable(X, Y),
    Y == -2/5-1/5*B-7/(3-B).
+runner:case(simp_sub, 3, groebner_simplify, 'groebner 0.9.2, 2.3, XLOG 6') :-
+   X is (A-sqrt(2))*(A-sqrt(8)),
+   printable(X, Y),
+   Y == 4-sqrt(18)*A+A^2.
 
 % simp_mul/3
 runner:ref(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4').
@@ -119,6 +131,10 @@ runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.1, 2.4, XLOG 5') :-
    X is (B-1)/A*((B+1)/A),
    printable(X, Y),
    Y == - (1-B^2)/A^2.
+runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.2, 2.4, XLOG 6') :-
+   X is sqrt(1/5)*(sqrt(10)/A+sqrt(15)/B),
+   printable(X, Y),
+   Y == (sqrt(3)*A+sqrt(2)*B)/(A*B).
 
 % simp_slash/3
 runner:ref(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5').
@@ -142,6 +158,10 @@ runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5, XLOG 5') :-
    X is (B^2-1)/A/((A*B+A)/A),
    printable(X, Y),
    Y == - (1-B)/A.
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.2, 2.5, XLOG 6') :-
+   X is (sqrt(10)/A+sqrt(15)/B)/sqrt(5),
+   printable(X, Y),
+   Y == (sqrt(3)*A+sqrt(2)*B)/(A*B).
 
 % simp_int_pow/3
 runner:ref(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6').
@@ -161,3 +181,9 @@ runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.2, 2.6, XLOG 4') :
    X is (1+sqrt(2)+A)^2,
    printable(X, Y),
    Y == 3+sqrt(8)+(2+sqrt(8))*A+A^2.
+runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.2, 2.6, XLOG 5') :-
+   X is (sqrt(3)*A*B-sqrt(2))*A,
+   Y is (sqrt(3)*A*B-sqrt(2))*B,
+   Z is (X/Y)^2,
+   printable(Z, T),
+   T == A^2/B^2.
