@@ -101,3 +101,7 @@ runner:case(subst_int_pow, 3, leibniz_varchange, 'leibniz 0.9.1, 1.6, XLOG 2') :
    X is subst((B-1)^3,B,B+1),
    printable(X, Y),
    Y == B^3.
+runner:case(subst_int_pow, 3, leibniz_varchange, 'leibniz 0.9.2, 1.6, XLOG 3') :-
+   X is subst((1+sqrt(2)+A)^2,A,-1),
+   printable(X, Y),
+   Y == 2.

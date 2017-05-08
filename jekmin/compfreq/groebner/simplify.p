@@ -157,3 +157,7 @@ runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6, XLOG 3') :
    X is ((1-A)/(1+A))^3,
    printable(X, Y),
    Y == -1+(2+6*A^2)/(1+3*A+3*A^2+A^3).
+runner:case(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.2, 2.6, XLOG 4') :-
+   X is (1+sqrt(2)+A)^2,
+   printable(X, Y),
+   Y == 3+sqrt(8)+(2+sqrt(8))*A+A^2.

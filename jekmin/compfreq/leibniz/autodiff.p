@@ -89,3 +89,7 @@ runner:case(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.1, 2.6, XLOG 1') :-
    X is deriv((B-1)^3,B),
    printable(X, Y),
    Y == 3-6*B+3*B^2.
+runner:case(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.2, 2.6, XLOG 2') :-
+   X is deriv((1+sqrt(2)+A)^2,A),
+   printable(X, Y),
+   Y == 2+sqrt(8)+2*A.
