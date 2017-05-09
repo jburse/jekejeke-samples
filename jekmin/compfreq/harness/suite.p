@@ -29,13 +29,13 @@
 :- ensure_loaded('../decimal/addmul.p').
 :- ensure_loaded('../decimal/expsin.p').
 
-:- ensure_loaded('../groebner/parteval.p').
-:- ensure_loaded('../groebner/simplify.p').
-:- ensure_loaded('../groebner/samebef.p').
-:- ensure_loaded('../groebner/nonfrac.p').
-
 :- ensure_loaded('../gauss/onedim.p').
 :- ensure_loaded('../gauss/exchstep.p').
+:- ensure_loaded('../gauss/samebef.p').
+
+:- ensure_loaded('../groebner/parteval.p').
+:- ensure_loaded('../groebner/simplify.p').
+:- ensure_loaded('../groebner/nonfrac.p').
 
 :- ensure_loaded('../leibniz/varchange.p').
 :- ensure_loaded('../leibniz/autodiff.p').
