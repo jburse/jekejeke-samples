@@ -135,6 +135,10 @@ runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.2, 2.4, XLOG 6') :-
    X is sqrt(1/5)*(sqrt(10)/A+sqrt(15)/B),
    printable(X, Y),
    Y == (sqrt(3)*A+sqrt(2)*B)/(A*B).
+runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.2, 2.4, XLOG 7') :-
+   X is (6+sqrt(18)*A+3*A^2)*(sqrt(6)-sqrt(3)*A),
+   printable(X, Y),
+   Y == sqrt(216)-sqrt(27)*A^3.
 
 % simp_slash/3
 runner:ref(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 2.5').
@@ -162,6 +166,10 @@ runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.2, 2.5, XLOG 6') :-
    X is (sqrt(10)/A+sqrt(15)/B)/sqrt(5),
    printable(X, Y),
    Y == (sqrt(3)*A+sqrt(2)*B)/(A*B).
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.2, 2.5, XLOG 7') :-
+   X is (sqrt(216)-sqrt(27)*A^3)/(sqrt(6)-sqrt(3)*A),
+   printable(X, Y),
+   Y == 6+sqrt(18)*A+3*A^2.
 
 % simp_int_pow/3
 runner:ref(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 2.6').
