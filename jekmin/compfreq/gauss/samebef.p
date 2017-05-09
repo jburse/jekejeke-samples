@@ -45,6 +45,8 @@ runner:case(eval_eq, 2, gauss_samebef, 'gauss 0.9.2, 3.1, XLOG 2') :-
 runner:case(eval_eq, 2, gauss_samebef, 'gauss 0.9.2, 3.1, XLOG 3') :-
    \+ 4/7 =:= 5/11.
 runner:case(eval_eq, 2, gauss_samebef, 'gauss 0.9.2, 3.1, XLOG 4') :-
+   sqrt(2)+sqrt(3) =:= sqrt(3)+sqrt(2).
+runner:case(eval_eq, 2, gauss_samebef, 'gauss 0.9.2, 3.1, XLOG 5') :-
    catch(1 =:= _, error(E,_), true),
    E == evaluation_error(ordered).
 
@@ -57,6 +59,8 @@ runner:case(eval_nq, 2, gauss_samebef, 'gauss 0.9.2, 3.2, XLOG 2') :-
 runner:case(eval_nq, 2, gauss_samebef, 'gauss 0.9.2, 3.2, XLOG 3') :-
    \+ 3/4 =\= 3/4.
 runner:case(eval_nq, 2, gauss_samebef, 'gauss 0.9.2, 3.2, XLOG 4') :-
+   1 =\= sqrt(2).
+runner:case(eval_nq, 2, gauss_samebef, 'gauss 0.9.2, 3.2, XLOG 5') :-
    catch(_+_ =\= 7/5, error(E,_), true),
    E == existence_error(procedure,polynom:gen_eq/2).
 
@@ -71,6 +75,8 @@ runner:case(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3, XLOG 3') :-
 runner:case(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3, XLOG 4') :-
    \+ 2/7 < 1/6.
 runner:case(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3, XLOG 5') :-
+   \+ sqrt(2)+1 < sqrt(5).
+runner:case(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3, XLOG 6') :-
    catch(_+_ < 7/5, error(E,_), true),
    E == existence_error(procedure,polynom:gen_ls/2).
 
@@ -85,6 +91,8 @@ runner:case(eval_lq, 2, gauss_samebef, 'gauss 0.9.2, 3.4, XLOG 3') :-
 runner:case(eval_lq, 2, gauss_samebef, 'gauss 0.9.2, 3.4, XLOG 4') :-
    3/4 =< 3/4.
 runner:case(eval_lq, 2, gauss_samebef, 'gauss 0.9.2, 3.4, XLOG 5') :-
+   sqrt(2)+sqrt(3) =< sqrt(3)+sqrt(2).
+runner:case(eval_lq, 2, gauss_samebef, 'gauss 0.9.2, 3.4, XLOG 6') :-
    catch(_/_ =< 3/4, error(E,_), true),
    E == evaluation_error(ordered).
 
@@ -99,6 +107,8 @@ runner:case(eval_gr, 2, gauss_samebef, 'gauss 0.9.2, 3.5, XLOG 3') :-
 runner:case(eval_gr, 2, gauss_samebef, 'gauss 0.9.2, 3.5, XLOG 4') :-
    \+ 3/4 > 3/4.
 runner:case(eval_gr, 2, gauss_samebef, 'gauss 0.9.2, 3.5, XLOG 5') :-
+   sqrt(2)+1 > sqrt(5).
+runner:case(eval_gr, 2, gauss_samebef, 'gauss 0.9.2, 3.5, XLOG 6') :-
    catch(7 > _/_, error(E,_), true),
    E == existence_error(procedure,fraction:gen_ls/2).
 
@@ -113,6 +123,8 @@ runner:case(eval_gq, 2, gauss_samebef, 'gauss 0.9.2, 3.6, XLOG 3') :-
 runner:case(eval_gq, 2, gauss_samebef, 'gauss 0.9.2, 3.6, XLOG 4') :-
    2/7 >= 1/6.
 runner:case(eval_gq, 2, gauss_samebef, 'gauss 0.9.2, 3.6, XLOG 5') :-
+   \+ 141/100 >= sqrt(2).
+runner:case(eval_gq, 2, gauss_samebef, 'gauss 0.9.2, 3.6, XLOG 6') :-
    catch(1 >= _, error(E,_), true),
    E == evaluation_error(ordered).
 
@@ -127,6 +139,10 @@ runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 2') :-
    printable(X, Y),
    Y == -4.
 runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 3') :-
+   X is min(142/100,sqrt(2)),
+   printable(X, Y),
+   Y == sqrt(2).
+runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 4') :-
    catch(_ is min(2*_,77), error(E,_), true),
    E = type_error(value,polynom(_,[1-2])).
 
@@ -141,6 +157,10 @@ runner:case(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8, XLOG 2') :-
    printable(X, Y),
    Y == 1+3/5.
 runner:case(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8, XLOG 3') :-
+   X is max(sqrt(2)+1,sqrt(5)),
+   printable(X, Y),
+   Y == 1+sqrt(2).
+runner:case(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8, XLOG 4') :-
    catch(_ is max(77,_), error(E,_), true),
    E == evaluation_error(ordered).
 
@@ -151,6 +171,10 @@ runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9, XLOG 1') :-
    printable(X, Y),
    Y == 1+2/3.
 runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9, XLOG 2') :-
+   X is abs(1-sqrt(2)),
+   printable(X, Y),
+   Y == -1+sqrt(2).
+runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9, XLOG 3') :-
    X is abs(-5/3),
    printable(X, Y),
    Y == 1+2/3.
@@ -162,6 +186,10 @@ runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 1') :-
    printable(X, Y),
    Y == 1.
 runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 2') :-
+   X is sign(1-sqrt(2)),
+   printable(X, Y),
+   Y == -1.
+runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 3') :-
    X is sign(-5/3),
    printable(X, Y),
    Y == -1.
