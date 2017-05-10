@@ -91,18 +91,35 @@ runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.4, XLOG 2') :-
    P == 3+3*X+3*X^2,
    S == 1.
 runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.4, XLOG 3') :-
-   A is X^3-Y^3,
-   B is X-Y,
-   quorem(A, B, Q, R),
+   quorem(X^3-Y^3, X-Y, Q, R),
    printable(Q, P),
    printable(R, S),
    P == X^2+X*Y+Y^2,
    S == 0.
 runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.4, XLOG 4') :-
-   A is 2*X^3-3*Y^3,
-   B is X-Y,
-   quorem(A, B, Q, R),
+   quorem(sqrt(20)*X^3-sqrt(45)*Y^3, X-Y, Q, R),
    printable(Q, P),
    printable(R, S),
-   P == 3*X^2+3*X*Y+3*Y^2,
-   S == -X^3.
+   P == sqrt(45)*X^2+sqrt(45)*X*Y+sqrt(45)*Y^2,
+   S == -sqrt(5)*X^3.
+runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.4, XLOG 5') :-
+   catch(quorem(_/_, _, _, _), error(E,_), true),
+   E == existence_error(procedure,fraction:gen_div/4).
+
+% simp_reduced/3
+runner:ref(simp_reduced, 3, groebner_nonfrac, 'groebner 0.9.2, 1.5').
+runner:case(simp_reduced, 3, groebner_nonfrac, 'groebner 0.9.2, 1.5, XLOG 1') :-
+   reduced(2*A^3-4, R, F),
+   printable(R, S),
+   printable(F, G),
+   S == 2-A^3,
+   G == -2.
+runner:case(simp_reduced, 3, groebner_nonfrac, 'groebner 0.9.2, 1.5, XLOG 2') :-
+   reduced(1+(1-sqrt(2))*A^2, R, F),
+   printable(R, S),
+   printable(F, G),
+   S == 1+sqrt(2)-A^2,
+   G == -1+sqrt(2).
+runner:case(simp_reduced, 3, groebner_nonfrac, 'groebner 0.9.2, 1.5, XLOG 3') :-
+   catch(reduced(_/_, _, _), error(E,_), true),
+   E == existence_error(procedure,fraction:gen_red/3).

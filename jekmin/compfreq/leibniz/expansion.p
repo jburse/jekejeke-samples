@@ -67,7 +67,7 @@ runner:case(series_laurent, 4, leibniz_expansion, 'leibniz 0.9.1, 2.3, XLOG 1') 
 runner:case(series_laurent, 4, leibniz_expansion, 'leibniz 0.9.1, 2.3, XLOG 2') :-
    X is laurent(B/(1+A),A,5),
    printable(X, Y),
-   Y == (48*B-45*B*A+40*B*A^2-30*B*A^3+60*B*A^4)/(60*A^5).
+   Y == (4/5*B-3/4*B*A+2/3*B*A^2-1/2*B*A^3+B*A^4)/A^5.
 
 % series_laurent/5
 runner:ref(series_laurent, 5, leibniz_expansion, 'leibniz 0.9.1, 2.4').
@@ -78,4 +78,4 @@ runner:case(series_laurent, 5, leibniz_expansion, 'leibniz 0.9.1, 2.4, XLOG 1') 
 runner:case(series_laurent, 5, leibniz_expansion, 'leibniz 0.9.1, 2.4, XLOG 2') :-
    X is laurent(1/(B*A),A,5,1),
    printable(X, Y),
-   Y == (4-35*A+140*A^2-310*A^3+320*A^4+A^5)/(120*B*A^5).
+   Y == (1/30-7/24*A+(1+1/6)*A^2-(2+7/12)*A^3+(2+2/3)*A^4+1/120*A^5)/(B*A^5).

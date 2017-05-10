@@ -172,7 +172,7 @@ runner:case(mat_slash, 3, gauss_exchstep, 'gauss 0.9.1, 1.9, XLOG 2') :-
    Y is [[1,1/B],[1,1]],
    Z is X/Y,
    printable(Z, T),
-   T == [[1/2-1/(2-2*B),1/2+1/(2-2*B)],[0,1]].
+   T == [[1/2-1/2/(1-B),1/2+1/2/(1-B)],[0,1]].
 runner:case(mat_slash, 3, gauss_exchstep, 'gauss 0.9.2, 1.9, XLOG 3') :-
    X is [[3,2],[sqrt(3),sqrt(2)]],
    Y is X/X,
