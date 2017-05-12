@@ -193,3 +193,48 @@ runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 3') :-
    X is sign(-5/3),
    printable(X, Y),
    Y == -1.
+
+% eval_floor/2
+runner:ref(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11').
+runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 1') :-
+   X is floor(-100),
+   X == -100.
+runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 2') :-
+   X is floor(9/5),
+   X == 1.
+runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 3') :-
+   X is floor((sqrt(77/3)+sqrt(33/7))*10^15),
+   X == 7237468644557458.
+runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 4') :-
+   X is floor(-9/5),
+   X == -2.
+
+% eval_ceiling/2
+runner:ref(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12').
+runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 1') :-
+   X is ceiling(9/5),
+   X == 2.
+runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 2') :-
+   X is ceiling(-9/5),
+   X == -1.
+runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 3') :-
+   X is ceiling((sqrt(2)+sqrt(5)-sqrt(11))*10^15),
+   X == 333656749517485.
+runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 4') :-
+   catch(_ is ceiling(_), error(E,_), true),
+   E = type_error(number,_).
+
+% eval_integer/2
+runner:ref(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13').
+runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 1') :-
+   X is integer(9/5),
+   X == 1.
+runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 2') :-
+   X is integer(-9/5),
+   X == -1.
+runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 3') :-
+   X is integer((-sqrt(2))*10^15),
+   X == -1414213562373095.
+runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 4') :-
+   catch(_ is ceiling(2*_), error(E,_), true),
+   E = type_error(value,_).
