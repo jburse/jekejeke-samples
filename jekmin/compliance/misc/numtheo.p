@@ -100,3 +100,15 @@ runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 2') :-
 runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 3') :-
    catch(_ is isqrt(-33), error(E,_), true),
    E == evaluation_error(undefined).
+
+% isqrt/3
+runner:ref(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.5').
+runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.5, XLOG 1') :-
+   X is isqrt(77,3),
+   X == 5.
+runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.5, XLOG 2') :-
+   X is isqrt(3,77),
+   X == 0.
+runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.5, XLOG 3') :-
+   catch(_ is isqrt(-3,77), error(E,_), true),
+   E == evaluation_error(undefined).

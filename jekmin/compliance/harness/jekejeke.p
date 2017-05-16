@@ -38,6 +38,7 @@
 :- use_module(library(testing/result)).
 :- use_module(library(testing/tracker)).
 :- use_module(library(testing/cover)).
+:- use_module(library(testing/summary)).
 
 uptime(X) :-
    statistics(uptime, X).
@@ -95,3 +96,10 @@ run_cover :-
    set_prolog_flag(sys_locale, en),
    set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/07_coverage/'),
    cover_batch('../../../../../../../../blog/en/docs/15_min/02_reference/').
+
+% run_summary
+run_summary :-
+   set_prolog_flag(sys_locale, de),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/'), summary_batch,
+   set_prolog_flag(sys_locale, en),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/'), summary_batch.
