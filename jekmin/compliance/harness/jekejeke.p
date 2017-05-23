@@ -32,7 +32,6 @@
 % :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
 
 :- ensure_loaded(suite).
-:- ensure_loaded(util).
 :- use_module(library(testing/runner)).
 :- use_module(library(testing/diagnose)).
 :- use_module(library(testing/result)).
@@ -40,19 +39,14 @@
 :- use_module(library(testing/cover)).
 :- use_module(library(testing/summary)).
 
-uptime(X) :-
-   statistics(uptime, X).
-
-gctime(X) :-
-   statistics(gctime, X).
-
 /****************************************************************/
 /* Results                                                      */
 /****************************************************************/
 
 % run_test
 run_test :-
-   bench(runner_batch).
+   write('% running test cases.'), nl,
+   time(runner_batch).
 
 % run_diagnose
 run_diagnose :- diagnose_online.
@@ -82,11 +76,11 @@ tracker:text(library(misc/elem)).
 
 % run_tracker
 run_tracker :-
-   text(X),
-   absolute_file_name(X, Y),
-   reset_source_property(Y, sys_notrace), fail.
-run_tracker :-
-   bench(tracker_batch), analyze_batch, list_cover_source.
+   write('% performing coverage analysis.'), nl,
+   time(tracker_batch), analyze_batch.
+
+% run_control
+run_control :- list_cover_source.
 
 % run_cover
 run_cover :-
