@@ -123,25 +123,32 @@ runner:case(eval_mul, 3, groebner_parteval, 'groebner 0.9.2, 2.4, XLOG 5') :-
 % eval_slash/3
 runner:ref(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5').
 runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5, XLOG 1') :-
+   X is 0/(1+sqrt(2)),
+   printable(X, Y),
+   Y == 0.
+runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5, XLOG 2') :-
    X is 5/8,
    printable(X, Y),
    Y == 5/8.
-runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5, XLOG 2') :-
+runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5, XLOG 3') :-
    X is 5/(3/8),
    printable(X, Y),
    Y == 13+1/3.
-runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5, XLOG 3') :-
+runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5, XLOG 4') :-
    X is 5/3/ -8,
    printable(X, Y),
    Y == -5/24.
-runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5, XLOG 4') :-
+runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.1, 2.5, XLOG 5') :-
    X is -1/3/(1/ -2),
    printable(X, Y),
    Y == 2/3.
-runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.2, 2.5, XLOG 5') :-
+runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.2, 2.5, XLOG 6') :-
    X is (1+sqrt(2))/(1-sqrt(2)),
    printable(X, Y),
    Y == -3-sqrt(8).
+runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.2, 2.5, XLOG 7') :-
+   catch(_ is sqrt(2)/0, error(E,_), true),
+   E == evaluation_error(zero_divisor).
 
 % eval_int_pow/3
 runner:ref(eval_int_pow, 3, groebner_parteval, 'groebner 0.9.1, 2.6').

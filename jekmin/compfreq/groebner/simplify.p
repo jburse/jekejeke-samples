@@ -143,33 +143,40 @@ runner:case(simp_mul, 3, groebner_simplify, 'groebner 0.9.2, 3.4, XLOG 7') :-
 % simp_slash/3
 runner:ref(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5').
 runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 1') :-
+   X is 0/(1+_),
+   printable(X, Y),
+   Y == 0.
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 2') :-
    X is A/A^2,
    printable(X, Y),
    Y == 1/A.
-runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 2') :-
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 3') :-
    X is A/(A+1),
    printable(X, Y),
    Y == 1-1/(1+A).
-runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 3') :-
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 4') :-
    X is A/(A/B),
    printable(X, Y),
    Y == B.
-runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 4') :-
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 5') :-
    X is (B^2-1)/(A*B+A),
    printable(X, Y),
    Y == - (1-B)/A.
-runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 5') :-
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.1, 3.5, XLOG 6') :-
    X is (B^2-1)/A/((A*B+A)/A),
    printable(X, Y),
    Y == - (1-B)/A.
-runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.2, 3.5, XLOG 6') :-
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.2, 3.5, XLOG 7') :-
    X is (sqrt(10)/A+sqrt(15)/B)/sqrt(5),
    printable(X, Y),
    Y == (sqrt(3)*A+sqrt(2)*B)/(A*B).
-runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.2, 3.5, XLOG 7') :-
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.2, 3.5, XLOG 8') :-
    X is (sqrt(216)-sqrt(27)*A^3)/(sqrt(6)-sqrt(3)*A),
    printable(X, Y),
    Y == 6+sqrt(18)*A+3*A^2.
+runner:case(simp_slash, 3, groebner_simplify, 'groebner 0.9.2, 3.5, XLOG 9') :-
+   catch(_ is _/0, error(E,_), true),
+   E == evaluation_error(zero_divisor).
 
 % simp_int_pow/3
 runner:ref(simp_int_pow, 3, groebner_simplify, 'groebner 0.9.1, 3.6').
