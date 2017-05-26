@@ -188,9 +188,5 @@ runner:case(eval_sqrt, 2, groebner_parteval, 'groebner 0.9.2, 2.7, XLOG 5') :-
    printable(X, Y),
    Y == sqrt(7+sqrt(14)).
 runner:case(eval_sqrt, 2, groebner_parteval, 'groebner 0.9.2, 2.7, XLOG 6') :-
-   X is sqrt(7+sqrt(13)),
-   printable(X, Y),
-   Y == sqrt(1/2)+sqrt(6+1/2).
-runner:case(eval_sqrt, 2, groebner_parteval, 'groebner 0.9.2, 2.7, XLOG 7') :-
    catch(_ is sqrt(-1), error(E,_), true),
    E == evaluation_error(undefined).
