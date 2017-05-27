@@ -248,3 +248,15 @@ runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 3') :-
 runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 4') :-
    catch(_ is ceiling(2*_), error(E,_), true),
    E = type_error(value,_).
+
+% eval_float/2
+runner:ref(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14').
+runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 1') :-
+   X is float(33),
+   X == 33.0.
+runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 2') :-
+   X is float(-5/7),
+   X == -0.7142857142857143.
+runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 3') :-
+   X is float(sqrt(1+sqrt(2))),
+   X == 1.5537739740300374.

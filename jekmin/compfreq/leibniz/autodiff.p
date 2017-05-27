@@ -71,25 +71,77 @@ runner:case(deriv_sub, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.3, XLOG 2') :-
 
 % deriv_mul/3
 runner:ref(deriv_mul, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.4').
-runner:case(deriv_mul, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.4, XLOG 1') :-
+runner:case(deriv_mul, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.4, XLOG 1') :-
+   X is deriv((B-1)*(B+1),B),
+   printable(X, Y),
+   Y == 2*B.
+runner:case(deriv_mul, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.4, XLOG 2') :-
    X is deriv((A-1)*(B-1)*(C-1),B),
    printable(X, Y),
    Y == 1-A-(1-A)*C.
 
-% deriv_slash/3
-runner:ref(deriv_slash, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.5').
-runner:case(deriv_slash, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.5, XLOG 1') :-
-   X is deriv((A-1)*(B-1)/(C-1),B),
-   printable(X, Y),
-   Y == (1-A)/(1-C).
-
 % deriv_int_pow/3
-runner:ref(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.6').
-runner:case(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.6, XLOG 1') :-
+runner:ref(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.5').
+runner:case(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.5, XLOG 1') :-
    X is deriv((B-1)^3,B),
    printable(X, Y),
    Y == 3-6*B+3*B^2.
-runner:case(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.6, XLOG 2') :-
+runner:case(deriv_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.5, XLOG 2') :-
    X is deriv((1+sqrt(2)+A)^2,A),
    printable(X, Y),
    Y == 2+sqrt(8)+2*A.
+
+% deriv_slash/3
+runner:ref(deriv_slash, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.6').
+runner:case(deriv_slash, 3, leibniz_autodiff, 'leibniz 0.9.1, 1.6, XLOG 1') :-
+   X is deriv((A-1)*(B-1)/(C-1),B),
+   printable(X, Y),
+   Y == (1-A)/(1-C).
+runner:case(deriv_slash, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.6, XLOG 2') :-
+   X is deriv((A-1)/(B-1)*(C-1),B),
+   printable(X, Y),
+   Y == - (1-A-(1-A)*C)/(1-2*B+B^2).
+
+% integ_neg/2
+runner:ref(integ_neg, 2, leibniz_autodiff, 'leibniz 0.9.2, 1.7').
+runner:case(integ_neg, 2, leibniz_autodiff, 'leibniz 0.9.2, 1.7, XLOG 1') :-
+   X is integ(-7,B),
+   printable(X, Y),
+   Y == -7*B.
+runner:case(integ_neg, 2, leibniz_autodiff, 'leibniz 0.9.2, 1.7, XLOG 2') :-
+   X is integ(-B^3,B),
+   printable(X, Y),
+   Y == -1/4*B^4.
+
+% integ_add/3
+runner:ref(integ_add, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.8').
+runner:case(integ_add, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.8, XLOG 1') :-
+   X is integ(B^2+7,B),
+   printable(X, Y),
+   Y == 7*B+1/3*B^3.
+runner:case(integ_add, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.8, XLOG 2') :-
+   X is integ((A+1)*(B+1)*(C+1),B),
+   printable(X, Y),
+   Y == (1+A)*B+(1/2+1/2*A)*B^2+((1+A)*B+(1/2+1/2*A)*B^2)*C.
+
+% integ_sub/3
+runner:ref(integ_sub, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.9').
+runner:case(integ_sub, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.9, XLOG 1') :-
+   X is integ(B^2-7,B),
+   printable(X, Y),
+   Y == -7*B+1/3*B^3.
+runner:case(integ_sub, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.9, XLOG 2') :-
+   X is integ((A-1)*(B-1)*(C-1),B),
+   printable(X, Y),
+   Y == - (1-A)*B+(1/2-1/2*A)*B^2+((1-A)*B-(1/2-1/2*A)*B^2)*C.
+
+% integ_int_pow/3
+runner:ref(integ_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.10').
+runner:case(integ_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.10, XLOG 1') :-
+   X is integ((1+B)^3,B),
+   printable(X, Y),
+   Y == B+(1+1/2)*B^2+B^3+1/4*B^4.
+runner:case(integ_int_pow, 3, leibniz_autodiff, 'leibniz 0.9.2, 1.10, XLOG 2') :-
+   X is integ((1+A*B*C)^3,B),
+   printable(X, Y),
+   Y == B+(1+1/2)*A*B^2*C+A^2*B^3*C^2+1/4*A^3*B^4*C^3.
