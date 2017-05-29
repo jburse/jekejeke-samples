@@ -1,27 +1,57 @@
 /**
  * Jekejeke Prolog code for the compliance diagnosis.
  *
- * Copyright 2011-2016, XLOG Technologies GmbH, Switzerland
- * Jekejeke Prolog 0.9.0 (a fast and small prolog interpreter)
+ * Warranty & Liability
+ * To the extent permitted by applicable law and unless explicitly
+ * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
+ * regarding the provided information. XLOG Technologies GmbH assumes
+ * no liability that any problems might be solved with the information
+ * provided by XLOG Technologies GmbH.
+ *
+ * Rights & License
+ * All industrial property rights regarding the information - copyright
+ * and patent rights in particular - are the sole property of XLOG
+ * Technologies GmbH. If the company was not the originator of some
+ * excerpts, XLOG Technologies GmbH has at least obtained the right to
+ * reproduce, change and translate the information.
+ *
+ * Reproduction is restricted to the whole unaltered document. Reproduction
+ * of the information is only allowed for non-commercial uses. Selling,
+ * giving away or letting of the execution of the library is prohibited.
+ * The library can be distributed as part of your applications and libraries
+ * for execution provided this comment remains unchanged.
+ *
+ * Trademarks
+ * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
 :- ensure_loaded(suite).
 :- use_module(library(testing/runner)).
 :- use_module(library(testing/diagnose)).
 :- use_module(library(testing/result)).
+:- use_module(library(testing/summary)).
 
 % run_test
 run_test :-
-   set_prolog_flag(base_url, '/Projects/Jekejeke/Prototyping/samples/jekdev/compliance/classes/stream'), runner_batch.
+   write('% running test cases.'), nl,
+   set_prolog_flag(base_url, '/Projects/Jekejeke/Prototyping/samples/jekdev/compliance/classes/stream'),
+   time((runner_batch,nl)).
 
 % run_diagnose
-run_diagnose :- nl, diagnose_online.
+run_diagnose :- diagnose_online.
 
 % run_report
-run_report :- nl,
+run_report :-
    set_prolog_flag(sys_locale, de),
    set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/10_dev/15_stdy/07_compliance/09_results/'),
    result_batch('../../../../../../../blog/docs/10_dev/07_compliance/'),
    set_prolog_flag(sys_locale, en),
    set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/09_results/'),
    result_batch('../../../../../../../../blog/en/docs/10_dev/07_compliance/').
+
+% run_summary
+run_summary :-
+   set_prolog_flag(sys_locale, de),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/10_dev/15_stdy/07_compliance/'), summary_batch,
+   set_prolog_flag(sys_locale, en),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/'), summary_batch.

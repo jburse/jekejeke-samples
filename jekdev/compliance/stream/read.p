@@ -37,7 +37,7 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(stream/console)).
-:- use_module(library(testing/charsio)).
+:- use_module(library(system/charsio)).
 :- use_module(library(advanced/sets)).
 
 /****************************************************************/
@@ -51,7 +51,7 @@
 runner:ref(writeq, 1, stream_read, 'ISO 8.14.2.4, ISO 6.3.4.2, ISO 6.4.2').
 runner:case(writeq, 1, stream_read, 1) :-
    with_output_to(atom(X), writeq('1<2')),
-   X == '\'1<2\''.
+   X == '''1<2'''.
 runner:case(writeq, 1, stream_read, 2) :-
    with_output_to(atom(X), writeq('$VAR'(0))),
    X == 'A'.
@@ -79,10 +79,10 @@ runner:case(writeq, 1, stream_read, 6) :-
 runner:ref(write_canonical, 1, stream_read, 'ISO 8.14.2.4, ISO 6.3.3.1').
 runner:case(write_canonical, 1, stream_read, 1) :-
    with_output_to(atom(X), write_canonical([1,2,3])),
-   X == '\'.\'(1,\'.\'(2,\'.\'(3,[])))'.
+   X == '''.''(1,''.''(2,''.''(3,[])))'.
 runner:case(write_canonical, 1, stream_read, 2) :-
    with_output_to(atom(X), write_canonical((a,b))),
-   X == '\',\'(a,b)'.
+   X == ''',''(a,b)'.
 
 /* write_term(X,L) */
 
@@ -101,7 +101,7 @@ runner:case(write_term, 2, stream_read, 4) :-
    X == 'Z1'.
 runner:case(write_term, 2, stream_read, 5) :-
    with_output_to(atom(X), write_term(f(',',a), [quoted(true)])),
-   X == 'f(\',\',a)'.
+   X == 'f('','',a)'.
 runner:case(write_term, 2, stream_read, 6) :-
    with_output_to(atom(X), write_term((a;b|c), [quoted(true)])),
    X == 'a;b|c'.
@@ -134,7 +134,7 @@ runner:case(read, 1, stream_read, 'ISO 6.3.3.1, XLOG 2') :-
    catch(with_input_from(atom('{,}.'), read(_)), error(E,_), true),
    E == syntax_error(cannot_start_term).
 runner:case(read, 1, stream_read, 'ISO 6.3.3.1, XLOG 3') :-
-   catch(with_input_from(atom('\'\\N\'.'), read(_)), error(E,_), true),
+   catch(with_input_from(atom('''\\N''.'), read(_)), error(E,_), true),
    E == syntax_error(illegal_escape).
 runner:case(read, 1, stream_read, 'ISO 6.3.3.1, XLOG 4') :-
    catch(with_input_from(atom('X = |.'), read(_)), error(E,_), true),

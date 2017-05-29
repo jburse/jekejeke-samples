@@ -46,9 +46,9 @@
 
 runner:ref(truncate, -2, arithmetic_moddiv, 'ISO 9.1.7').
 runner:case(truncate, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 8') :-
-   0 is truncate(-0.5).
+   0.0 is truncate(-0.5).
 runner:case(truncate, -2, arithmetic_moddiv, 'ISO 9.1.7, XLOG 1') :-
-   7 is truncate(7.6).
+   7.0 is truncate(7.6).
 runner:case(truncate, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 9') :-
    catch(_ is truncate(foobar), error(E,_), true),
    E == type_error(evaluable,foobar/0).
@@ -57,9 +57,9 @@ runner:case(truncate, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 9') :-
 
 runner:ref(floor, -2, arithmetic_moddiv, 'ISO 9.1.7').
 runner:case(floor, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 1') :-
-   7 is floor(7.4).
+   7.0 is floor(7.4).
 runner:case(floor, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 2') :-
-   -1 is floor(-0.4).
+   -1.0 is floor(-0.4).
 % runner:case(floor, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 24') :- current_prolog_flag(max_integer, M),
 %   catch(_ is floor(M*2.0), error(E, _), true), E==evaluation_error(int_overflow).
 
@@ -67,19 +67,19 @@ runner:case(floor, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 2') :-
 
 runner:ref(ceiling, -2, arithmetic_moddiv, 'ISO 9.1.7').
 runner:case(ceiling, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 7') :-
-   0 is ceiling(-0.5).
+   0.0 is ceiling(-0.5).
 runner:case(ceiling, -2, arithmetic_moddiv, 'ISO 9.1.7, XLOG 2') :-
-   8 is ceiling(7.6).
+   8.0 is ceiling(7.6).
 
 /* round(X) */
 
 runner:ref(round, -2, arithmetic_moddiv, 'ISO 9.1.7').
 runner:case(round, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 3') :-
-   8 is round(7.5).
+   8.0 is round(7.5).
 runner:case(round, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 4') :-
-   8 is round(7.6).
+   8.0 is round(7.6).
 runner:case(round, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 5') :-
-   -1 is round(-0.6).
+   -1.0 is round(-0.6).
 runner:case(round, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 6') :-
    catch(_ is round(_), error(E,_), true),
    E == instantiation_error.

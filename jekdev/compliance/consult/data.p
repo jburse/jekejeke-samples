@@ -38,7 +38,7 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(testing/charsio)).
+:- use_module(library(system/charsio)).
 
 /****************************************************************/
 /* Dynamic Database                                             */

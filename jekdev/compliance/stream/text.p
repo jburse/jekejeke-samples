@@ -36,7 +36,7 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(testing/charsio)).
+:- use_module(library(system/charsio)).
 
 /****************************************************************/
 /* Character Input / Output                                     */
@@ -88,8 +88,8 @@ runner:case(peek_char, 1, stream_text, 2) :-
                                        get_char(X))),
    X == q.
 runner:case(peek_char, 1, stream_text, 3) :-
-   with_input_from(atom('\'qwerty\' '), peek_char(X)),
-   X == '\''.
+   with_input_from(atom('''qwerty'' '), peek_char(X)),
+   X == ''''.
 runner:case(peek_char, 1, stream_text, 4) :-
    \+ with_input_from(atom('qwerty '), peek_char(p)).
 runner:case(peek_char, 1, stream_text, 5) :-
@@ -107,7 +107,7 @@ runner:case(peek_code, 1, stream_text, 2) :-
                                        get_code(X))),
    X == 113.
 runner:case(peek_code, 1, stream_text, 3) :-
-   with_input_from(atom('\'qwerty\' '), peek_code(X)),
+   with_input_from(atom('''qwerty'' '), peek_code(X)),
    X == 39.
 runner:case(peek_code, 1, stream_text, 4) :-
    \+ with_input_from(atom('qwerty '), peek_code(112)).
@@ -126,8 +126,8 @@ runner:case(get_char, 1, stream_text, 2) :-
                                        get_char(X))),
    X == w.
 runner:case(get_char, 1, stream_text, 3) :-
-   with_input_from(atom('\'qwerty\' '), get_char(X)),
-   X == '\''.
+   with_input_from(atom('''qwerty'' '), get_char(X)),
+   X == ''''.
 runner:case(get_char, 1, stream_text, 4) :-
    \+ with_input_from(atom('qwerty '), get_char(p)).
 runner:case(get_char, 1, stream_text, 5) :-
@@ -145,7 +145,7 @@ runner:case(get_code, 1, stream_text, 2) :-
                                        get_code(X))),
    X == 119.
 runner:case(get_code, 1, stream_text, 3) :-
-   with_input_from(atom('\'qwerty\' '), get_code(X)),
+   with_input_from(atom('''qwerty'' '), get_code(X)),
    X == 39.
 runner:case(get_code, 1, stream_text, 4) :-
    \+ with_input_from(atom('qwerty '), get_code(112)).
