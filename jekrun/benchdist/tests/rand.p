@@ -29,7 +29,7 @@
 :- use_module(library(basic/random)).
 :- use_module(library(advanced/arith)).
 :- use_module(library(runtime/distributed)).
-:- use_module(library(advanced/aggregate)).
+:- use_module(library(misc/aggregate)).
 
 /*****************************************************************/
 /* Normal Test Cases                                             */
