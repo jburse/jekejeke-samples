@@ -36,54 +36,6 @@
 :- use_module(library(groebner/generic)).
 :- use_module(library(misc/residue)).
 
-% simp_quorem/4
-runner:ref(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.1').
-runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.1, XLOG 1') :-
-   quorem(X^3-2, X-1, Q, R),
-   printable(Q, P),
-   printable(R, S),
-   P == 1+X+X^2,
-   S == -1.
-runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.1, XLOG 2') :-
-   quorem(3*X^3-2, X-1, Q, R),
-   printable(Q, P),
-   printable(R, S),
-   P == 3+3*X+3*X^2,
-   S == 1.
-runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.1, XLOG 3') :-
-   quorem(X^3-Y^3, X-Y, Q, R),
-   printable(Q, P),
-   printable(R, S),
-   P == X^2+X*Y+Y^2,
-   S == 0.
-runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.1, XLOG 4') :-
-   quorem(sqrt(20)*X^3-sqrt(45)*Y^3, X-Y, Q, R),
-   printable(Q, P),
-   printable(R, S),
-   P == sqrt(45)*X^2+sqrt(45)*X*Y+sqrt(45)*Y^2,
-   S == -sqrt(5)*X^3.
-runner:case(simp_quorem, 4, groebner_nonfrac, 'groebner 0.9.2, 1.1, XLOG 5') :-
-   catch(quorem(_/_, _, _, _), error(E,_), true),
-   E == existence_error(procedure,fraction:gen_div/4).
-
-% simp_reduced/3
-runner:ref(simp_reduced, 3, groebner_nonfrac, 'groebner 0.9.2, 1.2').
-runner:case(simp_reduced, 3, groebner_nonfrac, 'groebner 0.9.2, 1.2, XLOG 1') :-
-   reduced(2*A^3-4, R, F),
-   printable(R, S),
-   printable(F, G),
-   S == 2-A^3,
-   G == -2.
-runner:case(simp_reduced, 3, groebner_nonfrac, 'groebner 0.9.2, 1.2, XLOG 2') :-
-   reduced(1+(1-sqrt(2))*A^2, R, F),
-   printable(R, S),
-   printable(F, G),
-   S == 1+sqrt(2)-A^2,
-   G == -1+sqrt(2).
-runner:case(simp_reduced, 3, groebner_nonfrac, 'groebner 0.9.2, 1.2, XLOG 3') :-
-   catch(reduced(_/_, _, _), error(E,_), true),
-   E == existence_error(procedure,fraction:gen_red/3).
-
 % eval_denest/2
 runner:ref(eval_denest, 2, groebner_nonfrac, 'groebner 0.9.2, 1.3').
 runner:case(eval_denest, 2, groebner_nonfrac, 'groebner 0.9.2, 1.3, Jeffrey Rich 1') :-

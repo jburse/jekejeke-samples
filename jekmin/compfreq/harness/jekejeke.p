@@ -54,10 +54,10 @@ run_diagnose :- diagnose_online.
 % run_report
 run_report :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/09_results/'),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/09_results/'),
    result_batch('../../../../../../../blog/docs/15_min/08_compfreq/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/09_results/'),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/09_results/'),
    result_batch('../../../../../../../../blog/en/docs/15_min/08_compfreq/').
 
 /****************************************************************/
@@ -97,15 +97,15 @@ run_control :- list_cover_source.
 % run_cover
 run_cover :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
    cover_batch('../../../../../../../blog/docs/15_min/04_frequent/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
    cover_batch('../../../../../../../../blog/en/docs/15_min/04_frequent/').
 
 % run_summary
 run_summary :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/'), summary_batch,
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/'), summary_batch,
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/'), summary_batch.
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/'), summary_batch.
