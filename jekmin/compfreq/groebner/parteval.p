@@ -153,14 +153,22 @@ runner:case(eval_slash, 3, groebner_parteval, 'groebner 0.9.2, 2.5, XLOG 7') :-
 % eval_int_pow/3
 runner:ref(eval_int_pow, 3, groebner_parteval, 'groebner 0.9.1, 2.6').
 runner:case(eval_int_pow, 3, groebner_parteval, 'groebner 0.9.1, 2.6, XLOG 1') :-
-   X is 5^2,
+   X is -5^2,
    printable(X, Y),
    Y == 25.
 runner:case(eval_int_pow, 3, groebner_parteval, 'groebner 0.9.1, 2.6, XLOG 2') :-
-   X is (1/3)^2,
+   X is (2/3)^5,
    printable(X, Y),
-   Y == 1/9.
+   Y == 32/243.
 runner:case(eval_int_pow, 3, groebner_parteval, 'groebner 0.9.2, 2.6, XLOG 3') :-
+   X is 5^ -2,
+   printable(X, Y),
+   Y == 1/25.
+runner:case(eval_int_pow, 3, groebner_parteval, 'groebner 0.9.2, 2.6, XLOG 4') :-
+   X is (-2/3)^ -5,
+   printable(X, Y),
+   Y == -7-19/32.
+runner:case(eval_int_pow, 3, groebner_parteval, 'groebner 0.9.2, 2.6, XLOG 5') :-
    X is (1+sqrt(2))^3,
    printable(X, Y),
    Y == 7+sqrt(50).
