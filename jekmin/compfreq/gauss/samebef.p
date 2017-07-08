@@ -186,6 +186,9 @@ runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9, XLOG 3') :-
    X is abs(-5/3),
    printable(X, Y),
    Y == 1+2/3.
+runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.3, 3.9, XLOG 4') :-
+   catch(_ is abs(_+_), error(E,_), true),
+   E = type_error(value,_).
 
 % eval_sign/2
 runner:ref(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10').
@@ -203,6 +206,9 @@ runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 4') :-
    Y is sqrt(1+sqrt(2)),
    Z is sign(X-Y),
    Z == 1.
+runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.3, 3.10, XLOG 5') :-
+   catch(_ is sign(_), error(E,_), true),
+   E = type_error(number,_).
 
 % eval_floor/2
 runner:ref(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11').
@@ -218,6 +224,9 @@ runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 3') :-
 runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 4') :-
    X is floor(-9/5),
    X == -2.
+runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.3, 3.11, XLOG 45') :-
+   catch(_ is floor(_+_), error(E,_), true),
+   E = type_error(value,_).
 
 % eval_ceiling/2
 runner:ref(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12').
@@ -260,3 +269,6 @@ runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 2') :-
 runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 3') :-
    X is float(sqrt(1+sqrt(2))),
    X == 1.5537739740300374.
+runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.3, 3.14, XLOG 4') :-
+   catch(_ is float(_), error(E,_), true),
+   E = type_error(number,_).

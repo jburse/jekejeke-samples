@@ -85,36 +85,50 @@ runner:case(simp_reduced, 3, gauss_utilpoly, 'gauss 0.9.2, 4.2, XLOG 3') :-
    catch(reduced(_/_, _, _), error(E,_), true),
    E == existence_error(procedure,fraction:gen_red/3).
 
+% eval_hipow/3
+runner:ref(eval_hipow, 3, gauss_utilpoly, 'gauss 0.9.3, 4.3').
+runner:case(eval_hipow, 3, gauss_utilpoly, 'gauss 0.9.3, 4.3, XLOG 1') :-
+   X is hipow(-77/33,_),
+   X == 0.
+runner:case(eval_hipow, 3, gauss_utilpoly, 'gauss 0.9.3, 4.3, XLOG 2') :-
+   X is hipow(A*(A+1)-A^2,A),
+   X == 1.
+runner:case(eval_hipow, 3, gauss_utilpoly, 'gauss 0.9.3, 4.3, XLOG 3') :-
+   X is hipow((A+B*A)*(A^2-B),A),
+   X == 3.
+runner:case(eval_hipow, 3, gauss_utilpoly, 'gauss 0.9.3, 4.3, XLOG 4') :-
+   catch(_ is hipow(1/_,_), error(E,_), true),
+   E == existence_error(procedure,fraction:hipow/3).
+
 % eval_degree/2
-runner:ref(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.3').
+runner:ref(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.4').
 runner:case(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.3, XLOG 1') :-
    X is degree(-77/33),
    X == 0.
-runner:case(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.3, XLOG 2') :-
+runner:case(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.4, XLOG 2') :-
    X is degree(A*(A+1)-A^2),
    X == 1.
-runner:case(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.3, XLOG 3') :-
+runner:case(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.4, XLOG 3') :-
    X is degree((A+B*A)*(A^2-B)),
    X == 4.
-runner:case(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.3, XLOG 4') :-
+runner:case(eval_degree, 2, gauss_utilpoly, 'gauss 0.9.2, 4.4, XLOG 4') :-
    catch(_ is degree(1/_), error(E,_), true),
    E == existence_error(procedure,fraction:degree/2).
 
 % eval_randpoly/2
-runner:ref(eval_randpoly, 2, gauss_utilpoly, 'gauss 0.9.2, 4.4').
-runner:case(eval_randpoly, 2, gauss_utilpoly, 'gauss 0.9.2, 4.4, XLOG 1') :-
+runner:ref(eval_randpoly, 2, gauss_utilpoly, 'gauss 0.9.2, 4.5').
+runner:case(eval_randpoly, 2, gauss_utilpoly, 'gauss 0.9.2, 4.5, XLOG 1') :-
    random_new(123, R),
    set_prolog_flag(sys_random, R),
    X is randpoly([A]),
    printable(X, Y),
    Y == -A-2*A^2.
-runner:case(eval_randpoly, 2, gauss_utilpoly, 'gauss 0.9.2, 4.4, XLOG 2') :-
+runner:case(eval_randpoly, 2, gauss_utilpoly, 'gauss 0.9.2, 4.5, XLOG 2') :-
    random_new(456, R),
    set_prolog_flag(sys_random, R),
    X is randpoly([A,B]),
    printable(X, Y),
    Y == -5+(2-5*A)*B+A*B^2.
-runner:case(eval_randpoly, 2, gauss_utilpoly, 'gauss 0.9.2, 4.4, XLOG 3') :-
+runner:case(eval_randpoly, 2, gauss_utilpoly, 'gauss 0.9.2, 4.5, XLOG 3') :-
    catch(_ is randpoly(5), error(E,_), true),
    E == existence_error(procedure,integer:randpoly/2).
-
