@@ -36,9 +36,6 @@ import java.util.Vector;
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public class OutTable {
-    /* choice point data */
-    private Enumeration<String> elements = employees.elements();
-
     static Vector<String> employees = new Vector<String>();
 
     static {
@@ -55,16 +52,16 @@ public class OutTable {
      * @return The employee, or null.
      */
     public static String employee(CallOut co) {
-        OutTable table;
+        Enumeration<String> elements;
         if (co.getFirst()) {
-            table = new OutTable();
-            co.setData(table);
+            elements = employees.elements();
+            co.setData(elements);
         } else {
-            table = (OutTable) co.getData();
+            elements = (Enumeration<String>) co.getData();
         }
-        if (table.elements.hasMoreElements()) {
+        if (elements.hasMoreElements()) {
             co.setRetry(true);
-            return table.elements.nextElement();
+            return elements.nextElement();
         }
         return null;
     }
