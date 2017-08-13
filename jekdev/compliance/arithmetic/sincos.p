@@ -54,9 +54,6 @@ runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 3') :-
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 4') :-
    catch(_ is 77**_, error(E,_), true),
    E == instantiation_error.
-runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 5') :-
-   catch(_ is foobar**2, error(E,_), true),
-   E == type_error(evaluable,foobar/0).
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 6') :-
    125.0 is 5**3.0.
 runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 7') :-
@@ -67,9 +64,6 @@ runner:case(**, -3, arithmetic_sincos, 'ISO 9.3.1.4, ISO 7') :-
 runner:ref(sin, -2, arithmetic_sincos, 'ISO 9.3.2.4').
 runner:case(sin, -2, arithmetic_sincos, 'ISO 9.3.2.4, ISO 1') :-
    0.0 is sin(0.0).
-runner:case(sin, -2, arithmetic_sincos, 'ISO 9.3.2.4, ISO 2') :-
-   catch(_ is sin(_), error(E,_), true),
-   E == instantiation_error.
 runner:case(sin, -2, arithmetic_sincos, 'ISO 9.3.2.4, ISO 3') :-
    0.0 is sin(0).
 runner:case(sin, -2, arithmetic_sincos, 'ISO 9.3.2.4, ISO 4') :-
@@ -77,6 +71,8 @@ runner:case(sin, -2, arithmetic_sincos, 'ISO 9.3.2.4, ISO 4') :-
    E == type_error(evaluable,foobar/0).
 runner:case(sin, -2, arithmetic_sincos, 'ISO 9.3.2.4, ISO 5') :-
    1.0 is sin(pi/2.0).
+runner:case(sin, -2, arithmetic_sincos, 'ISO 9.3.2.4, XLOG 1') :-
+   0.7457052121767203 is sin(2.3).
 
 /* cos(X) */
 
@@ -88,11 +84,10 @@ runner:case(cos, -2, arithmetic_sincos, 'ISO 9.3.3.4, ISO 2') :-
    E == instantiation_error.
 runner:case(cos, -2, arithmetic_sincos, 'ISO 9.3.3.4, ISO 3') :-
    1.0 is cos(0).
-runner:case(cos, -2, arithmetic_sincos, 'ISO 9.3.3.4, ISO 4') :-
-   catch(_ is cos(foobar), error(E,_), true),
-   E == type_error(evaluable,foobar/0).
 runner:case(cos, -2, arithmetic_sincos, 'ISO 9.3.3.4, ISO 5') :-
    6.123233995736766e-17 is cos(pi/2.0).
+runner:case(cos, -2, arithmetic_sincos, 'ISO 9.3.3.4, XLOG 1') :-
+   -0.666276021279824 is cos(2.3).
 
 /* tan(X) */
 
@@ -105,6 +100,8 @@ runner:case(tan, -2, arithmetic_sincos, 'Corr.2 9.3.14.4, XLOG 2') :-
 runner:case(tan, -2, arithmetic_sincos, 'Corr.2 9.3.14.4, XLOG 3') :-
    catch(_ is tan(foobar), error(E,_), true),
    E == type_error(evaluable,foobar/0).
+runner:case(tan, -2, arithmetic_sincos, 'Corr.2 9.3.14.4, XLOG 4') :-
+   -1.1192136417341325 is tan(2.3).
 
 /* asin(X) */
 
@@ -150,8 +147,6 @@ runner:case(atan, -2, arithmetic_sincos, 'ISO 9.3.4.4, ISO 3') :-
    E == instantiation_error.
 runner:case(atan, -2, arithmetic_sincos, 'ISO 9.3.4.4, ISO 4') :-
    0.0 is atan(0).
-% runner:case(atan, -2, arithmetic_sincos, 'ISO 9.3.4.4, ISO 5') :-
-% catch(_ is atan(foobar), error(E, _), true), E==type_error(evaluable, foobar/0).
 
 /* exp(X) */
 
@@ -161,8 +156,6 @@ runner:case(exp, -2, arithmetic_sincos, 'ISO 9.3.5.4, ISO 1') :-
 runner:case(exp, -2, arithmetic_sincos, 'ISO 9.3.5.4, ISO 2') :-
    2.7182818284590455 is exp(1.0)
 ;  2.718281828459045 is exp(1.0).
-% runner:case(exp, -2, arithmetic_sincos, 'ISO 9.3.5.4, ISO 3') :-
-% catch(_ is exp(_), error(E, _), true), E==instantiation_error.
 runner:case(exp, -2, arithmetic_sincos, 'ISO 9.3.5.4, ISO 4') :-
    1.0 is exp(0).
 runner:case(exp, -2, arithmetic_sincos, 'ISO 9.3.5.4, ISO 5') :-
@@ -176,14 +169,13 @@ runner:case(log, -2, arithmetic_sincos, 'ISO 9.3.6.4, ISO 1') :-
    0.0 is log(1.0).
 runner:case(log, -2, arithmetic_sincos, 'ISO 9.3.6.4, ISO 2') :-
    1.0 is log(e).
-% runner:case(log, -2, arithmetic_sincos, 'ISO 9.3.6.4, ISO 3') :-
-% catch(_ is log(_), error(E, _), true), E==instantiation_error.
+runner:case(log, -2, arithmetic_sincos, 'ISO 9.3.6.4, ISO 3') :-
+   catch(_ is log(_), error(E,_), true),
+   E == instantiation_error.
 runner:case(log, -2, arithmetic_sincos, 'ISO 9.3.6.4, ISO 4') :-
    catch(_ is log(0), error(E,_), true),
    nonvar(E),
    E = evaluation_error(_).
-% runner:case(log, -2, arithmetic_sincos, 'ISO 9.3.6.4, ISO 5') :-
-% catch(_ is log(foobar), error(E, _), true), E==type_error(evaluable, foobar/0).
 runner:case(log, -2, arithmetic_sincos, 'ISO 9.3.6.4, ISO 6') :-
    catch(_ is log(0.0), error(E,_), true),
    nonvar(E),
@@ -202,13 +194,12 @@ runner:case(sqrt, -2, arithmetic_sincos, 'ISO 9.3.7.4, ISO 2') :-
    1.0 is sqrt(1).
 runner:case(sqrt, -2, arithmetic_sincos, 'ISO 9.3.7.4, ISO 3') :-
    1.1 is sqrt(1.21).
-% runner:case(sqrt, -2, arithmetic_sincos, 'ISO 9.3.7.4, ISO 4') :-
-% catch(_ is sqrt(_), error(E, _), true), E==instantiation_error.
 runner:case(sqrt, -2, arithmetic_sincos, 'ISO 9.3.7.4, ISO 5') :-
    catch(_ is sqrt(-1.0), error(E,_), true),
    E == evaluation_error(undefined).
-% runner:case(sqrt, -2, arithmetic_sincos, 'ISO 9.3.7.4, ISO 6') :-
-% catch(_ is sqrt(foobar), error(E, _), true), E==type_error(evaluable, foobar/0).
+runner:case(sqrt, -2, arithmetic_sincos, 'ISO 9.3.7.4, ISO 6') :-
+   catch(_ is sqrt(foobar), error(E,_), true),
+   E == type_error(evaluable,foobar/0).
 
 /* pi */
 

@@ -1,5 +1,5 @@
 /**
- * Prolog code for the compliance assessment suite.
+ * Prolog code for the msic text test cases.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -25,33 +25,14 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded('../control/pred').
-:- ensure_loaded('../control/kernel').
-:- ensure_loaded('../control/logical').
-:- ensure_loaded('../control/signal').
+:- use_package(library(jekdev/reference/testing)).
 
-:- ensure_loaded('../consult/file').
-:- ensure_loaded('../consult/data').
-:- ensure_loaded('../consult/apply').
-:- ensure_loaded('../consult/dcg').
+:- multifile runner:ref/4.
+:- discontiguous runner:ref/4.
 
-:- ensure_loaded('../arithmetic/basic').
-:- ensure_loaded('../arithmetic/moddiv').
-:- ensure_loaded('../arithmetic/sincos').
-:- ensure_loaded('../arithmetic/bitwise').
-:- ensure_loaded('../arithmetic/eqless').
+:- multifile runner:case/4.
+:- discontiguous runner:case/4.
 
-:- ensure_loaded('../structure/intatom').
-:- ensure_loaded('../structure/compare').
-:- ensure_loaded('../structure/term').
-:- ensure_loaded('../structure/string').
-:- ensure_loaded('../structure/set').
-
-:- ensure_loaded('../stream/text').
-:- ensure_loaded('../stream/binary').
-:- ensure_loaded('../stream/read').
-:- ensure_loaded('../stream/open').
-
-:- ensure_loaded('../extra/structure').
-:- ensure_loaded('../extra/regex').
-:- ensure_loaded('../extra/vars').
+/* numbervars(T, N, M) */
+runner:ref(numbervars, 3, extra_vars, 'XLOG 3.1.1').
+runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 1') :- true.
