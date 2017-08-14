@@ -35,4 +35,20 @@
 
 /* numbervars(T, N, M) */
 runner:ref(numbervars, 3, extra_vars, 'XLOG 3.1.1').
-runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 1') :- true.
+runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 1') :-
+   numbervars(f(X,X,Y), 0, N),
+   X == '$VAR'(0),
+   Y == '$VAR'(1),
+   N == 2.
+runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 2') :-
+   numbervars(f(Y,X,X), 10, N),
+   Y == '$VAR'(10),
+   X == '$VAR'(11),
+   N == 12.
+runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 3') :-
+   catch(numbervars(_, a, _), error(E,_), true),
+   E = type_error(integer,_).
+runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 4') :-
+   catch(numbervars(_, -2, _), error(E,_), true),
+   E = domain_error(not_less_than_zero,_).
+
