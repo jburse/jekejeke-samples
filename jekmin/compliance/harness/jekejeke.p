@@ -54,10 +54,10 @@ run_diagnose :- diagnose_online.
 % run_report
 run_report :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/09_results/'),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/09_results/'),
    result_batch('../../../../../../../blog/docs/15_min/07_compliance/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/09_results/'),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/09_results/'),
    result_batch('../../../../../../../../blog/en/docs/15_min/07_compliance/').
 
 /****************************************************************/
@@ -74,6 +74,8 @@ tracker:text(library(finite/enum)).
 
 tracker:text(library(misc/elem)).
 
+tracker:text(library(term/herbrand)).
+
 % run_tracker
 run_tracker :-
    write('% performing coverage analysis.'), nl,
@@ -85,15 +87,15 @@ run_control :- list_cover_source.
 % run_cover
 run_cover :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/07_coverage/'),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/07_coverage/'),
    cover_batch('../../../../../../../blog/docs/15_min/02_reference/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/07_coverage/'),
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/07_coverage/'),
    cover_batch('../../../../../../../../blog/en/docs/15_min/02_reference/').
 
 % run_summary
 run_summary :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/'), summary_batch,
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/'), summary_batch,
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/'), summary_batch.
+   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/'), summary_batch.
