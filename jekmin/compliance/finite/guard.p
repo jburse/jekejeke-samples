@@ -129,11 +129,11 @@ runner:ref('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4').
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 1') :-
    call_residue((  X in 10..20 #<==> B,
                    X in 5..15 #<==> B), L),
-   L == [X in inf..4\/21..sup#\/B#=1,B in 0..1,X in 10..15#\/B#=0].
+   L == [X in 10..15#\/B#=0,X in inf..4\/21..sup#\/B#=1,B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 2') :-
    call_residue((  X in 10..20 #<==> B,
                    X #= 15 #<==> B), L),
-   L == [X#=15#\/B#=0,B in 0..1,X in inf..9\/21..sup#\/B#=1].
+   L == [X in inf..9\/21..sup#\/B#=1,X#=15#\/B#=0,B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 3') :-
    call_residue((  X #\= 15 #<==> B,
                    X in 10..20 #<==> B), L),
@@ -142,11 +142,11 @@ runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 3'
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 4') :-
    call_residue((  X in 10..20 #<==> B,
                    X #> 4 #<==> B), L),
-   L == [X#=<4#\/B#=1,B in 0..1,X in 10..20#\/B#=0,X#=<20].
+   L == [X#=<20,X in 10..20#\/B#=0,X#=<4#\/B#=1,B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 5') :-
    call_residue((  X #=< 20 #<==> B,
                    X in 5..15 #<==> B), L),
-   L == [X in 5..15#\/B#=0,B in 0..1,X#>20#\/B#=1,X#>4].
+   L == [X#>4,X#>20#\/B#=1,X in 5..15#\/B#=0,B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 6') :-
    call_residue((  X #= 3 #<==> B,
                    X #= 7 #<==> B), L),
@@ -155,16 +155,16 @@ runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 6'
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 7') :-
    call_residue((  X #= 3 #<==> B,
                    X #\= 7 #<==> B), L),
-   L == [X#=7#\/B#=1,B in 0..1,X#=3#\/B#=0,X in 3..7].
+   L == [X in 3..7,X#=3#\/B#=0,X#=7#\/B#=1,B in 0..1].
 /* in & at */
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 8') :-
    call_residue((  X in 10..20 #<==> B,
                    X in 5..15), L),
-   L == [X in 5..9#\/B#=1,X in 10..15#\/B#=0,X in 5..15,B in 0..1].
+   L == [X in 5..15,X in 10..15#\/B#=0,B in 0..1,X in 5..9#\/B#=1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 9') :-
    call_residue((  X in 5..15,
                    X in 10..20 #<==> B), L),
-   L == [X in 5..9#\/B#=1,B in 0..1,X in 10..15#\/B#=0,X in 5..15].
+   L == [X in 5..15,X in 10..15#\/B#=0,X in 5..9#\/B#=1,B in 0..1].
 
 % sys_lin_agent(+Ref, +Wrap, +Prod, +Integer)
 % sys_reify_lin(+Expr, +Expr, +Var)
@@ -178,7 +178,7 @@ runner:case('sys_lin sys_reify_lin', 7, finite_guard, 'CLP(FD) 0.8.4, 5.5, XLOG 
 runner:case('sys_lin sys_reify_lin', 7, finite_guard, 'CLP(FD) 0.8.4, 5.5, XLOG 2') :-
    call_residue((  X-Y #= 3 #<==> B,
                    X-Y #\= 7 #<==> B), L),
-   L == [B in 0..1,Y#=X-7#\/B#=1,Y#=X-3#\/B#=0].
+   L == [Y#=X-3#\/B#=0,Y#=X-7#\/B#=1,B in 0..1].
 /* Pit & Set */
 runner:case('sys_lin sys_reify_lin', 7, finite_guard, 'CLP(FD) 0.8.4, 5.5, XLOG 3') :-
    X+Y #= 3 #<==> B,
@@ -187,7 +187,7 @@ runner:case('sys_lin sys_reify_lin', 7, finite_guard, 'CLP(FD) 0.8.4, 5.5, XLOG 
 runner:case('sys_lin sys_reify_lin', 7, finite_guard, 'CLP(FD) 0.8.4, 5.5, XLOG 4') :-
    call_residue((  X+Y in 0..5,
                    X+Y #= 3 #<==> B), L),
-   L == [B in 0..1,X+Y in 0..2\/4..5#\/B#=1,X+Y in 0..5].
+   L == [X+Y in 0..5,X+Y in 0..2\/4..5#\/B#=1,B in 0..1].
 /* Pit & Lin */
 runner:case('sys_lin sys_reify_lin', 7, finite_guard, 'CLP(FD) 0.8.4, 5.5, XLOG 5') :-
    call_residue((  X+Y #= 3 #<==> B,
@@ -207,15 +207,15 @@ runner:ref('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6').
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 1') :-
    call_residue((  X+Y in 10..20 #<==> B,
                    X+Y in 5..15 #<==> B), L),
-   L == [B in 0..1,X+Y in inf..4\/21..sup#\/B#=1,X+Y in 10..15#\/B#=0].
+   L == [X+Y in 10..15#\/B#=0,X+Y in inf..4\/21..sup#\/B#=1,B in 0..1].
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 2') :-
    call_residue((  3*X+2*Y in 10..20 #<==> B,
                    3*X+2*Y #> 4 #<==> B), L),
-   L == [B in 0..1,2*Y#=< - (3*X)+4#\/B#=1,3*X+2*Y in 10..20#\/B#=0].
+   L == [3*X+2*Y in 10..20#\/B#=0,2*Y#=< - (3*X)+4#\/B#=1,B in 0..1].
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 3') :-
    call_residue((  X+Y #=< 20 #<==> B,
                    X+Y in 5..15 #<==> B), L),
-   L == [B in 0..1,Y#> -X+20#\/B#=1,X+Y in 5..15#\/B#=0].
+   L == [X+Y in 5..15#\/B#=0,Y#> -X+20#\/B#=1,B in 0..1].
 /* Lot & Set */
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 4') :-
    X+Y #=< 20 #<==> B,
@@ -224,16 +224,16 @@ runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 5') :-
    call_residue((  X+Y #=< 20 #<==> B,
                    X+Y in 20..25), L),
-   L == [X+Y in 21..25#\/B#=1,X+Y in 20..25,B in 0..1].
+   L == [X+Y in 20..25,B in 0..1,X+Y in 21..25#\/B#=1].
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 6') :-
    call_residue((  X+Y in 0..10 #<==> B,
                    X+Y in 5..15), L),
-   L == [X+Y in 11..15#\/B#=1,X+Y in 5..10#\/B#=0,X+Y in 5..15,B in 0..1].
+   L == [X+Y in 5..15,X+Y in 5..10#\/B#=0,B in 0..1,X+Y in 11..15#\/B#=1].
 /* Lot & Pit */
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 7') :-
    call_residue((  X+Y+Z in 10..20 #<==> B,
                    X+Y+Z #= 15 #<==> B), L),
-   L == [B in 0..1,X+Y+Z in inf..9\/21..sup#\/B#=1,Z#= -X-Y+15#\/B#=0].
+   L == [Z#= -X-Y+15#\/B#=0,X+Y+Z in inf..9\/21..sup#\/B#=1,B in 0..1].
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 8') :-
    call_residue((  X+Y #\= 15 #<==> B,
                    X+Y in 10..20 #<==> B), L),

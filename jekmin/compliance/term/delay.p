@@ -37,18 +37,35 @@
 :- use_module(library(term/herbrand)).
 
 % sto(+Term)
-runner:ref(sto, 1, term_verify, 'Herbrand 0.9.3, 1.1').
-runner:case(sto, 1, term_verify, 'Herbrand 0.9.3, 1.1, XLOG 1') :-
+runner:ref(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1').
+runner:case(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1, XLOG 1') :-
    call_residue(sto(X), L),
    L == [sto(X)].
-runner:case(sto, 1, term_verify, 'Herbrand 0.9.3, 1.1, XLOG 2') :-
+runner:case(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1, XLOG 2') :-
    call_residue((  sto(X),
                    X = f(Y,Z,T)), L),
-   L == [sto(T),sto(Z),sto(Y)].
-runner:case(sto, 1, term_verify, 'Herbrand 0.9.3, 1.1, XLOG 3') :-
+   L == [sto(Y),sto(Z),sto(T)].
+runner:case(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1, XLOG 3') :-
    \+ (  sto(X),
          X = f(X)).
-runner:case(sto, 1, term_verify, 'Herbrand 0.9.3, 1.1, XLOG 4') :-
+runner:case(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1, XLOG 4') :-
    \+ (  sto(X),
          X = g(Y),
          Y = f(Y)).
+runner:case(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1, XLOG 5') :-
+   call_residue((  sto(_), fail; true), L),
+   L == [].
+runner:case(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1, XLOG 6a') :-
+   findall(L-X-Y, call_residue((  sto(X)
+                               ;  sto(Y)), L), R),
+   R = [[sto(A)]-B-_|_],
+   A == B.
+runner:case(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1, XLOG 6b') :-
+   findall(L-X-Y, call_residue((  sto(X)
+                               ;  sto(Y)), L), R),
+   R = [_,[sto(A)]-_-B|_],
+   A == B.
+runner:case(sto, 1, term_delay, 'Herbrand 0.9.3, 1.1, XLOG 6c') :-
+   findall(L-X-Y, call_residue((  sto(X)
+                               ;  sto(Y)), L), R),
+   R = [_,_].

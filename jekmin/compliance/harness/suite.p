@@ -15,4 +15,4 @@
 :- ensure_loaded('../misc/bitprop').
 :- ensure_loaded('../misc/numtheo').
 
-:- ensure_loaded('../term/verify').
+:- ensure_loaded('../term/delay').

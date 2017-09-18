@@ -115,12 +115,12 @@ runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 3') :-
    L == [Y#>X].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 4') :-
    call_residue(X*X+Y*Y #=< 100, L),
-   L = [_#=V,_,_#=W],
-   L == [Y*Y#=V,V#=< -W+100,X*X#=W].
+   L = [_#=W,_,_#=V],
+   L == [X*X#=W,V#=< -W+100,Y*Y#=V].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 5') :-
    call_residue(abs(X)+abs(Y) #>= 100, L),
-   L = [_#=V,_,_#=W],
-   L == [abs(Y)#=V,V#> -W+99,abs(X)#=W].
+   L = [_#=W,_,_#=V],
+   L == [abs(X)#=W,V#> -W+99,abs(Y)#=V].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 6') :-
    call_residue(3*_ #\= 100, L),
    L == [].
@@ -268,32 +268,32 @@ runner:case('sys_set sys_set', 10, finite_sets, 'CLP(FD) 0.8.3, 2.13, XLOG 3') :
    L == [Y#= -X+3].
 
 % +List ins +Set
-runner:ref(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.13').
-runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.13, XLOG 1') :-
+runner:ref(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.14').
+runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.14, XLOG 1') :-
    catch([_|_] ins 10..15, error(E,_), true),
    E == instantiation_error.
-runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.13, XLOG 2') :-
+runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.14, XLOG 2') :-
    call_residue([X,Y] ins 1\/2\/3, L),
-   L == [Y in 1..3,X in 1..3].
-runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.13, XLOG 3') :-
+   L == [X in 1..3,Y in 1..3].
+runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.14, XLOG 3') :-
    catch(foo ins 10..sup, error(E,_), true),
    E == type_error(list,foo).
 
 % all_different(+List)
-runner:ref(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 1.8').
-runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 1.8, XLOG 1') :-
+runner:ref(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 2.15').
+runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 2.15, XLOG 1') :-
    all_different([X,_,_]),
    var(X).
-runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 1.8, XLOG 2') :-
+runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 2.15, XLOG 2') :-
    \+ (  all_different([X,Y,_]),
          X = Y).
-runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 1.8, XLOG 3') :-
+runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 2.15, XLOG 3') :-
    all_different([X,Y,_]),
    X = 1,
    Y = 2.
-runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 1.8, XLOG 4') :-
+runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 2.15, XLOG 4') :-
    catch(all_different(_), error(E,_), true),
    E == instantiation_error.
-runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 1.8, XLOG 5') :-
+runner:case(all_different, 1, finite_sets, 'CLP(FD) 0.8.3, 2.15, XLOG 5') :-
    catch(all_different([_|foo]), error(E,_), true),
    E == type_error(list,foo).
