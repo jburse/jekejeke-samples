@@ -72,9 +72,16 @@ tracker:text(library(finite/linform)).
 tracker:text(library(finite/reify)).
 tracker:text(library(finite/enum)).
 
+tracker:text(library(finite/clpb)).
+tracker:text(library(finite/tree)).
+
 tracker:text(library(misc/elem)).
 
 tracker:text(library(term/herbrand)).
+tracker:text(library(term/suspend)).
+tracker:text(library(term/verify)).
+tracker:text(library(term/unify)).
+tracker:text(library(term/state)).
 
 % run_tracker
 run_tracker :-

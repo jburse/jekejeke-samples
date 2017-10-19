@@ -12,7 +12,10 @@
 :- ensure_loaded('../finite/guard').
 :- ensure_loaded('../finite/search').
 
+:- ensure_loaded('../finite/sat').
+
 :- ensure_loaded('../misc/bitprop').
 :- ensure_loaded('../misc/numtheo').
 
 :- ensure_loaded('../term/delay').
+:- ensure_loaded('../term/api').
