@@ -53,10 +53,10 @@ runner:case(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1, XLOG 4') :-
    L == [].
 runner:case(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1, XLOG 5') :-
    catch(_ in 1..inf, error(E,_), true),
-   E == domain_error(sys_set_expression,1..inf).
+   E == type_error(fd_set,1..inf).
 runner:case(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1, XLOG 6') :-
    catch(_ in 1+1, error(E,_), true),
-   E == domain_error(sys_set_expression,1+1).
+   E == type_error(fd_set,1+1).
 
 % sys_union_set(+Set, +Set, -Set)
 runner:ref(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2').

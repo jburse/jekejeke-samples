@@ -97,7 +97,7 @@ runner:case(sys_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.1, XLOG 14') :-
    \+ (  X = 0, X #/\ _).
 runner:case(sys_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.1, XLOG 15') :-
    catch(#\ foo, error(E,_), true),
-   E == domain_error(sys_bool_expression,foo).
+   E == type_error(fd_bool,foo).
 /* #\ */
 runner:case(sys_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.1, XLOG 16') :-
    \+ (  X = 1,

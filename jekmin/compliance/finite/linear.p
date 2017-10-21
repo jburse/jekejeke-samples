@@ -67,10 +67,10 @@ runner:case(sys_add_prod, 3, finite_linear, 'CLP(FD) 0.8.3, 1.1, XLOG 8') :-
    E == type_error(integer,a).
 runner:case(sys_add_prod, 3, finite_linear, 'CLP(FD) 0.8.3, 1.1, XLOG 9') :-
    catch(1.2+_ #= _, error(E,_), true),
-   E == domain_error(sys_value_expression,1.2).
+   E == type_error(fd_value,1.2).
 runner:case(sys_add_prod, 3, finite_linear, 'CLP(FD) 0.8.3, 1.1, XLOG 10') :-
    catch(_ #= 1.2+_, error(E,_), true),
-   E == domain_error(sys_value_expression,1.2).
+   E == type_error(fd_value,1.2).
 
 % sys_mul_prod(+Prod, +Integer, -Prod)
 runner:ref(sys_mul_prod, 3, finite_linear, 'CLP(FD) 0.8.3, 1.2').

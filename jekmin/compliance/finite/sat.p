@@ -38,7 +38,7 @@
 runner:ref(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1').
 runner:case(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1, XLOG 1') :-
    catch(sat(7), error(E,_), true),
-   E == type_error(boolean_expr,7).
+   E == type_error(sat_expr,7).
 runner:case(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1, XLOG 2') :-
    call_residue(sat(~X+Y), L),
    L == [sat((X->(Y->1;0);1))].
@@ -63,7 +63,7 @@ runner:ref(sat, 1, finite_sat, 'CLP(B) 0.9.4, 1.2').
 runner:case(sat, 1, finite_sat, 'CLP(B) 0.9.4, 1.2, XLOG 1') :-
    sat(X+_),
    catch(X = 7, error(E,_), true),
-   E == type_error(boolean_value,7).
+   E == type_error(sat_value,7).
 runner:case(sat, 1, finite_sat, 'CLP(B) 0.9.4, 1.2, XLOG 2') :-
    sat(~X+X).
 runner:case(sat, 1, finite_sat, 'CLP(B) 0.9.4, 1.2, XLOG 3') :-
