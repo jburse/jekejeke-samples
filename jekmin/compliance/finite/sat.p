@@ -33,6 +33,7 @@
 
 :- use_module(library(finite/clpb)).
 :- use_module(library(misc/residue)).
+:- use_module(library(basic/lists)).
 
 % expr_eval/2
 runner:ref(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1').
@@ -141,3 +142,46 @@ runner:case(sat_count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 4') :-
    sat(~X=< ~Y),
    sat_count([X,Y], N),
    N == 0.
+
+% card/2
+runner:ref(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5').
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 1') :-
+   catch(card(_, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 2') :-
+   catch(card(3, foo), error(E,_), true),
+   E == type_error(list,foo).
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 3') :-
+   length(L, 3),
+   \+ card(-1, L).
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 4') :-
+   length(L, 3),
+   \+ card(4, L).
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5a') :-
+   findall(L, (  length(L, 3),
+                 card(2, L),
+                 labeling(L)), R),
+   R = [S|_],
+   S == [0,1,1].
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5b') :-
+   findall(L, (  length(L, 3),
+                 card(2, L),
+                 labeling(L)), R),
+   R = [_,S|_],
+   S == [1,0,1].
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5c') :-
+   findall(L, (  length(L, 3),
+                 card(2, L),
+                 labeling(L)), R),
+   R = [_,_,S|_],
+   S == [1,1,0].
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5d') :-
+   findall(L, (  length(L, 3),
+                 card(2, L),
+                 labeling(L)), R),
+   R = [_,_,_].
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 6') :-
+   length(L, 6),
+   card(3, L),
+   sat_count(L, N),
+   N == 20.
