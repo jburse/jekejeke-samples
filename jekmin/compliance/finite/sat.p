@@ -185,3 +185,24 @@ runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 6') :-
    card(3, L),
    sat_count(L, N),
    N == 20.
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 7') :-
+   card(2, [X0,X1,X1]),
+   X0 == 0,
+   X1 == 1.
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 8a') :-
+   findall(L, (  L = [X0,X1,Y0,Y1],
+                 card(7, [X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1]),
+                 labeling(L)), R),
+   R = [S|_],
+   S == [1,0,1,1].
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 8b') :-
+   findall(L, (  L = [X0,X1,Y0,Y1],
+                 card(7, [X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1]),
+                 labeling(L)), R),
+   R = [_,S|_],
+   S == [1,1,0,1].
+runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 8c') :-
+   findall(L, (  L = [X0,X1,Y0,Y1],
+                 card(7, [X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1]),
+                 labeling(L)), R),
+   R = [_,_].

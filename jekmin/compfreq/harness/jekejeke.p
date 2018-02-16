@@ -27,6 +27,7 @@
 
 :- use_package(library(jekdev/reference/testing)).
 
+:- use_module(library(bootload/toolkit)).
 :- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
 
 % :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').

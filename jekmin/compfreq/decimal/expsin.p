@@ -75,7 +75,7 @@ runner:case(mp_cos, 3, decimal_expsin, 'decimal 0.9.1, 3.2, XLOG 5') :-
 runner:ref(mp_tan, 3, decimal_expsin, 'decimal 0.9.1, 3.3').
 runner:case(mp_tan, 3, decimal_expsin, 'decimal 0.9.1, 3.3, XLOG 1') :-
    X is mp(tan(5*pi/6),16),
-   X == 0d0.5773502691896238.
+   X == -0d0.5773502691896238.
 runner:case(mp_tan, 3, decimal_expsin, 'decimal 0.9.1, 3.3, XLOG 2') :-
    X is mp(tan(11*pi/12),16),
    X == -0d0.2679491924311233.
