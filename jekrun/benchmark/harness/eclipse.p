@@ -25,6 +25,8 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+% "C:\Program Files\ECLiPSe 7.0\lib\x86_64_nt\eclipse.exe" -L iso
+
 % ?- ensure_loaded('//C/Projects/Jekejeke/Prototyping/samples/jekrun/benchmark/harness/eclipse.p').
 
 uptime(X) :-
