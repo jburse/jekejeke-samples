@@ -84,6 +84,25 @@ runner:case(sys_callable_colon, 2, system_notation, 'XLOG 2.2, XLOG 8') :-
    catch(sys_callable_colon(_, foo/bar:123), error(E,_), true),
    E == type_error(callable,123).
 
-runner:ref(sys_indicator_colon, 2, system_notation, 'XLOG 2.2').
-runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 2.2, XLOG 1') :-
-   \+ fail.
+runner:ref(sys_indicator_colon, 2, system_notation, 'XLOG 2.3').
+runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 2.3, XLOG 1') :-
+   catch(sys_indicator_colon(_, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 2.3, XLOG 2') :-
+   sys_indicator_colon(X, basic/lists:member/2),
+   X == 'jekpro.frequent.basic.lists\bmember'/2.
+runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 2.3, XLOG 3') :-
+   sys_indicator_colon('jekpro.frequent.basic.lists\bmember'/2, X),
+   X == basic/lists:member/2.
+runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 2.3, XLOG 4') :-
+   sys_indicator_colon(X, foo/bar:baz/0),
+   X == 'user$foo$bar\bbaz'/0.
+runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 2.3, XLOG 5') :-
+   sys_indicator_colon('user$foo$bar\bbaz'/0, X),
+   X == foo/bar:baz/0.
+runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 2.3, XLOG 6') :-
+   catch(sys_indicator_colon(foo/bar, _), error(E,_), true),
+   E == type_error(integer,bar).
+runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 2.3, XLOG 7') :-
+   catch(sys_indicator_colon(_, {123}), error(E,_), true),
+   E == type_error(predicate_indicator,{123}).
