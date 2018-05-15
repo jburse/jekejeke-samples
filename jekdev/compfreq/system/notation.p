@@ -1,5 +1,5 @@
 /**
- * Prolog code for the module notation test cases..
+ * Prolog code for the module notation test cases.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
