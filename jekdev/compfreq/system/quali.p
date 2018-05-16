@@ -34,6 +34,7 @@
 :- discontiguous runner:case/4.
 
 runner:ref(sys_var, 1, system_quali, 'XLOG 3.1').
+/* traditional notation */
 runner:case(sys_var, 1, system_quali, 'XLOG 3.1, XLOG 1') :-
    sys_var(_).
 runner:case(sys_var, 1, system_quali, 'XLOG 3.1, XLOG 2') :-
@@ -44,8 +45,14 @@ runner:case(sys_var, 1, system_quali, 'XLOG 3.1, XLOG 4') :-
    sys_var(basic/lists:_).
 runner:case(sys_var, 1, system_quali, 'XLOG 3.1, XLOG 5') :-
    \+ sys_var(foo/bar:123).
+/* array notation */
+runner:case(sys_var, 1, system_quali, 'XLOG 3.1, XLOG 6') :-
+   sys_var({_}:new(10,_)).
+runner:case(sys_var, 1, system_quali, 'XLOG 3.1, XLOG 7') :-
+   \+ sys_var({int}:new(10,_)).
 
 runner:ref(sys_callable, 1, system_quali, 'XLOG 3.2').
+/* traditional notation */
 runner:case(sys_callable, 1, system_quali, 'XLOG 3.2, XLOG 1') :-
    \+ sys_callable(_).
 runner:case(sys_callable, 1, system_quali, 'XLOG 3.2, XLOG 2') :-
@@ -56,3 +63,8 @@ runner:case(sys_callable, 1, system_quali, 'XLOG 3.2, XLOG 4') :-
    \+ sys_callable(basic/lists:_).
 runner:case(sys_callable, 1, system_quali, 'XLOG 3.2, XLOG 5') :-
    \+ sys_callable(foo/bar:123).
+/* array notation */
+runner:case(sys_callable, 1, system_quali, 'XLOG 3.2, XLOG 6') :-
+   \+ sys_callable({_}:new(10,_)).
+runner:case(sys_callable, 1, system_quali, 'XLOG 3.2, XLOG 7') :-
+   sys_callable({int}:new(10,_)).
