@@ -136,6 +136,16 @@ runner:case(sys_functor, 3, system_quali, 'XLOG 4.3, XLOG 12 Receiver') :-
 runner:case(sys_functor, 3, system_quali, 'XLOG 4.3, XLOG 13 Receiver') :-
    sys_functor(T, foo/bar:baz, 1),
    T = foo/bar:baz(_).
+runner:case(sys_functor, 3, system_quali, 'XLOG 4.3, XLOG 14 Error') :-
+   catch(sys_functor(foo/_::write(abc), _, _), error(E,_), true),
+   E = domain_error(receiver,foo/_).
+runner:case(sys_functor, 3, system_quali, 'XLOG 4.3, XLOG 15 Receiver') :-
+   sys_functor(M/bar(1,2)::baz, F, A),
+   F == M/bar:baz,
+   A == 1.
+runner:case(sys_functor, 3, system_quali, 'XLOG 4.3, XLOG 16 Receiver') :-
+   sys_functor(T, M/bar:baz, 1),
+   T = M/bar:baz(_).
 
 runner:ref(sys_univ, 2, system_quali, 'XLOG 4.4').
 /* traditional notation */
@@ -186,3 +196,15 @@ runner:case(sys_univ, 2, system_quali, 'XLOG 4.4, XLOG 14 Receiver') :-
 runner:case(sys_univ, 2, system_quali, 'XLOG 4.4, XLOG 15 Receiver') :-
    sys_univ(T, [M:baz,foo/bar]),
    T == M:baz(foo/bar).
+runner:case(sys_univ, 2, system_quali, 'XLOG 4.4, XLOG 16 Error') :-
+   catch(sys_univ(_::write(abc), _), error(E,_), true),
+   E == instantiation_error.
+runner:case(sys_univ, 2, system_quali, 'XLOG 4.4, XLOG 17 Receiver') :-
+   sys_univ(M/bar(1,2)::baz, U),
+   U == [M/bar:baz,M/bar(1,2)].
+runner:case(sys_univ, 2, system_quali, 'XLOG 4.4, XLOG 18 Receiver') :-
+   sys_univ(T, [M/bar:baz,M/bar(1,2)]),
+   T == M/bar(1,2)::baz.
+runner:case(sys_univ, 2, system_quali, 'XLOG 4.4, XLOG 19 Receiver') :-
+   sys_univ(T, [M/bar:baz,N/bar(1,2)]),
+   T == M/bar:baz(N/bar(1,2)).

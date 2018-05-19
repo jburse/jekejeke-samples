@@ -117,6 +117,16 @@ runner:case(sys_callable_colon, 2, system_notation, 'XLOG 2.2, XLOG 12 Locale') 
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 2.2, XLOG 13 Foreign') :-
    sys_callable_colon('int[]\bnew'(10,A), X),
    X == {int}:new(10,A).
+/* receiver notation */
+runner:case(sys_callable_colon, 2, system_notation, 'XLOG 2.2, XLOG 14 Locale') :-
+   sys_callable_colon(C, geometry/point(X,Y)::getx(X)),
+   C == 'user$geometry$point\bgetx'(geometry/point(X,Y),X).
+runner:case(sys_callable_colon, 2, system_notation, 'XLOG 2.2, XLOG 15 Locale') :-
+   sys_callable_colon('user$geometry$point\bgetx'(geometry/point(X,Y),X), C),
+   C == geometry/point(X,Y)::getx(X).
+runner:case(sys_callable_colon, 2, system_notation, 'XLOG 2.2, XLOG 16 Locale') :-
+   sys_callable_colon('user$geometry$point\bgetx'(P/point(X,Y),X), C),
+   C == geometry/point:getx(P/point(X,Y),X).
 
 runner:ref(sys_indicator_colon, 2, system_notation, 'XLOG 2.3').
 /* traditional notation */
