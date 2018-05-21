@@ -34,6 +34,7 @@
 :- discontiguous runner:case/4.
 
 :- begin_module(alpha).
+:- reexport(foreign(java/util/'Comparator')).
 :- end_module.
 
 :- begin_module(beta).
@@ -41,32 +42,57 @@
 :- end_module.
 
 :- begin_module(gamma).
+:- reexport(foreign(jekpro/tools/proxy/'InterfaceSlots')).
 :- end_module.
 
 :- use_module(library(basic/proxy)).
 
-runner:ref(sys_instance_of, 2, system_proxy, 'XLOG 3.1').
-runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.1, XLOG 1') :-
-   catch(sys_instance_of(_, _), error(E,_), true),
+runner:ref(sys_new_instance, 2, system_proxy, 'XLOG 3.1').
+runner:case(sys_new_instance, 2, system_proxy, 'XLOG 3.1, XLOG 1 Error') :-
+   catch(sys_new_instance(_, _), error(E,_), true),
    E == instantiation_error.
-runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.1, XLOG 2') :-
-   sys_instance_of(beta(3,7), alpha).
-runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.1, XLOG 3') :-
-   \+ sys_instance_of(beta(3,7), gamma).
+runner:case(sys_new_instance, 2, system_proxy, 'XLOG 3.1, XLOG 2 Java') :-
+   sys_new_instance(alpha, X),
+   reference(X).
+runner:case(sys_new_instance, 2, system_proxy, 'XLOG 3.1, XLOG 3 Error') :-
+   catch(sys_new_instance(gamma, _), error(E,_), true),
+   E = existence_error(proxy,_).
 
-runner:ref(sys_subclass_of, 2, system_proxy, 'XLOG 3.2').
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.2, XLOG 1') :-
+runner:ref(sys_new_instance, 3, system_proxy, 'XLOG 3.2').
+runner:case(sys_new_instance, 3, system_proxy, 'XLOG 3.2, XLOG 1 Error') :-
+   catch(sys_new_instance(_, 7, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(sys_new_instance, 3, system_proxy, 'XLOG 3.2, XLOG 2 Error') :-
+   catch(sys_new_instance(alpha, 7, _), error(E,_), true),
+   E = existence_error(proxy,_).
+runner:case(sys_new_instance, 3, system_proxy, 'XLOG 3.2, XLOG 3 Java') :-
+   sys_new_instance(gamma, 7, X),
+   reference(X).
+
+runner:ref(sys_subclass_of, 2, system_proxy, 'XLOG 3.3').
+runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 1 Error') :-
    catch(sys_subclass_of(_, _), error(E,_), true),
    E == instantiation_error.
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.2, XLOG 2') :-
+runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 2 Prolog') :-
    sys_subclass_of(beta, alpha).
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.2, XLOG 3') :-
+runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 3 Prolog') :-
    \+ sys_subclass_of(beta, gamma).
+runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 4 Java') :-
+   sys_subclass_of(alpha, java/util/'Comparator').
+runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 5 Java') :-
+   \+ sys_subclass_of(alpha, java/util/'Iterator').
 
-runner:ref(sys_new_instance, 2, system_proxy, 'XLOG 3.3').
-runner:case(sys_new_instance, 2, system_proxy, 'XLOG 3.3, XLOG 1') :-
-   \+ fail.
-
-runner:ref(sys_new_instance, 3, system_proxy, 'XLOG 3.4').
-runner:case(sys_new_instance, 3, system_proxy, 'XLOG 3.4, XLOG 1') :-
-   \+ fail.
+runner:ref(sys_instance_of, 2, system_proxy, 'XLOG 3.4').
+runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.4, XLOG 1 Error') :-
+   catch(sys_instance_of(_, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.4, XLOG 2 Prolog') :-
+   sys_instance_of(beta(3,7), alpha).
+runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.4, XLOG 3 Prolog') :-
+   \+ sys_instance_of(beta(3,7), gamma).
+runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.4, XLOG 4 Java') :-
+   sys_new_instance(alpha, X),
+   sys_instance_of(X, java/util/'Comparator').
+runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.4, XLOG 5 Java') :-
+   sys_new_instance(alpha, X),
+   \+ sys_instance_of(X, java/util/'Iterator').
