@@ -43,6 +43,8 @@
 :- begin_module(gamma).
 :- end_module.
 
+:- use_module(library(basic/proxy)).
+
 runner:ref(sys_instance_of, 2, system_proxy, 'XLOG 3.1').
 runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.1, XLOG 1') :-
    catch(sys_instance_of(_, _), error(E,_), true),
@@ -52,27 +54,19 @@ runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.1, XLOG 2') :-
 runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.1, XLOG 3') :-
    \+ sys_instance_of(beta(3,7), gamma).
 
-runner:ref(sys_get_module, 2, system_proxy, 'XLOG 3.2').
-runner:case(sys_get_module, 2, system_proxy, 'XLOG 3.2, XLOG 1') :-
-   catch(sys_get_module(_, _), error(E,_), true),
-   E == instantiation_error.
-runner:case(sys_get_module, 2, system_proxy, 'XLOG 3.2, XLOG 2') :-
-   sys_get_module(beta(3,7), X),
-   X == beta.
-
-runner:ref(sys_subclass_of, 2, system_proxy, 'XLOG 3.3').
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 1') :-
+runner:ref(sys_subclass_of, 2, system_proxy, 'XLOG 3.2').
+runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.2, XLOG 1') :-
    catch(sys_subclass_of(_, _), error(E,_), true),
    E == instantiation_error.
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 2') :-
+runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.2, XLOG 2') :-
    sys_subclass_of(beta, alpha).
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 3') :-
+runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.2, XLOG 3') :-
    \+ sys_subclass_of(beta, gamma).
 
-runner:ref(sys_instance, 2, system_proxy, 'XLOG 3.4').
-runner:case(sys_instance, 2, system_proxy, 'XLOG 3.4, XLOG 1') :-
+runner:ref(sys_new_instance, 2, system_proxy, 'XLOG 3.3').
+runner:case(sys_new_instance, 2, system_proxy, 'XLOG 3.3, XLOG 1') :-
    \+ fail.
 
-runner:ref(sys_instance, 3, system_proxy, 'XLOG 3.5').
-runner:case(sys_instance, 3, system_proxy, 'XLOG 3.5, XLOG 1') :-
+runner:ref(sys_new_instance, 3, system_proxy, 'XLOG 3.4').
+runner:case(sys_new_instance, 3, system_proxy, 'XLOG 3.4, XLOG 1') :-
    \+ fail.

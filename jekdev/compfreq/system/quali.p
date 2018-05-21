@@ -208,3 +208,11 @@ runner:case(sys_univ, 2, system_quali, 'XLOG 4.4, XLOG 18 Receiver') :-
 runner:case(sys_univ, 2, system_quali, 'XLOG 4.4, XLOG 19 Receiver') :-
    sys_univ(T, [M/bar:baz,N/bar(1,2)]),
    T == M/bar:baz(N/bar(1,2)).
+
+runner:ref(sys_get_module, 2, system_quali, 'XLOG 3.5').
+runner:case(sys_get_module, 2, system_quali, 'XLOG 3.5, XLOG 1 Error') :-
+   catch(sys_get_module(_, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(sys_get_module, 2, system_quali, 'XLOG 3.5, XLOG 2 Compound') :-
+   sys_get_module(beta(3,7), X),
+   X == beta.
