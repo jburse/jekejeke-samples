@@ -216,3 +216,7 @@ runner:case(sys_get_module, 2, system_quali, 'XLOG 3.5, XLOG 1 Error') :-
 runner:case(sys_get_module, 2, system_quali, 'XLOG 3.5, XLOG 2 Compound') :-
    sys_get_module(beta(3,7), X),
    X == beta.
+runner:case(sys_get_module, 2, system_quali, 'XLOG 3.5, XLOG 3 Reference') :-
+   current_error(X),
+   sys_get_module(X, Y),
+   reference(Y).

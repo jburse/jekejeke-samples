@@ -69,18 +69,18 @@ runner:case(sys_new_instance, 3, system_proxy, 'XLOG 3.2, XLOG 3 Java') :-
    sys_new_instance(gamma, 7, X),
    reference(X).
 
-runner:ref(sys_subclass_of, 2, system_proxy, 'XLOG 3.3').
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 1 Error') :-
-   catch(sys_subclass_of(_, _), error(E,_), true),
+runner:ref(sys_assignable_from, 2, system_proxy, 'XLOG 3.3').
+runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 3.3, XLOG 1 Error') :-
+   catch(sys_assignable_from(_, _), error(E,_), true),
    E == instantiation_error.
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 2 Prolog') :-
-   sys_subclass_of(beta, alpha).
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 3 Prolog') :-
-   \+ sys_subclass_of(beta, gamma).
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 4 Java') :-
-   sys_subclass_of(alpha, java/util/'Comparator').
-runner:case(sys_subclass_of, 2, system_proxy, 'XLOG 3.3, XLOG 5 Java') :-
-   \+ sys_subclass_of(alpha, java/util/'Iterator').
+runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 3.3, XLOG 2 Prolog') :-
+   sys_assignable_from(alpha, beta).
+runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 3.3, XLOG 3 Prolog') :-
+   \+ sys_assignable_from(gamma, beta).
+runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 3.3, XLOG 4 Java') :-
+   sys_assignable_from(java/util/'Comparator', alpha).
+runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 3.3, XLOG 5 Java') :-
+   \+ sys_assignable_from(java/util/'Iterator', alpha).
 
 runner:ref(sys_instance_of, 2, system_proxy, 'XLOG 3.4').
 runner:case(sys_instance_of, 2, system_proxy, 'XLOG 3.4, XLOG 1 Error') :-
