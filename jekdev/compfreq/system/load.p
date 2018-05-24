@@ -35,4 +35,32 @@
 
 runner:ref(absolute_file_name, 2, system_load, 'XLOG 2.1').
 runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 1 Error') :-
-   \+ fail.
+   catch(absolute_file_name(_, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 2 Library') :-
+   absolute_file_name(library(basic/lists), _).
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 3 Error') :-
+   catch(absolute_file_name(library(basic/foo), _), error(E,_), true),
+   E == existence_error(library,basic/foo).
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 4 Library') :-
+   absolute_file_name(library(basic/lists), X),
+   absolute_file_name(Y, X),
+   Y == library(basic/lists).
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 5 Foreign') :-
+   absolute_file_name(foreign('String'), _).
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 6 Error') :-
+   catch(absolute_file_name(foreign('Foo'), _), error(E,_), true),
+   E == existence_error(class,'Foo').
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 7 Foreign') :-
+   absolute_file_name(foreign('String'), X),
+   absolute_file_name(Y, X),
+   Y == foreign('String').
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 8 Verbatim') :-
+   absolute_file_name(verbatim(foo), _).
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 9 Verbatim') :-
+   absolute_file_name(verbatim(foo), X),
+   absolute_file_name(Y, X),
+   Y == verbatim(foo).
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 10 Error') :-
+   catch(absolute_file_name(foo(bar), _), error(E,_), true),
+   E == type_error(path,foo(bar)).
