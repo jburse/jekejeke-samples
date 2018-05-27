@@ -64,3 +64,30 @@ runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 9 Verbatim') :-
 runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 10 Error') :-
    catch(absolute_file_name(foo(bar), _), error(E,_), true),
    E == type_error(path,foo(bar)).
+
+:- sys_auto_load(foreign(java/util/'Comparator')).
+
+:- sys_auto_load(verbatim(foo/bar)).
+
+runner:ref(current_module, 1, system_load, 'XLOG 2.2').
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 1 Error') :-
+   catch(current_module(_/lists), error(E,_), true),
+   E == instantiation_error.
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 2 Error') :-
+   catch(current_module(basic/123), error(E,_), true),
+   E == type_error(atom,123).
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 3 Error') :-
+   catch(current_module(456/lists), error(E,_), true),
+   E == domain_error(package,456).
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 4 Library') :-
+   current_module(basic/lists).
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 5 Library') :-
+   \+ current_module(basic/foo).
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 6 Foreign') :-
+   current_module(java/util/'Comparator').
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 7 Foreign') :-
+   \+ current_module(java/util/'Foo').
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 8 Verbatim') :-
+   current_module(foo/bar).
+runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 9 Verbatim') :-
+   \+ current_module(foo/baz).
