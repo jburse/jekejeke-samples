@@ -57,7 +57,7 @@ runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 6 Error') :-
    E == type_error(atom,foo/bar).
 runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 7 Error') :-
    catch(sys_atom_slash(_, {123}), error(E,_), true),
-   E == domain_error(module,123).
+   E == domain_error(array,123).
 runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 8 Foreign') :-
    sys_atom_slash(X, 'String'),
    X == 'java.lang.String'.

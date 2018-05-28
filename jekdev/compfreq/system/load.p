@@ -91,3 +91,33 @@ runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 8 Verbatim') :-
    current_module(foo/bar).
 runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 9 Verbatim') :-
    \+ current_module(foo/baz).
+
+foo/bar:baz.
+
+runner:ref(predicate_property, 2, system_load, 'XLOG 2.3').
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 1 Error') :-
+   catch(predicate_property(_/lists:member/2, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 2 Error') :-
+   catch(predicate_property(basic/lists:member/foo, _), error(E,_), true),
+   E == type_error(integer,foo).
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 3 Error') :-
+   catch(predicate_property(456/lists:member/2, _), error(E,_), true),
+   E == domain_error(package,456).
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 4 Library') :-
+   predicate_property(basic/lists:member/2, visible(X)),
+   X == public.
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 5 Library') :-
+   \+ predicate_property(basic/lists:member2/3, _).
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 6 Library') :-
+   \+ predicate_property(basic/foo:bar/0, _).
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 7 Foreign') :-
+   predicate_property(java/util/'Comparator':equals/2, visible(X)),
+   X == public.
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 8 Foreign') :-
+   \+ predicate_property(java/util/'Foo':equals/2, _).
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 9 Verbatim') :-
+   predicate_property(foo/bar:baz/0, visible(X)),
+   X == public.
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 10 Verbatim') :-
+   \+ predicate_property(foo/baz:bar/0, _).
