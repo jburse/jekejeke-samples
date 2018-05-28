@@ -29,6 +29,8 @@ The following samples have already been uploaded:
   Tutorial for the Language Reference.
 - [jekdev/compliance](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/compliance):
   ISO core compliance test suite.
+- [jekdev/compfreq](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/compfreq):
+  Module system test suite.
 
 # Minlog Extension Samples
 
@@ -47,5 +49,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 24.02.2018
+Jan Burse, 24.02.2018 (Updated 29.05.2018)
 
