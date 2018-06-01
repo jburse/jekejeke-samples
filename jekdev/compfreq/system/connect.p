@@ -33,6 +33,44 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-runner:ref(notyet, 3, system_connect, 'XLOG 1.1').
-runner:case(notyet, 3, system_connect, 'XLOG 1.1, XLOG 1') :-
-   \+ fail.
+:- use_module(library(system/charsio)).
+
+runner:ref(variable_names, 1, system_connect, 'XLOG 1.1').
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, XLOG 1 Output') :-
+   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
+                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
+   R == 'foo(A+Roger,A+_)'.
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, XLOG 2 Output') :-
+   A = Roger,
+   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
+                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
+   R == 'foo(Roger+Roger,Roger+_)'.
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, XLOG 3 Output') :-
+   A = foo,
+   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
+                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
+   R == 'foo(foo+Roger,foo+_)'.
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 1 Error') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names([_=T])])), error(E,_), true),
+   E == instantiation_error.
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 65 Error') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['_/*.*/'=T])])), error(E,_), true),
+   E == domain_error(variable_name,'_/*.*/').
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 5 Error') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names([x=T])])), error(E,_), true),
+   E == domain_error(variable_name,x).
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 6 Error') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['x+y'=T])])), error(E,_), true),
+   E == domain_error(variable_name,'x+y').
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 50 Error') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['))'=T])])), error(E,_), true),
+   E == domain_error(variable_name,'))').
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 7 Error') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names([7=T])])), error(E,_), true),
+   E == type_error(atom,7).
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 8 Error') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names([1+2=T])])), error(E,_), true),
+   E == type_error(atom,1+2).
+runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 9 Error') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['$VAR'(9)=T])])), error(E,_), true),
+   E == type_error(atom,'$VAR'(9)).
