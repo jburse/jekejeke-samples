@@ -27,9 +27,14 @@
 
 :- use_package(library(jekdev/reference/testing)).
 
+:- package(library(system)).
+:- module(load, []).
+
+:- public runner:ref/4.
 :- multifile runner:ref/4.
 :- discontiguous runner:ref/4.
 
+:- public runner:case/4.
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
@@ -92,6 +97,7 @@ runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 8 Verbatim') :-
 runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 9 Verbatim') :-
    \+ current_module(foo/baz).
 
+:- public foo/bar:baz/0.
 foo/bar:baz.
 
 runner:ref(predicate_property, 2, system_load, 'XLOG 2.3').
