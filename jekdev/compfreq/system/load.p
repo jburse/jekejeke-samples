@@ -69,6 +69,15 @@ runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 9 Verbatim') :-
 runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 10 Error') :-
    catch(absolute_file_name(foo(bar), _), error(E,_), true),
    E == type_error(path,foo(bar)).
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 11 Relative') :-
+   absolute_file_name(../../compliance/arithmetic/basic, _).
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 12 Relative') :-
+   absolute_file_name(../../compliance/arithmetic/basic, X),
+   absolute_file_name(Y, X),
+   Y == ../../compliance/arithmetic/basic.
+runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 13 Error') :-
+   catch(absolute_file_name(../, _), error(E,_), true),
+   E == existence_error(source_sink,../).
 
 :- sys_auto_load(foreign(java/util/'Comparator')).
 
