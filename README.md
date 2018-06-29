@@ -41,6 +41,8 @@ The following samples have already been uploaded:
   CLP(FD) Test Cases.
 - [jekmin/compfreq](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/compfreq):
   Multiprecision and Symbolic Test Cases.
+- [jekmin/benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/benchmark):
+  Benchmark CLP(FD) Performance.
 
 # Issues and Contributing
 
@@ -49,5 +51,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 24.02.2018 (Updated 29.05.2018)
+Jan Burse, 24.02.2018 (Updated 29.06.2018)
 
