@@ -27,8 +27,8 @@
 
 :- use_package(library(jekdev/reference/testing)).
 
-:- use_module(library(bootload/toolkit)).
-:- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
+% :- use_module(library(bootload/toolkit)).
+% :- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
 
 % :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
 
@@ -55,11 +55,11 @@ run_diagnose :- diagnose_online.
 % run_report
 run_report :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/09_results/'),
-   result_batch('../../../../../../../blog/docs/15_min/07_compliance/'),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/09_results/'),
+   result_batch('../../../../../../../repo/docs/15_min/07_compliance/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/09_results/'),
-   result_batch('../../../../../../../../blog/en/docs/15_min/07_compliance/').
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/09_results/'),
+   result_batch('../../../../../../../../repo/en/docs/15_min/07_compliance/').
 
 /****************************************************************/
 /* Coverage                                                     */
@@ -95,15 +95,15 @@ run_control :- list_cover_source.
 % run_cover
 run_cover :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/07_coverage/'),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/07_coverage/'),
    cover_batch('../../../../../../../blog/docs/15_min/02_reference/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/07_coverage/'),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/07_coverage/'),
    cover_batch('../../../../../../../../blog/en/docs/15_min/02_reference/').
 
 % run_summary
 run_summary :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/'), summary_batch,
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/'), summary_batch,
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/'), summary_batch.
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/'), summary_batch.

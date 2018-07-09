@@ -100,3 +100,18 @@ runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 2') :-
 runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 3') :-
    catch(_ is isqrt(-33), error(E,_), true),
    E == evaluation_error(undefined).
+
+% sqrtrem/3
+runner:ref(sqrtrem, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.5').
+runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 1') :-
+   sqrtrem(77, X, Y),
+   X == 8,
+   Y == 13.
+runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 2') :-
+   Z is 77*2^100,
+   sqrtrem(Z, X, Y),
+   X == 9879731586312133,
+   Y == 8000882843804263.
+runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 3') :-
+   catch(sqrtrem(-33, _, _), error(E,_), true),
+   E == evaluation_error(undefined).
