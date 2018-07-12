@@ -145,3 +145,11 @@ runner:case(max, -3, arithmetic_eqless, 'Corr.2 9.3.8, ISO 3') :-
 runner:case(max, -3, arithmetic_eqless, 'Corr.2 9.3.8, XLOG 1') :-
    catch(3.0 is max(2.0,_), error(E,_), true),
    E == instantiation_error.
+
+/* epsilon */
+
+runner:ref(epsilon, -1, arithmetic_eqless, 'N208 9.7.3').
+runner:case(epsilon, -1, arithmetic_eqless, 'N208 9.7.3, XLOG 1') :-
+   \+ 1+epsilon =:= 1.
+runner:case(epsilon, -1, arithmetic_eqless, 'N208 9.7.3, XLOG 2') :-
+   1+epsilon/2 =:= 1.
