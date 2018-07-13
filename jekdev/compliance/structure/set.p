@@ -394,3 +394,23 @@ runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 23') :-
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 24') :-
    setof(X-Xs, bagof(Y, d(X, Y), Xs), L),
    L == [1-[1,2,1],2-[2,1,2]].
+
+/* forall(G, T) */
+
+p(a).
+p(b).
+q(a).
+q(b).
+q(c).
+
+runner:ref(forall, 2, structure_set, 'N208 8.10.4').
+runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 1') :-
+   catch(forall(_, q(_)), error(E,_), true),
+   E == instantiation_error.
+runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 2') :-
+   catch(forall(p(_), 1), error(E,_), true),
+   E == type_error(callable,1).
+runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 3') :-
+   forall(p(X), q(X)).
+runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 4') :-
+   \+ forall(q(X), p(X)).
