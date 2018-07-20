@@ -9,8 +9,10 @@ The following Prolog systems were tested so far:
 - **gprolog:** GNU Prolog 1.4.4 (64 bits)
 - **ciao:** Ciao Prolog 1.15-1781
 - **bprolog:** B-Prolog Version 8.1
-- **sicstus:** SICStus 4.4.1
+- **xsb**: XSB Prolog x86
+- **sicstus:** SICStus 4.4.1 (interpreter mode)
 - **jiprolog:** JIProlog v4.1.6.1
+- **yap:** YAP (AMD64, version 6.3.0)
 
 The following hardware platforms were tested so far:
 - **ideapad:** Lenovo Ideapad 700 (4 Cores/8 Hyperthreads)
