@@ -9,7 +9,7 @@ The following Prolog systems were tested so far:
 - **gprolog:** GNU Prolog 1.4.4 (64 bits)
 - **ciao:** Ciao Prolog 1.15-1781
 - **bprolog:** B-Prolog Version 8.1
-- **sicstus:** SICSzus 4.4.1
+- **sicstus:** SICStus 4.4.1
 - **jiprolog:** JIProlog v4.1.6.1
 
 The following hardware platforms were tested so far:
