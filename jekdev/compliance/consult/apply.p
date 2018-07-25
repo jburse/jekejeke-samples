@@ -31,6 +31,8 @@
 
 :- use_package(library(jekdev/reference/testing)).
 
+:- use_module(library(advanced/arith)).
+
 :- multifile runner:ref/4.
 :- discontiguous runner:ref/4.
 
@@ -41,16 +43,11 @@
 /* Higher Order                                                 */
 /****************************************************************/
 
-runner:ref(call, 0, consult_apply, 'Corr.2 8.15.4.4').
-
-:- meta_predicate maplist(1,?).
-maplist(_, []).
-maplist(F, [X|Y]) :-
-   call(F, X),
-   maplist(F, Y).
+/* call/n */
 
 makerec(rec(X,Y,Z,U,V,W), X, Y, Z, U, V, W).
 
+runner:ref(call, 0, consult_apply, 'Corr.2 8.15.4.4').
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 1') :-
    call(integer, 3).
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 2') :-
@@ -73,18 +70,6 @@ runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 2') :-
    Y == 2.
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 5') :-
    \+ call(;, (true->fail), _=1).
-runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 6') :-
-   maplist(>(3), [1,2]).
-runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 7') :-
-   \+ maplist(>(3), [1,23]).
-runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 8a') :-
-   maplist(=(X), [1,1]),
-   X == 1.
-runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 8b') :-
-   \+ maplist(=(_), [1,2]).
-runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, ISO 8c') :-
-   maplist(=(_), [Y,Z]),
-   Y == Z.
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 3') :-
    catch(call(',', atom(1), 3), error(E,_), true),
    nonvar(E),
@@ -100,7 +85,34 @@ runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 5') :-
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 6') :-
    catch(call(3, _), error(E,_), true),
    nonvar(E),
-   E = type_error(callable,3).
+   E = type_error(callable,_).
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 7') :-
    call(call(call(call(call(call(call(makerec, S), X), Y), Z), U), V), W),
    S == rec(X,Y,Z,U,V,W).
+
+/* maplist/n */
+
+runner:ref(maplist, 0, consult_apply, 'N235 7.4').
+runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 6') :-
+   maplist(>(3), [1,2]).
+runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 7') :-
+   \+ maplist(>(3), [1,2,3]).
+runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 8a') :-
+   maplist(=(X), [1,1]),
+   X == 1.
+runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 8b') :-
+   \+ maplist(=(_), [1,2]).
+runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 8c') :-
+   maplist(=(_), [Y,Z]),
+   Y == Z.
+runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 1') :-
+   maplist(succ, [1,2,3], X),
+   X == [2,3,4].
+runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 2') :-
+   maplist(succ, Y, [2,3,4]),
+   Y == [1,2,3].
+runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 3') :-
+   findall(X, maplist(between, [1,2], [2,3], X), [_,Y|_]),
+   Y == [1,3].
+runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 4') :-
+   \+ maplist(between, [1,2], [2,3], [2,1]).
