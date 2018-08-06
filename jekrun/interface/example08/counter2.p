@@ -27,15 +27,16 @@
  */
 
 :- use_package(foreign(jekpro/tools/term)).
+:- use_package(foreign(jekpro/tools/proxy)).
 
 :- package(library(example08)).
 :- module(counter2, []).
 :- reexport(foreign('Runnable')).
-:- reexport(foreign('Slots')).
+:- reexport(foreign('InterfaceSlots')).
 
 :- public new/4.
 new(N, Q, W, R) :-
-   sys_instance_size(4, R),
+   sys_new_instance(4, R),
    example08/counter2:set_at(R, 0, N),
    example08/counter2:set_at(R, 1, Q),
    example08/counter2:set_at(R, 2, W),

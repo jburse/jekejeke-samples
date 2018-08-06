@@ -6,7 +6,6 @@ import jekpro.tools.call.Interpreter;
 import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.Knowledgebase;
-import jekpro.tools.term.Term;
 import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
 
@@ -49,14 +48,14 @@ public final class Combine {
         Knowledgebase.initKnowledgebase(inter);
         inter.setProperty(ToolkitLibrary.PROP_BASE_URL,
                 "/Projects/Jekejeke/Prototyping/samples/jekrun/interface/");
-        Object consultGoal = Term.parseTerm("consult('example07/data.p')", inter);
-        inter.iterator(consultGoal).nextClose();
+        Object consultGoal = inter.parseTerm("consult('example07/data.p')");
+        inter.iterator(consultGoal).next().close();
 
-        TermVar[] pVars = TermVar.createVars(1);
-        TermCompound pGoal = new TermCompound("p", pVars[0]);
+        TermVar pVar = new TermVar();
+        TermCompound pGoal = new TermCompound("p", pVar);
 
-        TermVar[] qVars = TermVar.createVars(1);
-        TermCompound qGoal = new TermCompound("q", qVars[0]);
+        TermVar qVar = new TermVar();
+        TermCompound qGoal = new TermCompound("q", qVar);
 
         Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
         CallIn callin = inter.iterator(pGoal);
@@ -66,13 +65,13 @@ public final class Combine {
             if (flip) {
                 callin.next();
                 wr.write("p(");
-                wr.write(Term.toString(0, inter, pVars[0]));
+                wr.write(inter.unparseTerm(0, pVar));
                 wr.write(").\n");
                 wr.flush();
             } else {
                 callin2.next();
                 wr.write("q(");
-                wr.write(Term.toString(0, inter2, qVars[0]));
+                wr.write(inter.unparseTerm(0, qVar));
                 wr.write(").\n");
                 wr.flush();
             }
@@ -81,14 +80,14 @@ public final class Combine {
         while (callin.hasNext()) {
             callin.next();
             wr.write("p(");
-            wr.write(Term.toString(0, inter, pVars[0]));
+            wr.write(inter.unparseTerm(0, pVar));
             wr.write(").\n");
             wr.flush();
         }
         while (callin2.hasNext()) {
             callin2.next();
             wr.write("q(");
-            wr.write(Term.toString(0, inter2, qVars[0]));
+            wr.write(inter.unparseTerm(0, qVar));
             wr.write(").\n");
             wr.flush();
         }
