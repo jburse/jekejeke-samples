@@ -33,23 +33,24 @@
 :- module(counter2, []).
 :- reexport(foreign('Runnable')).
 :- reexport(foreign('InterfaceSlots')).
+:- use_module(library(basic/proxy)).
 
 :- public new/4.
 new(N, Q, W, R) :-
-   sys_new_instance(4, R),
-   example08/counter2:set_at(R, 0, N),
-   example08/counter2:set_at(R, 1, Q),
-   example08/counter2:set_at(R, 2, W),
-   example08/counter2:set_at(R, 3, 0).
+   sys_new_instance(example08/counter2, 4, R),
+   R::set_at(0, N),
+   R::set_at(1, Q),
+   R::set_at(2, W),
+   R::set_at(3, 0).
 
 :- public run/1.
 :- override run/1.
 run(R) :-
    T is 'System':currentTimeMillis,
-   example08/counter2:at(R, 0, N),
-   example08/counter2:at(R, 1, Q),
-   example08/counter2:at(R, 2, W),
-   example08/counter2:at(R, 3, C),
+   R::at(0, N),
+   R::at(1, Q),
+   R::at(2, W),
+   R::at(3, C),
    atom_concat('Process ', N, A1),
    atom_concat(A1, ': ', A2),
    number_codes(C, L),
@@ -59,9 +60,9 @@ run(R) :-
    write(W, A4),
    flush_output(W),
    D is C+1,
-   example08/counter2:set_at(R, 3, D),
+   R::set_at(3, D),
    (  D < 10
    -> S is T+1000,
-      example08/'Queue':post(Q, R, S); true).
+      Q::post(R, S); true).
 
 

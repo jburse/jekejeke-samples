@@ -41,13 +41,13 @@ exec2(X, Y) :-
    write(Z, A4),
    flush_output(Z).
 
-process2(X) :- repeat,
-   lock(Y),
+process2(X) :-
+   lock(Y), repeat,
    setup_call_cleanup(
-      example06/'Mutex':acquire(Y),
+      Y::acquire,
       (  exec2(X, 'Ha'),
          exec2(X, 'Tschi')),
-      example06/'Mutex':release(Y)), fail.
+      Y::release), fail.
 
 % Window 1
 % ?- init2.

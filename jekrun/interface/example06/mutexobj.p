@@ -26,11 +26,13 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- foreign_constructor(new/1, 'example06.Mutex', new).
+:- foreign_constructor(new/1, example06/'Mutex', new).
+
 :- virtual acquire/1.
-:- foreign(acquire/1, 'example06.Mutex', acquire).
+:- foreign(acquire/1, example06/'Mutex', acquire).
+
 :- virtual release/1.
-:- foreign(release/1, 'example06.Mutex', release).
+:- foreign(release/1, example06/'Mutex', release).
 
 :- dynamic console/1.
 :- dynamic lock/1.
@@ -50,8 +52,8 @@ exec(X, Y) :-
    write(Z, A4),
    flush_output(Z).
 
-process(X) :- repeat,
-   lock(Y),
+process(X) :-
+   lock(Y), repeat,
    setup_call_cleanup(
       acquire(Y),
       (  exec(X, 'Ha'),

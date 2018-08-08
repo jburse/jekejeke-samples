@@ -36,7 +36,7 @@ import java.io.Writer;
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-public class InThrow {
+public final class InThrow {
 
     /**
      * <p>Runtime library variant of executing the example.</p>
@@ -64,8 +64,10 @@ public class InThrow {
             if (exceptionTerm instanceof TermCompound &&
                     ((TermCompound) exceptionTerm).getArity() == 1 &&
                     ((TermCompound) exceptionTerm).getFunctor().equals("ball")) {
-                Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-                wr.write(inter.unparseTerm(0, ((TermCompound) exceptionTerm).getArgWrapped(0)));
+                Writer wr = (Writer)
+                        inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
+                wr.write(inter.unparseTerm(0,
+                        ((TermCompound) exceptionTerm).getArgWrapped(0)));
                 wr.write('\n');
                 wr.flush();
             }

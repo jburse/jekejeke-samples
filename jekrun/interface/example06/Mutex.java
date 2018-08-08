@@ -48,7 +48,8 @@ public final class Mutex {
      *
      * @throws InterruptedException If the request was cancelled.
      */
-    public void acquire() throws InterruptedException {
+    public void acquire()
+            throws InterruptedException {
         synchronized (this) {
             while (locked)
                 this.wait();

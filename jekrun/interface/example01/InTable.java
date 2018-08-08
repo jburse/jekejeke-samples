@@ -38,7 +38,7 @@ import java.io.Writer;
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-public class InTable {
+public final class InTable {
 
     /**
      * <p>Runtime library variant of executing the example.</p>

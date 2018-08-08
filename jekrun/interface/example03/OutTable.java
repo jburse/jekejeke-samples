@@ -37,7 +37,7 @@ import java.util.Vector;
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-public class OutTable {
+public final class OutTable {
     static Vector<String> employees = new Vector<String>();
 
     static {
@@ -64,8 +64,9 @@ public class OutTable {
         if (elements.hasMoreElements()) {
             co.setRetry(true);
             return elements.nextElement();
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
