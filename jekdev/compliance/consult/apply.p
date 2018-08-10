@@ -116,3 +116,27 @@ runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 3') :-
    Y == [1,3].
 runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 4') :-
    \+ maplist(between, [1,2], [2,3], [2,1]).
+
+/* foldl/n */
+
+edge(1, a, b).
+edge(2, a, c).
+edge(3, c, d).
+edge(4, b, e).
+edge(5, d, e).
+
+runner:ref(foldl, 0, consult_apply, 'PLIB HO Preds').
+runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 1') :-
+   foldl(+, [1,2,3], 0, S),
+   S == 6.
+runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 2') :-
+   foldl(foldl(+), [[1,2,3],[4,5,6],[7,8,9]], 0, S),
+   S == 45.
+runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 3') :-
+   \+ foldl(edge, _, d, a).
+runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 4') :-
+   foldl(edge, L, a, d),
+   L == [2,3].
+runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 5') :-
+   findall(X, foldl(edge, X, a, e), [_,Y|_]),
+   Y == [2,3,5].

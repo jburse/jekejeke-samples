@@ -61,24 +61,19 @@ runner:case(op, 3, consult_file, 'ISO 8.14.3.4, ISO 2') :-
    \+ current_op(30, xfy, ++).
 runner:case(op, 3, consult_file, 'ISO 8.14.3.4, ISO 3') :-
    catch(op(max, xfy, ++), error(E,_), true),
-   nonvar(E),
-   E = type_error(integer,max).
+   E == type_error(integer,max).
 runner:case(op, 3, consult_file, 'ISO 8.14.3.4, ISO 4') :-
    catch(op(-30, xfy, ++), error(E,_), true),
-   nonvar(E),
-   E = domain_error(_,-30).
+   E == representation_error(not_less_than_zero).
 runner:case(op, 3, consult_file, 'ISO 8.14.3.4, ISO 5') :-
    catch(op(1201, xfy, ++), error(E,_), true),
-   nonvar(E),
-   E = domain_error(operator_priority,1201).
+   E == domain_error(operator_priority,1201).
 runner:case(op, 3, consult_file, 'ISO 8.14.3.4, ISO 6') :-
    catch(op(30, _, ++), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   E == instantiation_error.
 runner:case(op, 3, consult_file, 'ISO 8.14.3.4, ISO 7') :-
    catch(op(30, yfy, ++), error(E,_), true),
-   nonvar(E),
-   E = domain_error(operator_specifier,yfy).
+   E == domain_error(operator_specifier,yfy).
 runner:case(op, 3, consult_file, 'ISO 8.14.3.4, ISO 8') :-
    catch(op(30, xfy, 0), error(E,_), true),
    nonvar(E),
@@ -95,8 +90,7 @@ runner:case(op, 3, consult_file, 'ISO 8.14.3.4, ISO 10') :-
    E = permission_error(create,operator,_).
 runner:case(op, 3, consult_file, 'Corr.2 6.3.4.3, ISO 1') :-
    catch(op(1000, xfy, {}), error(E,_), true),
-   nonvar(E),
-   E = permission_error(create,operator,{}).
+   E == permission_error(create,operator,{}).
 runner:case(op, 3, consult_file, 'Corr.2 6.3.4.3, ISO 3') :-
    catch(op(1000, xfy, '|'), error(E,_), true),
    nonvar(E),
