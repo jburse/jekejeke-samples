@@ -4,6 +4,10 @@
  * Source of test cases is the following standard:
  *   - Draft Technical Corrigendum 2, WG17, Ulrich Neumerkel
  *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2">www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2</a>
+ *   - A Prologue for Prolog, N235 WG17, Ulrich Neumerkel
+ *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/prologue">www.complang.tuwien.ac.at/ulrich/iso-prolog/prologue</a>
+ *   - An Elementary Prolog Library, Richard O'Keefe
+       <a href="http://www.cs.otago.ac.nz/staffpriv/ok/pllib.htm">www.cs.otago.ac.nz/staffpriv/ok/pllib.htm</a>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
