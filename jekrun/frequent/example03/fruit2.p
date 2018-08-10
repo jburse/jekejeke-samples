@@ -26,7 +26,7 @@
  */
 
 :- use_module(library(experiment/abstract)).
-:- use_module(library(experiment/tecto)).
+:- use_module(library(standard/dcg)).
 
 :- meta_predicate repetition(3,?,?,?).
 repetition(G, [X|Y]) -->

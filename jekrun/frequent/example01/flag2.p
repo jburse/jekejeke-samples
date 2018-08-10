@@ -45,3 +45,8 @@ flag(R) :-
                                            (  0 =:= (X+Y)mod 2
                                            -> T = x
                                            ;  T = o))))).
+
+% ?- flag(R).
+% R = ''(''(x,o,x,o,x,o,x,o),''(o,x,o,x,o,x,o,x),''(x,o,x,o,x,o,x,o),
+% ''(o,x,o,x,o,x,o,x),''(x,o,x,o,x,o,x,o),''(o,x,o,x,o,x,o,x),
+% ''(x,o,x,o,x,o,x,o),''(o,x,o,x,o,x,o,x))

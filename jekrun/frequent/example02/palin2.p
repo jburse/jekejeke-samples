@@ -25,6 +25,8 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+:- use_module(library(standard/dcg)).
+
 palin([], [Middle]) -->
    [Middle].
 palin([Middle], []) -->
@@ -45,5 +47,6 @@ palin([Border|List], Middle) -->
 % ?- phrase(palin(X1, Y1), "bert").
 % No
 
-% ?- phrase(palin("ra", "d"), X1).
-% X1 = [114, 97, 100, 97, 114]
+% ?- phrase(palin("ra", "d"), X), atom_codes(A,X).
+% X = [114,97,100,97,114],
+% A = radar
