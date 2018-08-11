@@ -33,7 +33,6 @@
 :- ensure_loaded('../consult/file').
 :- ensure_loaded('../consult/data').
 :- ensure_loaded('../consult/apply').
-:- ensure_loaded('../consult/dcg').
 
 :- ensure_loaded('../arithmetic/basic').
 :- ensure_loaded('../arithmetic/moddiv').
