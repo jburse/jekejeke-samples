@@ -1,5 +1,9 @@
 /**
- * Prolog code for the grammar test cases.
+ * Prolog code for the consult dcg theory test cases.
+ *
+ * Source of test cases is the following standard:
+ *   - Draft Definite Clause Grammar Rules, WG17, Jonathan Hodgson
+ *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/dcgs">www.complang.tuwien.ac.at/ulrich/iso-prolog/dcgs</a>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
