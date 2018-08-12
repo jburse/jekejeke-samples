@@ -3,6 +3,7 @@ package mobile;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -69,14 +70,14 @@ public final class Results extends Activity implements View.OnClickListener {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
+        LinearLayout layout2 = new LinearLayout(this);
+        layout2.setOrientation(LinearLayout.HORIZONTAL);
+
         search = new Button(this);
         search.setText("Search");
         search.setOnClickListener(this);
-
         LinearLayout.LayoutParams layoutparams2 = new LinearLayout.LayoutParams(
                 0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        LinearLayout layout2 = new LinearLayout(this);
-        layout2.setOrientation(LinearLayout.HORIZONTAL);
         layout2.addView(search, layoutparams2);
 
         close = new Button(this);
@@ -119,18 +120,26 @@ public final class Results extends Activity implements View.OnClickListener {
         root.removeView(list);
         search.setEnabled(false);
         close.setEnabled(false);
+
+        final LinearLayout layout2 = new LinearLayout(this);
+        layout2.setGravity(Gravity.CENTER);
+        layout2.addView(progress);
         progress.setIndeterminate(true);
+
         LinearLayout.LayoutParams layoutparams4 = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, 0, 1);
-        root.addView(progress, layoutparams4);
+        root.addView(layout2, layoutparams4);
         new Thread(new Runnable() {
             public void run() {
                 job.run();
                 root.post(new Runnable() {
                     public void run() {
                         job2.run();
-                        root.removeView(progress);
+
+                        layout2.removeView(progress);
+                        root.removeView(layout2);
                         progress.setIndeterminate(false);
+
                         LinearLayout.LayoutParams layoutparams4 = new LinearLayout.LayoutParams(
                                 ViewGroup.LayoutParams.FILL_PARENT, 0, 1);
                         root.addView(list, layoutparams4);

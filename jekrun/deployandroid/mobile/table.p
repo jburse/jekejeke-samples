@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Prolog code for the queried table.
  * Stripped down version of the Swing version.
  *
