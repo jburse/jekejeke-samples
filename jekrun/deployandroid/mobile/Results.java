@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import jekpro.tools.call.Interpreter;
+import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.TermVar;
 
 /**
@@ -179,13 +181,14 @@ public final class Results extends Activity implements View.OnClickListener {
         if (result != RESULT_OK)
             return;
 
-        final Query query = new Query(Data.know);
+        Interpreter inter=Data.know.iterable();
+        final Query query = new Query(inter);
         query.setName(data.getStringExtra("name"));
         query.setAgeFrom(data.getStringExtra("fromage"));
         query.setAgeTo(data.getStringExtra("toage"));
         final String[] cols = query.listColumnIdentifiers();
         final TermVar[] vars = query.makeVars();
-        final Object goal = query.makeQuery(vars);
+        final AbstractTerm goal = query.makeQuery(vars);
 
         startJob(new Runnable() {
             public void run() {

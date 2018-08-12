@@ -1,4 +1,4 @@
-package mobile;
+package terminal;
 
 import jekpro.tools.call.CallIn;
 import jekpro.tools.call.Interpreter;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 /**
  * <p>Java code for the query interpreter.</p>
- * <p>Stripped down Version of the Swing version.</p>
  * <p>
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -39,13 +38,18 @@ import java.util.ArrayList;
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public final class Query {
-    private final static int COLUMN_NAME = 0;
-    private final static int COLUMN_AGE = 1;
-    private final static int COLUMN_COUNT = 2;
+    private final static int COLUMN_FIRSTNAME = 0;
+    private final static int COLUMN_NAME = 1;
+    private final static int COLUMN_AGE = 2;
+    private final static int COLUMN_SALARY = 3;
+    private final static int COLUMN_COUNT = 4;
 
+    private String firstname;
     private String name;
     private String agefrom;
     private String ageto;
+    private String salaryfrom;
+    private String salaryto;
     private Interpreter inter;
     private Object[][] rows;
 
@@ -56,6 +60,15 @@ public final class Query {
      */
     public Query(Interpreter i) {
         inter = i;
+    }
+
+    /**
+     * <p>Set the first name search criteria.</p>
+     *
+     * @param f The first name search criteria.
+     */
+    public void setFirstname(String f) {
+        firstname = f;
     }
 
     /**
@@ -86,12 +99,30 @@ public final class Query {
     }
 
     /**
+     * <p>Set the salary from search criteria.</p>
+     *
+     * @param af The salary from search criteria.
+     */
+    public void setSalaryFrom(String af) {
+        salaryfrom = af;
+    }
+
+    /**
+     * <p>Set the salary to search criteria.</p>
+     *
+     * @param at The salary to search criteria.
+     */
+    public void setSalaryTo(String at) {
+        salaryto = at;
+    }
+
+    /**
      * <p>List the column identifiers of the search result.</p>
      *
      * @return The column identifiers.
      */
     public String[] listColumnIdentifiers() {
-        return new String[]{"Name", "Age#"};
+        return new String[]{"Firstname", "Name", "Age#", "Salary#"};
     }
 
     /**
@@ -106,6 +137,16 @@ public final class Query {
         return res;
     }
 
+
+    /**
+     * <p>Retrieve the interpreter.</p>
+     *
+     * @return The interpreter.
+     */
+    public Interpreter getInter() {
+        return inter;
+    }
+
     /**
      * <p>Create the query term.</p>
      *
@@ -114,7 +155,11 @@ public final class Query {
      */
     public AbstractTerm makeQuery(TermVar[] vars) {
         ArrayList<AbstractTerm> literals = new ArrayList<AbstractTerm>();
-        literals.add(new TermCompound(inter, "employee", vars[COLUMN_NAME], vars[COLUMN_AGE]));
+        literals.add(new TermCompound(inter, "employee", vars[COLUMN_FIRSTNAME],
+                vars[COLUMN_NAME], vars[COLUMN_AGE], vars[COLUMN_SALARY]));
+        if (!"".equals(firstname))
+            literals.add(0, new TermCompound(inter, "=",
+                    firstname, vars[COLUMN_FIRSTNAME]));
         if (!"".equals(name))
             literals.add(0, new TermCompound(inter, "=",
                     name, vars[COLUMN_NAME]));
@@ -124,6 +169,12 @@ public final class Query {
         if (!"".equals(ageto))
             literals.add(new TermCompound(inter, ">=",
                     Integer.valueOf(ageto), vars[COLUMN_AGE]));
+        if (!"".equals(salaryfrom))
+            literals.add(new TermCompound(inter, "=<",
+                    Integer.valueOf(salaryfrom), vars[COLUMN_SALARY]));
+        if (!"".equals(salaryto))
+            literals.add(new TermCompound(inter, ">=",
+                    Integer.valueOf(salaryto), vars[COLUMN_SALARY]));
         AbstractTerm queryTerm = literals.get(literals.size() - 1);
         for (int i = literals.size() - 2; i >= 0; i--)
             queryTerm = new TermCompound(inter, ",",
@@ -132,20 +183,52 @@ public final class Query {
     }
 
     /**
+     * <p>Make a variable names map.</p>
+     *
+     * @param colids The column ids.
+     * @param vars   The variables.
+     * @return The variable names map.
+     */
+    public Object makeVariableNames(String[] colids, TermVar[] vars) {
+        Object res = Knowledgebase.OP_NIL;
+        res = new TermCompound(Knowledgebase.OP_CONS,
+                new TermCompound("context", Integer.valueOf(0)), res);
+        res = new TermCompound(Knowledgebase.OP_CONS,
+                new TermCompound("back_quotes", "variable"), res);
+        res = new TermCompound(Knowledgebase.OP_CONS,
+                new TermCompound("quoted", "true"), res);
+
+        Object list = Knowledgebase.OP_NIL;
+        for (int i = 0; i < vars.length; i++) {
+            list = new TermCompound(inter, Knowledgebase.OP_CONS,
+                    new TermCompound(inter, "=", colids[i], vars[i]), list);
+        }
+
+        res = new TermCompound(inter, Knowledgebase.OP_CONS,
+                new TermCompound(inter, "variable_names", list), res);
+        return res;
+    }
+
+    /**
      * <p>List the rows of the search result.</p>
      *
      * @param vars      The query variables.
      * @param queryTerm The query term.
+     * @param inter     The interpreter.
      */
-    public void listRows(TermVar[] vars, Object queryTerm) {
+    public void listRows(TermVar[] vars, Object queryTerm,
+                         Interpreter inter) {
         try {
-            ArrayList<Object[]>  res = new ArrayList<Object[]>();
+            ArrayList<Object[]> res = new ArrayList<Object[]>();
             CallIn callin = inter.iterator(queryTerm);
             while (callin.hasNext()) {
                 callin.next();
                 Object[] row = new Object[]{
+                        vars[Query.COLUMN_FIRSTNAME].deref(),
                         vars[Query.COLUMN_NAME].deref(),
-                        vars[Query.COLUMN_AGE].deref()};
+                        vars[Query.COLUMN_AGE].deref(),
+                        vars[Query.COLUMN_SALARY].deref()
+                };
                 res.add(row);
             }
             rows = new Object[res.size()][];
