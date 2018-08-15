@@ -45,7 +45,7 @@
         jekpro.tools.term.TermVar[] vars = query.makeVars();
         Object queryTerm = query.makeQuery(vars);
         jekpro.tools.call.Interpreter inter = Data.know.iterable();
-        Object[][] rows=query.listRows(vars, queryTerm, inter);
+        Object[][] rows=query.listRows(vars, queryTerm );
         for (int j = 0; j < rows.length; j++) {
             Object[] args = rows[j];
 %><%=new jekpro.tools.term.TermCompound("employee", args)%>.

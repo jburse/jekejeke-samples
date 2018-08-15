@@ -78,6 +78,7 @@ public final class Results extends Activity implements View.OnClickListener {
         search = new Button(this);
         search.setText("Search");
         search.setOnClickListener(this);
+        search.setEnabled(false);
         LinearLayout.LayoutParams layoutparams2 = new LinearLayout.LayoutParams(
                 0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         layout2.addView(search, layoutparams2);
@@ -85,6 +86,7 @@ public final class Results extends Activity implements View.OnClickListener {
         close = new Button(this);
         close.setText("Close");
         close.setOnClickListener(this);
+        close.setEnabled(false);
         layoutparams2 = new LinearLayout.LayoutParams(
                 0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         layout2.addView(close, layoutparams2);
@@ -120,8 +122,6 @@ public final class Results extends Activity implements View.OnClickListener {
      */
     private void startJob(final Runnable job, final Runnable job2) {
         root.removeView(list);
-        search.setEnabled(false);
-        close.setEnabled(false);
 
         final LinearLayout layout2 = new LinearLayout(this);
         layout2.setGravity(Gravity.CENTER);
@@ -190,13 +190,16 @@ public final class Results extends Activity implements View.OnClickListener {
         final TermVar[] vars = query.makeVars();
         final AbstractTerm goal = query.makeQuery(vars);
 
+        search.setEnabled(false);
+        close.setEnabled(false);
         startJob(new Runnable() {
             public void run() {
                 query.listRows(vars, goal);
             }
         }, new Runnable() {
             public void run() {
-                Adapter adapter = new Adapter(cols, query.getRows());
+                Object[][] rows = query.getRows();
+                Adapter adapter = new Adapter(cols, rows);
                 list.setAdapter(adapter);
             }
         });

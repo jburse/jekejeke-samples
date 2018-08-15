@@ -45,13 +45,20 @@ import java.awt.event.ActionListener;
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public final class Pane {
-    private JTextField firstName = new JTextField(12);
-    private JTextField name = new JTextField(12);
-    private JTextField ageFrom = new JTextField(3);
-    private JTextField ageTo = new JTextField(3);
-    private JTextField salaryFrom = new JTextField(6);
-    private JTextField salaryTo = new JTextField(6);
-    private JTable result = new JTable(new DefaultTableModel());
+    private final static String CARD_SCROLLPANE = "scrollpane";
+    private final static String CARD_PROGRESS = "progress";
+
+    private final JTextField firstName = new JTextField(12);
+    private final JTextField name = new JTextField(12);
+    private final JTextField ageFrom = new JTextField(3);
+    private final JTextField ageTo = new JTextField(3);
+    private final JTextField salaryFrom = new JTextField(6);
+    private final JTextField salaryTo = new JTextField(6);
+    private final JTable result = new JTable(new DefaultTableModel());
+    private final JButton search = new JButton();
+    private final JButton debug = new JButton();
+    private final JPanel cards = new JPanel(new CardLayout());
+    private final JProgressBar progress = new JProgressBar();
 
     /**
      * <p>Layout the pane.</p>
@@ -141,14 +148,16 @@ public final class Pane {
         /* layout the action buttons */
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        JButton debug = new JButton("Debug");
+        debug.setText("Debug");
         debug.setActionCommand("debug");
         debug.addActionListener(s);
+        debug.setEnabled(false);
         panel.add(debug);
-        JButton search = new JButton("Search");
+        search.setText("Search");
         search.setActionCommand("search");
         r.setDefaultButton(search);
         search.addActionListener(s);
+        search.setEnabled(false);
         panel.add(search);
         c.add(panel, new GridBagConstraints(0, 4, 5, 1, 0.0, 0.0
                 , GridBagConstraints.EAST,
@@ -162,11 +171,49 @@ public final class Pane {
         scrollpane.setVerticalScrollBarPolicy(
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollpane.setPreferredSize(new Dimension(400, 200));
-        c.add(scrollpane, new GridBagConstraints(0, 5,
+        cards.add(scrollpane, CARD_SCROLLPANE);
+        panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panel.add(progress);
+        cards.add(panel, CARD_PROGRESS);
+        c.add(cards, new GridBagConstraints(0, 5,
                 5, 1, 1.0, 1.0
                 , GridBagConstraints.WEST,
                 GridBagConstraints.BOTH,
                 new Insets(2, 2, 2, 2), 0, 0));
+    }
+
+    /**
+     * <p>Disable the button.</p>
+     */
+    public void disableButtons() {
+        search.setEnabled(false);
+        debug.setEnabled(false);
+    }
+
+    /**
+     * <p>Start a job.</p>
+     */
+    public void startJob(final Runnable job, final Runnable job2) {
+        ((CardLayout) cards.getLayout()).show(cards, CARD_PROGRESS);
+        progress.setIndeterminate(true);
+
+        new Thread(new Runnable() {
+            public void run() {
+                job.run();
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        job2.run();
+
+                        ((CardLayout) cards.getLayout()).show(cards, CARD_SCROLLPANE);
+                        progress.setIndeterminate(false);
+
+                        search.setEnabled(true);
+                        debug.setEnabled(true);
+                    }
+                });
+            }
+        }).start();
     }
 
     /**

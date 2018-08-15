@@ -6,7 +6,6 @@ import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
-import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
 import terminal.Query;
 
@@ -49,22 +48,37 @@ public final class Standalone extends JFrame implements ActionListener {
 
     /**
      * <p>Setup the knowledgebase and init the pane.</p>
-     *
-     * @throws InterpreterException Problems with setup of knowledge base.
-     * @throws InterpreterMessage   Problems with setup of knowledge base.
      */
-    private Standalone() throws InterpreterException, InterpreterMessage {
-        /* setup the know */
-        Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
-        Object consultGoal = new TermCompound("consult",
-                new TermCompound("library", "table"));
-        inter.iterator(consultGoal).next().close();
-
+    private Standalone() {
         /* init the pane */
         pane.initPane(getRootPane(), this);
         setTitle("Deployment Study - Standalone");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        pane.startJob(new Runnable() {
+            public void run() {
+                initKnowledgebase();
+            }
+        }, new Runnable() {
+            public void run() {
+            }
+        });
+    }
+
+    /**
+     * <p>do set up of the knowledge base.</p>
+     */
+    private void initKnowledgebase() {
+        try {
+            /* setup the know */
+            Interpreter inter = know.iterable();
+            Knowledgebase.initKnowledgebase(inter);
+            Object consultGoal = inter.parseTerm("consult(library(terminal/table))");
+            inter.iterator(consultGoal).next().close();
+        } catch (InterpreterMessage x) {
+            throw new RuntimeException(x);
+        } catch (InterpreterException x) {
+            throw new RuntimeException(x);
+        }
     }
 
     /**
@@ -75,7 +89,7 @@ public final class Standalone extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             Interpreter inter = know.iterable();
-            Query query = new Query(inter);
+            final Query query = new Query(inter);
             /* retrieve the search criteria and build the query */
             query.setFirstname(pane.getFirstName());
             query.setName(pane.getName());
@@ -83,14 +97,22 @@ public final class Standalone extends JFrame implements ActionListener {
             query.setAgeTo(pane.getAgeTo());
             query.setSalaryFrom(pane.getSalaryFrom());
             query.setSalaryTo(pane.getSalaryTo());
-            String[] colids = query.listColumnIdentifiers();
-            TermVar[] vars = query.makeVars();
-            AbstractTerm queryTerm = query.makeQuery(vars);
+            final String[] colids = query.listColumnIdentifiers();
+            final TermVar[] vars = query.makeVars();
+            final AbstractTerm queryTerm = query.makeQuery(vars);
             if ("search".equals(e.getActionCommand())) {
                 /* execute the query and populate the results */
-                query.listRows(vars, queryTerm, inter);
-                Object[][] rows = query.getRows();
-                pane.setResult(colids, rows);
+                pane.disableButtons();
+                pane.startJob(new Runnable() {
+                    public void run() {
+                        query.listRows(vars, queryTerm);
+                    }
+                }, new Runnable() {
+                    public void run() {
+                        Object[][] rows = query.getRows();
+                        pane.setResult(colids, rows);
+                    }
+                });
             } else {
                 StringWriter sb = new StringWriter();
                 inter.unparseTerm(sb, query.makeVariableNames(colids, vars), queryTerm);
@@ -114,11 +136,14 @@ public final class Standalone extends JFrame implements ActionListener {
      * <p>Main method shows the standalone frame.</p>
      *
      * @param args The command line arguments, not used.
-     * @throws InterpreterException Problems with setup of knowledge base.
-     * @throws InterpreterMessage   Problems with setup of knowledge base.
      */
-    public static void main(String[] args) throws InterpreterException,
-            InterpreterMessage {
+    public static void main(String[] args) {
+        String laf = UIManager.getSystemLookAndFeelClassName();
+        try {
+            UIManager.setLookAndFeel(laf);
+        } catch (Exception x) {
+            throw new RuntimeException(x);
+        }
         Standalone standalone = new Standalone();
         standalone.pack();
         standalone.setMinimumSize(standalone.getSize());

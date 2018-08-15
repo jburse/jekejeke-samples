@@ -214,10 +214,8 @@ public final class Query {
      *
      * @param vars      The query variables.
      * @param queryTerm The query term.
-     * @param inter     The interpreter.
      */
-    public void listRows(TermVar[] vars, Object queryTerm,
-                         Interpreter inter) {
+    public void listRows(TermVar[] vars, Object queryTerm) {
         try {
             ArrayList<Object[]> res = new ArrayList<Object[]>();
             CallIn callin = inter.iterator(queryTerm);

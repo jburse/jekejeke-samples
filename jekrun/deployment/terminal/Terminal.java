@@ -112,7 +112,7 @@ public final class Terminal {
         ttyout.write('\n');
         ttyout.flush();
 
-        query.listRows(vars, queryTerm, inter);
+        query.listRows(vars, queryTerm);
         Object[][] rows = query.getRows();
         for (int j = 0; j < rows.length; j++) {
             Object[] row = rows[j];

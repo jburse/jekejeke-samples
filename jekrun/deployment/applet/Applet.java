@@ -86,7 +86,7 @@ public final class Applet extends JApplet implements ActionListener {
             AbstractTerm queryTerm = query.makeQuery(vars);
             if ("search".equals(e.getActionCommand())) {
                 /* execute the query and populate the results */
-                query.listRows(vars, queryTerm, inter);
+                query.listRows(vars, queryTerm);
                 Object[][] rows = query.getRows();
                 pane.setResult(colids, rows);
             } else {

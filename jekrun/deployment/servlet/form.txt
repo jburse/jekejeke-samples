@@ -114,7 +114,7 @@
             jekpro.tools.term.TermVar[] vars=query.makeVars();
             Object queryTerm=query.makeQuery(vars);
             jekpro.tools.call.Interpreter inter = Data.know.iterable();
-            Object[][] rows=query.listRows(vars, queryTerm, inter);
+            Object[][] rows=query.listRows(vars, queryTerm);
 %><table border=1><%
 %><tr><%
             for (int i = 0; i < cols.length; i++) {
