@@ -4,10 +4,6 @@
  * Source of test cases is the following standard:
  *   - Draft Technical Corrigendum 2, WG17, Ulrich Neumerkel
  *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2">www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2</a>
- *   - A Prologue for Prolog, N235 WG17, Ulrich Neumerkel
- *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/prologue">www.complang.tuwien.ac.at/ulrich/iso-prolog/prologue</a>
- *   - An Elementary Prolog Library, Richard O'Keefe
-       <a href="http://www.cs.otago.ac.nz/staffpriv/ok/pllib.htm">www.cs.otago.ac.nz/staffpriv/ok/pllib.htm</a>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -93,54 +89,3 @@ runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 6') :-
 runner:case(call, 0, consult_apply, 'Corr.2 8.15.4.4, XLOG 7') :-
    call(call(call(call(call(call(call(makerec, S), X), Y), Z), U), V), W),
    S == rec(X,Y,Z,U,V,W).
-
-/* maplist/n */
-
-runner:ref(maplist, 0, consult_apply, 'N235 7.4').
-runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 6') :-
-   maplist(>(3), [1,2]).
-runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 7') :-
-   \+ maplist(>(3), [1,2,3]).
-runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 8a') :-
-   maplist(=(X), [1,1]),
-   X == 1.
-runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 8b') :-
-   \+ maplist(=(_), [1,2]).
-runner:case(maplist, 0, consult_apply, 'N235 7.4, ISO 8c') :-
-   maplist(=(_), [Y,Z]),
-   Y == Z.
-runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 1') :-
-   maplist(succ, [1,2,3], X),
-   X == [2,3,4].
-runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 2') :-
-   maplist(succ, Y, [2,3,4]),
-   Y == [1,2,3].
-runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 3') :-
-   findall(X, maplist(between, [1,2], [2,3], X), [_,Y|_]),
-   Y == [1,3].
-runner:case(maplist, 0, consult_apply, 'N235 7.4, XLOG 4') :-
-   \+ maplist(between, [1,2], [2,3], [2,1]).
-
-/* foldl/n */
-
-edge(1, a, b).
-edge(2, a, c).
-edge(3, c, d).
-edge(4, b, e).
-edge(5, d, e).
-
-runner:ref(foldl, 0, consult_apply, 'PLIB HO Preds').
-runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 1') :-
-   foldl(+, [1,2,3], 0, S),
-   S == 6.
-runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 2') :-
-   foldl(foldl(+), [[1,2,3],[4,5,6],[7,8,9]], 0, S),
-   S == 45.
-runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 3') :-
-   \+ foldl(edge, _, d, a).
-runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 4') :-
-   foldl(edge, L, a, d),
-   L == [2,3].
-runner:case(foldl, 0, consult_apply, 'PLIB HO Preds, XLOG 5') :-
-   findall(X, foldl(edge, X, a, e), [_,Y|_]),
-   Y == [2,3,5].
