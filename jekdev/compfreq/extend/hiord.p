@@ -1,9 +1,11 @@
 /**
- * Prolog code for the extend grammar theory test cases.
+ * Prolog code for the extend hiord theory test cases.
  *
  * Source of test cases is the following standard:
- *   - Draft Definite Clause Grammar Rules, WG17, Jonathan Hodgson
- *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/dcgs">www.complang.tuwien.ac.at/ulrich/iso-prolog/dcgs</a>
+ *   - A Prologue for Prolog, N235 WG17, Ulrich Neumerkel
+ *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/prologue">www.complang.tuwien.ac.at/ulrich/iso-prolog/prologue</a>
+ *   - An Elementary Prolog Library, Richard O'Keefe
+ *     <a href="http://www.cs.otago.ac.nz/staffpriv/ok/pllib.htm">www.cs.otago.ac.nz/staffpriv/ok/pllib.htm</a>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -37,247 +39,56 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(system/charsio)).
-:- use_module(library(standard/dcg)).
+:- use_module(library(advanced/arith)).
+:- use_module(library(basic/lists)).
 
-/****************************************************************/
-/* Grammar Rules                                                */
-/****************************************************************/
+/* maplist/n */
 
-/* terminals (grammer), WG17 DCGD 12.3 */
+runner:ref(maplist, 0, extend_hiord, 'N235 7.4').
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, ISO 6') :-
+   maplist(>(3), [1,2]).
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, ISO 7') :-
+   \+ maplist(>(3), [1,2,3]).
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, ISO 8a') :-
+   maplist(=(X), [1,1]),
+   X == 1.
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, ISO 8b') :-
+   \+ maplist(=(_), [1,2]).
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, ISO 8c') :-
+   maplist(=(_), [Y,Z]),
+   Y == Z.
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, XLOG 1') :-
+   maplist(succ, [1,2,3], X),
+   X == [2,3,4].
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, XLOG 2') :-
+   maplist(succ, Y, [2,3,4]),
+   Y == [1,2,3].
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, XLOG 3') :-
+   findall(X, maplist(between, [1,2], [2,3], X), [_,Y|_]),
+   Y == [1,3].
+runner:case(maplist, 0, extend_hiord, 'N235 7.4, XLOG 4') :-
+   \+ maplist(between, [1,2], [2,3], [2,1]).
 
-runner:ref('.', 4, extend_grammar, 'WG17 DCGD 12.3').
-runner:case('.', 4, extend_grammar, 1) :-
-   phrase([], [abc,xyz], X),
-   X == [abc,xyz].
-runner:case('.', 4, extend_grammar, 2) :-
-   \+ phrase([def], [abc,xyz], _).
-runner:case('.', 4, extend_grammar, 3) :-
-   phrase([abc], [abc,xyz], X),
-   X == [xyz].
-runner:case('.', 4, extend_grammar, 4) :-
-   phrase([3.2, {}, a(b)], X, []),
-   X == [3.2,{},a(b)].
-runner:case('.', 4, extend_grammar, 5) :-
-   phrase([X], [abc,xyz], _),
-   X == abc.
-runner:case('.', 4, extend_grammar, 6) :-
-   phrase("abc", X, []),
-   X == "abc".
+/* foldl/n */
 
-/* non-terminals (grammar), WG17 DCGD 12.3 */
+edge(1, a, b).
+edge(2, a, c).
+edge(3, c, d).
+edge(4, b, e).
+edge(5, d, e).
 
-p -->
-   [abc].
-q(X) --> p,
-   [X].
-r --> [].
-r -->
-   [abc].
-
-runner:ref(-->, 2, extend_grammar, 'WG17 DCGD 12.3').
-runner:case(-->, 2, extend_grammar, 1) :-
-   p([abc,xyz], X),
-   X == [xyz].
-runner:case(-->, 2, extend_grammar, 2) :-
-   p([abc,xyz], [xyz]).
-runner:case(-->, 2, extend_grammar, 3) :-
-   \+ p([abc,xyz], []).
-runner:case(-->, 2, extend_grammar, 4) :-
-   q(X, [abc,xyz], []),
-   X == xyz.
-runner:case(-->, 2, extend_grammar, 5) :-
-   r([abc], X),
-   X == [abc].
-runner:case(-->, 2, extend_grammar, 6) :-
-   findall(X, r([abc], X), [_,X|_]),
-   X == [].
-
-/* A, B (gammar), WG17 DCGD 12.3 */
-
-s -->
-   [abc],
-   {write(hello)}.
-t(X) --> r,
-   [X].
-
-runner:ref(',', 4, extend_grammar, 'WG17 DCGD 12.3').
-runner:case(',', 4, extend_grammar, 1) :-
-   phrase((  [], p), [abc], []).
-runner:case(',', 4, extend_grammar, 2) :-
-   \+ phrase((  fail, p), [abc], []).
-runner:case(',', 4, extend_grammar, 3) :-
-   with_output_to(atom(Y),
-      \+ s([xyz], [])), !,
-   Y == ''.
-runner:case(',', 4, extend_grammar, 4) :-
-   with_output_to(atom(Y),
-      (  s([abc,xyz], X),
-         X == [xyz])), !,
-   Y == hello.
-runner:case(',', 4, extend_grammar, 5) :-
-   with_output_to(atom(Y),
-      s([abc,xyz], [xyz])), !,
-   Y == hello.
-runner:case(',', 4, extend_grammar, 6) :-
-   with_output_to(atom(Y),
-      \+ s([abc,xyz], [])), !,
-   Y == hello.
-runner:case(',', 4, extend_grammar, 7) :-
-   t(X, [abc,xyz,abc,xyz], Y),
-   t(X, Y, _),
-   X == xyz.
-
-/* A ; B (grammar), WG17 DCGD 12.3 */
-
-runner:ref(;, 4, extend_grammar, 'WG17 DCGD 12.3').
-runner:case(;, 4, extend_grammar, 1) :-
-   phrase((  []
-          ;  [abc]), [abc], X),
-   X == [abc].
-runner:case(;, 4, extend_grammar, 2) :-
-   findall(X, phrase((  []
-                     ;  [abc]), [abc], X), [_,X|_]),
-   X == [].
-runner:case(;, 4, extend_grammar, 3) :-
-   phrase((  []; p), [abc], X),
-   X == [abc].
-runner:case(;, 4, extend_grammar, 4) :-
-   findall(X, phrase((  []; p), [abc], X), [_,X|_]),
-   X == [].
-runner:case(;, 4, extend_grammar, 5) :-
-   phrase((  [xyz]; p), X, []),
-   X == [xyz].
-runner:case(;, 4, extend_grammar, 6) :-
-   findall(X, phrase((  [xyz]; p), X, []), [_,X|_]),
-   X == [abc].
-runner:case(;, 4, extend_grammar, 7) :-
-   with_output_to(atom(Y), phrase((  s; []), [xyz], [xyz])), !,
-   Y == ''.
-runner:case(;, 4, extend_grammar, 8) :-
-   with_output_to(atom(Y), phrase((  s; []), [abc,xyz], [abc,xyz])), !,
-   Y == hello.
-
-/* A -> B; C (grammar), WG17 DCGD 12.3 */
-
-runner:ref(->, 4, extend_grammar, 'WG17 DCGD 12.3').
-runner:case(->, 4, extend_grammar, 1) :-
-   phrase((  p -> []; []), [abc], X),
-   X == [].
-runner:case(->, 4, extend_grammar, 2) :-
-   \+ findall(X, phrase((  p -> []; []), [abc], X), [_,X|_]).
-runner:case(->, 4, extend_grammar, 3) :-
-   phrase((  t(X),
-             t(X) -> []; []), [abc,xyz,abc,xyz], _),
-   X == xyz.
-runner:case(->, 4, extend_grammar, 4) :-
-   \+ phrase((  t(X)
-             -> t(X); []), [abc,xyz,abc,xyz], _).
-runner:case(->, 4, extend_grammar, 5) :-
-   phrase((  []
-          -> t(X),
-             t(X); []), [abc,xyz,abc,xyz], _),
-   X == xyz.
-runner:case(->, 4, extend_grammar, 6) :-
-   phrase((  [xyz] -> []
-          ;  t(X),
-             t(X)), [abc,xyz,abc,xyz], _),
-   X == xyz.
-
-/* \+ A (grammar), WG17 DCGD 12.3 */
-
-runner:ref(\+, 3, extend_grammar, 'WG17 DCGD 12.3').
-runner:case(\+, 3, extend_grammar, 1) :-
-   phrase((  r,
-             \+ fail), [abc], X),
-   X == [abc].
-runner:case(\+, 3, extend_grammar, 2) :-
-   findall(X, phrase((  r,
-                        \+ fail), [abc], X), [_,X|_]),
-   X == [].
-runner:case(\+, 3, extend_grammar, 3) :-
-   \+ phrase((  r,
-                \+ p), [abc,abc], _).
-runner:case(\+, 3, extend_grammar, 4) :-
-   phrase((  r,
-             \+ p), [abc,xyz], X),
-   X == [xyz].
-runner:case(\+, 3, extend_grammar, 5) :-
-   \+ findall(X, phrase((  r,
-                           \+ p), [abc,xyz], X), [_,X|_]).
-runner:case(\+, 3, extend_grammar, 6) :-
-   \+ phrase((  r,
-                \+ (  t(X),
-                      t(X))), [abc,abc,xyz,abc,xyz], _).
-runner:case(\+, 3, extend_grammar, 7) :-
-   phrase((  r,
-             \+ (  t(X),
-                   t(X))), [abc,abc,xyz,abc,abc], Y),
-   Y == [abc,xyz,abc,abc].
-runner:case(\+, 3, extend_grammar, 8) :-
-   \+ findall(Y, phrase((  r,
-                           \+ (  t(X),
-                                 t(X))), [abc,abc,xyz,abc,abc], Y), [_,Y|_]).
-runner:case(\+, 3, extend_grammar, 9) :-
-   phrase((  r,
-             \+ (  t(X),
-                   t(X))), [abc,abc,xyz,abc,abc], _),
-   var(X).
-
-/* ! (grammar), WG17 DCGD 12.3 */
-
-runner:ref(!, 2, extend_grammar, 'WG17 DCGD 12.3').
-runner:case(!, 2, extend_grammar, 1) :-
-   phrase((  r, !, p), [abc], X),
-   X == [].
-runner:case(!, 2, extend_grammar, 2) :-
-   \+ findall(X, phrase((  r, !, p), [abc], X), [_,X|_]).
-runner:case(!, 2, extend_grammar, 3) :-
-   \+ phrase((  t(X), !,
-                t(X)), [abc,xyz,abc,xyz], _).
-runner:case(!, 2, extend_grammar, 4) :-
-   phrase((  p -> r, !, p; []), [abc,abc], X),
-   X == [].
-runner:case(!, 2, extend_grammar, 5) :-
-   \+ findall(X, phrase((  p -> r, !, p; []), [abc,abc], X), [_,X|_]).
-runner:case(!, 2, extend_grammar, 6) :-
-   \+ phrase((  p
-             -> t(X), !,
-                t(X); []), [abc,abc,xyz,abc,xyz], _).
-runner:case(!, 2, extend_grammar, 7) :-
-   phrase((  r,
-             (  !; p)), [abc], X),
-   X == [abc].
-runner:case(!, 2, extend_grammar, 8) :-
-   \+ findall(X, phrase((  r,
-                           (  !; p)), [abc], X), [_,X|_]).
-
-/* aux (grammar), WG17 DCGD 12.3 */
-
-runner:ref({}, 3, extend_grammar, 'WG17 DCGD 12.3').
-runner:case({}, 3, extend_grammar, 1) :-
-   phrase((  p,
-             {1 < 2}, p), [abc,abc], X),
-   X == [].
-runner:case({}, 3, extend_grammar, 2) :-
-   \+ phrase((  p,
-                {1 > 2}, p), [abc,abc], _).
-runner:case({}, 3, extend_grammar, 3) :-
-   phrase((  t(X),
-             {X == xyz}, p), [abc,xyz,abc], Y),
-   Y == [].
-runner:case({}, 3, extend_grammar, 4) :-
-   \+ phrase((  t(X),
-                {X == abc}, p), [abc,xyz,abc], _).
-runner:case({}, 3, extend_grammar, 5) :-
-   with_output_to(atom(X),
-      phrase((  p,
-                {write(hello)
-              ;  write(world)}), [abc], [])), !,
-   X == hello.
-runner:case({}, 3, extend_grammar, 6) :-
-   findall(X, with_output_to(atom(X),
-                 phrase((  p,
-                           {write(hello)
-                         ;  write(world)}), [abc], [])), [_,X|_]),
-   X == world.
+runner:ref(foldl, 0, extend_hiord, 'PLIB HO Preds').
+runner:case(foldl, 0, extend_hiord, 'PLIB HO Preds, XLOG 1') :-
+   foldl(+, [1,2,3], 0, S),
+   S == 6.
+runner:case(foldl, 0, extend_hiord, 'PLIB HO Preds, XLOG 2') :-
+   foldl(foldl(+), [[1,2,3],[4,5,6],[7,8,9]], 0, S),
+   S == 45.
+runner:case(foldl, 0, extend_hiord, 'PLIB HO Preds, XLOG 3') :-
+   \+ foldl(edge, _, d, a).
+runner:case(foldl, 0, extend_hiord, 'PLIB HO Preds, XLOG 4') :-
+   foldl(edge, L, a, d),
+   L == [2,3].
+runner:case(foldl, 0, extend_hiord, 'PLIB HO Preds, XLOG 5') :-
+   findall(X, foldl(edge, X, a, e), [_,Y|_]),
+   Y == [2,3,5].
