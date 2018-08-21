@@ -43,7 +43,7 @@ public final class Data {
         if (know != null)
             return;
         try {
-            know = new Knowledgebase(ToolkitLibrary.DEFAULT);
+            know = new Knowledgebase(ToolkitLibrary.DEFAULT, Data.class);
             /* setup the knowledgebase */
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
@@ -54,51 +54,6 @@ public final class Data {
         } catch (InterpreterException x) {
             throw new RuntimeException(x);
         }
-    }
-
-    /**
-     * <p>Replace the characters &, ", < and > by
-     * corresponding XML entities.</p>
-     *
-     * @param s The string.
-     * @return The escaped string.
-     */
-    public static String escapeXml(String s) {
-        StringBuilder buf = null;
-        int n = s.length();
-        for (int i = 0; i < n; i++) {
-            char ch = s.charAt(i);
-            switch (ch) {
-                case '&':
-                    if (buf == null)
-                        buf = new StringBuilder(s.substring(0, i));
-                    buf.append("&amp;");
-                    break;
-                case '"':
-                    if (buf == null)
-                        buf = new StringBuilder(s.substring(0, i));
-                    buf.append("&quot;");
-                    break;
-                case '<':
-                    if (buf == null)
-                        buf = new StringBuilder(s.substring(0, i));
-                    buf.append("&lt;");
-                    break;
-                case '>':
-                    if (buf == null)
-                        buf = new StringBuilder(s.substring(0, i));
-                    buf.append("&gt;");
-                    break;
-                default:
-                    if (buf != null)
-                        buf.append(ch);
-                    break;
-            }
-
-        }
-        if (buf != null)
-            return buf.toString();
-        return s;
     }
 
 }

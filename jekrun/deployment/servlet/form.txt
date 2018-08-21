@@ -1,5 +1,3 @@
-<%@ page import="terminal.Query" %>
-<%@ page import="servlet.Data" %>
 <%@page session="false"%><%@page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!--                                                                       -->
@@ -63,34 +61,34 @@
     <tr>
         <td>Firstname:</td>
         <td colspan="4"><input name="firstname" type="text" size="12"
-    value="<%=Data.escapeXml(firstname)%>"></td>
+    value="<%=matula.util.system.ForeignXml.sysTextEscape(firstname)%>"></td>
     </tr>
     <tr>
         <td>Name:</td>
         <td colspan="4"><input name="name" type="text" size="12"
-    value="<%=Data.escapeXml(name)%>"></td>
+    value="<%=matula.util.system.ForeignXml.sysTextEscape(name)%>"></td>
     </tr>
     <tr>
         <td>Age:</td>
         <td>From:</td>
         <td><input style="text-align: right;" name="agefrom"
     type="text" size="3"
-    value="<%=Data.escapeXml(agefrom)%>"></td>
+    value="<%=matula.util.system.ForeignXml.sysTextEscape(agefrom)%>"></td>
         <td>To:</td>
         <td><input style="text-align: right;" name="ageto"
     type="text" size="3"
-    value="<%=Data.escapeXml(ageto)%>"></td>
+    value="<%=matula.util.system.ForeignXml.sysTextEscape(ageto)%>"></td>
     </tr>
     <tr>
         <td>Salary:</td>
         <td>From:</td>
         <td><input style="text-align: right;" name="salaryfrom"
     type="text" size="6"
-    value="<%=Data.escapeXml(salaryfrom)%>"></td>
+    value="<%=matula.util.system.ForeignXml.sysTextEscape(salaryfrom)%>"></td>
         <td>To:</td>
         <td><input style="text-align: right;" name="salaryto"
     type="text" size="6"
-    value="<%=Data.escapeXml(salaryto)%>"></td>
+    value="<%=matula.util.system.ForeignXml.sysTextEscape(salaryto)%>"></td>
     </tr>
     <tr>
         <td colspan="5" align="right"><input name="search"
@@ -101,24 +99,26 @@
 <%
     if (request.getParameter("search") != null) {
         try {
-            Data.initKnowledgebase();
-            Query query =
-                    new Query();
+            servlet.Data.initKnowledgebase();
+            jekpro.tools.call.Interpreter inter = servlet.Data.know.iterable();
+
+            terminal.Query query = new terminal.Query(inter);
             query.setFirstname(firstname);
             query.setName(name);
             query.setAgeFrom(agefrom);
             query.setAgeTo(ageto);
             query.setSalaryFrom(salaryfrom);
             query.setSalaryTo(salaryto);
-            String[] cols=query.listColumnIdentifiers();
-            jekpro.tools.term.TermVar[] vars=query.makeVars();
-            Object queryTerm=query.makeQuery(vars);
-            jekpro.tools.call.Interpreter inter = Data.know.iterable();
-            Object[][] rows=query.listRows(vars, queryTerm);
+
+            String[] cols = query.listColumnIdentifiers();
+            jekpro.tools.term.TermVar[] vars = query.makeVars();
+            Object queryTerm = query.makeQuery(vars);
+            query.listRows(vars, queryTerm);
+            Object[][] rows = query.getRows();
 %><table border=1><%
 %><tr><%
             for (int i = 0; i < cols.length; i++) {
-%><th><%=Data.escapeXml(cols[i])%></th><%
+%><th><%=matula.util.system.ForeignXml.sysTextEscape(cols[i])%></th><%
             }
 %></tr><%
             for (int j = 0; j < rows.length; j++) {
@@ -126,10 +126,10 @@
                 Object[] row = rows[j];
                 for (int i = 0; i < row.length; i++) {
                     if (cols[i].endsWith("#")) {
-%><td align="right"><%=Data.escapeXml(
+%><td align="right"><%=matula.util.system.ForeignXml.sysTextEscape(
         row[i].toString())%></td><%
                     } else {
-%><td><%=Data.escapeXml(
+%><td><%=matula.util.system.ForeignXml.sysTextEscape(
         row[i].toString())%></td><%
                     }
                 }
@@ -139,7 +139,7 @@
 %></table><%
         } catch (Exception x) {
 %><pre>
-<%=Data.escapeXml(x.toString())%>
+<%=matula.util.system.ForeignXml.sysTextEscape(x.toString())%>
 </pre><%
         }
     }
