@@ -43,7 +43,6 @@ import java.io.StringWriter;
  */
 public final class Standalone extends JFrame implements ActionListener {
     private Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
-
     private Pane pane = new Pane();
 
     /**
@@ -54,6 +53,8 @@ public final class Standalone extends JFrame implements ActionListener {
         pane.initPane(getRootPane(), this);
         setTitle("Deployment Study - Standalone");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        /* load the Prolog */
         pane.startJob(new Runnable() {
             public void run() {
                 initKnowledgebase();
@@ -69,9 +70,10 @@ public final class Standalone extends JFrame implements ActionListener {
      */
     private void initKnowledgebase() {
         try {
-            /* setup the know */
+            /* setup the Prolog runtime */
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
+            /* load the Prolog code */
             Object consultGoal = inter.parseTerm("consult(library(terminal/table))");
             inter.iterator(consultGoal).next().close();
         } catch (InterpreterMessage x) {

@@ -8,9 +8,8 @@ import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
+import matula.util.system.ForeignUri;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -193,24 +192,23 @@ public final class Stub {
      *
      * @param vars      The query variables.
      * @param queryTerm The query term.
-     * @param inter     The interpreter.
      */
-    public void listRows(TermVar[] vars, Object queryTerm, Interpreter inter) {
+    public void listRows(TermVar[] vars, Object queryTerm) {
         try {
-        ArrayList<Object[]> res = new ArrayList<Object[]>();
-        CallIn callin = inter.iterator(queryTerm);
-        while (callin.hasNext()) {
-            callin.next();
-            Object[] row = new Object[]{
-                    vars[COLUMN_FIRSTNAME].deref(),
-                    vars[COLUMN_NAME].deref(),
-                    vars[COLUMN_AGE].deref(),
-                    vars[COLUMN_SALARY].deref()
-            };
-            res.add(row);
-        }
-        rows = new Object[res.size()][];
-        res.toArray(rows);
+            ArrayList<Object[]> res = new ArrayList<Object[]>();
+            CallIn callin = inter.iterator(queryTerm);
+            while (callin.hasNext()) {
+                callin.next();
+                Object[] row = new Object[]{
+                        vars[Stub.COLUMN_FIRSTNAME].deref(),
+                        vars[Stub.COLUMN_NAME].deref(),
+                        vars[Stub.COLUMN_AGE].deref(),
+                        vars[Stub.COLUMN_SALARY].deref()
+                };
+                res.add(row);
+            }
+            rows = new Object[res.size()][];
+            res.toArray(rows);
         } catch (InterpreterMessage x) {
             throw new RuntimeException(x);
         } catch (InterpreterException x) {
@@ -232,16 +230,25 @@ public final class Stub {
      *
      * @param s The string.
      * @return The encoded string.
-     * @throws InterpreterMessage Encoding missing.
      */
-    public static String urlEncodeUTF8(String s)
-            throws InterpreterMessage {
-        try {
-            return URLEncoder.encode(s, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new InterpreterMessage(InterpreterMessage.existenceError(
-                    "encoding", "UTF-8"));
-        }
+    public static String urlEncodeUTF8(String s) {
+        return ForeignUri.encode(s, false,
+                ForeignUri.NEEDS_COMP, ForeignUri.ENCODING_UTF8);
     }
+
+    /**
+     * <p>Some tests.</p>
+     *
+     * @param args Not used.
+     */
+    /*
+    public static void main(String[] args) {
+        String comp = "Сергей";
+        System.out.println("comp=" + comp);
+        comp = ForeignUri.encode(comp, true,
+                ForeignUri.NEEDS_COMP, ForeignUri.ENCODING_UTF8);
+        System.out.println("encode(comp)=" + comp);
+    }
+    */
 
 }

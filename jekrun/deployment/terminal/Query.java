@@ -137,16 +137,6 @@ public final class Query {
         return res;
     }
 
-
-    /**
-     * <p>Retrieve the interpreter.</p>
-     *
-     * @return The interpreter.
-     */
-    public Interpreter getInter() {
-        return inter;
-    }
-
     /**
      * <p>Create the query term.</p>
      *

@@ -25,28 +25,12 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_package(foreign(jekpro/tools/call)).
-
-:- use_package(foreign(jekpro/study/deployment)).
-
-
-:- foreign(url_encode_utf8/2, 'Stub', urlEncodeUTF8('String')).
-
-
-% fetch(+Stream,-Compound)
-fetch(S, R) :- repeat,
-   read(S, T),
-   (  T = end_of_file, !, fail
-   ;  T = exception(E),
-      throw(error(
-               resource_error(service_exception,E),_))
-   ;  T = R).
-
+:- use_package(foreign(client)).
 
 % act(+Firstname,+Name,+AgeFrom,+AgeTo,+SalaryFrom,+SalaryTo,-Compound)
 act(F, N, AF, AT, SF, ST, R) :-
    url_encode_utf8(F, F8),
-   atom_concat('http://localhost:8080/deployment/service.jsp?firstname=', F8, A1),
+   atom_concat('http://localhost:8082/client/service.jsp?firstname=', F8, A1),
    atom_concat(A1, '&name=', A2),
    url_encode_utf8(N, N8),
    atom_concat(A2, N8, A3),
@@ -65,3 +49,14 @@ act(F, N, AF, AT, SF, ST, R) :-
    setup_call_cleanup(open(A11, read, S),
       fetch(S, R),
       close(S)).
+
+% fetch(+Stream,-Compound)
+fetch(S, R) :- repeat,
+   read(S, T),
+   (  T = end_of_file, !, fail
+   ;  T = exception(E),
+      throw(error(
+               resource_error(service_exception,E),_))
+   ;  T = R).
+
+:- foreign(url_encode_utf8/2, 'Stub', urlEncodeUTF8('String')).

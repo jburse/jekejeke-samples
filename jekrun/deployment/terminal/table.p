@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Prolog code for the queried table.
  *
  * Warranty & Liability
@@ -25,9 +25,12 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+:- use_module(library(system/thread)).
+
 % employee(Firstname, Name, Age, Salary)
 employee('Сергей', 'Иванов', 53, 18500).
-employee('Сергей', 'Беляев', 53, 19000).
+employee('Сергей', 'Беляев', 53, 19000) :-
+   thread_sleep(5000).
 employee('Hans', 'Fischer', 62, 21500).
 employee('Филипп', 'Иванов', 32, 15000).
 employee('Anna', 'Fischer', 36, 17000).
@@ -35,3 +38,4 @@ employee('Berta', 'Schmitt', 25, 14500).
 employee('Carla', 'Fischer', 50, 22000).
 employee('Κώστας', 'Βουτσάς', 22, 11000).
 employee('Έλενα', 'Βουτσάς', 34, 16500).
+

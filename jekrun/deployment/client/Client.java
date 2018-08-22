@@ -6,7 +6,6 @@ import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
-import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
 import standalone.Pane;
 
@@ -48,22 +47,41 @@ public final class Client extends JFrame implements ActionListener {
 
     /**
      * <p>Setup the knowledgebase and init the pane.</p>
-     *
-     * @throws InterpreterException Problems with setup of knowledge base.
-     * @throws InterpreterMessage   Problems with setup of knowledge base.
      */
-    private Client() throws InterpreterException, InterpreterMessage {
-        /* setup the know */
-        Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
-        Object consultGoal = new TermCompound("consult",
-                new TermCompound("library", "agent"));
-        inter.iterator(consultGoal).next().close();
-
+    private Client() {
         /* init the pane */
         pane.initPane(getRootPane(), this);
         setTitle("Deployment Study - Client");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        /* load the Prolog */
+        pane.startJob(new Runnable() {
+            public void run() {
+                initKnowledgebase();
+            }
+        }, new Runnable() {
+            public void run() {
+            }
+        });
+
+    }
+
+    /**
+     * <p>do set up of the knowledge base.</p>
+     */
+    private void initKnowledgebase() {
+        try {
+            /* setup the Prolog runtime */
+            Interpreter inter = know.iterable();
+            Knowledgebase.initKnowledgebase(inter);
+            /* load the Prolog code */
+            Object consultGoal = inter.parseTerm("consult(library(client/agent))");
+            inter.iterator(consultGoal).next().close();
+        } catch (InterpreterMessage x) {
+            throw new RuntimeException(x);
+        } catch (InterpreterException x) {
+            throw new RuntimeException(x);
+        }
     }
 
     /**
@@ -74,7 +92,7 @@ public final class Client extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             Interpreter inter = know.iterable();
-            Stub stub = new Stub("agent", inter);
+            final Stub stub = new Stub("act", inter);
             /* retrieve the search criteria and build the query */
             stub.setFirstname(pane.getFirstName());
             stub.setName(pane.getName());
@@ -82,14 +100,22 @@ public final class Client extends JFrame implements ActionListener {
             stub.setAgeTo(pane.getAgeTo());
             stub.setSalaryFrom(pane.getSalaryFrom());
             stub.setSalaryTo(pane.getSalaryTo());
-            String[] colids = stub.listColumnIdentifiers();
-            TermVar[] vars = stub.makeVars();
-            AbstractTerm queryTerm = stub.makeQuery(vars);
+            final String[] colids = stub.listColumnIdentifiers();
+            final TermVar[] vars = stub.makeVars();
+            final AbstractTerm queryTerm = stub.makeQuery(vars);
             if ("search".equals(e.getActionCommand())) {
                 /* execute the query and populate the results */
-                stub.listRows(vars, queryTerm, inter);
-                Object[][] rows = stub.getRows();
-                pane.setResult(colids, rows);
+                pane.disableButtons();
+                pane.startJob(new Runnable() {
+                    public void run() {
+                        stub.listRows(vars, queryTerm);
+                    }
+                }, new Runnable() {
+                    public void run() {
+                        Object[][] rows = stub.getRows();
+                        pane.setResult(colids, rows);
+                    }
+                });
             } else {
                 StringWriter sb = new StringWriter();
                 inter.unparseTerm(sb, stub.makeVariableNames(colids, vars), queryTerm);
@@ -113,11 +139,14 @@ public final class Client extends JFrame implements ActionListener {
      * <p>Main method shows the standalone frame.</p>
      *
      * @param args The command line arguments, not used.
-     * @throws InterpreterException Problems with setup of knowledge base.
-     * @throws InterpreterMessage   Problems with setup of knowledge base.
      */
-    public static void main(String[] args) throws InterpreterException,
-            InterpreterMessage {
+    public static void main(String[] args) {
+        String laf = UIManager.getSystemLookAndFeelClassName();
+        try {
+            UIManager.setLookAndFeel(laf);
+        } catch (Exception x) {
+            throw new RuntimeException(x);
+        }
         Client client = new Client();
         client.pack();
         client.setMinimumSize(client.getSize());

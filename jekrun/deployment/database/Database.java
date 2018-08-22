@@ -88,7 +88,7 @@ public final class Database extends JFrame implements ActionListener {
             AbstractTerm queryTerm = stub.makeQuery(vars);
             if ("search".equals(e.getActionCommand())) {
                 /* execute the query and populate the results */
-                stub.listRows(vars, queryTerm, inter);
+                stub.listRows(vars, queryTerm);
                 Object[][] rows = stub.getRows();
                 pane.setResult(colids, rows);
             } else {
