@@ -75,7 +75,7 @@ make_rest([COL|W], S3) :-
 % create_statement(-Statement)
 :- foreign(create_statement/1, 'StatementAPI', createStatement).
 
-% execute_query(+Statement, +String)
+% execute_query(+Statement, +String, -List)
 :- foreign(execute_query/3, 'StatementAPI',
       executeQuery('CallOut','Statement','String')).
 
