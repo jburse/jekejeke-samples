@@ -49,20 +49,38 @@ public final class Applet extends JApplet implements ActionListener {
 
     /**
      * <p>Setup the knowledgebase and init the pane.</p>
-     *
-     * @throws InterpreterException Problems with setup of knowledge base.
-     * @throws InterpreterMessage   Problems with setup of knowledge base.
      */
-    public Applet() throws InterpreterException, InterpreterMessage {
-        /* set up the knowledge base */
-        Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
-        Object consultGoal = new TermCompound("consult",
-                new TermCompound("library", "table"));
-        inter.iterator(consultGoal).next().close();
-
+    public Applet() {
         /* init the pane */
         pane.initPane(getRootPane(), this);
+
+        /* load the Prolog */
+        pane.startJob(new Runnable() {
+            public void run() {
+                initKnowledgebase();
+            }
+        }, new Runnable() {
+            public void run() {
+            }
+        });
+    }
+
+    /**
+     * <p>do set up of the knowledge base.</p>
+     */
+    private void initKnowledgebase() {
+        try {
+            /* setup the Prolog runtime */
+            Interpreter inter = know.iterable();
+            Knowledgebase.initKnowledgebase(inter);
+            /* load the Prolog code */
+            Object consultGoal = inter.parseTerm("consult(library(terminal/table))");
+            inter.iterator(consultGoal).next().close();
+        } catch (InterpreterMessage x) {
+            throw new RuntimeException(x);
+        } catch (InterpreterException x) {
+            throw new RuntimeException(x);
+        }
     }
 
     /**
@@ -73,7 +91,7 @@ public final class Applet extends JApplet implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             Interpreter inter = know.iterable();
-            Query query = new Query(inter);
+            final Query query = new Query(inter);
             /* retrieve the search criteria and build the query */
             query.setFirstname(pane.getFirstName());
             query.setName(pane.getName());
@@ -81,14 +99,22 @@ public final class Applet extends JApplet implements ActionListener {
             query.setAgeTo(pane.getAgeTo());
             query.setSalaryFrom(pane.getSalaryFrom());
             query.setSalaryTo(pane.getSalaryTo());
-            String[] colids = query.listColumnIdentifiers();
-            TermVar[] vars = query.makeVars();
-            AbstractTerm queryTerm = query.makeQuery(vars);
+            final String[] colids = query.listColumnIdentifiers();
+            final TermVar[] vars = query.makeVars();
+            final AbstractTerm queryTerm = query.makeQuery(vars);
             if ("search".equals(e.getActionCommand())) {
                 /* execute the query and populate the results */
-                query.listRows(vars, queryTerm);
-                Object[][] rows = query.getRows();
-                pane.setResult(colids, rows);
+                pane.disableButtons();
+                pane.startJob(new Runnable() {
+                    public void run() {
+                        query.listRows(vars, queryTerm);
+                    }
+                }, new Runnable() {
+                    public void run() {
+                        Object[][] rows = query.getRows();
+                        pane.setResult(colids, rows);
+                    }
+                });
             } else {
                 StringWriter sb = new StringWriter();
                 inter.unparseTerm(sb, query.makeVariableNames(colids, vars), queryTerm);
@@ -97,7 +123,6 @@ public final class Applet extends JApplet implements ActionListener {
                         "Query Term", JOptionPane.PLAIN_MESSAGE);
             }
         } catch (Exception x) {
-
             /* simple problem exception handling */
             StringWriter sr = new StringWriter();
             x.printStackTrace(new PrintWriter(sr));
