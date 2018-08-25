@@ -63,7 +63,6 @@ public final class Client extends JFrame implements ActionListener {
             public void run() {
             }
         });
-
     }
 
     /**

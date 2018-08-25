@@ -1,7 +1,6 @@
 package database;
 
 import jekpro.tools.call.CallOut;
-import jekpro.tools.call.Interpreter;
 import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermCompound;
@@ -37,13 +36,23 @@ import java.util.Properties;
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public final class StatementAPI {
-    private static Driver driver;
     private final static Properties info = new Properties();
-    private final static String OP_STATEMENT = "statement";
+    private final static Driver driver;
+    private final static String OP_SQL_STATEMENT = "sql_statement";
 
     static {
-        info.put("user", "xxx");
-        info.put("password", "xxx");
+        try {
+            info.put("user", "xxx");
+            info.put("password", "xxx");
+            Class<?> clazz = Class.forName("com.mysql.cj.jdbc.Driver");
+            driver = (Driver) clazz.newInstance();
+        } catch (ClassNotFoundException x) {
+            throw new RuntimeException(x);
+        } catch (InstantiationException x) {
+            throw new RuntimeException(x);
+        } catch (IllegalAccessException x) {
+            throw new RuntimeException(x);
+        }
     }
 
     /**
@@ -52,10 +61,11 @@ public final class StatementAPI {
      * @return The statement.
      * @throws InterpreterMessage If object could not be created.
      */
-    public static Object createStatement() throws InterpreterMessage {
+    public static Statement createStatement()
+            throws InterpreterMessage {
         Connection con = null;
         try {
-            con = driver.connect("xxx", info);
+            con = driver.connect("jdbc:mysql://localhost:3306/demo?useSSL=false&serverTimezone=Europe/Paris", info);
             return con.createStatement();
         } catch (SQLException x) {
             if (con != null) {
@@ -66,7 +76,7 @@ public final class StatementAPI {
                 }
             }
             throw new InterpreterMessage(
-                    InterpreterMessage.resourceError(OP_STATEMENT));
+                    InterpreterMessage.existenceError(OP_SQL_STATEMENT, x.getMessage()));
         }
     }
 
@@ -74,21 +84,19 @@ public final class StatementAPI {
      * <p>Use the statement object to execute the given select statement
      * and retrieve column values for each result row.</p>
      *
-     * @param inter  The interpreter.
      * @param co     The call out.
      * @param obj    The statement.
      * @param select The select.
      * @return The column values or null.
      * @throws InterpreterMessage If select could not be executed or column values not retrieved.
      */
-    public static Object executeQuery(Interpreter inter, CallOut co,
-                                      Object obj, String select)
+    public static Object executeQuery(CallOut co,
+                                      Statement obj, String select)
             throws InterpreterMessage {
         try {
             ResultSet set;
             if (co.getFirst()) {
-                checkStatement(obj);
-                set = ((Statement) obj).executeQuery(select);
+                set = obj.executeQuery(select);
                 co.setData(set);
             } else {
                 set = (ResultSet) co.getData();
@@ -105,7 +113,7 @@ public final class StatementAPI {
                         val = col;
                     } else {
                         throw new InterpreterMessage(
-           InterpreterMessage.representationError(OP_STATEMENT));
+                            InterpreterMessage.representationError(OP_SQL_STATEMENT));
                     }
                     valList = new TermCompound(Knowledgebase.OP_CONS,
                             val, valList);
@@ -116,7 +124,7 @@ public final class StatementAPI {
             return null;
         } catch (SQLException x) {
             throw new InterpreterMessage(
-                    InterpreterMessage.resourceError(OP_STATEMENT));
+                InterpreterMessage.resourceError(OP_SQL_STATEMENT));
         }
     }
 
@@ -126,13 +134,12 @@ public final class StatementAPI {
      * @param obj The statement.
      * @throws InterpreterMessage If object could not be closed.
      */
-    public static void closeStatement(Object obj)
+    public static void closeStatement(Statement obj)
             throws InterpreterMessage {
-        checkStatement(obj);
         Connection con = null;
         try {
-            con = ((Statement) obj).getConnection();
-            ((Statement) obj).close();
+            con = obj.getConnection();
+            obj.close();
             con.close();
         } catch (SQLException x) {
             if (con != null) {
@@ -143,7 +150,7 @@ public final class StatementAPI {
                 }
             }
             throw new InterpreterMessage(
-                    InterpreterMessage.resourceError(OP_STATEMENT));
+                    InterpreterMessage.resourceError(OP_SQL_STATEMENT));
         }
     }
 
@@ -181,18 +188,6 @@ public final class StatementAPI {
         } else {
             return "'" + s + "'";
         }
-    }
-
-    /**
-     * <p>Check whether the object is a statement.</p>
-     *
-     * @param obj The object.
-     * @throws InterpreterMessage Domain error.
-     */
-    private static void checkStatement(Object obj) throws InterpreterMessage {
-        if (!(obj instanceof Statement))
-            throw new InterpreterMessage(
-                    InterpreterMessage.domainError(OP_STATEMENT, obj));
     }
 
 }

@@ -226,12 +226,12 @@ public final class Stub {
     }
 
     /**
-     * <p>Java foreign predicate url_encode_utf8/2.</p>
+     * <p>Java foreign predicate to encode a parameter.</p>
      *
-     * @param s The string.
-     * @return The encoded string.
+     * @param s The paremeter.
+     * @return The encoded paremeter.
      */
-    public static String urlEncodeUTF8(String s) {
+    public static String encodeParameter(String s) {
         return ForeignUri.encode(s, false,
                 ForeignUri.NEEDS_COMP, ForeignUri.ENCODING_UTF8);
     }

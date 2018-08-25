@@ -2,6 +2,7 @@
 -- SQL code for the database schema.
 --
 -- Suitable for SQL Server 2008.
+-- Works also with MySQL 8.0 form 2018
 --
 -- Warranty & Liability
 -- To the extent permitted by applicable law and unless explicitly

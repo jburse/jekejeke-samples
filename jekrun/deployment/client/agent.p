@@ -27,30 +27,30 @@
 
 :- use_package(foreign(client)).
 
-% act(+Firstname,+Name,+AgeFrom,+AgeTo,+SalaryFrom,+SalaryTo,-Compound)
+% act(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
 act(F, N, AF, AT, SF, ST, R) :-
-   url_encode_utf8(F, F8),
+   encode_parameter(F, F8),
    atom_concat('http://localhost:8082/client/service.jsp?firstname=', F8, A1),
    atom_concat(A1, '&name=', A2),
-   url_encode_utf8(N, N8),
+   encode_parameter(N, N8),
    atom_concat(A2, N8, A3),
    atom_concat(A3, '&agefrom=', A4),
-   url_encode_utf8(AF, AF8),
+   encode_parameter(AF, AF8),
    atom_concat(A4, AF8, A5),
    atom_concat(A5, '&ageto=', A6),
-   url_encode_utf8(AT, AT8),
+   encode_parameter(AT, AT8),
    atom_concat(A6, AT8, A7),
    atom_concat(A7, '&salaryfrom=', A8),
-   url_encode_utf8(SF, SF8),
+   encode_parameter(SF, SF8),
    atom_concat(A8, SF8, A9),
    atom_concat(A9, '&salaryto=', A10),
-   url_encode_utf8(ST, ST8),
+   encode_parameter(ST, ST8),
    atom_concat(A10, ST8, A11),
    setup_call_cleanup(open(A11, read, S),
       fetch(S, R),
       close(S)).
 
-% fetch(+Stream,-Compound)
+% fetch(+Stream, -Compound)
 fetch(S, R) :- repeat,
    read(S, T),
    (  T = end_of_file, !, fail
@@ -59,4 +59,9 @@ fetch(S, R) :- repeat,
                resource_error(service_exception,E),_))
    ;  T = R).
 
-:- foreign(url_encode_utf8/2, 'Stub', urlEncodeUTF8('String')).
+/***********************************************************/
+/* Foreign Functions                                       */
+/***********************************************************/
+
+% encode_parameter(+Atom, -Atom)
+:- foreign(encode_parameter/2, 'Stub', encodeParameter('String')).

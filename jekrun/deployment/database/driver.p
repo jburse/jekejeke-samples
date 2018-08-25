@@ -26,40 +26,10 @@
  */
 
 :- use_package(foreign(jekpro/tools/call)).
+:- use_package(foreign(java/sql)).
 :- use_package(foreign(database)).
 
-:- foreign(create_statement/1, 'StatementAPI', createStatement).
-:- foreign(execute_query/3, 'StatementAPI',
-      executeQuery('Interpreter','CallOut','Object','String')).
-:- foreign(close_statement/1, 'StatementAPI', closeStatement('Object')).
-:- foreign(literal_encode/2, 'StatementAPI', literalEncode('String')).
-
-% str_cond(+String,+ColumnOperator,+WhereList,-WhereList).
-str_cond('', _, W, W) :- !.
-str_cond(L, CO, W, [COE|W]) :-
-   literal_encode(L, E),
-   atom_concat(CO, E, COE).
-
-% num_cond(+Number,+ColumnOperator,+WhereList,-WhereList).
-num_cond('', _, W, W) :- !.
-num_cond(N, CO, W, [CON|W]) :-
-   atom_concat(CO, N, CON).
-
-% make_where(+WhereList,-WhereClause)
-make_where([], '').
-make_where([COL|W], S3) :-
-   make_rest(W, S1),
-   atom_concat(S1, COL, S2),
-   atom_concat(' WHERE ', S2, S3).
-
-% make_rest(+WhereList,-AndCondition).
-make_rest([], '').
-make_rest([COL|W], S3) :-
-   make_rest(W, S1),
-   atom_concat(S1, COL, S2),
-   atom_concat(S2, ' AND ', S3).
-
-% drive(+Firstname,+Name,+AgeFrom,+AgeTo,+SalaryFrom,+SalaryTo,-Compound)
+% drive(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
 drive(F, N, AF, AT, SF, ST, employee(X,Y,Z,T)) :-
    str_cond(F, 'firstname = ', [], L1),
    str_cond(N, 'name = ', L1, L2),
@@ -72,3 +42,45 @@ drive(F, N, AF, AT, SF, ST, employee(X,Y,Z,T)) :-
    setup_call_cleanup(create_statement(S),
       execute_query(S, Q, [X,Y,Z,T]),
       close_statement(S)).
+
+% str_cond(+String, +ColumnOperator, +WhereList, -WhereList).
+str_cond('', _, W, W) :- !.
+str_cond(L, CO, W, [COE|W]) :-
+   literal_encode(L, E),
+   atom_concat(CO, E, COE).
+
+% num_cond(+Number, +ColumnOperator, +WhereList, -WhereList).
+num_cond('', _, W, W) :- !.
+num_cond(N, CO, W, [CON|W]) :-
+   atom_concat(CO, N, CON).
+
+% make_where(+WhereList, -WhereClause)
+make_where([], '').
+make_where([COL|W], S3) :-
+   make_rest(W, S1),
+   atom_concat(S1, COL, S2),
+   atom_concat(' WHERE ', S2, S3).
+
+% make_rest(+WhereList, -AndCondition).
+make_rest([], '').
+make_rest([COL|W], S3) :-
+   make_rest(W, S1),
+   atom_concat(S1, COL, S2),
+   atom_concat(S2, ' AND ', S3).
+
+/***********************************************************/
+/* Foreign Functions                                       */
+/***********************************************************/
+
+% create_statement(-Statement)
+:- foreign(create_statement/1, 'StatementAPI', createStatement).
+
+% execute_query(+Statement, +String)
+:- foreign(execute_query/3, 'StatementAPI',
+      executeQuery('CallOut','Statement','String')).
+
+% close_statement(+Statement)
+:- foreign(close_statement/1, 'StatementAPI', closeStatement('Statement')).
+
+% liiteral_encode(+String, -String)
+:- foreign(literal_encode/2, 'StatementAPI', literalEncode('String')).
