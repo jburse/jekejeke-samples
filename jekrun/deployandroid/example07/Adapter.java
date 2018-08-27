@@ -1,4 +1,4 @@
-package mobile;
+package example07;
 
 import android.view.Gravity;
 import android.view.View;

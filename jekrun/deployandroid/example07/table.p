@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Prolog code for the queried table.
  * Stripped down version of the Swing version.
  *
@@ -26,11 +26,13 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+:- use_module(library(system/thread)).
+
 % employee(Name, Age)
 employee('Иванов', 53).
 employee('Беляев', 53).
 employee('Fischer', 62).
-employee('Schmitt', 25).
+employee('Schmitt', 25) :-
+   thread_sleep(5000).
 employee('Βουτσάς', 22).
-
 

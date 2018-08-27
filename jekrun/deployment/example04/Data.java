@@ -1,11 +1,10 @@
-package servlet;
+package example04;
 
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
 import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.Knowledgebase;
-import jekpro.tools.term.TermCompound;
 
 /**
  * <p>Java code for the data holder.</p>
@@ -44,10 +43,11 @@ public final class Data {
             return;
         try {
             know = new Knowledgebase(ToolkitLibrary.DEFAULT, Data.class);
-            /* setup the knowledgebase */
+            /* setup the Prolog runtime */
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
-            Object consultGoal = inter.parseTerm("consult(library(terminal/table))");
+            /* load the Prolog code */
+            Object consultGoal = inter.parseTerm("consult(library(example01/table))");
             inter.iterator(consultGoal).next().close();
         } catch (InterpreterMessage x) {
             throw new RuntimeException(x);

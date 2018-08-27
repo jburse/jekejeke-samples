@@ -25,12 +25,12 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_package(foreign(client)).
+:- use_package(foreign(example05)).
 
 % act(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
 act(F, N, AF, AT, SF, ST, R) :-
    encode_parameter(F, F8),
-   atom_concat('http://localhost:8082/client/service.jsp?firstname=', F8, A1),
+   atom_concat('http://localhost:8082/example05/service.jsp?firstname=', F8, A1),
    atom_concat(A1, '&name=', A2),
    encode_parameter(N, N8),
    atom_concat(A2, N8, A3),

@@ -1,4 +1,4 @@
-package standalone;
+package example02;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

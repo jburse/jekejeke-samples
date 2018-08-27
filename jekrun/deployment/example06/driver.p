@@ -27,7 +27,7 @@
 
 :- use_package(foreign(jekpro/tools/call)).
 :- use_package(foreign(java/sql)).
-:- use_package(foreign(database)).
+:- use_package(foreign(example06)).
 
 % drive(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
 drive(F, N, AF, AT, SF, ST, employee(X,Y,Z,T)) :-

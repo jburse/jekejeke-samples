@@ -1,4 +1,4 @@
-package client;
+package example05;
 
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
@@ -7,7 +7,7 @@ import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
-import standalone.Pane;
+import example02.Pane;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -74,7 +74,7 @@ public final class Client extends JFrame implements ActionListener {
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
             /* load the Prolog code */
-            Object consultGoal = inter.parseTerm("consult(library(client/agent))");
+            Object consultGoal = inter.parseTerm("consult(library(example05/agent))");
             inter.iterator(consultGoal).next().close();
         } catch (InterpreterMessage x) {
             throw new RuntimeException(x);

@@ -36,7 +36,7 @@
                   android:required="true"/ -->
     <application android:label="@string/deployandroid"
                  android:icon="@drawable/deployandroid">
-        <activity android:name="mobile.Results"
+        <activity android:name="example07.Results"
                   android:configChanges="screenSize|mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation"
                   android:label="@string/deployandroid">
             <intent-filter>
@@ -44,7 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="mobile.Criterias"
+        <activity android:name="example07.Criterias"
                   android:configChanges="screenSize|mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation">
         </activity>
     </application>

@@ -33,7 +33,7 @@
 <h1>Deployment Study - Applet</h1>
 <applet
         archive="interpreter.jar,hello.jar"
-        code="applet.Applet"
+        code="example03.Applet"
         width="450"
         height="390">
 Applet could not be loaded.

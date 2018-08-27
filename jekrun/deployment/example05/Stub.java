@@ -1,4 +1,4 @@
-package client;
+package example05;
 
 import jekpro.tools.call.CallIn;
 import jekpro.tools.call.Interpreter;

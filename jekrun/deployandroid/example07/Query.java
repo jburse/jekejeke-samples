@@ -1,11 +1,10 @@
-package mobile;
+package example07;
 
 import jekpro.tools.call.CallIn;
 import jekpro.tools.call.Interpreter;
 import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
-import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
 

@@ -1,4 +1,4 @@
-package database;
+package example06;
 
 import jekpro.tools.call.CallOut;
 import jekpro.tools.call.InterpreterMessage;

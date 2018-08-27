@@ -99,10 +99,10 @@
 <%
     if (request.getParameter("search") != null) {
         try {
-            servlet.Data.initKnowledgebase();
-            jekpro.tools.call.Interpreter inter = servlet.Data.know.iterable();
+            example04.Data.initKnowledgebase();
+            jekpro.tools.call.Interpreter inter = example04.Data.know.iterable();
 
-            terminal.Query query = new terminal.Query(inter);
+            example01.Query query = new example01.Query(inter);
             query.setFirstname(firstname);
             query.setName(name);
             query.setAgeFrom(agefrom);

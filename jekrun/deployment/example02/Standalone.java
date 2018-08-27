@@ -1,4 +1,4 @@
-package standalone;
+package example02;
 
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
@@ -7,7 +7,7 @@ import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
-import terminal.Query;
+import example01.Query;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -74,7 +74,7 @@ public final class Standalone extends JFrame implements ActionListener {
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
             /* load the Prolog code */
-            Object consultGoal = inter.parseTerm("consult(library(terminal/table))");
+            Object consultGoal = inter.parseTerm("consult(library(example01/table))");
             inter.iterator(consultGoal).next().close();
         } catch (InterpreterMessage x) {
             throw new RuntimeException(x);

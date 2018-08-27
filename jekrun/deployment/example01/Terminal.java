@@ -1,5 +1,6 @@
-package terminal;
+package example01;
 
+import example01.Query;
 import jekpro.frequent.stream.ForeignConsole;
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
@@ -53,11 +54,12 @@ public final class Terminal {
      */
     public static void main(String[] args) throws InterpreterException,
             InterpreterMessage, IOException {
-        /* setup the knowledge base */
+        /* setup the Prolog runtime */
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
         Knowledgebase.initKnowledgebase(inter);
-        Object consultGoal = inter.parseTerm("consult(library(terminal/table))");
+        /* load the Prolog code */
+        Object consultGoal = inter.parseTerm("consult(library(example01/table))");
         inter.iterator(consultGoal).next().close();
 
         /* read the search criteria */

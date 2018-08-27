@@ -1,4 +1,4 @@
-package mobile;
+package example07;
 
 import android.app.Activity;
 import android.content.Intent;

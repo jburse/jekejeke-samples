@@ -1,4 +1,4 @@
-package mobile;
+package example07;
 
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
@@ -44,10 +44,11 @@ public final class Data {
             return;
         try {
             know = new Knowledgebase(ToolkitLibrary.DEFAULT);
-            /* setup the knowledgebase */
+            /* setup the Prolog runtime */
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
-            Object consultGoal = inter.parseTerm("consult(library(mobile/table))");
+            /* load the Prolog code */
+            Object consultGoal = inter.parseTerm("consult(library(example07/table))");
             inter.iterator(consultGoal).next().close();
         } catch (InterpreterMessage x) {
             throw new RuntimeException(x);
