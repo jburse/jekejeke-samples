@@ -21,6 +21,10 @@ The following samples have already been uploaded:
   Benchmark ISO Performance.
 - [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist):
   Benchmark Module "distributed".
+- [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployandroid):
+  Android Deployment Method Example.
+- [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployment):
+  Deployment Methods Examples.
 
 # Development Environment Samples
 
@@ -51,5 +55,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 24.02.2018 (Updated 29.06.2018)
+Jan Burse, 24.02.2018 (Updated 28.08.2018)
 
