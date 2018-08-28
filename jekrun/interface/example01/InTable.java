@@ -5,7 +5,9 @@ import jekpro.tools.call.CallIn;
 import jekpro.tools.call.Interpreter;
 import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
-import jekpro.tools.term.*;
+import jekpro.tools.term.Knowledgebase;
+import jekpro.tools.term.TermCompound;
+import jekpro.tools.term.TermVar;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -36,7 +38,7 @@ import java.io.Writer;
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-public class InTable {
+public final class InTable {
 
     /**
      * <p>Runtime library variant of executing the example.</p>
@@ -53,17 +55,17 @@ public class InTable {
         Knowledgebase.initKnowledgebase(inter);
         inter.setProperty(ToolkitLibrary.PROP_BASE_URL,
                 "/Projects/Jekejeke/Prototyping/samples/jekrun/interface/");
-        Object consultGoal = Term.parseTerm("consult('example01/tablein.p')", inter);
-        inter.iterator(consultGoal).nextClose();
+        Object consultGoal = inter.parseTerm("consult('example01/tablein.p')");
+        inter.iterator(consultGoal).next().close();
 
-        TermVar[] employeeVars = TermVar.createVars(1);
-        TermCompound employeeGoal = new TermCompound("employee", employeeVars[0]);
+        TermVar employeeVar = new TermVar();
+        TermCompound employeeGoal = new TermCompound("employee", employeeVar);
 
         Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
         CallIn callin = inter.iterator(employeeGoal);
         while (callin.hasNext()) {
             callin.next();
-            wr.write(Term.toString(0, inter, employeeVars[0]));
+            wr.write(inter.unparseTerm(0, employeeVar));
             wr.write('\n');
             wr.flush();
         }

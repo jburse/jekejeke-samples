@@ -27,9 +27,14 @@
 
 :- use_package(library(jekdev/reference/testing)).
 
+:- package(library(system)).
+:- module(proxy, []).
+
+:- public runner:ref/4.
 :- multifile runner:ref/4.
 :- discontiguous runner:ref/4.
 
+:- public runner:case/4.
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
@@ -38,7 +43,7 @@
 :- end_module.
 
 :- begin_module(beta).
-:- reexport(verbatim(user/alpha)).
+:- reexport(library(proxy/alpha)).
 :- end_module.
 
 :- begin_module(gamma).

@@ -31,27 +31,38 @@
 :- use_module(library(testing/result)).
 :- use_module(library(testing/summary)).
 
+/********************************************************************/
+/* Test Running                                                     */
+/********************************************************************/
+
 % run_test
 run_test :-
    write('% running test cases.'), nl,
    set_prolog_flag(base_url, '/Projects/Jekejeke/Prototyping/samples/jekdev/compliance/classes/stream'),
-   time((runner_batch,nl)).
+   time((  runner_batch, nl)).
 
 % run_diagnose
 run_diagnose :- diagnose_online.
 
+/********************************************************************/
+/* Report Generation                                                */
+/********************************************************************/
+
 % run_report
 run_report :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/10_dev/15_stdy/07_compliance/09_results/'),
-   result_batch('../../../../../../../blog/docs/10_dev/07_compliance/'),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/10_dev/15_stdy/07_compliance/09_results/'),
+   result_batch('../../../../../../../repo/docs/10_dev/07_compliance/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/09_results/'),
-   result_batch('../../../../../../../../blog/en/docs/10_dev/07_compliance/').
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/09_results/'),
+   result_batch('../../../../../../../../repo/en/docs/10_dev/07_compliance/').
 
 % run_summary
 run_summary :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/10_dev/15_stdy/07_compliance/'), summary_batch,
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/10_dev/15_stdy/07_compliance/'), summary_batch,
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/'), summary_batch.
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/'), summary_batch.
+
+
+

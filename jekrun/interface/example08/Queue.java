@@ -67,7 +67,7 @@ public final class Queue {
      * <p>Post a runnable on the queue.</p>
      *
      * @param r The runnable.
-     * @param w  The time point.
+     * @param w The time point.
      */
     public void post(Runnable r, long w) {
         QueueEntry entry = new QueueEntry(r, w);

@@ -134,16 +134,13 @@ runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 11') :-
    functor([], [], 0).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 12') :-
    catch(functor(_, _, 3), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   E == instantiation_error.
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 13') :-
    catch(functor(_, foo, _), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   E == instantiation_error.
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 14') :-
    catch(functor(_, foo, a), error(E,_), true),
-   nonvar(E),
-   E = type_error(integer,a).
+   E == type_error(integer,a).
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 15') :-
    catch(functor(_, 1.5, 1), error(E,_), true),
    nonvar(E),
@@ -161,8 +158,7 @@ runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 17') :-
 runner:case(functor, 3, structure_term, 'ISO 8.5.1.4, ISO 18') :-
    X is -1,
    catch(functor(_, foo, X), error(E,_), true),
-   nonvar(E),
-   E = domain_error(not_less_than_zero,X).
+   E == representation_error(not_less_than_zero).
 
 /* arg(K, X, Y) */
 

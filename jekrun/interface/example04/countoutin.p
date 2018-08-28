@@ -30,7 +30,8 @@
 
 :- foreign(employee4/1, 'example03.OutTable', employee('CallOut')).
 
-:- foreign(count/2, 'example04.OutInCount', count('Interpreter','Term')).
+:- foreign(count/2, 'example04.OutInCount',
+      count('Interpreter','AbstractTerm')).
 
 :- count(employee4(_), Y),
    write(Y), nl.

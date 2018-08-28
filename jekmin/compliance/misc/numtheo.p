@@ -100,3 +100,51 @@ runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 2') :-
 runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 3') :-
    catch(_ is isqrt(-33), error(E,_), true),
    E == evaluation_error(undefined).
+
+% sqrtrem/3
+runner:ref(sqrtrem, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.5').
+runner:case(sqrtrem, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 1') :-
+   sqrtrem(77, X, Y),
+   X == 8,
+   Y == 13.
+runner:case(sqrtrem, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 2') :-
+   Z is 77*2^100,
+   sqrtrem(Z, X, Y),
+   X == 9879731586312133,
+   Y == 8000882843804263.
+runner:case(sqrtrem, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 3') :-
+   catch(sqrtrem(-33, _, _), error(E,_), true),
+   E == evaluation_error(undefined).
+
+% iroot/3
+runner:ref(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6').
+runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 1') :-
+   X is iroot(77,5),
+   X == 2.
+runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 2') :-
+   X is iroot(77*2^100,5),
+   X == 2499758.
+runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 3') :-
+   catch(_ is iroot(-33,5), error(E,_), true),
+   E == evaluation_error(undefined).
+runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 4') :-
+   catch(_ is iroot(33,-5), error(E,_), true),
+   E == evaluation_error(undefined).
+
+% rootrem/3
+runner:ref(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7').
+runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 1') :-
+   rootrem(77, 5, X, Y),
+   X == 2,
+   Y == 45.
+runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 2') :-
+   Z is 77*2^100,
+   rootrem(Z, 5, X, Y),
+   X == 2499758,
+   Y == 102692834401544299944401184.
+runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 3') :-
+   catch(rootrem(-33, 5, _, _), error(E,_), true),
+   E == evaluation_error(undefined).
+runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 4') :-
+   catch(rootrem(33, -5, _, _), error(E,_), true),
+   E == evaluation_error(undefined).

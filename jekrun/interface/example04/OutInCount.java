@@ -1,8 +1,14 @@
 package example04;
 
 import jekpro.platform.headless.ToolkitLibrary;
-import jekpro.tools.call.*;
-import jekpro.tools.term.*;
+import jekpro.tools.call.CallIn;
+import jekpro.tools.call.Interpreter;
+import jekpro.tools.call.InterpreterException;
+import jekpro.tools.call.InterpreterMessage;
+import jekpro.tools.term.AbstractTerm;
+import jekpro.tools.term.Knowledgebase;
+import jekpro.tools.term.TermCompound;
+import jekpro.tools.term.TermVar;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -42,9 +48,9 @@ public class OutInCount {
      * @param goal  The goal.
      * @return The count.
      * @throws InterpreterException Passed down from the goal.
-     * @throws InterpreterMessage Shit happens.
+     * @throws InterpreterMessage   Shit happens.
      */
-    public static int count(Interpreter inter, Term goal)
+    public static int count(Interpreter inter, AbstractTerm goal)
             throws InterpreterException, InterpreterMessage {
         CallIn callin = inter.iterator(goal);
         int count = 0;
@@ -69,31 +75,34 @@ public class OutInCount {
         Interpreter inter = know.iterable();
         Knowledgebase.initKnowledgebase(inter);
 
-        Object foreignGoal = Term.parseTerm("use_package(foreign(" +
-                "jekpro/tools/call))", inter);
-        inter.iterator(foreignGoal).nextClose();
+        Object foreignGoal = inter.parseTerm("use_package(foreign(" +
+                "jekpro/tools/call))");
+        inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = Term.parseTerm("use_package(foreign(" +
-                "jekpro/tools/term))", inter);
-        inter.iterator(foreignGoal).nextClose();
+        foreignGoal = inter.parseTerm("use_package(foreign(" +
+                "jekpro/tools/term))");
+        inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = Term.parseTerm("foreign(employee/1, " +
-                "'example03.OutTable', employee('CallOut'))", inter);
-        inter.iterator(foreignGoal).nextClose();
+        foreignGoal = inter.parseTerm("foreign(employee/1, " +
+                "'example03.OutTable', employee('CallOut'))");
+        inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = Term.parseTerm("foreign(count/2, " +
-                "'example04.OutInCount', count('Interpreter', 'Term'))", inter);
-        inter.iterator(foreignGoal).nextClose();
+        foreignGoal = inter.parseTerm("foreign(count/2, " +
+                "'example04.OutInCount', count('Interpreter', 'AbstractTerm'))");
+        inter.iterator(foreignGoal).next().close();
 
-        TermVar[] employeeVars = TermVar.createVars(2);
-        TermCompound employeeGoal = new TermCompound("employee", employeeVars[0]);
-        TermCompound countGoal = new TermCompound("count", employeeGoal, employeeVars[1]);
+        TermVar employeeVar = new TermVar();
+        TermCompound employeeGoal = new TermCompound("employee", employeeVar);
+        TermVar countVar = new TermVar();
+        TermCompound countGoal = new TermCompound(inter, "count", employeeGoal, countVar);
 
         Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-        Object res = inter.iterator(employeeVars[1], countGoal).nextClose();
-        wr.write(Term.toString(0, inter, res));
+        CallIn callin = inter.iterator(countGoal);
+        callin.next();
+        wr.write(inter.unparseTerm(0, countVar));
         wr.write('\n');
         wr.flush();
+        callin.close();
     }
 
 }

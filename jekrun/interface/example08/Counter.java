@@ -1,6 +1,6 @@
 package example08;
 
-import jekpro.tools.term.RuntimeWrap;
+import jekpro.tools.proxy.RuntimeWrap;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -54,7 +54,7 @@ public final class Counter implements Runnable {
     /**
      * <p>Execute the counter task.</p>
      */
-    public void run()  {
+    public void run() {
         try {
             long time = System.currentTimeMillis();
             StringBuilder buf = new StringBuilder();

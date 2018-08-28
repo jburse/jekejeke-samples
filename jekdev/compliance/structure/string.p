@@ -200,7 +200,7 @@ runner:case(char_code, 2, structure_string, 'ISO 8.16.6.4, ISO 5') :-
    \+ char_code(b, 84).
 runner:case(char_code, 2, structure_string, 'ISO 8.16.6.4, ISO 6') :-
    catch(char_code(ab, _), error(E,_), true),
-   E == type_error(character,ab).
+   E == representation_error(character).
 runner:case(char_code, 2, structure_string, 'ISO 8.16.6.4, ISO 7') :-
    catch(char_code(_, _), error(E,_), true),
    E == instantiation_error.

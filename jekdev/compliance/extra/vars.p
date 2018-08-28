@@ -47,8 +47,9 @@ runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 2') :-
    N == 12.
 runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 3') :-
    catch(numbervars(_, a, _), error(E,_), true),
+   nonvar(E),
    E = type_error(integer,_).
 runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 4') :-
    catch(numbervars(_, -2, _), error(E,_), true),
-   E = domain_error(not_less_than_zero,_).
+   E == representation_error(not_less_than_zero).
 

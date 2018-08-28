@@ -31,8 +31,8 @@ main :-
    example08/'Queue':new(Q),
    example08/'Counter':new('P1', Q, W, C1),
    example08/'Counter':new('P2', Q, W, C2),
-   'Runnable':run(C1),
-   'Runnable':run(C2), repeat,
-   example08/'Queue':take(Q, R),
-   'Runnable':run(R), fail.
+   C1::run,
+   C2::run, repeat,
+   Q::take(R),
+   R::run, fail.
 

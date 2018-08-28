@@ -179,48 +179,6 @@ runner:case(hash_code, 2, extra_structure, 'XLOG 1.3.3, XLOG 6') :-
    hash_code(f(_,_), H),
    integer(H).
 
-/* term_hash(T, H) */
-runner:ref(term_hash, 2, extra_structure, 'XLOG 1.3.4').
-runner:case(term_hash, 2, extra_structure, 'XLOG 1.3.4, XLOG 1') :-
-   term_hash(1, H),
-   H == 1.
-runner:case(term_hash, 2, extra_structure, 'XLOG 1.3.4, XLOG 2') :-
-   term_hash(1.0, H),
-   H == 1072693248.
-runner:case(term_hash, 2, extra_structure, 'XLOG 1.3.4, XLOG 3') :-
-   term_hash(a, H),
-   H == 97.
-runner:case(term_hash, 2, extra_structure, 'XLOG 1.3.4, XLOG 4') :-
-   term_hash(f(a,b), H),
-   H == 101127.
-runner:case(term_hash, 2, extra_structure, 'XLOG 1.3.4, XLOG 5') :-
-   term_hash(_, H),
-   var(H).
-runner:case(term_hash, 2, extra_structure, 'XLOG 1.3.4, XLOG 6') :-
-   term_hash(f(_,_), H),
-   var(H).
-
-/* term_hash(T, D, R, H) */
-runner:ref(term_hash, 4, extra_structure, 'XLOG 1.3.5').
-runner:case(term_hash, 4, extra_structure, 'XLOG 1.3.5, XLOG 1') :-
-   term_hash(1, -1, 0, H),
-   H == 1.
-runner:case(term_hash, 4, extra_structure, 'XLOG 1.3.5, XLOG 2') :-
-   term_hash(1.0, -1, 0, H),
-   H == 1072693248.
-runner:case(term_hash, 4, extra_structure, 'XLOG 1.3.5, XLOG 3') :-
-   term_hash(a, -1, 0, H),
-   H == 97.
-runner:case(term_hash, 4, extra_structure, 'XLOG 1.3.5, XLOG 4') :-
-   term_hash(f(a,b), -1, 100, H),
-   H == 27.
-runner:case(term_hash, 4, extra_structure, 'XLOG 1.3.5, XLOG 5') :-
-   term_hash(_, 1, 0, H),
-   var(H).
-runner:case(term_hash, 4, extra_structure, 'XLOG 1.3.5, XLOG 6') :-
-   term_hash(f(_,_), 1, 0, H),
-   H == 102.
-
 /* locale_sort(L, R) */
 /* derived from sort/2 test cases, but We fix locale at en_UK */
 runner:ref(locale_sort, 2, extra_structure, 'XLOG 1.3.6').
@@ -369,6 +327,25 @@ runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 7b') :-
    Start == 1,
    Length == 1,
    Sub_atom = b.
+
+/* atom_list_concat(X, Y, Z) */
+runner:ref(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3').
+runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 1') :-
+   catch(atom_list_concat(_, ',', _), error(E,_), true),
+   E == instantiation_error.
+runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 2') :-
+   atom_list_concat(X, ',', 'a,b,c'),
+   X == [a,b,c].
+runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 3') :-
+   atom_list_concat([a,b,c], ',', X),
+   X == 'a,b,c'.
+runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 4') :-
+   \+ atom_list_concat([a,b,c], ',', 'a,d,c').
+runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 5') :-
+   atom_list_concat([a,b,c], ',', 'a,b,c').
+runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 6') :-
+   catch(atom_list_concat(foo, ',', _), error(E,_), true),
+   E == type_error(list,foo).
 
 /****************************************************************/
 /* term.p extras                                                */

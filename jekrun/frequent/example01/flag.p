@@ -47,3 +47,14 @@ flag :-
    for1(1, 8, X \ (  for1(1, 8, Y \ (  0 =:= (X+Y)mod 2
                                     -> write(x)
                                     ;  write(o))), nl)).
+
+% ?- flag.
+% xoxoxoxo
+% oxoxoxox
+% xoxoxoxo
+% oxoxoxox
+% xoxoxoxo
+% oxoxoxox
+% xoxoxoxo
+% oxoxoxox
+% Yes

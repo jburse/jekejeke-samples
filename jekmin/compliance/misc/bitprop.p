@@ -110,15 +110,15 @@ runner:case(clearbit, 3, misc_bitprop, 'CLP(FD) 0.9.2, 1.5, XLOG 4') :-
    X is clearbit(104,-77*2^100),
    X =:= -93*2^100.
 
-% sys_test_bit/2
-runner:ref(sys_test_bit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6').
-runner:case(sys_test_bit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6, XLOG 1') :-
-   sys_test_bit(3, 77).
-runner:case(sys_test_bit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6, XLOG 2') :-
-   \+ sys_test_bit(4, 77).
-runner:case(sys_test_bit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6, XLOG 3') :-
+% testbit/2
+runner:ref(testbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6').
+runner:case(testbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6, XLOG 1') :-
+   testbit(3, 77).
+runner:case(testbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6, XLOG 2') :-
+   \+ testbit(4, 77).
+runner:case(testbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6, XLOG 3') :-
    X is -77*2^100,
-   sys_test_bit(104, X).
-runner:case(sys_test_bit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6, XLOG 4') :-
+   testbit(104, X).
+runner:case(testbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.6, XLOG 4') :-
    X is -77*2^100,
-   \+ sys_test_bit(103, X).
+   \+ testbit(103, X).

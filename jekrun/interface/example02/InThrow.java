@@ -4,7 +4,8 @@ import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
 import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
-import jekpro.tools.term.*;
+import jekpro.tools.term.Knowledgebase;
+import jekpro.tools.term.TermCompound;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -35,7 +36,7 @@ import java.io.Writer;
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-public class InThrow {
+public final class InThrow {
 
     /**
      * <p>Runtime library variant of executing the example.</p>
@@ -52,19 +53,21 @@ public class InThrow {
         Knowledgebase.initKnowledgebase(inter);
         inter.setProperty(ToolkitLibrary.PROP_BASE_URL,
                 "/Projects/Jekejeke/Prototyping/samples/jekrun/interface/");
-        Object consultGoal = Term.parseTerm("consult('example02/throwin.p')", inter);
-        inter.iterator(consultGoal).nextClose();
+        Object consultGoal = inter.parseTerm("consult('example02/throwin.p')");
+        inter.iterator(consultGoal).next().close();
 
         try {
             Object throwGoal = "throw_ball";
-            inter.iterator(throwGoal).nextClose();
+            inter.iterator(throwGoal).next().close();
         } catch (InterpreterException capturedException) {
             Object exceptionTerm = capturedException.getValue();
             if (exceptionTerm instanceof TermCompound &&
                     ((TermCompound) exceptionTerm).getArity() == 1 &&
                     ((TermCompound) exceptionTerm).getFunctor().equals("ball")) {
-                Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-                wr.write(Term.toString(0, inter, ((TermCompound) exceptionTerm).getArg(0)));
+                Writer wr = (Writer)
+                        inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
+                wr.write(inter.unparseTerm(0,
+                        ((TermCompound) exceptionTerm).getArgWrapped(0)));
                 wr.write('\n');
                 wr.flush();
             }

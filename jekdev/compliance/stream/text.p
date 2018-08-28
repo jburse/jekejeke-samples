@@ -62,7 +62,7 @@ runner:case(put_char, 1, stream_text, 'ISO 8.12.3.4, ISO 8') :-
    E == instantiation_error.
 runner:case(put_char, 1, stream_text, 'ISO 8.12.3.4, ISO 9') :-
    catch(put_char(ty), error(E,_), true),
-   E == type_error(character,ty).
+   E == representation_error(character).
 
 /* put_code(C) */
 

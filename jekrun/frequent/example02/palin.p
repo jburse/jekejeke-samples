@@ -25,6 +25,8 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+:- use_module(library(standard/dcg)).
+
 palin -->
    [_].
 palin -->

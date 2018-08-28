@@ -30,7 +30,8 @@
 
 :- foreign(employee5/1, 'example03.OutTable', employee('CallOut')).
 
-:- foreign(limit/2, 'example05.OutInLimit', limit('Interpreter','CallOut','Term',int)).
+:- foreign(limit/2, 'example05.OutInLimit',
+      limit('Interpreter','CallOut','AbstractTerm',int)).
 
 :- limit(employee5(X), 3),
    write(X), nl, fail; true.

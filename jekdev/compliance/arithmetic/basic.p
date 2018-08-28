@@ -196,7 +196,7 @@ runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 5') :-
    7625597484987 is 3^3^3.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 2') :-
    catch(_ is 1^ -1, error(E,_), true),
-   E = domain_error(not_less_than_zero,_).
+   E == representation_error(not_less_than_zero).
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 3') :-
    catch(_ is 2^ -1.5, error(E,_), true),
    E = type_error(integer,_).
