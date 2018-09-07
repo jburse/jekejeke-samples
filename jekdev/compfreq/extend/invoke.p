@@ -65,16 +65,32 @@ runner:case(field_access, 2, extend_invoke, 'SWI7 1.1, XLOG 6') :-
             _ = P.z), error(E,_), true),
    E = existence_error(key,z).
 
+min_coord(P, P.x) :-
+   P.x < P.y, !.
+min_coord(P, P.y).
+
+runner:ref(clause_head, 2, extend_invoke, 'SWI7 1.2').
+runner:case(clause_head, 2, extend_invoke, 'SWI7 1.2, XLOG 1') :-
+   min_coord(point{x:1,y:2}, M),
+   M == 1.
+runner:case(clause_head, 2, extend_invoke, 'SWI7 1.2, XLOG 2') :-
+   min_coord(point{x:3,y:2}, M),
+   M == 2.
+runner:case(clause_head, 2, extend_invoke, 'SWI7 1.2, XLOG 3') :-
+   \+ min_coord(point{x:1,y:2}, 2).
+runner:case(clause_head, 2, extend_invoke, 'SWI7 1.2, XLOG 4') :-
+   \+ min_coord(point{x:3,y:2}, 3).
+
 Pt.offset(Dx,Dy) := point{x:X,y:Y} :-
    X is Pt.x+Dx,
    Y is Pt.y+Dy.
 
-runner:ref(func_call, 2, extend_invoke, 'SWI7 1.2').
-runner:case(func_call, 2, extend_invoke, 'SWI7 1.1, XLOG 1') :-
+runner:ref(func_call, 2, extend_invoke, 'SWI7 1.3').
+runner:case(func_call, 2, extend_invoke, 'SWI7 1.3, XLOG 1') :-
    P = point{x:1,y:2},
    Q = P.offset(3,4),
    Q == point{x:4,y:6}.
-runner:case(func_call, 2, extend_invoke, 'SWI7 1.1, XLOG 2') :-
+runner:case(func_call, 2, extend_invoke, 'SWI7 1.3, XLOG 2') :-
    catch((  P = point{x:1,y:2},
             _ = P.foo(77)), error(E,_), true),
    nonvar(E),
