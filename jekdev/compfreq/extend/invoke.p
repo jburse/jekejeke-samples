@@ -39,24 +39,43 @@
 runner:ref(field_access, 2, extend_invoke, 'SWI7 1.1').
 runner:case(field_access, 2, extend_invoke, 'SWI7 1.1, XLOG 1') :-
    P = point{x:1,y:2},
-   X = P$x,
-   Y = P$y,
+   X = P.x,
+   Y = P.y,
    X == 1,
    Y == 2.
 runner:case(field_access, 2, extend_invoke, 'SWI7 1.1, XLOG 2') :-
    findall(K-V, (  P = point{x:1,y:2},
-                   V = P$K), [J-W|_]),
+                   V = P.K), [J-W|_]),
    J == x,
    W == 1.
 runner:case(field_access, 2, extend_invoke, 'SWI7 1.1, XLOG 3') :-
    findall(K-V, (  P = point{x:1,y:2},
-                   V = P$K), [_,J-W|_]),
+                   V = P.K), [_,J-W|_]),
    J == y,
    W == 2.
 runner:case(field_access, 2, extend_invoke, 'SWI7 1.1, XLOG 4') :-
    findall(K-V, (  P = point{x:1,y:2},
-                   V = P$K), [_,_]).
+                   V = P.K), [_,_]).
 runner:case(field_access, 2, extend_invoke, 'SWI7 1.1, XLOG 5') :-
    B = book{author:person{name:bob}},
-   N = B$author$name,
+   N = B.author.name,
    N == bob.
+runner:case(field_access, 2, extend_invoke, 'SWI7 1.1, XLOG 6') :-
+   catch((  P = point{x:1,y:2},
+            _ = P.z), error(E,_), true),
+   E = existence_error(key,z).
+
+Pt.offset(Dx,Dy) := point{x:X,y:Y} :-
+   X is Pt.x+Dx,
+   Y is Pt.y+Dy.
+
+runner:ref(func_call, 2, extend_invoke, 'SWI7 1.2').
+runner:case(func_call, 2, extend_invoke, 'SWI7 1.1, XLOG 1') :-
+   P = point{x:1,y:2},
+   Q = P.offset(3,4),
+   Q == point{x:4,y:6}.
+runner:case(func_call, 2, extend_invoke, 'SWI7 1.1, XLOG 2') :-
+   catch((  P = point{x:1,y:2},
+            _ = P.foo(77)), error(E,_), true),
+   nonvar(E),
+   E = existence_error(procedure,_).
