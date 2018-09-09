@@ -84,6 +84,8 @@ runner:case(clause_head, 2, extend_invoke, 'SWI7 1.2, XLOG 4') :-
 Pt.offset(Dx,Dy) := point{x:X,y:Y} :-
    X is Pt.x+Dx,
    Y is Pt.y+Dy.
+Pt.dist() := D :-
+   D is sqrt(Pt.x**2+Pt.y**2).
 
 runner:ref(func_call, 2, extend_invoke, 'SWI7 1.3').
 runner:case(func_call, 2, extend_invoke, 'SWI7 1.3, XLOG 1') :-
@@ -95,3 +97,9 @@ runner:case(func_call, 2, extend_invoke, 'SWI7 1.3, XLOG 2') :-
             _ = P.foo(77)), error(E,_), true),
    nonvar(E),
    E = existence_error(procedure,_).
+runner:case(func_call, 2, extend_invoke, 'SWI7 1.3, XLOG 3') :-
+   D = point{x:1,y:2}.dist(),
+   D == 2.23606797749979.
+runner:case(func_call, 2, extend_invoke, 'SWI7 1.3, XLOG 4') :-
+   D = point{x:1,y:2}.offset(3,4).dist(),
+   D == 7.211102550927978.
