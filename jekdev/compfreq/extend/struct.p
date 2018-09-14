@@ -195,43 +195,71 @@ runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 10') :-
    findall(T, del_dict(_, point{x:1,y:2}, _, T), [_,X|_]),
    X == point{x:1}.
 
-runner:ref(put_dict, 4, extend_struct, 'SWI7 2.9').
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 1') :-
+runner:ref(select_dict, 3, extend_struct, 'SWI7 2.9').
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 1') :-
+   catch(select_dict(_, _, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 2') :-
+   select_dict(_{y:2}, _{x:1,y:X}, T),
+   X == 2,
+   T = R{x:1},
+   var(R).
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 3') :-
+   \+ select_dict(_{y:3}, _{x:1,y:2}, _).
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 4') :-
+   \+ select_dict(_{z:_}, _{x:1,y:2}, _).
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 5') :-
+   \+ select_dict(_{z:_}, point{}, _).
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 6') :-
+   \+ select_dict(_{y:_}, S{x:1,y:2}, S{x:3}).
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 7') :-
+   catch(select_dict(_, 123, _), error(E,_), true),
+   E == type_error(dict,123).
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 8') :-
+   \+ select_dict(colorpoint{x:1}, point{x:1,y:2}, _).
+runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 9') :-
+   select_dict(S{x:1,y:2}, point{u:0,x:1,y:2,z:3}, T),
+   S == point,
+   T = R{u:0,z:3},
+   var(R).
+
+runner:ref(put_dict, 4, extend_struct, 'SWI7 2.10').
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 1') :-
    catch(put_dict(_, _, _, _), error(E,_), true),
    E == instantiation_error.
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 2') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 2') :-
    put_dict(y, S{x:1,y:2}, X, T),
    T == S{y:X,x:1}.
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 3') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 3') :-
    put_dict(z, S{x:1,y:2}, X, T),
    T == S{z:X,x:1,y:2}.
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 4') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 4') :-
    put_dict(z, point{}, X, T),
    T == point{z:X}.
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 5') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 5') :-
    \+ put_dict(y, S{x:1,y:2}, X, S{z:X,x:1}).
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 6') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 6') :-
    catch(put_dict(x, foo, _, _), error(E,_), true),
    E == type_error(dict,foo).
 
-runner:ref(put_dict, 3, extend_struct, 'SWI7 2.10').
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 1') :-
+runner:ref(put_dict, 3, extend_struct, 'SWI7 2.11').
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 1') :-
    catch(put_dict(_, _, _, _), error(E,_), true),
    E == instantiation_error.
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 2') :-
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 2') :-
    put_dict(_{y:X}, S{x:1,y:2}, T),
    T == S{y:X,x:1}.
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 3') :-
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 3') :-
    put_dict(_{z:X}, S{x:1,y:2}, T),
    T == S{z:X,x:1,y:2}.
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 4') :-
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 4') :-
    put_dict(_{z:X}, point{}, T),
    T == point{z:X}.
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 5') :-
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 5') :-
    \+ put_dict(_{y:X}, S{x:1,y:2}, S{z:X,x:1}).
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 6') :-
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 6') :-
    catch(put_dict(_, foo, _), error(E,_), true),
    E == type_error(dict,foo).
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 7') :-
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 7') :-
    put_dict(colorpoint{u:0,x:4,z:5}, point{x:1,y:2,z:3}, T),
    T == point{u:0,x:4,y:2,z:5}.
