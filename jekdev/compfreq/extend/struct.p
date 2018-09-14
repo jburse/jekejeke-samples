@@ -144,50 +144,94 @@ runner:case(:<, 2, extend_struct, 'SWI7 2.6, XLOG 5') :-
 runner:case(:<, 2, extend_struct, 'SWI7 2.6, XLOG 6') :-
    \+ point{} :< colorpoint{}.
 
-runner:ref(del_dict, 4, extend_struct, 'SWI7 2.7').
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 1') :-
+runner:ref(>:<, 2, extend_struct, 'SWI7 2.7').
+runner:case(>:<, 2, extend_struct, 'SWI7 2.7, XLOG 1') :-
+   T{x:V} >:< point{x:1,y:2},
+   T == point,
+   V == 1.
+runner:case(>:<, 2, extend_struct, 'SWI7 2.7, XLOG 2') :-
+   point{x:V,y:2} >:< T{x:1,y:W},
+   V == 1,
+   T == point,
+   W == 2.
+runner:case(>:<, 2, extend_struct, 'SWI7 2.7, XLOG 3') :-
+   point{} >:< T{x:1,y:2},
+   T == point.
+runner:case(>:<, 2, extend_struct, 'SWI7 2.7, XLOG 4') :-
+   point{x:_,y:_} >:< _{}.
+runner:case(>:<, 2, extend_struct, 'SWI7 2.7, XLOG 5') :-
+   \+ _{x:3} >:< point{x:1,y:2}.
+runner:case(>:<, 2, extend_struct, 'SWI7 2.7, XLOG 6') :-
+   \+ point{} >:< colorpoint{}.
+runner:case(>:<, 2, extend_struct, 'SWI7 2.7, XLOG 7') :-
+   point{u:0,x:1,z:3} >:< point{x:1,y:2}.
+
+runner:ref(del_dict, 4, extend_struct, 'SWI7 2.8').
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 1') :-
    catch(del_dict(_, _, _, _), error(E,_), true),
    E == instantiation_error.
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 2') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 2') :-
    del_dict(y, S{x:1,y:X}, 2, T),
    X == 2,
    T == S{x:1}.
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 3') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 3') :-
    \+ del_dict(y, _{x:1,y:2}, 3, _).
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 4') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 4') :-
    \+ del_dict(z, _{x:1,y:2}, _, _).
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 5') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 5') :-
    \+ del_dict(z, point{}, _, _).
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 6') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 6') :-
    \+ del_dict(y, S{x:1,y:2}, _, S{x:3}).
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 7') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 7') :-
    catch(del_dict(_, 123, _, _), error(E,_), true),
    E == type_error(dict,123).
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 8') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 8') :-
    findall(V, del_dict(_, _{x:1,y:2}, V, _), [_,X|_]),
    X == 2.
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 9') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 9') :-
    findall(K, del_dict(K, _{x:1,y:2}, _, _), [X|_]),
    X == x.
-runner:case(del_dict, 4, extend_struct, 'SWI7 2.7, XLOG 10') :-
+runner:case(del_dict, 4, extend_struct, 'SWI7 2.8, XLOG 10') :-
    findall(T, del_dict(_, point{x:1,y:2}, _, T), [_,X|_]),
    X == point{x:1}.
 
-runner:ref(put_dict, 4, extend_struct, 'SWI7 2.8').
-runner:case(put_dict, 2, extend_struct, 'SWI7 2.8, XLOG 1') :-
+runner:ref(put_dict, 4, extend_struct, 'SWI7 2.9').
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 1') :-
    catch(put_dict(_, _, _, _), error(E,_), true),
    E == instantiation_error.
-runner:case(put_dict, 2, extend_struct, 'SWI7 2.8, XLOG 2') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 2') :-
    put_dict(y, S{x:1,y:2}, X, T),
    T == S{y:X,x:1}.
-runner:case(put_dict, 2, extend_struct, 'SWI7 2.8, XLOG 3') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 3') :-
    put_dict(z, S{x:1,y:2}, X, T),
    T == S{z:X,x:1,y:2}.
-runner:case(put_dict, 2, extend_struct, 'SWI7 2.8, XLOG 4') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 4') :-
    put_dict(z, point{}, X, T),
    T == point{z:X}.
-runner:case(put_dict, 2, extend_struct, 'SWI7 2.8, XLOG 5') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 5') :-
    \+ put_dict(y, S{x:1,y:2}, X, S{z:X,x:1}).
-runner:case(put_dict, 2, extend_struct, 'SWI7 2.8, XLOG 6') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.9, XLOG 6') :-
    catch(put_dict(x, foo, _, _), error(E,_), true),
    E == type_error(dict,foo).
+
+runner:ref(put_dict, 3, extend_struct, 'SWI7 2.10').
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 1') :-
+   catch(put_dict(_, _, _, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 2') :-
+   put_dict(_{y:X}, S{x:1,y:2}, T),
+   T == S{y:X,x:1}.
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 3') :-
+   put_dict(_{z:X}, S{x:1,y:2}, T),
+   T == S{z:X,x:1,y:2}.
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 4') :-
+   put_dict(_{z:X}, point{}, T),
+   T == point{z:X}.
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 5') :-
+   \+ put_dict(_{y:X}, S{x:1,y:2}, S{z:X,x:1}).
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 6') :-
+   catch(put_dict(_, foo, _), error(E,_), true),
+   E == type_error(dict,foo).
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 7') :-
+   put_dict(colorpoint{u:0,x:4,z:5}, point{x:1,y:2,z:3}, T),
+   T == point{u:0,x:4,y:2,z:5}.
