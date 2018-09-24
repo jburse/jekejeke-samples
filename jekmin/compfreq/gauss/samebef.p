@@ -21,6 +21,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -152,7 +157,8 @@ runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 3') :-
    Y == sqrt(2).
 runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 4') :-
    catch(_ is min(2*_,77), error(E,_), true),
-   E = type_error(value,polynom(_,[1-2])).
+   nonvar(E),
+   E = type_error(evaluable,_).
 
 % eval_max/3
 runner:ref(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8').
@@ -188,7 +194,8 @@ runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9, XLOG 3') :-
    Y == 1+2/3.
 runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.3, 3.9, XLOG 4') :-
    catch(_ is abs(_+_), error(E,_), true),
-   E = type_error(value,_).
+   nonvar(E),
+   E = type_error(evaluable,_).
 
 % eval_sign/2
 runner:ref(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10').
@@ -208,6 +215,7 @@ runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 4') :-
    Z == 1.
 runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.3, 3.10, XLOG 5') :-
    catch(_ is sign(_), error(E,_), true),
+   nonvar(E),
    E = type_error(number,_).
 
 % eval_floor/2
@@ -226,7 +234,8 @@ runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 4') :-
    X == -2.
 runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.3, 3.11, XLOG 45') :-
    catch(_ is floor(_+_), error(E,_), true),
-   E = type_error(value,_).
+   nonvar(E),
+   E = type_error(evaluable,_).
 
 % eval_ceiling/2
 runner:ref(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12').
@@ -241,6 +250,7 @@ runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 3') :-
    X == 333656749517485.
 runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 4') :-
    catch(_ is ceiling(_), error(E,_), true),
+   nonvar(E),
    E = type_error(number,_).
 
 % eval_integer/2
@@ -256,7 +266,8 @@ runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 3') :-
    X == -1414213562373095.
 runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 4') :-
    catch(_ is ceiling(2*_), error(E,_), true),
-   E = type_error(value,_).
+   nonvar(E),
+   E = type_error(evaluable,_).
 
 % eval_float/2
 runner:ref(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14').
@@ -271,4 +282,5 @@ runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 3') :-
    X == 1.5537739740300374.
 runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.3, 3.14, XLOG 4') :-
    catch(_ is float(_), error(E,_), true),
+   nonvar(E),
    E = type_error(number,_).

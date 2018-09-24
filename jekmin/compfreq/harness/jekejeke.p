@@ -21,14 +21,19 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
 :- use_package(library(jekdev/reference/testing)).
 
-:- use_module(library(bootload/toolkit)).
-:- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
+% :- use_module(library(bootload/toolkit)).
+% :- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
 
 % :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
 
@@ -55,11 +60,11 @@ run_diagnose :- diagnose_online.
 % run_report
 run_report :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/09_results/'),
-   result_batch('../../../../../../../blog/docs/15_min/08_compfreq/'),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/09_results/'),
+   result_batch('../../../../../../../repo/docs/15_min/08_compfreq/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/09_results/'),
-   result_batch('../../../../../../../../blog/en/docs/15_min/08_compfreq/').
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/09_results/'),
+   result_batch('../../../../../../../../repo/en/docs/15_min/08_compfreq/').
 
 /****************************************************************/
 /* Coverage                                                     */
@@ -98,15 +103,15 @@ run_control :- list_cover_source.
 % run_cover
 run_cover :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
    cover_batch('../../../../../../../blog/docs/15_min/04_frequent/'),
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/07_coverage/'),
    cover_batch('../../../../../../../../blog/en/docs/15_min/04_frequent/').
 
 % run_summary
 run_summary :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/'), summary_batch,
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/15_min/15_stdy/08_compfreq/'), summary_batch,
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/Projects/Shop/Prototyping2/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/'), summary_batch.
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/15_min/15_stdy/08_compfreq/'), summary_batch.
