@@ -21,6 +21,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -333,78 +338,58 @@ runner:case('sys_mulv sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.11, XLOG 4'
 % Array subscripts
 % Not implemented by SWI-Prolog
 /* right hand side */
-runner:ref(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12').
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 1') :-
-   X = #(1,2,3),
-   Y #= X[1]+X[2]+X[3],
-   Y == 6.
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 2') :-
-   X = #(#(1,2,3),#(4,5,6),#(7,8,9)),
-   Y #= X[1,3]+X[2,3]+X[3,3],
-   Y == 18.
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 3') :-
-   X = #(#(#(_,A,_))),
-   Y #= X[1,1,2],
-   Y == A.
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 4') :-
-   X = #(#(#(#(_,_,_),#(_,_,A),#(_,_,_)))),
-   Y #= X[1,1,2,3],
-   Y == A.
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 5') :-
-   X = #(#(#(#(#(A,_,B))))),
-   call_residue(Y #= X[1,1,1,1,1]+X[1,1,1,1,3], L),
+/*
+runner:ref('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12').
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 1') :-
+   X = #(1,2,3), Y #= X[1]+X[2]+X[3], Y == 6.
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 2') :-
+   X = #(#(1,2,3),#(4,5,6),#(7,8,9)), Y #= X[1,3]+X[2,3]+X[3,3], Y == 18.
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 3') :-
+   X = #(#(#(_,A,_))), Y #= X[1,1,2], Y == A.
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 4') :-
+   X = #(#(#(#(_,_,_),#(_,_,A),#(_,_,_)))), Y #= X[1,1,2,3], Y == A.
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 5') :-
+   X = #(#(#(#(#(A,_,B))))), call_residue((Y #= X[1,1,1,1,1]+X[1,1,1,1,3]),L),
    L == [Y#=A+B].
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 6') :-
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 6') :-
    X = #(#(#(#(#(#(_,_,A),#(_,_,_),#(_,_,B)))))),
-   call_residue(Y #= X[1,1,1,1,1,3]+X[1,1,1,1,3,3], L),
+   call_residue((Y #= X[1,1,1,1,1,3]+X[1,1,1,1,3,3]),L),
    L == [Y#=A+B].
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 7') :-
-   X = #(#(#(#(#(#(#(A,_,1))))))),
-   call_residue(Y #= X[1,1,1,1,1,1,1]+X[1,1,1,1,1,1,3], L),
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 7') :-
+   X = #(#(#(#(#(#(#(A,_,1))))))), call_residue((Y #= X[1,1,1,1,1,1,1]+X[1,1,1,1,1,1,3]),L),
    L == [Y#=A+1].
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 8') :-
-   catch((  X = #(1,2,3),
-            _ #= X[0]), error(E,_), true),
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 8') :-
+   catch((X = #(1,2,3), _ #= X[0]), error(E, _), true),
    E == evaluation_error(array_index).
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 9') :-
-   catch((  X = #(#(1,2,3),#(4,5,6),#(7,8,9)),
-            _ #= X[1,4]), error(E,_), true),
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 9') :-
+   catch((X = #(#(1,2,3),#(4,5,6),#(7,8,9)), _ #= X[1,4]), error(E, _), true),
    E == evaluation_error(array_index).
+*/
 
 /* left hand side */
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 10') :-
-   X = #(1,2,3),
-   X[1]+X[2]+X[3] #= Y,
-   Y == 6.
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 11') :-
-   X = #(#(1,2,3),#(4,5,6),#(7,8,9)),
-   X[1,3]+X[2,3]+X[3,3] #= Y,
-   Y == 18.
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 12') :-
-   X = #(#(#(_,A,_))),
-   X[1,1,2] #= Y,
-   Y == A.
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 13') :-
-   X = #(#(#(#(_,_,_),#(_,_,A),#(_,_,_)))),
-   X[1,1,2,3] #= Y,
-   Y == A.
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 14') :-
-   X = #(#(#(#(#(A,_,B))))),
-   call_residue(X[1,1,1,1,1]+X[1,1,1,1,3] #= Y, L),
+/*
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 10') :-
+   X = #(1,2,3), X[1]+X[2]+X[3] #= Y, Y == 6.
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 11') :-
+   X = #(#(1,2,3),#(4,5,6),#(7,8,9)), X[1,3]+X[2,3]+X[3,3] #= Y, Y == 18.
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 12') :-
+   X = #(#(#(_,A,_))), X[1,1,2] #= Y, Y == A.
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 13') :-
+   X = #(#(#(#(_,_,_),#(_,_,A),#(_,_,_)))), X[1,1,2,3] #= Y, Y == A.
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 14') :-
+   X = #(#(#(#(#(A,_,B))))), call_residue((X[1,1,1,1,1]+X[1,1,1,1,3] #= Y),L),
    L == [B#=Y-A].
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 15') :-
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 15') :-
    X = #(#(#(#(#(#(_,_,A),#(_,_,_),#(_,_,B)))))),
-   call_residue(X[1,1,1,1,1,3]+X[1,1,1,1,3,3] #= Y, L),
+   call_residue((X[1,1,1,1,1,3]+X[1,1,1,1,3,3] #= Y),L),
    L == [B#=Y-A].
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 16') :-
-   X = #(#(#(#(#(#(#(A,_,1))))))),
-   call_residue(X[1,1,1,1,1,1,1]+X[1,1,1,1,1,1,3] #= Y, L),
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 16') :-
+   X = #(#(#(#(#(#(#(A,_,1))))))), call_residue((X[1,1,1,1,1,1,1]+X[1,1,1,1,1,1,3] #= Y),L),
    L == [A#=Y-1].
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 17') :-
-   catch((  X = #(1,2,3),
-            X[0] #= _), error(E,_), true),
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 17') :-
+   catch((X = #(1,2,3), X[0] #= _), error(E, _), true),
    E == evaluation_error(array_index).
-runner:case(array_subs, 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 18') :-
-   catch((  X = #(#(1,2,3),#(4,5,6),#(7,8,9)),
-            X[1,4] #= _), error(E,_), true),
+runner:case('array_subs', 0, finite_linear, 'CLP(FD) 0.8.8, 1.12, XLOG 18') :-
+   catch((X = #(#(1,2,3),#(4,5,6),#(7,8,9)), X[1,4] #= _), error(E, _), true),
    E == evaluation_error(array_index).
+*/
