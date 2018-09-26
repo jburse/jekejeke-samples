@@ -75,3 +75,33 @@ runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 6c') :-
    findall(L-X-Y, call_residue((  sto(X)
                                ;  sto(Y)), L), R),
    R = [_,_].
+
+% neq(+Term, +Term)
+runner:ref(neq, 2, term_delay, 'Term 1.0.0, 1.2').
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 1') :-
+   neq(1, X),
+   \+ X = 1.
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 2') :-
+   neq(1, X),
+   neq(X, 2),
+   \+ X = 1,
+   \+ X = 2.
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 3') :-
+   neq(X, Y),
+   X = 1,
+   \+ Y = 1.
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 4') :-
+   neq(X, Y),
+   \+ X = Y.
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 5') :-
+   neq(X-Z, a-b),
+   neq(X-_, b-b),
+   X = a,
+   \+ Z = b.
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 6') :-
+   neq(X-Z, a-b),
+   neq(X-Y, b-b),
+   Y = b,
+   Z = b,
+   \+ X = a,
+   \+ X = b.
