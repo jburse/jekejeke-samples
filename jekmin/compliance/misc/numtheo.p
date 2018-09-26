@@ -103,6 +103,9 @@ runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 2') :-
    X is isqrt(77*2^100),
    X == 9879731586312133.
 runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 3') :-
+   X is isqrt(7^77),
+   X == 343775197739156103851373356134328.
+runner:case(isqrt, 2, misc_numtheo, 'CLP(FD) 0.9.2, 1.4, XLOG 4') :-
    catch(_ is isqrt(-33), error(E,_), true),
    E == evaluation_error(undefined).
 
@@ -118,6 +121,11 @@ runner:case(sqrtrem, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 2') :-
    X == 9879731586312133,
    Y == 8000882843804263.
 runner:case(sqrtrem, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 3') :-
+   Z is 7^77,
+   sqrtrem(Z, X, Y),
+   X == 343775197739156103851373356134328,
+   Y == 197147407899293772627110707027623.
+runner:case(sqrtrem, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.5, XLOG 4') :-
    catch(sqrtrem(-33, _, _), error(E,_), true),
    E == evaluation_error(undefined).
 
@@ -130,9 +138,12 @@ runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 2') :-
    X is iroot(77*2^100,5),
    X == 2499758.
 runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 3') :-
+   X is iroot(7^116,3),
+   X == 475471197459215430348196293525957.
+runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 4') :-
    catch(_ is iroot(-33,5), error(E,_), true),
    E == evaluation_error(undefined).
-runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 4') :-
+runner:case(iroot, 3, misc_numtheo, 'CLP(FD) 1.0.0, 1.6, XLOG 5') :-
    catch(_ is iroot(33,-5), error(E,_), true),
    E == evaluation_error(undefined).
 
@@ -148,8 +159,13 @@ runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 2') :-
    X == 2499758,
    Y == 102692834401544299944401184.
 runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 3') :-
+   Z is 7^116,
+   rootrem(Z, 3, X, Y),
+   X == 475471197459215430348196293525957,
+   Y == 56535314166992499802150711925892543414683836939559609611849987108.
+runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 4') :-
    catch(rootrem(-33, 5, _, _), error(E,_), true),
    E == evaluation_error(undefined).
-runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 4') :-
+runner:case(rootrem, 4, misc_numtheo, 'CLP(FD) 1.0.0, 1.7, XLOG 5') :-
    catch(rootrem(33, -5, _, _), error(E,_), true),
    E == evaluation_error(undefined).
