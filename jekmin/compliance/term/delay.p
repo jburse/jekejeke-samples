@@ -188,3 +188,6 @@ runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 9') :-
    when(nonvar(X), _),
    catch(X = 0, error(E,_), true),
    E == instantiation_error.
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 10') :-
+   catch(when(_, true), error(E,_), true),
+   E == instantiation_error.
