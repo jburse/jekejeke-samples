@@ -78,30 +78,113 @@ runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 6c') :-
 
 % neq(+Term, +Term)
 runner:ref(neq, 2, term_delay, 'Term 1.0.0, 1.2').
-runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 1') :-
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, XLOG 1') :-
+   call_residue(neq(f(X,X), f(Y,Z)), L),
+   L == [neq((X,Y),(Y,Z))].
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 2') :-
    neq(1, X),
    \+ X = 1.
-runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 2') :-
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 3') :-
    neq(1, X),
    neq(X, 2),
    \+ X = 1,
    \+ X = 2.
-runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 3') :-
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 4') :-
    neq(X, Y),
    X = 1,
    \+ Y = 1.
-runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 4') :-
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 5') :-
    neq(X, Y),
    \+ X = Y.
-runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 5') :-
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 6') :-
    neq(X-Z, a-b),
    neq(X-_, b-b),
    X = a,
    \+ Z = b.
-runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 6') :-
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 7') :-
    neq(X-Z, a-b),
    neq(X-Y, b-b),
    Y = b,
    Z = b,
    \+ X = a,
    \+ X = b.
+
+% freeze(+Term, +Goal)
+runner:ref(freeze, 2, term_delay, 'Term 1.0.0, 1.3').
+runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.3, XLOG 1') :-
+   call_residue((  freeze(X, X > 0),
+                   freeze(X, X < 0)), L),
+   L == [freeze(X,X>0),freeze(X,X<0)].
+runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.3, XLOG 2') :-
+   freeze(X, X > 0),
+   freeze(X, X < 0),
+   \+ X = 1,
+   \+ X = -1.
+runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.3, XLOG 3') :-
+   freeze(X, X > Y),
+   Y = 0,
+   \+ X = -1.
+runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.3, XLOG 4') :-
+   freeze(X, (  X = f(a)
+             ;  X = f(b))),
+   \+ X = g(_).
+runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.3, XLOG 5') :-
+   findall(X, (  freeze(X, (  X = f(a)
+                           ;  X = f(b))),
+                 X = f(_)), [Y|_]),
+   Y == f(a).
+runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.3, XLOG 6') :-
+   findall(X, (  freeze(X, (  X = f(a)
+                           ;  X = f(b))),
+                 X = f(_)), [_,Y|_]),
+   Y == f(b).
+runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.3, XLOG 7') :-
+   findall(X, (  freeze(X, (  X = f(a)
+                           ;  X = f(b))),
+                 X = f(_)), [_,_]).
+runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.3, XLOG 8') :-
+   freeze(X, 1),
+   catch(X = 0, error(E,_), true),
+   E = type_error(callable,1).
+
+% when(+Cond, +Goal)
+runner:ref(when, 2, term_delay, 'Term 1.0.0, 1.4').
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 1') :-
+   call_residue(when((nonvar(X),nonvar(Y)), X < Y), L),
+   L == [when((nonvar(X),nonvar(Y)),X<Y)].
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 2') :-
+   call_residue((  when((nonvar(X),nonvar(Y)), X < Y),
+                   X = 0), L),
+   L == [when(nonvar(Y),0<Y)].
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 3') :-
+   when((nonvar(X),nonvar(Y)), X < Y),
+   \+ (  X = 0,
+         Y = -1),
+   \+ (  X = 1,
+         Y = 0).
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 4') :-
+   when((nonvar(X);ground(Y)), atom_codes(X, Y)),
+   X = abc,
+   Y == "abc".
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 5') :-
+   when((nonvar(X);ground(Y)), atom_codes(X, Y)),
+   Y = "abc",
+   X == abc.
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 6') :-
+   findall(X, (  when(nonvar(X), (  X = f(a)
+                                 ;  X = f(b))),
+                 X = f(_)), [Y|_]),
+   Y == f(a).
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 7') :-
+   findall(X, (  when(nonvar(X), (  X = f(a)
+                                 ;  X = f(b))),
+                 X = f(_)), [_,Y|_]),
+   Y == f(b).
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 8') :-
+   findall(X, (  when(nonvar(X), (  X = f(a)
+                                 ;  X = f(b))),
+                 X = f(_)), [_,_]).
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 9') :-
+   when(nonvar(X), _),
+   catch(X = 0, error(E,_), true),
+   E == instantiation_error.
