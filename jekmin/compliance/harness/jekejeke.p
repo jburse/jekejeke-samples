@@ -32,6 +32,8 @@
 
 :- use_package(library(jekdev/reference/testing)).
 
+% ?- sys_add_path('file:/C:/Projects/Jekejeke/Prototyping/samples/jekmin/compliance/').
+
 % :- use_module(library(bootload/toolkit)).
 % :- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
 
