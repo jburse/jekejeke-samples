@@ -5,9 +5,36 @@
  *    count_predicate(Fun, Arity, CallExitRedoFail).
  *    count_source(Fun, Arity, Origin, Line, CallExitRedoFail).
  *
- * Copyright 2011-2015, XLOG Technologies GmbH, Switzerland
- * Jekejeke Prolog 0.9.2 (a fast and small prolog interpreter)
+ * Warranty & Liability
+ * To the extent permitted by applicable law and unless explicitly
+ * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
+ * regarding the provided information. XLOG Technologies GmbH assumes
+ * no liability that any problems might be solved with the information
+ * provided by XLOG Technologies GmbH.
+ *
+ * Rights & License
+ * All industrial property rights regarding the information - copyright
+ * and patent rights in particular - are the sole property of XLOG
+ * Technologies GmbH. If the company was not the originator of some
+ * excerpts, XLOG Technologies GmbH has at least obtained the right to
+ * reproduce, change and translate the information.
+ *
+ * Reproduction is restricted to the whole unaltered document. Reproduction
+ * of the information is only allowed for non-commercial uses. Selling,
+ * giving away or letting of the execution of the library is prohibited.
+ * The library can be distributed as part of your applications and libraries
+ * for execution provided this comment remains unchanged.
+ *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
+ * Trademarks
+ * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
+
+:- use_module(library(inspection/provable)).
 
 % count_predicate(Fun, Arity, CallExitRedoFail)
 :- dynamic count_predicate/3.
@@ -27,10 +54,10 @@ remove_count_source.
 
 % add_count2(+CallExitRedoFail, +CallExitRedoFail, -CallExitRedoFail)
 add_count2(A-B-C-D, E-F-G-H, R-S-T-U) :-
-   R is A + E,
-   S is B + F,
-   T is C + G,
-   U is D + H.
+   R is A+E,
+   S is B+F,
+   T is C+G,
+   U is D+H.
 
 % update_count_predicate(+Fun, +Arity, +CallExitRedoFail)
 update_count_predicate(F, A, D) :-
@@ -58,9 +85,8 @@ get_delta2(fail, 0-0-0-1).
 :- multifile goal_tracing/2.
 goal_tracing(P, Q) :-
    frame_property(Q, sys_call_goal(G)),
-   functor(G, F, A),
-   atom_property(F, source_file(O)),
-   atom_property(F, line_no(L)), !,
+   callable_property(G, source_file(O)),
+   callable_property(G, line_no(L)), !,
    get_delta2(P, D),
    update_count_predicate(F, A, D),
    update_count_source(F, A, O, L, D).
