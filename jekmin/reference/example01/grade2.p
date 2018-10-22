@@ -21,59 +21,27 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(minimal/assume)).
-:- use_module(library(experiment/ref)).
+/* anna has already taken german, french and italian*/
+:- multifile take/2.
+:- thread_local take/2.
+take(anna, german).
+take(anna, french).
+take(anna, italian).
 
-:- op(1200, xfx, -::).
-:- meta_predicate (-1-::0).
-
-/* embedded contraction */
-(- A -:: B) :- !,
-   clause_ref(A, true, R),
-   sys_retire_ref(R),
-   call(B),
-   sys_assume_ref(R).
-/* embedded implication */
-(A -:: B) :-
-   consultable_ref(A, R),
-   sys_assume_ref(R),
-   call(B),
-   sys_retire_ref(R).
-
-/* student must take2 german and can choose between french and italian */
-grade2(S) :-
-   take2(S, german),
-   take2(S, french).
-grade2(S) :-
-   take2(S, german),
-   take2(S, italian).
-
-/* hans has already taken german, french and italian*/
-:- multifile take2/2.
-take2(hans, french).
-
-take2(anna, german).
-take2(anna, french).
-take2(anna, italian).
-
-% /* hans would not grade if he takes also italian */
-% ?- take2(hans, italian) -:: grade2(hans).
-% No
-
-% /* hans would grade if he takes also german */
-% ?- take2(hans, german) -:: grade2(hans).
-% Yes ;
-% No
-
-% /* anna would still grade if she would not have taken italian */
-% ?- -take2(anna, italian) -:: grade2(anna).
+% /* anna would grade if she would not have taken italian */
+% ?- retire(take(anna, italian)), grade(anna).
 % Yes ;
 % No
 
 % /* anna would not grade if she would not have taken german */
-% ?- -take2(anna, german) -:: grade2(anna).
+% ?- retire(take2(anna, german)), grade(anna).
 % No

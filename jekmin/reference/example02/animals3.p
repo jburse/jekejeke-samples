@@ -1,5 +1,5 @@
 /**
- * Prolog code for the revisited logic example.
+ * Animals expert system via forward chaining.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -21,43 +21,58 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
 :- use_module(library(minimal/delta)).
-:- use_module(library(experiment/ref)).
 
-+ class(mamal) <=
-   + motion(walk),
-   + skin(fur).
-+ class(fish) <=
-   + motion(swim),
-   + skin(scale).
-+ class(bird) <=
-   + motion(fly),
-   + skin(feather).
+:- multifile motion/1,skin/1,diet/1.
+:- thread_local motion/1,skin/1,class/1,diet/1,animal/1.
 
-animal(rodent) <=
-   + class(mamal),
-   + diet(plant).
-animal(cat) <=
-   + class(mamal),
-   + diet(meat).
-animal(salmon) <=
-   + class(fish),
-   + diet(meat).
-animal(eagle) <=
-   + class(bird),
-   + diet(meat).
+post(class(mamal)) <=
+   posted(motion(walk)),
+   posted(skin(fur)).
+post(class(fish)) <=
+   posted(motion(swim)),
+   posted(skin(scale)).
+post(class(bird)) <=
+   posted(motion(fly)),
+   posted(skin(feather)).
 
-% ?- use_module(library(minimal/hypo)).
+post(animal(rodent)) <=
+   posted(class(mamal)),
+   posted(diet(plant)).
+post(animal(cat)) <=
+   posted(class(mamal)),
+   posted(diet(meat)).
+post(animal(salmon)) <=
+   posted(class(fish)),
+   posted(diet(meat)).
+post(animal(eagle)) <=
+   posted(class(bird)),
+   posted(diet(meat)).
 
-% ?- <= +motion(walk), <= +skin(fur), <= +diet(meat), animal(X).
-% X = cat
+write('The animal is '),
+write(X), nl <=
+   posted(animal(X)).
 
-% ?- animal(X).
-% No
+% ?- use_module(library(minimal/delta)).
+% % 0 consults and 0 unloads in 0 ms.
+% Yes
 
-% ?- <= +diet(meat), <= +skin(fur), <= +motion(walk), animal(X).
-% X = cat
+% ?- post(motion(walk)), post(skin(fur)).
+% Yes
+
+% ?- post(motion(walk)), post(skin(fur)), post(diet(meat)).
+% The animal is cat
+% Yes
+
+% ?- post(motion(walk)), post(skin(fur)), post(diet(plant)).
+% The animal is rodent
+% Yes

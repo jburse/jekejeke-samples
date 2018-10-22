@@ -21,24 +21,18 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(minimal/assume)).
-:- use_module(library(experiment/ref)).
+:- use_module(library(minimal/hypo)).
 
-:- op(1200, xfx, -:).
-:- meta_predicate (-1-:0).
-
-/* embedded implication */
-(A -: B) :-
-   consultable_ref(A, R),
-   sys_assume_ref(R),
-   call(B),
-   sys_retire_ref(R).
-
-/* student must take german and can choose between french and italian */
+/* must take german and can choose between french and italian */
 grade(S) :-
    take(S, german),
    take(S, french).
@@ -48,13 +42,18 @@ grade(S) :-
 
 /* hans has already taken french */
 :- multifile take/2.
+:- thread_local take/2.
 take(hans, french).
 
+% ?- use_module(library(minimal/hypo)).
+% % 0 consults and 0 unloads in 0 ms.
+% Yes
+
 % /* hans would not grade if he takes also italian */
-% ?- take(hans, italian) -: grade(hans).
+% ?- assumez(take(hans, italian)), grade(hans).
 % No
 
 % /* hans would grade if he takes also german */
-% ?- take(hans, german) -: grade(hans).
+% ?- assumez(take(hans, german)), grade(hans).
 % Yes ;
 % No
