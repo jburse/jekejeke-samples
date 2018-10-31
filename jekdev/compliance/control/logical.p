@@ -248,7 +248,7 @@ runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 4') :-
               call(1))).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 5a') :-
    with_output_to(atom(A), catch(b(_), error(_,_), true)), !,
-   A = '_B'.
+   A = '_A'.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 5b') :-
    with_output_to(atom(_), catch(b(_), error(E,_), true)),
    nonvar(E),

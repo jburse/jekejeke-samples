@@ -39,6 +39,7 @@
 :- discontiguous runner:case/4.
 
 /* numbervars(T, N, M) */
+
 runner:ref(numbervars, 3, extra_vars, 'XLOG 3.1.1').
 runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 1') :-
    numbervars(f(X,X,Y), 0, N),

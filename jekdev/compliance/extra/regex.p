@@ -45,6 +45,7 @@
 /*******************************************************************/
 
 /* char_type(C, N) */
+
 runner:ref(char_type, 2, extra_regex, 'XLOG 2.1.1').
 runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 1') :-
    char_type(' ', N),
@@ -75,6 +76,7 @@ runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 8') :-
    N == lower.
 
 /* code_type(C, N) */
+
 runner:ref(code_type, 2, extra_regex, 'XLOG 2.1.2').
 runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 1') :-
    code_type(0'_, N),
@@ -109,6 +111,7 @@ runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 8') :-
 /*******************************************************************/
 
 /* code_upper(C, D) */
+
 runner:ref(code_upper, 2, extra_regex, 'XLOG 2.2.1').
 runner:case(code_upper, 2, extra_regex, 'XLOG 2.2.1, XLOG 1') :-
    code_upper(0'_, D),
@@ -132,6 +135,7 @@ runner:case(code_upper, 2, extra_regex, 'XLOG 2.2.1, XLOG 6') :-
    D == 0'𐐄.
 
 /* code_lower(C, D) */
+
 runner:ref(code_lower, 2, extra_regex, 'XLOG 2.2.2').
 runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 1') :-
    code_lower(0'=, D),
@@ -155,6 +159,7 @@ runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 6') :-
    D == 0'𐐬.
 
 /* atom_upper(A, B) */
+
 runner:ref(atom_upper, 2, extra_regex, 'XLOG 2.2.3').
 runner:case(atom_upper, 2, extra_regex, 'XLOG 2.2.3, XLOG 1') :-
    atom_upper('_A7', D),
@@ -178,6 +183,7 @@ runner:case(atom_upper, 2, extra_regex, 'XLOG 2.2.3, XLOG 6') :-
    D == '𐐃𐐄𐐅'.
 
 /* atom_lower(A, B) */
+
 runner:ref(atom_lower, 2, extra_regex, 'XLOG 2.2.4').
 runner:case(atom_lower, 2, extra_regex, 'XLOG 2.2.4, XLOG 1') :-
    atom_lower(=<, D),
@@ -205,6 +211,7 @@ runner:case(atom_lower, 2, extra_regex, 'XLOG 2.2.4, XLOG 6') :-
 /*******************************************************************/
 
 /* pattern_match(S, P) */
+
 /* default settings */
 runner:ref(pattern_match, 2, extra_regex, 'XLOG 2.3.1').
 runner:case(pattern_match, 2, extra_regex, 'XLOG 2.3.1, XLOG 1') :-
@@ -535,6 +542,7 @@ runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 38') :-
 /*******************************************************************/
 
 /* pattern_match(S, P, O) */
+
 runner:ref(pattern_match, 3, extra_regex, 'XLOG 2.4.1').
 runner:case(pattern_match, 3, extra_regex, 'XLOG 2.4.1, XLOG 1') :-
    pattern_match(foobarbaz, '*bar*', [style(parse)]).
@@ -550,6 +558,7 @@ runner:case(pattern_match, 3, extra_regex, 'XLOG 2.4.1, XLOG 4') :-
    \+ pattern_match(foobarbaz, '`bar`', [boundary(part),style(parse)]).
 
 /* pattern_replace(S, P, R, T, O) */
+
 runner:ref(pattern_replace, 5, extra_regex, 'XLOG 2.4.2').
 runner:case(pattern_replace, 5, extra_regex, 'XLOG 2.4.2, XLOG 1') :-
    pattern_replace(foobarfoobar, '*bar*', '*tok*', X, [style(parse)]),
@@ -568,6 +577,7 @@ runner:case(pattern_replace, 5, extra_regex, 'XLOG 2.4.2, XLOG 5') :-
    \+ pattern_replace(foobarfoobar, '`bar`', '`tok`', _, [boundary(part),style(parse)]).
 
 /* last_pattern_replace(S, P, R, T, O) */
+
 runner:ref(last_pattern_replace, 5, extra_regex, 'XLOG 2.4.3').
 runner:case(last_pattern_replace, 5, extra_regex, 'XLOG 2.4.3, XLOG 1') :-
    last_pattern_replace(foobarfoobar, '*bar*', '*tok*', X, [style(parse)]),

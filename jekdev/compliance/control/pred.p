@@ -88,5 +88,4 @@ runner:case(current_predicate, 1, control_pred, 'ISO 8.8.2.4, ISO 6') :-
    catch(current_predicate(4), error(E,_), true),
    E == type_error(predicate_indicator,4).
 
-/* predicate_property(P, Q) */
 

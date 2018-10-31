@@ -43,6 +43,8 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
+/* absolute_file_name(S, P) */
+
 runner:ref(absolute_file_name, 2, system_load, 'XLOG 2.1').
 runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 1 Error') :-
    catch(absolute_file_name(_, _), error(E,_), true),
@@ -75,11 +77,11 @@ runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 10 Error') :-
    catch(absolute_file_name(foo(bar), _), error(E,_), true),
    E == type_error(path,foo(bar)).
 runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 11 Relative') :-
-   absolute_file_name(../../compliance/arithmetic/basic, _).
+   absolute_file_name(../ ../compliance/arithmetic/basic, _).
 runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 12 Relative') :-
-   absolute_file_name(../../compliance/arithmetic/basic, X),
+   absolute_file_name(../ ../compliance/arithmetic/basic, X),
    absolute_file_name(Y, X),
-   Y == ../../compliance/arithmetic/basic.
+   Y == ../ ../compliance/arithmetic/basic.
 runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 13 Error') :-
    catch(absolute_file_name(../, _), error(E,_), true),
    E == existence_error(source_sink,../).
@@ -87,6 +89,8 @@ runner:case(absolute_file_name, 2, system_load, 'XLOG 2.1, XLOG 13 Error') :-
 :- sys_auto_load(foreign(java/util/'Comparator')).
 
 :- sys_auto_load(verbatim(foo/bar)).
+
+/* current_module(M) */
 
 runner:ref(current_module, 1, system_load, 'XLOG 2.2').
 runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 1 Error') :-
@@ -114,10 +118,11 @@ runner:case(current_module, 1, system_load, 'XLOG 2.2, XLOG 9 Verbatim') :-
 :- public foo/bar:baz/0.
 foo/bar:baz.
 
+/* predicate_property(P, Q) */
+
 runner:ref(predicate_property, 2, system_load, 'XLOG 2.3').
-runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 1 Error') :-
-   catch(predicate_property(_/lists:member/2, _), error(E,_), true),
-   E == instantiation_error.
+runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 1 Library') :-
+   predicate_property(_/lists:member/2, _).
 runner:case(predicate_property, 2, system_load, 'XLOG 2.3, XLOG 2 Error') :-
    catch(predicate_property(basic/lists:member/foo, _), error(E,_), true),
    E == type_error(integer,foo).
