@@ -34,10 +34,10 @@
 
 % ?- sys_add_path('file:/C:/Projects/Jekejeke/Prototyping/samples/jekmin/compliance/').
 
-% :- use_module(library(bootload/toolkit)).
-% :- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
+%%% :- use_module(library(bootload/toolkit)).
+%%%  :- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
 
-% :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
+%%%  :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
 
 :- ensure_loaded(suite).
 :- use_module(library(testing/runner)).
@@ -93,8 +93,10 @@ tracker:text(library(term/state)).
 
 % run_tracker
 run_tracker :-
-   write('% performing coverage analysis.'), nl,
-   time(tracker_batch), analyze_batch.
+   write('% collecting coverage data.'), nl,
+   time(tracker_batch),
+   write('% aggregating coverage data.'), nl,
+   time(analyze_batch).
 
 % run_control
 run_control :- list_cover_source.

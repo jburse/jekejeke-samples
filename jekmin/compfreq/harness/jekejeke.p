@@ -94,8 +94,10 @@ tracker:text(library(leibniz/radical)).
 
 % run_tracker
 run_tracker :-
-   write('% performing coverage analysis.'), nl,
-   time(tracker_batch), analyze_batch.
+   write('% collecting coverage data.'), nl,
+   time(tracker_batch),
+   write('% aggregating coverage data.'), nl,
+   time(analyze_batch).
 
 % run_control
 run_control :- list_cover_source.

@@ -73,14 +73,14 @@ runner:case('indomain infinite', 1, finite_search, 'CLP(FD) 0.8.4, 6.2, XLOG 2')
    indomain(X),
    (  abs(X) > 10 -> !, fail; true),
    X == -5.
-runner:case('indomain infinite', 1, finite_search, 'CLP(FD) 0.8.4, 6.2, XLOG 2') :-
+runner:case('indomain infinite', 1, finite_search, 'CLP(FD) 0.8.4, 6.2, XLOG 3') :-
    X #\= -5,
    X #\= 0,
    X #\= 5,
    \+ (  indomain(X),
          (  abs(X) > 10 -> !, fail; true),
          X == -5).
-runner:case('indomain infinite', 1, finite_search, 'CLP(FD) 0.8.4, 6.2, XLOG 3') :-
+runner:case('indomain infinite', 1, finite_search, 'CLP(FD) 0.8.4, 6.2, XLOG 4') :-
    X #> 5,
    \+ (  indomain(X),
          (  abs(X) > 10 -> !, fail; true),
