@@ -22,6 +22,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -50,7 +55,7 @@ suite :-
    bench(301, crypt, T2, G2),
    bench(30001, deriv, T3, G3),
    bench(61, poly, T4, G4),
-   bench(6001, qsort, T5, G5),
+   bench(6001, sortq, T5, G5),
    bench(11, tictac, T6, G6),
    bench(16, queens, T7, G7),
    bench(3001, query, T8, G8),

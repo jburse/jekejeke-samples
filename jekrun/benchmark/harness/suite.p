@@ -21,23 +21,28 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded(util).
+:- ensure_loaded('util.p').
 
-:- ensure_loaded('../tests/nrev').
-:- ensure_loaded('../tests/crypt').
-:- ensure_loaded('../tests/deriv').
-:- ensure_loaded('../tests/poly').
-:- ensure_loaded('../tests/qsort').
-:- ensure_loaded('../tests/tictac').
-:- ensure_loaded('../tests/queens').
-:- ensure_loaded('../tests/query').
-:- ensure_loaded('../tests/mtak').
-:- ensure_loaded('../tests/perfect').
-:- ensure_loaded('../tests/calc').
+:- ensure_loaded('../tests/nrev.p').
+:- ensure_loaded('../tests/crypt.p').
+:- ensure_loaded('../tests/deriv.p').
+:- ensure_loaded('../tests/poly.p').
+:- ensure_loaded('../tests/qsort.p').
+:- ensure_loaded('../tests/tictac.p').
+:- ensure_loaded('../tests/queens.p').
+:- ensure_loaded('../tests/query.p').
+:- ensure_loaded('../tests/mtak.p').
+:- ensure_loaded('../tests/perfect.p').
+:- ensure_loaded('../tests/calc.p').
 
 /*****************************************************************/
 /* Normal Test Cases                                             */
@@ -49,7 +54,7 @@ suite :-
    bench(301, crypt, T2, G2),
    bench(30001, deriv, T3, G3),
    bench(61, poly, T4, G4),
-   bench(6001, qsort, T5, G5),
+   bench(6001, sortq, T5, G5),
    bench(11, tictac, T6, G6),
    bench(16, queens, T7, G7),
    bench(3001, query, T8, G8),
@@ -71,7 +76,7 @@ rsuite :-
    bench(15, crypt, T2, G2),
    bench(6001, rderiv, T3, G3),
    bench(32, rpoly, T4, G4),
-   bench(801, rqsort, T5, G5),
+   bench(801, rsortq, T5, G5),
    bench(1, tictac, T6, G6),
    bench(12, rqueens, T7, G7),
    bench(151, query, T8, G8),
