@@ -62,14 +62,14 @@
 /* open(P, M, S, O), ISO 8.11.5.4 */
 
 runner:ref(open, 4, stream_open, 'ISO 8.11.5.4').
-runner:case(open, 4, stream_open, 1) :-
+runner:case(open, 4, stream_open, 'ISO 8.11.5.4, XLOG 1') :-
    open('../data.txt', read, D, [type(binary)]),
    close(D).
-runner:case(open, 4, stream_open, 2) :-
+runner:case(open, 4, stream_open, 'ISO 8.11.5.4, XLOG 2') :-
    open('../data2.txt', write, _, [alias(editor)]),
    put_code(editor, 0xE54),
    close(editor).
-runner:case(open, 4, stream_open, 3) :-
+runner:case(open, 4, stream_open, 'ISO 8.11.5.4, XLOG 3') :-
    open('../data2.txt', read, D, []),
    get_code(D, C),
    close(D),
@@ -104,7 +104,7 @@ runner:case(stream_property, 2, stream_open, 'ISO 8.11.8, XLOG 3') :-
 /* set_stream_position(S, P), ISO 8.11.9 */
 
 runner:ref(set_stream_position, 2, stream_open, 'ISO 8.11.9').
-runner:case(set_stream_position, 2, stream_open, 1) :-
+runner:case(set_stream_position, 2, stream_open, 'ISO 8.11.9, XLOG 1') :-
    open('../data2.txt', write, D, [type(binary)]),
    put_byte(D, 65),
    put_byte(D, 66),
@@ -115,7 +115,7 @@ runner:case(set_stream_position, 2, stream_open, 1) :-
    get_byte(E, C),
    close(E),
    C == 66.
-runner:case(set_stream_position, 2, stream_open, 2) :-
+runner:case(set_stream_position, 2, stream_open, 'ISO 8.11.9, XLOG 2') :-
    open('../data2.txt', write, D, [type(binary),reposition(true)]),
    set_stream_position(D, 1),
    put_byte(D, 68),

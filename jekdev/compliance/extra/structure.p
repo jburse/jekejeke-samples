@@ -333,24 +333,44 @@ runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 7b') :-
    Length == 1,
    Sub_atom = b.
 
-/* atom_list_concat(X, Y, Z) */
-runner:ref(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3').
-runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 1') :-
-   catch(atom_list_concat(_, ',', _), error(E,_), true),
+/* atom_split(X, Y, Z) */
+runner:ref(atom_split, 3, extra_structure, 'XLOG 1.4.3').
+runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 1') :-
+   catch(atom_split(_, ',', _), error(E,_), true),
    E == instantiation_error.
-runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 2') :-
-   atom_list_concat(X, ',', 'a,b,c'),
+runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 2') :-
+   atom_split(X, ',', 'a,b,c'),
    X == [a,b,c].
-runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 3') :-
-   atom_list_concat([a,b,c], ',', X),
+runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 3') :-
+   atom_split([a,b,c], ',', X),
    X == 'a,b,c'.
-runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 4') :-
-   \+ atom_list_concat([a,b,c], ',', 'a,d,c').
-runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 5') :-
-   atom_list_concat([a,b,c], ',', 'a,b,c').
-runner:case(atom_list_concat, 3, extra_structure, 'XLOG 1.4.3, XLOG 6') :-
-   catch(atom_list_concat(foo, ',', _), error(E,_), true),
+runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 4') :-
+   \+ atom_split([a,b,c], ',', 'a,d,c').
+runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 5') :-
+   atom_split([a,b,c], ',', 'a,b,c').
+runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 6') :-
+   catch(atom_split(foo, ',', _), error(E,_), true),
    E == type_error(list,foo).
+
+/* atom_numnber(X, Y) */
+runner:ref(atom_number, 2, extra_structure, 'XLOG 1.4.4').
+runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 1') :-
+   atom_number(X, 33),
+   X == '33'.
+runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 2') :-
+   atom_number('33.0', X),
+   X == 33.0.
+runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 3') :-
+   atom_number('3.3e+01', 33.0).
+runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 4') :-
+   atom_number('0xf', X),
+   X == 15.
+runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 5') :-
+   catch(atom_number(_, foo), error(E,_), true),
+   E == type_error(number,foo).
+runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 6') :-
+   catch(atom_number(_, _), error(E,_), true),
+   E == instantiation_error.
 
 /****************************************************************/
 /* term.p extras                                                */

@@ -158,52 +158,52 @@ runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 6') :-
    code_lower(0'𐐄, D),
    D == 0'𐐬.
 
-/* atom_upper(A, B) */
+/* upcase_atom(A, B) */
 
-runner:ref(atom_upper, 2, extra_regex, 'XLOG 2.2.3').
-runner:case(atom_upper, 2, extra_regex, 'XLOG 2.2.3, XLOG 1') :-
-   atom_upper('_A7', D),
+runner:ref(upcase_atom, 2, extra_regex, 'XLOG 2.2.3').
+runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 1') :-
+   upcase_atom('_A7', D),
    D == '_A7'.
-runner:case(atom_upper, 2, extra_regex, 'XLOG 2.2.3, XLOG 2') :-
-   atom_upper('\xFFFE\', D),
+runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 2') :-
+   upcase_atom('\xFFFE\', D),
    D == '\xFFFE\'.
-runner:case(atom_upper, 2, extra_regex, 'XLOG 2.2.3, XLOG 3') :-
-   atom_upper(abc, D),
+runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 3') :-
+   upcase_atom(abc, D),
    D == 'ABC'.
-runner:case(atom_upper, 2, extra_regex, 'XLOG 2.2.3, XLOG 4') :-
-   atom_upper('ABC', D),
+runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 4') :-
+   upcase_atom('ABC', D),
    D == 'ABC'.
-runner:case(atom_upper, 2, extra_regex, 'XLOG 2.2.3, XLOG 5') :-
-   catch(atom_upper(_, _), error(E,_), true),
+runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 5') :-
+   catch(upcase_atom(_, _), error(E,_), true),
    nonvar(E),
    E = instantiation_error.
 /* unicode >0xFFFF, deseret alphabet */
-runner:case(atom_upper, 2, extra_regex, 'XLOG 2.2.3, XLOG 6') :-
-   atom_upper(𐐫𐐬𐐭, D),
+runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 6') :-
+   upcase_atom(𐐫𐐬𐐭, D),
    D == '𐐃𐐄𐐅'.
 
-/* atom_lower(A, B) */
+/* downcase_atom(A, B) */
 
-runner:ref(atom_lower, 2, extra_regex, 'XLOG 2.2.4').
-runner:case(atom_lower, 2, extra_regex, 'XLOG 2.2.4, XLOG 1') :-
-   atom_lower(=<, D),
+runner:ref(downcase_atom, 2, extra_regex, 'XLOG 2.2.4').
+runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 1') :-
+   downcase_atom(=<, D),
    D == =< .
-runner:case(atom_lower, 2, extra_regex, 'XLOG 2.2.4, XLOG 2') :-
-   atom_lower('123', D),
+runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 2') :-
+   downcase_atom('123', D),
    D == '123'.
-runner:case(atom_lower, 2, extra_regex, 'XLOG 2.2.4, XLOG 3') :-
-   atom_lower(abc, D),
+runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 3') :-
+   downcase_atom(abc, D),
    D == abc.
-runner:case(atom_lower, 2, extra_regex, 'XLOG 2.2.4, XLOG 4') :-
-   atom_lower('ABC', D),
+runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 4') :-
+   downcase_atom('ABC', D),
    D == abc.
-runner:case(atom_lower, 2, extra_regex, 'XLOG 2.2.4, XLOG 5') :-
-   catch(atom_lower(77, _), error(E,_), true),
+runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 5') :-
+   catch(downcase_atom(77, _), error(E,_), true),
    nonvar(E),
    E = type_error(atom,_).
 /* unicode >0xFFFF, deseret alphabet */
-runner:case(atom_lower, 2, extra_regex, 'XLOG 2.2.4, XLOG 6') :-
-   atom_lower('𐐃𐐄𐐅', D),
+runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 6') :-
+   downcase_atom('𐐃𐐄𐐅', D),
    D == 𐐫𐐬𐐭.
 
 /*******************************************************************/

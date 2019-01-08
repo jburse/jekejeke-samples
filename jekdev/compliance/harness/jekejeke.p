@@ -35,6 +35,7 @@
 :- use_module(library(testing/diagnose)).
 :- use_module(library(testing/result)).
 :- use_module(library(testing/summary)).
+:- use_module(library(system/file)).
 
 /********************************************************************/
 /* Test Running                                                     */
@@ -44,6 +45,15 @@
 run_test :-
    write('% running test cases.'), nl,
    set_prolog_flag(base_url, '/Projects/Jekejeke/Prototyping/samples/jekdev/compliance/classes/stream'),
+   time((  runner_batch, nl)).
+
+% run_test2
+run_test2 :-
+   write('% running test cases.'), nl,
+   make_directory('/files/classes/'),
+   make_directory('/files/classes/stream/'),
+   set_prolog_flag(base_url, '/files/classes/stream'),
+                                                  %   time((runner_batch2, nl)).
    time((  runner_batch, nl)).
 
 % run_diagnose
