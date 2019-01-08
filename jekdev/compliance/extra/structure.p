@@ -339,17 +339,17 @@ runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 1') :-
    catch(atom_split(_, ',', _), error(E,_), true),
    E == instantiation_error.
 runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 2') :-
-   atom_split(X, ',', 'a,b,c'),
+   atom_split('a,b,c', ',', X),
    X == [a,b,c].
 runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 3') :-
-   atom_split([a,b,c], ',', X),
+   atom_split(X, ',', [a,b,c]),
    X == 'a,b,c'.
 runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 4') :-
-   \+ atom_split([a,b,c], ',', 'a,d,c').
+   \+ atom_split('a,d,c', ',', [a,b,c]).
 runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 5') :-
-   atom_split([a,b,c], ',', 'a,b,c').
+   atom_split('a,b,c', ',', [a,b,c]).
 runner:case(atom_split, 3, extra_structure, 'XLOG 1.4.3, XLOG 6') :-
-   catch(atom_split(foo, ',', _), error(E,_), true),
+   catch(atom_split(_, ',', foo), error(E,_), true),
    E == type_error(list,foo).
 
 /* atom_numnber(X, Y) */
