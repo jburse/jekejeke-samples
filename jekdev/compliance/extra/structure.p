@@ -372,6 +372,64 @@ runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 6') :-
    catch(atom_number(_, _), error(E,_), true),
    E == instantiation_error.
 
+/* atom_block(X, Y) */
+runner:ref(atom_block, 2, extra_structure, 'XLOG 1.4.5').
+runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 1') :-
+   block_bytes(X, "abc"),
+   atom_block(Y, X),
+   Y == abc.
+runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 1') :-
+   atom_block(abc, X),
+   block_bytes(X, Y),
+   Y == "abc".
+runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 3') :-
+   catch(atom_block(aǿb, _), error(E,_), true),
+   E == representation_error(octet).
+runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 4') :-
+   catch(atom_block(_, foo), error(E,_), true),
+   E == type_error(ref,foo).
+runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 5') :-
+   catch(atom_block(_, _), error(E,_), true),
+   E == instantiation_error.
+
+/* term_atom(X, Y) */
+runner:ref(term_atom, 2, extra_structure, 'XLOG 1.4.6').
+runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 1') :-
+   term_atom(X, '[1,2,3]'),
+   X == [1,2,3].
+runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 2') :-
+   term_atom('1<2', X),
+   X == '''1<2'''.
+runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 3') :-
+   term_atom('$VAR'(1), X),
+   X == '''$VAR''(1)'.
+runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 4') :-
+   term_atom(X, 'foo(A+Roger,A+_)'),
+   X = foo(X1+_,X1+_).
+runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 5') :-
+   catch(term_atom(_, 123), error(E,_), true),
+   E == type_error(atom,123).
+
+/* block_bytes(X, Y) */
+runner:ref(block_bytes, 2, extra_structure, 'XLOG 1.4.7').
+runner:case(block_bytes, 2, extra_structure, 'XLOG 1.4.7, XLOG 1') :-
+   block_bytes(X, "abc"),
+   block_bytes(X, Y),
+   Y == "abc".
+runner:case(block_bytes, 2, extra_structure, 'XLOG 1.4.7, XLOG 2') :-
+   block_bytes(X, "abc\nABC"),
+   block_bytes(X, Y),
+   Y == "abc\nABC".
+runner:case(block_bytes, 2, extra_structure, 'XLOG 1.4.7, XLOG 3') :-
+   catch(block_bytes(_, "aǿb"), error(E,_), true),
+   E == representation_error(octet).
+runner:case(block_bytes, 2, extra_structure, 'XLOG 1.4.7, XLOG 4') :-
+   catch(block_bytes(_, foo), error(E,_), true),
+   E == type_error(list,foo).
+runner:case(block_bytes, 2, extra_structure, 'XLOG 1.4.7, XLOG 5') :-
+   catch(block_bytes(_, _), error(E,_), true),
+   E == instantiation_error.
+
 /****************************************************************/
 /* term.p extras                                                */
 /****************************************************************/

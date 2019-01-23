@@ -157,6 +157,15 @@ runner:case(atom_chars, 2, structure_string, 'ISO 8.16.4.4, ISO 7') :-
 runner:case(atom_chars, 2, structure_string, 'ISO 8.16.4.4, ISO 8') :-
    catch(atom_chars(_, _), error(E,_), true),
    E == instantiation_error.
+runner:case(atom_chars, 2, structure_string, 'ISO 8.16.4.4, XLOG 1') :-
+   atom_chars('a\20\b', X),
+   X == [a,'\20\',b].
+runner:case(atom_chars, 2, structure_string, 'ISO 8.16.4.4, XLOG 2') :-
+   atom_chars(X, ['\xD83D\','\xDE02\']),
+   X == 😂 .
+runner:case(atom_chars, 2, structure_string, 'ISO 8.16.4.4, XLOG 3') :-
+   atom_chars(😂, X),
+   X == [😂].
 
 /* atom_codes(X, Y) */
 
@@ -185,6 +194,15 @@ runner:case(atom_codes, 2, structure_string, 'ISO 8.16.5.4, ISO 7') :-
 runner:case(atom_codes, 2, structure_string, 'ISO 8.16.5.4, ISO 8') :-
    catch(atom_codes(_, _), error(E,_), true),
    E == instantiation_error.
+runner:case(atom_codes, 2, structure_string, 'ISO 8.16.5.4, XLOG 1') :-
+   atom_codes(X, [97,16,98]),
+   X == 'a\20\b'.
+runner:case(atom_codes, 2, structure_string, 'ISO 8.16.5.4, XLOG 2') :-
+   atom_codes(😂, X),
+   X == [0x1F602].
+runner:case(atom_codes, 2, structure_string, 'ISO 8.16.5.4, XLOG 3') :-
+   atom_codes(X, [0x1F602]),
+   X == 😂 .
 
 /* char_code(X, Y) */
 

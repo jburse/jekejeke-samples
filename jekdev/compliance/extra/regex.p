@@ -1,5 +1,5 @@
 /**
- * Prolog code for the msic text test cases.
+ * Prolog code for the extra regex test cases.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
