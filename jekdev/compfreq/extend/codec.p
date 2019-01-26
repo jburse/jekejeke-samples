@@ -45,6 +45,7 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(stream/xml)).
+:- use_module(library(system/domain)).
 
 /* text_escape(T, E) */
 
@@ -71,28 +72,123 @@ runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 7') :-
    catch(text_escape(_, _), error(E,_), true),
    E == instantiation_error.
 
+/* hex_block(T, E) */
+
+runner:ref(hex_block, 2, extend_codec, 'XLOG 6.2').
+runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 1') :-
+   block_bytes(B, "foob"),
+   hex_block(C, B),
+   C == '666F6F62'.
+runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 2') :-
+   hex_block('666F6F62', B),
+   block_bytes(B, C),
+   C = "foob".
+runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 3') :-
+   catch(hex_block(_, 123), error(E,_), true),
+   E == type_error(ref,123).
+runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 4') :-
+   catch(hex_block(_, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 5') :-
+   catch(hex_block(foo, _), error(E,_), true),
+   nonvar(E),
+   E = representation_error(_).
+runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 6') :-
+   catch(hex_block('Ff', _), error(E,_), true),
+   nonvar(E),
+   E = representation_error(_).
+
 /* base64_block(T, E) */
 
-runner:ref(base64_block, 2, extend_codec, 'XLOG 6.2').
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.2, XLOG 1') :-
+runner:ref(base64_block, 2, extend_codec, 'XLOG 6.3').
+runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 1') :-
    block_bytes(B, "foob"),
    base64_block(C, B),
    C == 'Zm9vYg=='.
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.2, XLOG 2') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 2') :-
    block_bytes(B, "The quick brown fox jumps over the lazy dog."),
    base64_block(C, B),
    C == 'VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVy\nIHRoZSBsYXp5IGRvZy4='.
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.2, XLOG 3') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 3') :-
    base64_block('Zm9vYg==', B),
    block_bytes(B, C),
    C == "foob".
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.2, XLOG 4') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 4') :-
    base64_block('VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVy\nIHRoZSBsYXp5IGRvZy4=', B),
    block_bytes(B, C),
    C == "The quick brown fox jumps over the lazy dog.".
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.2, XLOG 5') :-
-   catch(block_bytes(_, foo), error(E,_), true),
-   E == type_error(list,foo).
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.2, XLOG 6') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 5') :-
+   catch(base64_block(_, 123), error(E,_), true),
+   E == type_error(ref,123).
+runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 6') :-
    catch(base64_block(_, _), error(E,_), true),
    E == instantiation_error.
+runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 7') :-
+   catch(base64_block(foo, _), error(E,_), true),
+   nonvar(E),
+   E = representation_error(_).
+runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 8') :-
+   catch(base64_block('Z_8=', _), error(E,_), true),
+   nonvar(E),
+   E = representation_error(_).
+
+/* uri_puny(S, P) */
+
+runner:ref(uri_puny, 2, extend_codec, 'XLOG 6.4').
+runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 1') :-
+   uri_puny('http://zürich.ch/robots.txt', X),
+   X == 'http://xn--zrich-kva.ch/robots.txt'.
+runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 2') :-
+   uri_puny(X, 'http://xn--zrich-kva.ch/robots.txt'),
+   X == 'http://zürich.ch/robots.txt'.
+runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 3') :-
+   catch(uri_puny(_, 123), error(E,_), true),
+   E == type_error(atom,123).
+runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 4') :-
+   catch(uri_puny(_, _), error(E,_), true),
+   E == instantiation_error.
+
+/* sha1_hash(B, H) */
+
+runner:ref(sha1_hash, 2, extend_codec, 'XLOG 6.5').
+runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 1') :-
+   block_bytes(B, "hello world"),
+   sha1_hash(B, C),
+   hex_block(D, C),
+   D == '2AAE6C35C94FCFB415DBE95F408B9CE91EE846ED'.
+runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 2') :-
+   block_bytes(B, "GeeksForGeeks"),
+   sha1_hash(B, C),
+   hex_block(D, C),
+   D == 'ADDF120B430021C36C232C99EF8D926AEA2ACD6B'.
+runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 3') :-
+   catch(sha1_hash(123, _), error(E,_), true),
+   E == type_error(ref,123).
+runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 4') :-
+   catch(sha1_hash(_, _), error(E,_), true),
+   E == instantiation_error.
+
+/* term_atom(T, A, O) */
+
+runner:ref(term_atom, 3, extend_codec, 'XLOG 6.6').
+runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 1') :-
+   term_atom(X, '[1,2,3]', [double_quotes(string)]),
+   X == [1,2,3].
+runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 2') :-
+   term_atom('1<2', X, [double_quotes(string)]),
+   X == '''1<2'''.
+runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 3') :-
+   term_atom(X, '"foo"', [double_quotes(string)]),
+   X == '$STR'(foo).
+runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 4') :-
+   term_atom('$STR'(bar), X, [double_quotes(string)]),
+   X == '"bar"'.
+runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 5') :-
+   term_atom('$STR'('\xFFFD\'), X, [double_quotes(string)]),
+   X == '"\\uFFFD"'.
+runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 6') :-
+   term_atom(X, '"\\""', [double_quotes(string)]),
+   X == '$STR'('"').
+runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 7') :-
+   catch(term_atom(_, "abc", [double_quotes(string)]), error(E,_), true),
+   E == type_error(atom,[97,98,99]).

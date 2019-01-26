@@ -61,7 +61,9 @@ runner:case('.', 4, extend_grammar, 'WG17 DCGD 7.14.2, XLOG 3') :-
    phrase([abc], [abc,xyz], X),
    X == [xyz].
 runner:case('.', 4, extend_grammar, 'WG17 DCGD 7.14.2, XLOG 4') :-
-   phrase([3.2, {}, a(b)], X, []),
+   phrase([3.2,
+           {},
+           a(b)], X, []),
    X == [3.2,{},a(b)].
 runner:case('.', 4, extend_grammar, 'WG17 DCGD 7.14.2, XLOG 5') :-
    phrase([X], [abc,xyz], _),

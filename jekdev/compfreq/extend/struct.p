@@ -41,6 +41,14 @@
 :- use_module(library(advanced/arith)).
 :- use_module(library(basic/lists)).
 :- use_module(library(advanced/dict)).
+:- use_module(library(advanced/json)).
+:- set_prolog_flag(double_quotes, string).
+
+/**********************************************************/
+/* Tagged Structures                                      */
+/**********************************************************/
+
+/* T{} and T{M} */
 
 runner:ref(sys_struct, 2, extend_struct, 'SWI7 2.1').
 runner:case(sys_struct, 2, extend_struct, 'SWI7 2.1, XLOG 1') :-
@@ -51,6 +59,13 @@ runner:case(sys_struct, 2, extend_struct, 'SWI7 2.1, XLOG 2') :-
 runner:case(sys_struct, 2, extend_struct, 'SWI7 2.1, XLOG 3') :-
    point{y:2,x:1} = _{M},
    M == (x:1,y:2).
+runner:case(sys_struct, 2, extend_struct, 'SWI7 2.1, XLOG 4') :-
+   \+ _{} = _{x:1}.
+runner:case(sys_struct, 2, extend_struct, 'SWI7 2.1, XLOG 5') :-
+   A{} = B{},
+   A == B.
+
+/* is_dict(D) */
 
 runner:ref(is_dict, 1, extend_struct, 'SWI7 2.2').
 runner:case(is_dict, 1, extend_struct, 'SWI7 2.2, XLOG 1') :-
@@ -61,6 +76,8 @@ runner:case(is_dict, 1, extend_struct, 'SWI7 2.2, XLOG 3') :-
    is_dict(point{}).
 runner:case(is_dict, 1, extend_struct, 'SWI7 2.2, XLOG 4') :-
    \+ is_dict(123).
+
+/* is_dict(D,T) */
 
 runner:ref(is_dict, 2, extend_struct, 'SWI7 2.3').
 runner:case(is_dict, 2, extend_struct, 'SWI7 2.3, XLOG 1') :-
@@ -73,6 +90,8 @@ runner:case(is_dict, 2, extend_struct, 'SWI7 2.3, XLOG 3') :-
    T == point.
 runner:case(is_dict, 2, extend_struct, 'SWI7 2.3, XLOG 4') :-
    \+ is_dict(foo, _).
+
+/* dict_pairs(D,T,L) */
 
 runner:ref(dict_pairs, 3, extend_struct, 'SWI7 2.4').
 runner:case(dict_pairs, 3, extend_struct, 'SWI7 2.4, XLOG 1') :-
@@ -105,6 +124,8 @@ runner:case(dict_pairs, 3, extend_struct, 'SWI7 2.4, XLOG 9') :-
 runner:case(dict_pairs, 3, extend_struct, 'SWI7 2.4, XLOG 10') :-
    catch(dict_pairs(123, _, _), error(E,_), true),
    E == type_error(dict,123).
+
+/* get_dict(K,D,V) */
 
 runner:ref(get_dict, 3, extend_struct, 'SWI7 2.5').
 runner:case(get_dict, 3, extend_struct, 'SWI7 2.5, XLOG 1') :-
@@ -228,43 +249,135 @@ runner:case(select_dict, 3, extend_struct, 'SWI7 2.9, XLOG 9') :-
    T = R{u:0,z:3},
    var(R).
 
-runner:ref(put_dict, 4, extend_struct, 'SWI7 2.10').
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 1') :-
+/* put_dict(E,D,R) */
+
+runner:ref(put_dict, 3, extend_struct, 'SWI7 2.10').
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 1') :-
+   catch(put_dict(_, _, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 2') :-
+   put_dict(_{y:X}, S{x:1,y:2}, T),
+   T == S{y:X,x:1}.
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 3') :-
+   put_dict(_{z:X}, S{x:1,y:2}, T),
+   T == S{z:X,x:1,y:2}.
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 4') :-
+   put_dict(_{z:X}, point{}, T),
+   T == point{z:X}.
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 5') :-
+   \+ put_dict(_{y:X}, S{x:1,y:2}, S{z:X,x:1}).
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 6') :-
+   catch(put_dict(_, foo, _), error(E,_), true),
+   E == type_error(dict,foo).
+runner:case(put_dict, 3, extend_struct, 'SWI7 2.10, XLOG 7') :-
+   put_dict(colorpoint{u:0,x:4,z:5}, point{x:1,y:2,z:3}, T),
+   T == point{u:0,x:4,y:2,z:5}.
+
+/* put_dict(K,D,V,R) */
+
+runner:ref(put_dict, 4, extend_struct, 'SWI7 2.11').
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.11, XLOG 1') :-
    catch(put_dict(_, _, _, _), error(E,_), true),
    E == instantiation_error.
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 2') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.11, XLOG 2') :-
    put_dict(y, S{x:1,y:2}, X, T),
    T == S{y:X,x:1}.
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 3') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.11, XLOG 3') :-
    put_dict(z, S{x:1,y:2}, X, T),
    T == S{z:X,x:1,y:2}.
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 4') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.11, XLOG 4') :-
    put_dict(z, point{}, X, T),
    T == point{z:X}.
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 5') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.11, XLOG 5') :-
    \+ put_dict(y, S{x:1,y:2}, X, S{z:X,x:1}).
-runner:case(put_dict, 4, extend_struct, 'SWI7 2.10, XLOG 6') :-
+runner:case(put_dict, 4, extend_struct, 'SWI7 2.11, XLOG 6') :-
    catch(put_dict(x, foo, _, _), error(E,_), true),
    E == type_error(dict,foo).
 
-runner:ref(put_dict, 3, extend_struct, 'SWI7 2.11').
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 1') :-
-   catch(put_dict(_, _, _, _), error(E,_), true),
+/**********************************************************/
+/* JSON Objects                                           */
+/**********************************************************/
+
+/* {} and {M} */
+
+runner:ref(sys_json, 2, extend_struct, 'JSON 1.1').
+runner:case(sys_json, 2, extend_struct, 'JSON 1.1, XLOG 1') :-
+   X = {"y":2,"x":1},
+   \+ X == {"x":1,"y":2}.
+runner:case(sys_json, 2, extend_struct, 'JSON 1.1, XLOG 2') :-
+   \+ {"y":2,"x":1} == {"x":1,"y":2}.
+runner:case(sys_json, 2, extend_struct, 'JSON 1.1, XLOG 3') :-
+   {"y":2,"x":1} = {M},
+   M = ("y":2,"x":1).
+runner:case(sys_json, 2, extend_struct, 'JSON 1.1, XLOG 4') :-
+   \+ {} = {"x":1}.
+
+/* get_json(K,D,V) */
+
+runner:ref(get_json, 3, extend_struct, 'JSON 2.1').
+runner:case(get_json, 3, extend_struct, 'JSON 2.1, XLOG 1') :-
+   catch(get_json(_, _, _), error(E,_), true),
    E == instantiation_error.
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 2') :-
-   put_dict(_{y:X}, S{x:1,y:2}, T),
-   T == S{y:X,x:1}.
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 3') :-
-   put_dict(_{z:X}, S{x:1,y:2}, T),
-   T == S{z:X,x:1,y:2}.
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 4') :-
-   put_dict(_{z:X}, point{}, T),
-   T == point{z:X}.
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 5') :-
-   \+ put_dict(_{y:X}, S{x:1,y:2}, S{z:X,x:1}).
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 6') :-
-   catch(put_dict(_, foo, _), error(E,_), true),
-   E == type_error(dict,foo).
-runner:case(put_dict, 3, extend_struct, 'SWI7 2.11, XLOG 7') :-
-   put_dict(colorpoint{u:0,x:4,z:5}, point{x:1,y:2,z:3}, T),
-   T == point{u:0,x:4,y:2,z:5}.
+runner:case(get_json, 3, extend_struct, 'JSON 2.1, XLOG 2') :-
+   get_json("y", {"x":1,"y":X}, 2),
+   X == 2.
+runner:case(get_json, 3, extend_struct, 'JSON 2.1, XLOG 3') :-
+   \+ get_json("y", {"x":1,"y":2}, 3).
+runner:case(get_json, 3, extend_struct, 'JSON 2.1, XLOG 4') :-
+   \+ get_json("z", {"x":1,"y":2}, _).
+runner:case(get_json, 3, extend_struct, 'JSON 2.1, XLOG 5') :-
+   \+ get_json("z", {}, _).
+runner:case(get_json, 3, extend_struct, 'JSON 2.1, XLOG 6') :-
+   catch(get_json(_, 123, _), error(E,_), true),
+   E = type_error(json,123).
+runner:case(get_json, 3, extend_struct, 'JSON 2.1, XLOG 7') :-
+   findall(V, get_json(_, {"x":1,"y":2}, V), [_,X|_]),
+   X == 2.
+runner:case(get_json, 3, extend_struct, 'JSON 2.1, XLOG 8') :-
+   findall(K, get_json(K, {"x":1,"y":2}, _), [X,_|_]),
+   X == "x".
+
+/* put_json(E,D,R) */
+
+runner:ref(put_json, 3, extend_struct, 'JSON 2.2').
+runner:case(put_json, 3, extend_struct, 'JSON 2.2, XLOG 1') :-
+   catch(put_json(_, _, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(put_json, 3, extend_struct, 'JSON 2.2, XLOG 2') :-
+   put_json({"y":X}, {"x":1,"y":2}, T),
+   T == {"x":1,"y":X}.
+runner:case(put_json, 3, extend_struct, 'JSON 2.2, XLOG 3') :-
+   put_json({"z":X}, {"x":1,"y":2}, T),
+   T == {"x":1,"y":2,"z":X}.
+runner:case(put_json, 3, extend_struct, 'JSON 2.2, XLOG 4') :-
+   put_json({"z":X}, {}, T),
+   T == {"z":X}.
+runner:case(put_json, 3, extend_struct, 'JSON 2.2, XLOG 5') :-
+   \+ put_json({"y":X}, {"x":1,"y":2}, {"z":X,"x":1}).
+runner:case(put_json, 3, extend_struct, 'JSON 2.2, XLOG 6') :-
+   catch(put_json(_, foo, _), error(E,_), true),
+   E == type_error(json,foo).
+runner:case(put_json, 3, extend_struct, 'JSON 2.2, XLOG 7') :-
+   put_json({"u":0,"x":4,"z":5}, {"x":1,"y":2,"z":3}, T),
+   T == {"x":4,"y":2,"z":5,"u":0}.
+
+/* put_json(K,D,V,R) */
+
+runner:ref(put_json, 4, extend_struct, 'JSON 2.3').
+runner:case(put_json, 4, extend_struct, 'JSON 2.3, XLOG 1') :-
+   catch(put_json(_, _, _, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(put_json, 4, extend_struct, 'JSON 2.3, XLOG 2') :-
+   put_json("y", {"x":1,"y":2}, X, T),
+   T == {"x":1,"y":X}.
+runner:case(put_json, 4, extend_struct, 'JSON 2.3, XLOG 3') :-
+   put_json("z", {"x":1,"y":2}, X, T),
+   T == {"x":1,"y":2,"z":X}.
+runner:case(put_json, 4, extend_struct, 'JSON 2.3, XLOG 4') :-
+   put_json("z", {}, X, T),
+   T == {"z":X}.
+runner:case(put_json, 4, extend_struct, 'JSON 2.3, XLOG 5') :-
+   \+ put_json("y", {"x":1,"y":2}, X, {"z":X,"x":1}).
+runner:case(put_json, 4, extend_struct, 'JSON 2.3, XLOG 6') :-
+   catch(put_json("x", foo, _, _), error(E,_), true),
+   E = type_error(json,foo).
