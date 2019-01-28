@@ -76,13 +76,13 @@ runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 7') :-
 
 runner:ref(hex_block, 2, extend_codec, 'XLOG 6.2').
 runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 1') :-
-   block_bytes(B, "foob"),
+   atom_block(foob, B),
    hex_block(C, B),
    C == '666F6F62'.
 runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 2') :-
    hex_block('666F6F62', B),
-   block_bytes(B, C),
-   C = "foob".
+   atom_block(C, B),
+   C = foob.
 runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 3') :-
    catch(hex_block(_, 123), error(E,_), true),
    E == type_error(ref,123).
@@ -102,21 +102,21 @@ runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 6') :-
 
 runner:ref(base64_block, 2, extend_codec, 'XLOG 6.3').
 runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 1') :-
-   block_bytes(B, "foob"),
+   atom_block(foob, B),
    base64_block(C, B),
    C == 'Zm9vYg=='.
 runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 2') :-
-   block_bytes(B, "The quick brown fox jumps over the lazy dog."),
+   atom_block('The quick brown fox jumps over the lazy dog.', B),
    base64_block(C, B),
    C == 'VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVy\nIHRoZSBsYXp5IGRvZy4='.
 runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 3') :-
    base64_block('Zm9vYg==', B),
-   block_bytes(B, C),
-   C == "foob".
+   atom_block(C, B),
+   C == foob.
 runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 4') :-
    base64_block('VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVy\nIHRoZSBsYXp5IGRvZy4=', B),
-   block_bytes(B, C),
-   C == "The quick brown fox jumps over the lazy dog.".
+   atom_block(C, B),
+   C == 'The quick brown fox jumps over the lazy dog.'.
 runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 5') :-
    catch(base64_block(_, 123), error(E,_), true),
    E == type_error(ref,123).
@@ -152,12 +152,12 @@ runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 4') :-
 
 runner:ref(sha1_hash, 2, extend_codec, 'XLOG 6.5').
 runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 1') :-
-   block_bytes(B, "hello world"),
+   atom_block('hello world', B),
    sha1_hash(B, C),
    hex_block(D, C),
    D == '2AAE6C35C94FCFB415DBE95F408B9CE91EE846ED'.
 runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 2') :-
-   block_bytes(B, "GeeksForGeeks"),
+   atom_block('GeeksForGeeks', B),
    sha1_hash(B, C),
    hex_block(D, C),
    D == 'ADDF120B430021C36C232C99EF8D926AEA2ACD6B'.
