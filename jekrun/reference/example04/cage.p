@@ -37,7 +37,7 @@
 :- package(library(example04)).
 
 :- module(cage, [adults/2]).
-:- use_module('nest.p').
+:- use_module(nest).
 
 adults(0, 1) :- !.
 adults(N, X) :-
