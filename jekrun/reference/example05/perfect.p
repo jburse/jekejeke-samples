@@ -1,68 +1,57 @@
-package example08;
-
 /**
- * <p>Java code for the queue example.</p>
- * <p>The Java queue entry.</p>
- * <p/>
+ * Prolog code for the parallel search example.
+ *
+ * Perfect numbers were deemed to have important numerological
+ * properties by the ancients, and were extensively studied
+ * by the Greeks, including Euclid.
+ * http://mathworld.wolfram.com/PerfectNumber.html
+ *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
  * regarding the provided information. XLOG Technologies GmbH assumes
  * no liability that any problems might be solved with the information
  * provided by XLOG Technologies GmbH.
- * <p/>
+ *
  * Rights & License
  * All industrial property rights regarding the information - copyright
  * and patent rights in particular - are the sole property of XLOG
  * Technologies GmbH. If the company was not the originator of some
  * excerpts, XLOG Technologies GmbH has at least obtained the right to
  * reproduce, change and translate the information.
- * <p/>
+ *
  * Reproduction is restricted to the whole unaltered document. Reproduction
  * of the information is only allowed for non-commercial uses. Selling,
  * giving away or letting of the execution of the library is prohibited.
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
- * <p/>
+ *
  * Restrictions
  * Only to be distributed with programs that add significant and primary
  * functionality to the library. Not to be distributed with additional
  * software intended to replace any components of the library.
- * <p/>
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-final class QueueEntry {
-    private final Runnable runnable;
-    private final long when;
 
-    /**
-     * <p>Create the queue element.</p>
-     *
-     * @param r The runnable.
-     * @param w The time point.
-     */
-    QueueEntry(Runnable r, long w) {
-        runnable = r;
-        when = w;
-    }
+:- use_module(library(advanced/arith)).
 
-    /**
-     * <p>Retrieve the runnable.</p>
-     *
-     * @return The runnable.
-     */
-    Runnable getRunnable() {
-        return runnable;
-    }
+perfect(X) :-
+   Y is X//2,
+   findall(Z, (  between(1, Y, Z),
+                 X rem Z =:= 0), L),
+   sum_list(L, X).
 
-    /**
-     * <p>Retrieve the time point.</p>
-     *
-     * @return The time point.
-     */
-    long getWhen() {
-        return when;
-    }
+sum_list([], 0).
+sum_list([X|Y], R) :-
+   sum_list(Y, H),
+   R is X+H.
 
-}
+%%% single CPU
+% ?- time((between(1,20000,X), perfect(X), fail; true)).
+
+%%% multi CPU
+% ?- use_module(library(runtime/distributed)).
+
+% ?- time((balance((between(1,20000,X), perfect(X))), fail; true)).

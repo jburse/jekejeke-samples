@@ -24,6 +24,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -45,5 +50,4 @@ puzzle(X) :-
    assign(X, [0,1,2,3,4,5,6,7,8,9]),
    M =\= 0,
    S =\= 0,
-   1000*S+100*E+10*N+D+1000*M+100*O+10*R + E =:=
-   10000*M+1000*O+100*N+10*E + Y.
+   1000*S+100*E+10*N+D+1000*M+100*O+10*R+E =:= 10000*M+1000*O+100*N+10*E+Y.

@@ -21,6 +21,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -30,7 +35,7 @@
  */
 integers(Low, High, [Low|Rest]) :-
    Low =< High, !,
-   M is Low + 1,
+   M is Low+1,
    integers(M, High, Rest).
 integers(_, _, []).
 
@@ -48,7 +53,7 @@ remove([I|Is], P, [I|Nis]) :-
  * Detect primes and remove multiples.
  */
 sift([I|Is], High, [I|Is]) :-
-   I * I > High, !.
+   I*I > High, !.
 sift([I|Is], High, [I|Ps]) :-
    remove(Is, I, New),
    sift(New, High, Ps).
