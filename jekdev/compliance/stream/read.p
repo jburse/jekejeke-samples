@@ -3,6 +3,8 @@
  *
  * Source of test cases is the following standard:
  *   - Prolog General Core ISO/IUEC 13211-1
+ *   - Draft Techincal Corrigendum 3, WG17, Ulrich Neumerkel
+ *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/WDCor3">http://www.complang.tuwien.ac.at/ulrich/iso-prolog/WDCor3</a>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -197,4 +199,46 @@ runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 5') :-
    op(9, xfy, xfy),
    with_input_from(atom('1 xfy 2 yf.'), read_term(X, [])),
    X == xfy(1,yf(2)).
+
+/* variable_names(N) write option */
+
+runner:ref(variable_names, 1, stream_read, 'Corr 3, 7.10.4').
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 1') :-
+   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
+                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
+   R == 'foo(A+Roger,A+_)'.
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 2') :-
+   A = Roger,
+   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
+                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
+   R == 'foo(Roger+Roger,Roger+_)'.
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 3') :-
+   A = foo,
+   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
+                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
+   R == 'foo(foo+Roger,foo+_)'.
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 1') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names([_=T])])), error(E,_), true),
+   E == instantiation_error.
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 65') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['_/*.*/'=T])])), error(E,_), true),
+   E == domain_error(variable_name,'_/*.*/').
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 5') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names([x=T])])), error(E,_), true),
+   E == domain_error(variable_name,x).
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 6') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['x+y'=T])])), error(E,_), true),
+   E == domain_error(variable_name,'x+y').
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 50') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['))'=T])])), error(E,_), true),
+   E == domain_error(variable_name,'))').
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 7') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names([7=T])])), error(E,_), true),
+   E == type_error(atom,7).
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 8') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names([1+2=T])])), error(E,_), true),
+   E == type_error(atom,1+2).
+runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 9') :-
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['$VAR'(9)=T])])), error(E,_), true),
+   E == type_error(atom,'$VAR'(9)).
 

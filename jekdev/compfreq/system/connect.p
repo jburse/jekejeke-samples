@@ -38,44 +38,34 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(system/charsio)).
+:- use_module(library(system/uri)).
 
-runner:ref(variable_names, 1, system_connect, 'XLOG 1.1').
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, XLOG 1 Output') :-
-   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
-                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
-   R == 'foo(A+Roger,A+_)'.
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, XLOG 2 Output') :-
-   A = Roger,
-   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
-                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
-   R == 'foo(Roger+Roger,Roger+_)'.
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, XLOG 3 Output') :-
-   A = foo,
-   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
-                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
-   R == 'foo(foo+Roger,foo+_)'.
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 1 Error') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names([_=T])])), error(E,_), true),
+/* make_query(N, V, R, Q) */
+
+runner:ref(make_query, 4, system_connect, 'XLOG 1.1').
+runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 1') :-
+   make_query(foo, bar, '', Q),
+   Q == 'foo=bar'.
+runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 2') :-
+   make_query(V, N, R, 'foo=bar'),
+   V == foo,
+   N == bar,
+   R == ''.
+runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 3') :-
+   catch(make_query(_, _, _, _), error(E,_), true),
    E == instantiation_error.
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 65 Error') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names(['_/*.*/'=T])])), error(E,_), true),
-   E == domain_error(variable_name,'_/*.*/').
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 5 Error') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names([x=T])])), error(E,_), true),
-   E == domain_error(variable_name,x).
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 6 Error') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names(['x+y'=T])])), error(E,_), true),
-   E == domain_error(variable_name,'x+y').
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 50 Error') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names(['))'=T])])), error(E,_), true),
-   E == domain_error(variable_name,'))').
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 7 Error') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names([7=T])])), error(E,_), true),
-   E == type_error(atom,7).
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 8 Error') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names([1+2=T])])), error(E,_), true),
-   E == type_error(atom,1+2).
-runner:case(variable_names, 1, system_connect, 'XLOG 1.1, ISO 9 Error') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names(['$VAR'(9)=T])])), error(E,_), true),
-   E == type_error(atom,'$VAR'(9)).
+
+/* make_uri(S, Q, H, U) */
+
+runner:ref(make_uri, 4, system_connect, 'XLOG 1.2').
+runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 1') :-
+   make_uri('/example.org/foo', bar, '', U),
+   U == '/example.org/foo?bar'.
+runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 1') :-
+   make_uri(S, Q, H, '/example.org/foo?bar'),
+   S == '/example.org/foo',
+   Q == bar,
+   H == ''.
+runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 3') :-
+   catch(make_uri(_, _, _, _), error(E,_), true),
+   E == instantiation_error.
