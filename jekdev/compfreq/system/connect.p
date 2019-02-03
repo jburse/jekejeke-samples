@@ -52,6 +52,14 @@ runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 2') :-
    N == bar,
    R == ''.
 runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 3') :-
+   make_query(foo, bar, 'foo=baz&jack=jill', Q),
+   Q == 'foo=bar&foo=baz&jack=jill'.
+runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 4') :-
+   make_query(V, N, R, 'foo=bar&foo=baz&jack=jill'),
+   V == foo,
+   N == bar,
+   R == 'foo=baz&jack=jill'.
+runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 5') :-
    catch(make_query(_, _, _, _), error(E,_), true),
    E == instantiation_error.
 
@@ -59,13 +67,26 @@ runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 3') :-
 
 runner:ref(make_uri, 4, system_connect, 'XLOG 1.2').
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 1') :-
-   make_uri('/example.org/foo', bar, '', U),
-   U == '/example.org/foo?bar'.
+   make_uri('/example.org/foo', bar, baz, U),
+   U == '/example.org/foo?bar#baz'.
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 1') :-
-   make_uri(S, Q, H, '/example.org/foo?bar'),
+   make_uri(S, Q, H, '/example.org/foo?bar#baz'),
    S == '/example.org/foo',
    Q == bar,
-   H == ''.
+   H == baz.
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 3') :-
-   catch(make_uri(_, _, _, _), error(E,_), true),
+   catch(make_uri(_, _, foo, _), error(E,_), true),
    E == instantiation_error.
+
+/* uri_encode(U, E) */
+
+runner:ref(uri_encode, 2, system_connect, 'XLOG 1.3').
+runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 1') :-
+   uri_encode('/example.org/foo bar', X),
+   X == '/example.org/foo%20bar'.
+runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 2') :-
+   uri_encode(X, '/example.org/foo%20bar'),
+   X == '/example.org/foo bar'.
+runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 3') :-
+   catch(uri_encode(123, _), error(E,_), true),
+   E == type_error(atom,123).

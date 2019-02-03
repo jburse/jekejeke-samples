@@ -405,6 +405,10 @@ runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 4') :-
 runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 5') :-
    catch(term_atom(_, 123), error(E,_), true),
    E == type_error(atom,123).
+runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 6') :-
+   X is pi,
+   term_atom(X, Y),
+   Y == '3.141592653589793'.
 
 /****************************************************************/
 /* term.p extras                                                */
