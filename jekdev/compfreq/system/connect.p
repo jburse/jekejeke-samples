@@ -62,6 +62,14 @@ runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 4') :-
 runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 5') :-
    catch(make_query(_, _, _, _), error(E,_), true),
    E == instantiation_error.
+runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 6') :-
+   make_query(foo, baür, 'foo=ba%C3%B6z', Q),
+   Q = 'foo=baür&foo=ba%C3%B6z'.
+runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 7') :-
+   make_query(N, V, R, 'foo=ba%C3%BCr&foo=ba%C3%B6z'),
+   N == foo,
+   V == baür,
+   R == 'foo=ba%C3%B6z'.
 
 /* make_uri(S, Q, H, U) */
 
@@ -69,7 +77,7 @@ runner:ref(make_uri, 4, system_connect, 'XLOG 1.2').
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 1') :-
    make_uri('/example.org/foo', bar, baz, U),
    U == '/example.org/foo?bar#baz'.
-runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 1') :-
+runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 2') :-
    make_uri(S, Q, H, '/example.org/foo?bar#baz'),
    S == '/example.org/foo',
    Q == bar,
@@ -77,6 +85,14 @@ runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 1') :-
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 3') :-
    catch(make_uri(_, _, foo, _), error(E,_), true),
    E == instantiation_error.
+runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 4') :-
+   make_uri('/example.org/foäo', 'ba%C3%B6r', baüz, U),
+   U == '/example.org/foäo?ba%C3%B6r#baüz'.
+runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 5') :-
+   make_uri(S, Q, H, '/example.org/fo%C3%A4o?ba%C3%B6r#ba%C3%BCz'),
+   S == '/example.org/foäo',
+   Q == 'ba%C3%B6r',
+   H == baüz.
 
 /* uri_encode(U, E) */
 
@@ -90,3 +106,9 @@ runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 2') :-
 runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 3') :-
    catch(uri_encode(123, _), error(E,_), true),
    E == type_error(atom,123).
+runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 4') :-
+   uri_encode('/example.org/foäo?baör#baüz', X),
+   X == '/example.org/fo%C3%A4o?ba%C3%B6r#ba%C3%BCz'.
+runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 5') :-
+   uri_encode(X, '/example.org/fo%C3%A4o?ba%C3%B6r#ba%C3%BCz'),
+   X == '/example.org/foäo?baör#baüz'.

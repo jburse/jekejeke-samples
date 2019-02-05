@@ -192,3 +192,6 @@ runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 6') :-
 runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 7') :-
    catch(term_atom(_, "abc", [double_quotes(string)]), error(E,_), true),
    E == type_error(atom,[97,98,99]).
+runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 8') :-
+   catch(term_atom(_, '"\\u00"', [double_quotes(string)]), error(E,_), true),
+   E == syntax_error(illegal_escape).
