@@ -46,6 +46,7 @@
 
 :- use_module(library(stream/xml)).
 :- use_module(library(system/domain)).
+:- use_module(library(system/shell)).
 
 /* text_escape(T, E) */
 
@@ -195,3 +196,27 @@ runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 7') :-
 runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 8') :-
    catch(term_atom(_, '"\\u00"', [double_quotes(string)]), error(E,_), true),
    E == syntax_error(illegal_escape).
+
+/* date_atom(L, F, D, A) */
+
+runner:ref(date_atom, 3, extend_codec, 'XLOG 6.7').
+runner:case(date_atom, 3, extend_codec, 'XLOG 6.7, XLOG 1') :-
+   get_time(1549463357000, 'Europe/Berlin', D),
+   date_atom(de_CH, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, R),
+   R == 'Mi, 06 Feb 2019 15:29:17 MEZ'.
+runner:case(date_atom, 3, extend_codec, 'XLOG 6.7, XLOG 2') :-
+   get_time(1549463357000, 'GMT', D),
+   date_atom(en_GB, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, R),
+   R == 'Wed, 06 Feb 2019 14:29:17 GMT'.
+runner:case(date_atom, 3, extend_codec, 'XLOG 6.7, XLOG 3') :-
+   date_atom(de_CH, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, 'Mi, 06 Feb 2019 15:29:17 MEZ'),
+   get_time(T, D),
+   T == 1549463357000.
+runner:case(date_atom, 3, extend_codec, 'XLOG 6.7, XLOG 4') :-
+   date_atom(en_GB, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, 'Wed, 06 Feb 2019 14:29:17 GMT'),
+   get_time(T, D),
+   T == 1549463357000.
+runner:case(date_atom, 3, extend_codec, 'XLOG 6.7, XLOG 5') :-
+   catch(date_atom('EEE, dd MMM yyyy HH:mm:ss zzz', _, _), error(E,_), true),
+   nonvar(E),
+   E = representation_error(_).
