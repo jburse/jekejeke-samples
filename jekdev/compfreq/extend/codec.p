@@ -201,12 +201,12 @@ runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 8') :-
 
 runner:ref(date_atom, 4, extend_codec, 'XLOG 6.7').
 runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 1') :-
-   get_time(1549463357000, 'Europe/Berlin', D),
+   get_time(de_CH, 1549463357000, 'Europe/Berlin', D),
    date_atom(de_CH, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, R),
    R == 'Mi, 06 Feb 2019 15:29:17 MEZ'.
 runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 2') :-
-   get_time(1549463357000, 'GMT', D),
-   date_atom(en_GB, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, R),
+   get_time(en_GB, 1549463357000, 'GMT', D),
+   date_atom(en_GB, 'EEE, dd MMM yyyy HH:mm:ss ''GMT''', D, R),
    R == 'Wed, 06 Feb 2019 14:29:17 GMT'.
 runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 3') :-
    date_atom(de_CH, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, 'Mi, 06 Feb 2019 15:29:17 MEZ'),
@@ -220,6 +220,14 @@ runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 5') :-
    catch(date_atom('EEE, dd MMM yyyy HH:mm:ss zzz', _, _), error(E,_), true),
    nonvar(E),
    E = representation_error(_).
+runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 6') :-
+   get_time(ja_JP_JP, 1549556043201, 'JST', D),
+   date_atom(en_GB, 'GGGG y-MM-dd zzz', D, R),
+   R == 'Heisei 31-02-08 JST'.
+runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 7') :-
+   get_time(ja_JP_JP, -1357544756799, 'JST', D),
+   date_atom(ja_JP_JP, 'GGGG y-MM-dd zzz', D, R),
+   R == '昭和 1-12-26 JST'.
 
 /* rfc1123_atom(T, A) */
 
