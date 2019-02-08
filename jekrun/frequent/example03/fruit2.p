@@ -21,6 +21,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -50,5 +55,5 @@ fruits([X|Y]) -->
 % L = [apple, orange, apple]
 
 % ?- phrase(fruits([apple, orange]),X), atom_codes(A,X).
-% A = 'apple,orange',
-% X = [97, 112, 112, 108, 101, 44, 111, 114, 97, 110, 103, 101]
+% X = [97, 112, 112, 108, 101, 44, 111, 114, 97, 110, 103, 101],
+% A = 'apple,orange'
