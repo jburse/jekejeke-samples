@@ -56,7 +56,7 @@ dispatch_hello(Request, Session) :-
    http_parameter(Request, name, Name), !,
    catch(handle_hello(Name, Session), _, true).
 dispatch_hello(_, Session) :-
-   catch(handle_error(415, Session), _, true).
+   dispatch_error(415, Session).
 
 % handle_hello(+Atom, +Socket)
 :- private handle_hello/2.
@@ -69,7 +69,7 @@ handle_hello(Name, Session) :-
 % send_hello(+Atom, +Socket)
 :- private send_hello/2.
 send_hello(Name, Response) :-
-   response_text([], Response),
+   response_text(200, ['Content-Type'-'text/html; charset=UTF-8'], Response),
    atom_split(Title, ' ', ['Hello',Name]),
    html_begin(Response, Title),
    write(Response, '  <center><img src="piglet.gif">\r\n'),
@@ -97,3 +97,7 @@ html_begin(Response, Title) :-
 html_end(Response) :-
    write(Response, '   </body>\r\n'),
    write(Response, '</html>\r\n').
+
+% ?- run_http(example04/hello, 8085), write('.'), flush_output, fail; true.
+
+% Point browser to: http://localhost:8085/example04/hello.jsp?name=Fritz
