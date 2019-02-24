@@ -112,3 +112,29 @@ runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 4') :-
 runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 5') :-
    uri_encode(X, '/example.org/fo%C3%A4o?ba%C3%B6r#ba%C3%BCz'),
    X == '/example.org/foäo?baör#baüz'.
+
+/* make_link(S, P, H, U) */
+
+runner:ref(make_link, 4, system_connect, 'XLOG 1.4').
+runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 1') :-
+   make_link(S, P, H, '/example.org/foo?jack=jill&jack=jeff#bar'),
+   S == '/example.org/foo',
+   P == [jack-jill,jack-jeff],
+   H == bar.
+runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 2') :-
+   make_link('/example.org/foo', [jack-jill,jack-jeff], bar, U),
+   U == '/example.org/foo?jack=jill&jack=jeff#bar'.
+runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 3') :-
+   make_link(S, P, H, 'foo?bar=%2520'),
+   S == foo,
+   P == [bar-'%20'],
+   H == ''.
+runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 4') :-
+   make_link(foo, [bar-'%20'], '', X),
+   X == 'foo?bar=%2520'.
+runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 5') :-
+   catch(make_link(_, _, _, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 6') :-
+   catch(make_link(_, 123, _, _), error(E,_), true),
+   E == type_error(list,123).
