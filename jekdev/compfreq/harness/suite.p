@@ -1,5 +1,5 @@
 /**
- * Prolog code for the t.b.d. test cases.
+ * Prolog code for the compliance assessment suite.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,13 +30,14 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_package(library(jekdev/reference/testing)).
+:- ensure_loaded('../system/connect').
+:- ensure_loaded('../system/load').
+:- ensure_loaded('../system/notation').
+:- ensure_loaded('../system/proxy').
+:- ensure_loaded('../system/quali').
 
-:- multifile runner:ref/4.
-:- discontiguous runner:ref/4.
-
-:- multifile runner:case/4.
-:- discontiguous runner:case/4.
-
-runner:ref(tbd, 0, extend_struct, 't.b.d.').
-runner:case(tbd, 0, extend_struct, 't.b.d., t.b.d.') :- true.
+:- ensure_loaded('../extend/grammar').
+:- ensure_loaded('../extend/hiord').
+:- ensure_loaded('../extend/invoke').
+:- ensure_loaded('../extend/struct').
+:- ensure_loaded('../extend/codec').
