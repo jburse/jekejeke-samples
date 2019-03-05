@@ -38,5 +38,50 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-runner:ref(tbd, 0, extend_invoke, 't.b.d.').
-runner:case(tbd, 0, extend_invoke, 't.b.d., t.b.d.') :- true.
+:- use_module(library(advanced/arith)).
+:- use_module(library(advanced/sequence)).
+
+/* limit(N, G) */
+
+runner:ref(limit, 2, extend_invoke, 'XLOG 4.1').
+runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 1') :-
+   findall(X, limit(3, between(5, 10, X)), L),
+   L == [5,6,7].
+runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 2') :-
+   findall(X, limit(3, between(5, 6, X)), L),
+   L == [5,6].
+runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 3') :-
+   \+ limit(0, repeat).
+runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 4') :-
+   catch(limit(_, _), error(E,_), true),
+   E == instantiation_error.
+
+/* offset(N, G) */
+
+runner:ref(offset, 2, extend_invoke, 'XLOG 4.2').
+runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 1') :-
+   findall(X, offset(3, between(5, 10, X)), L),
+   L == [8,9,10].
+runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 2') :-
+   \+ offset(3, between(5, 6, _)).
+runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 3') :-
+   findall(X, limit(5, offset(3, between(1, 10, X))), L),
+   L == [4,5,6,7,8].
+runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 4') :-
+   catch(offset(_, _), error(E,_), true),
+   E == instantiation_error.
+
+/* call_nth(G, N) */
+
+runner:ref(call_nth, 2, extend_invoke, 'XLOG 4.3').
+runner:case(call_nth, 2, extend_invoke, 'XLOG 4.3, XLOG 1') :-
+   findall(N, call_nth(between(5, 10, _), N), L),
+   L == [1,2,3,4,5,6].
+runner:case(call_nth, 2, extend_invoke, 'XLOG 4.3, XLOG 2') :-
+   call_nth(between(5, 10, X), 3),
+   X == 7.
+runner:case(call_nth, 2, extend_invoke, 'XLOG 4.3, XLOG 3') :-
+   \+ call_nth(repeat, 0).
+runner:case(call_nth, 2, extend_invoke, 'XLOG 4.3, XLOG 4') :-
+   catch(call_nth(_, _), error(E,_), true),
+   E == instantiation_error.
