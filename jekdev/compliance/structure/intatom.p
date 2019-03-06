@@ -208,13 +208,13 @@ runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 2') :-
    Z = h(X),
    \+ acyclic_term(Z).
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 3') :-
-   X = [a,b,c|Y],
-   Y = [d,e,f|Z],
+   X = [a,b,Y|c],
+   Y = [d,e,Z|f],
    Z = [g,h,i],
    acyclic_term(X).
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 4') :-
-   X = [a,b,c|Y],
-   Y = [d,e,f|Z],
-   Z = [g,h,i|X],
+   X = [a,b,Y|c],
+   Y = [d,e,Z|f],
+   Z = [g,h,X|i],
    \+ acyclic_term(X).
 

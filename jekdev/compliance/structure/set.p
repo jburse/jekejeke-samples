@@ -1,10 +1,12 @@
 /**
  * Prolog code for the structure set theory test cases.
  *
- * Source of test cases are the following standards:
+ * Source of test cases are the following standards and proposals:
  *   - Prolog General Core ISO/IUEC 13211-1
  *   - Draft Technical Corrigendum 2, WG17, Ulrich Neumerkel
  *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2">www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2</a>
+ *   - New built-in flags, predicates, and functions proposal
+ *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/N208">www.complang.tuwien.ac.at/ulrich/iso-prolog/N208</a>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -402,20 +404,27 @@ runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 24') :-
 
 /* forall(G, T) */
 
-p(a).
-p(b).
-q(a).
-q(b).
-q(c).
+alpha(1).
+alpha(2).
+alpha(3).
+beta(1, a).
+beta(2, b).
+beta(3, c).
 
 runner:ref(forall, 2, structure_set, 'N208 8.10.4').
 runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 1') :-
-   catch(forall(_, q(_)), error(E,_), true),
-   E == instantiation_error.
+   forall(fail, true).
 runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 2') :-
-   catch(forall(p(_), 1), error(E,_), true),
-   E == type_error(callable,1).
+   forall(alpha(X), beta(X, _)).
 runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 3') :-
-   forall(p(X), q(X)).
+   \+ forall(alpha(X), beta(_, X)).
 runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 4') :-
-   \+ forall(q(X), p(X)).
+   Y = foo(A,B,C),
+   forall(between(1, 3, X), arg(X, Y, X)),
+   Y == foo(A,B,C).
+runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 5') :-
+   catch(forall(_, beta(_, _)), error(E,_), true),
+   E == instantiation_error.
+runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 6') :-
+   catch(forall(alpha(_), 1), error(E,_), true),
+   E == type_error(callable,1).

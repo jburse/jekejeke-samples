@@ -39,7 +39,7 @@
 :- discontiguous runner:case/4.
 
 :- ensure_loaded('../harness/data').
-:- use_module(library(experiment/surrogate)).
+:- use_module(library(misc/residue)).
 
 /****************************************************************/
 /* compare.p extras                                             */
@@ -73,7 +73,7 @@ runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 8') :-
 /* derived from callable/1 test cases. */
 runner:ref(reference, 1, extra_structure, 'XLOG 1.2.1').
 runner:case(reference, 1, extra_structure, 'XLOG 1.2.1, XLOG 1') :-
-   sys_new_surrogate(R),
+   surrogate_new(R),
    reference(R).
 runner:case(reference, 1, extra_structure, 'XLOG 1.2.1, XLOG 2') :-
    \+ reference(3).
@@ -409,6 +409,9 @@ runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 6') :-
    X is pi,
    term_atom(X, Y),
    Y == '3.141592653589793'.
+runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.6, XLOG 7') :-
+   catch(term_atom(_, '''\\z'''), error(E,_), true),
+   E == syntax_error(illegal_escape).
 
 /****************************************************************/
 /* term.p extras                                                */

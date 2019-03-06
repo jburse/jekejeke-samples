@@ -1,10 +1,12 @@
 /**
  * Prolog code for the arithmetic compare theory test cases.
  *
- * Source of test cases are the following standards:
+ * Source of test cases are the following standards and proposals:
  *   - Prolog General Core ISO/IUEC 13211-1
  *   - Draft Technical Corrigendum 2, WG17, Ulrich Neumerkel
  *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2">www.complang.tuwien.ac.at/ulrich/iso-prolog/dtc2</a>
+ *   - New built-in flags, predicates, and functions proposal
+ *     <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/N208">www.complang.tuwien.ac.at/ulrich/iso-prolog/N208</a>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
