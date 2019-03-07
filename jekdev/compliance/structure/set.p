@@ -48,6 +48,8 @@
 :- use_module(library(basic/lists)).
 :- ensure_loaded('../harness/data').
 
+:- use_module(library(advanced/arith)).
+
 /****************************************************************/
 /* Set Predicates                                               */
 /****************************************************************/
@@ -108,16 +110,14 @@ runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 5') :-
    L == R.
 runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 6') :-
    catch(keysort(_, _), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   E == instantiation_error.
 runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 7') :-
    catch(keysort([77-x|35], _), error(E,_), true),
    nonvar(E),
    E = type_error(list,_).
 runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 8') :-
    catch(keysort([77], _), error(E,_), true),
-   nonvar(E),
-   E = type_error(pair,77).
+   E == type_error(pair,77).
 runner:case(keysort, 2, structure_set, 'Corr.2 8.4.4.4, XLOG 9') :-
    keysort([a-1,'A'-2,a-3,'B'-4,b-5,'B'-6], L),
    L == ['A'-2,'B'-4,'B'-6,a-1,a-3,b-5].
@@ -216,12 +216,45 @@ runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 12b') :-
    L == [1,2,2].
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 13') :-
    catch(bagof(_, _^_, _), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   E == instantiation_error.
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 14') :-
    catch(bagof(_, 1, _), error(E,_), true),
-   nonvar(E),
-   E = type_error(callable,1).
+   E == type_error(callable,1).
+
+runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 1a') :-
+   findall(Y-S, bagof(X, (  (  Y = 1
+                            ;  Y = 2
+                            ;  Y = 1),
+                            between(1, 3, X)), S), [R|_]),
+   R == 1-[1,2,3,1,2,3].
+runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 1b') :-
+   findall(Y-S, bagof(X, (  (  Y = 1
+                            ;  Y = 2
+                            ;  Y = 1),
+                            between(1, 3, X)), S), [_,R|_]),
+   R == 2-[1,2,3].
+runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 1c') :-
+   findall(Y-S, bagof(X, (  (  Y = 1
+                            ;  Y = 2
+                            ;  Y = 1),
+                            between(1, 3, X)), S), [_,_]).
+runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 2a') :-
+   findall((Y-S,A-B), bagof(X, (  (  Y = A
+                                  ;  Y = B
+                                  ;  Y = A),
+                                  between(1, 3, X)), S), [(R,A-B)|_]),
+   R == A-[1,2,3,1,2,3].
+runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 2b') :-
+   findall((Y-S,A-B), bagof(X, (  (  Y = A
+                                  ;  Y = B
+                                  ;  Y = A),
+                                  between(1, 3, X)), S), [_,(R,A-B)|_]),
+   R == B-[1,2,3].
+runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 2c') :-
+   findall((Y-S,A-B), bagof(X, (  (  Y = A
+                                  ;  Y = B
+                                  ;  Y = A),
+                                  between(1, 3, X)), S), [_,_]).
 
 /* sort(L, R) */
 
@@ -247,8 +280,7 @@ runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 4') :-
    ;  R == [B,A]).
 runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 5') :-
    catch(sort(_, _), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   E == instantiation_error.
 runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 6') :-
    catch(sort([77|35], _), error(E,_), true),
    nonvar(E),
