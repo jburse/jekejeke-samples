@@ -64,21 +64,21 @@ runner:case(aggregate_all, 3, extend_struct, 'XLOG 5.1, XLOG 5') :-
 
 runner:ref(aggregate, 3, extend_struct, 'XLOG 5.2').
 runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 1a') :-
-   findall(Y-S, aggregate(sum(X), (  (  Y = 1
-                                     ;  Y = 2
-                                     ;  Y = 1),
+   findall(Y-S, aggregate(sum(X), (  (  Y = 2
+                                     ;  Y = 1
+                                     ;  Y = 2),
                                      between(1, 3, X)), S), [R|_]),
-   R == 1-12.
+   R == 1-6.
 runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 1b') :-
-   findall(Y-S, aggregate(sum(X), (  (  Y = 1
-                                     ;  Y = 2
-                                     ;  Y = 1),
+   findall(Y-S, aggregate(sum(X), (  (  Y = 2
+                                     ;  Y = 1
+                                     ;  Y = 2),
                                      between(1, 3, X)), S), [_,R|_]),
-   R == 2-6.
+   R == 2-12.
 runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 1c') :-
-   findall(Y-S, aggregate(sum(X), (  (  Y = 1
-                                     ;  Y = 2
-                                     ;  Y = 1),
+   findall(Y-S, aggregate(sum(X), (  (  Y = 2
+                                     ;  Y = 1
+                                     ;  Y = 2),
                                      between(1, 3, X)), S), [_,_]).
 runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 2a') :-
    findall((Y-S,A-B), aggregate((sum(X),max(X)), (  (  Y = A
@@ -107,4 +107,53 @@ runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 4') :-
 runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 5') :-
    catch(aggregate(sum(_), (  (  Y = 1
                               ;  Y = 2), 1), _), error(E,_), true),
+   E == type_error(callable,1).
+
+/* sys_collect(A, G, S): */
+
+runner:ref(sys_collect, 3, extend_struct, 'XLOG 5.3').
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 1a') :-
+   findall(Y-S, sys_collect(sum(X), (  (  Y = 2
+                                       ;  Y = 1
+                                       ;  Y = 2),
+                                       between(1, 3, X)), S), [R|_]),
+   R == 2-12.
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 1b') :-
+   findall(Y-S, sys_collect(sum(X), (  (  Y = 2
+                                       ;  Y = 1
+                                       ;  Y = 2),
+                                       between(1, 3, X)), S), [_,R|_]),
+   R == 1-6.
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 1c') :-
+   findall(Y-S, sys_collect(sum(X), (  (  Y = 2
+                                       ;  Y = 1
+                                       ;  Y = 2),
+                                       between(1, 3, X)), S), [_,_]).
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 2a') :-
+   findall((Y-S,A-B), sys_collect((sum(X),max(X)), (  (  Y = A
+                                                      ;  Y = B
+                                                      ;  Y = A),
+                                                      between(1, 3, X)), S), [(R,A-B)|_]),
+   R == A-(12,3).
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 2b') :-
+   findall((Y-S,A-B), sys_collect((sum(X),max(X)), (  (  Y = A
+                                                      ;  Y = B
+                                                      ;  Y = A),
+                                                      between(1, 3, X)), S), [_,(R,A-B)|_]),
+   R == B-(6,3).
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 2c') :-
+   findall((Y-S,A-B), sys_collect((sum(X),max(X)), (  (  Y = A
+                                                      ;  Y = B
+                                                      ;  Y = A),
+                                                      between(1, 3, X)), S), [_,_]).
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 3') :-
+   \+ sys_collect(sum(1), fail, _).
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 4') :-
+   catch(sys_collect(_, (  (  Y = 1
+                           ;  Y = 2),
+                           between(1, 10, _)), _), error(E,_), true),
+   E == instantiation_error.
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 5') :-
+   catch(sys_collect(sum(_), (  (  Y = 1
+                                ;  Y = 2), 1), _), error(E,_), true),
    E == type_error(callable,1).
