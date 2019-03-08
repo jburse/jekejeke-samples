@@ -38,8 +38,8 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(advanced/dict)).
-:- use_module(library(advanced/func)).
+:- use_module(library(notebook/dict)).
+:- use_module(library(notebook/func)).
 
 /**********************************************************/
 /* Tagged Structures                                      */
