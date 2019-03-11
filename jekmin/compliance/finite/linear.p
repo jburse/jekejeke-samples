@@ -267,7 +267,7 @@ runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 1') 
    call_residue((  X in 3..6,
                    Y in 4..8,
                    Z #= X*Y), L),
-   L == [Y in 4..8,Z in 12..48,X in 3..6,Z#=X*Y].
+   L == [Z in 12..48,X in 3..6,Y in 4..8,Z#=X*Y].
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 2') :-
    call_residue((  Z #= X*Y,
                    X in 3..6,
@@ -282,11 +282,11 @@ runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 4') 
    call_residue((  X in 3..6,
                    Z in 12..48,
                    X*Y #= Z), L),
-   L == [Z in 12..48,X in 3..6,Y in 2..16,X*Y#=Z].
+   L == [Y in 2..16,X in 3..6,Z in 12..48,X*Y#=Z].
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 5') :-
    call_residue((  X*Y #= 100,
                    X in 1..20), L),
-   L == [X in 1..20,Y in 5..100,100#=X*Y].
+   L == [Y in 5..100,X in 1..20,100#=X*Y].
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 6') :-
    call_residue((  X in 1..20,
                    X*Y #= 100), L),
@@ -298,7 +298,7 @@ runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 7') 
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 8') :-
    call_residue((  X in 5..10,
                    Y #= X*X), L),
-   L == [X in 5..10,Y in 25..100,Y#=X*X].
+   L == [Y in 25..100,X in 5..10,Y#=X*X].
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 9') :-
    call_residue((  X*X #= Y,
                    Y in 20..80), L),
@@ -306,7 +306,7 @@ runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 9') 
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 10') :-
    call_residue((  Y in 20..80,
                    X*X #= Y), L),
-   L == [Y in 20..80,X in-8..8,X*X#=Y].
+   L == [X in-8..8,Y in 20..80,X*X#=Y].
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 11') :-
    X*Y #= X,
    X in 10..20,

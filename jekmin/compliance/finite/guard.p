@@ -165,7 +165,7 @@ runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 7'
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 8') :-
    call_residue((  X in 10..20 #<==> B,
                    X in 5..15), L),
-   L == [X in 5..15,X in 10..15#\/B#=0,B in 0..1,X in 5..9#\/B#=1].
+   L == [X in 5..15,X in 10..15#\/B#=0,X in 5..9#\/B#=1,B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 9') :-
    call_residue((  X in 5..15,
                    X in 10..20 #<==> B), L),
@@ -229,11 +229,11 @@ runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 5') :-
    call_residue((  X+Y #=< 20 #<==> B,
                    X+Y in 20..25), L),
-   L == [X+Y in 20..25,B in 0..1,X+Y in 21..25#\/B#=1].
+   L == [X+Y in 20..25,X+Y in 21..25#\/B#=1,B in 0..1].
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 6') :-
    call_residue((  X+Y in 0..10 #<==> B,
                    X+Y in 5..15), L),
-   L == [X+Y in 5..15,X+Y in 5..10#\/B#=0,B in 0..1,X+Y in 11..15#\/B#=1].
+   L == [X+Y in 5..15,X+Y in 5..10#\/B#=0,X+Y in 11..15#\/B#=1,B in 0..1].
 /* Lot & Pit */
 runner:case('sys_set sys_reify_set', 9, finite_guard, 'CLP(FD) 0.8.4, 5.6, XLOG 7') :-
    call_residue((  X+Y+Z in 10..20 #<==> B,

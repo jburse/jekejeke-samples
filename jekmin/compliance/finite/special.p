@@ -130,7 +130,7 @@ runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 2') 
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 3') :-
    call_residue((  X in 10..20,
                    Y #= abs(X)), L),
-   L == [X in 10..20,Y in 10..20,Y#=abs(X)].
+   L == [Y in 10..20,X in 10..20,Y#=abs(X)].
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 4') :-
    call_residue((  Y #= abs(X),
                    X in -20.. -10), L),
@@ -141,7 +141,7 @@ runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 5') 
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 6') :-
    call_residue((  X #> 5,
                    Y #= abs(X)), L),
-   L == [X#>5,Y#>5,Y#=abs(X)].
+   L == [Y#>5,X#>5,Y#=abs(X)].
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 7') :-
    call_residue((  abs(X) #= Y,
                    Y #> 5), L),
@@ -242,7 +242,7 @@ runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 2') 
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 3') :-
    call_residue((  X in 10..20,
                    Y #= X*X), L),
-   L == [X in 10..20,Y in 100..400,Y#=X*X].
+   L == [Y in 100..400,X in 10..20,Y#=X*X].
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 4') :-
    call_residue((  Y #= X*X,
                    X in -20.. -10), L),
@@ -253,7 +253,7 @@ runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 5') 
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 6') :-
    call_residue((  X #> 5,
                    Y #= X*X), L),
-   L == [X#>5,Y#>35,Y#=X*X].
+   L == [Y#>35,X#>5,Y#=X*X].
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 7') :-
    call_residue((  X*X #= Y,
                    Y #> 5), L),
