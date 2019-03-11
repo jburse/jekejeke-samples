@@ -81,6 +81,12 @@ runner:ref(neq, 2, term_delay, 'Term 1.0.0, 1.2').
 runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, XLOG 1') :-
    call_residue(neq(f(X,X), f(Y,Z)), L),
    L == [neq((X,Y),(Y,Z))].
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, XLOG 2') :-
+   neq(f, f(_,_)).
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, XLOG 3') :-
+   neq(f(X,Y), g(X,Y)).
+runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, XLOG 4') :-
+   \+ neq(f(X,Y), f(X,Y)).
 runner:case(neq, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 2') :-
    neq(1, X),
    \+ X = 1.

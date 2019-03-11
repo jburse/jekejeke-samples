@@ -56,6 +56,11 @@ run_test :-
    write('% running test cases.'), nl,
    time(runner_batch).
 
+% run_test_debug
+run_test_debug :-
+   write('% running test cases.'), nl,
+   time(runner_batch_debug).
+
 % run_diagnose
 run_diagnose :- diagnose_online.
 
@@ -95,6 +100,13 @@ tracker:text(library(term/state)).
 run_tracker :-
    write('% collecting coverage data.'), nl,
    time(tracker_batch),
+   write('% aggregating coverage data.'), nl,
+   time(analyze_batch).
+
+% run_tracker_debug
+run_tracker_debug :-
+   write('% collecting coverage data.'), nl,
+   time(tracker_batch_debug),
    write('% aggregating coverage data.'), nl,
    time(analyze_batch).
 
