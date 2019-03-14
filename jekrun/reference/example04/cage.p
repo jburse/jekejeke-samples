@@ -1,5 +1,6 @@
 /**
  * Prolog code for the module mutual recursion example.
+ * Modules cage in a file.
  *
  * Growth of an idealized rabbit population, according
  * to Liber Abaci from 1202 by Leonardo of Pisa, known
@@ -36,7 +37,7 @@
 
 :- package(library(example04)).
 
-:- module(cage, [adults/2]).
+:- module(cage, [year/1]).
 :- use_module(nest).
 
 adults(0, 1) :- !.
@@ -46,3 +47,9 @@ adults(N, X) :-
    adults(M, Y),
    babies(M, Z),
    X is Y+Z.
+
+year(X) :-
+   adults(12, X).
+
+% ?- year(X).
+% X = 233

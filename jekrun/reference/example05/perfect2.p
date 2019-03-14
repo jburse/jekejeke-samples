@@ -36,28 +36,23 @@
  */
 
 :- use_module(library(advanced/arith)).
+:- use_module(library(advanced/aggregate)).
 
-perfect(X) :-
+perfect2(X) :-
    Y is X//2,
-   findall(Z, (  between(1, Y, Z),
-                 X rem Z =:= 0), L),
-   sum_list(L, 0, X).
-
-sum_list([], S, S).
-sum_list([X|Y], H, S) :-
-   J is H+X,
-   sum_list(Y, J, S).
+   aggregate_all(sum(Z), (  between(1, Y, Z),
+                            X rem Z =:= 0), X).
 
 %%% single CPU
 % ?- use_module(library(advanced/arith)).
 
-% ?- time((between(1,20000,X), perfect(X), fail; true)).
+% ?- time((between(1,20000,X), perfect2(X), fail; true)).
 % % Up 10,940 ms, GC 74 ms, Thread Cpu 10,859 ms (Current 03/05/19 02:40:06)
 % Yes
 
 %%% multi CPU
 % ?- use_module(library(runtime/distributed)).
 
-% ?- time((balance((between(1,20000,X), perfect(X))), fail; true)).
+% ?- time((balance((between(1,20000,X), perfect2(X))), fail; true)).
 % % Up 6,372 ms, GC 47 ms, Thread Cpu 0 ms (Current 03/04/19 22:35:07)
 % Yes

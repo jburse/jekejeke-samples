@@ -1,10 +1,10 @@
 /**
- * Prolog code for the parallel search example.
+ * Prolog code for the module mutual recursion example.
+ * Local modules cage2 and nest2 in a module file both.
  *
- * Perfect numbers were deemed to have important numerological
- * properties by the ancients, and were extensively studied
- * by the Greeks, including Euclid.
- * http://mathworld.wolfram.com/PerfectNumber.html
+ * Growth of an idealized rabbit population, according
+ * to Liber Abaci from 1202 by Leonardo of Pisa, known
+ * as Fibonacci.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -35,29 +35,31 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(advanced/arith)).
+:- package(library(example04)).
 
-perfect(X) :-
-   Y is X//2,
-   findall(Z, (  between(1, Y, Z),
-                 X rem Z =:= 0), L),
-   sum_list(L, 0, X).
+:- module(both, [year2/1]).
 
-sum_list([], S, S).
-sum_list([X|Y], H, S) :-
-   J is H+X,
-   sum_list(Y, J, S).
+:- begin_module(cage2).
 
-%%% single CPU
-% ?- use_module(library(advanced/arith)).
+adults(0, 1) :- !.
+adults(N, X) :-
+   N > 0,
+   M is N-1,
+   adults(M, Y),
+   both/nest2:babies(M, Z),
+   X is Y+Z.
 
-% ?- time((between(1,20000,X), perfect(X), fail; true)).
-% % Up 10,940 ms, GC 74 ms, Thread Cpu 10,859 ms (Current 03/05/19 02:40:06)
-% Yes
+:- end_module.
 
-%%% multi CPU
-% ?- use_module(library(runtime/distributed)).
+:- begin_module(nest2).
 
-% ?- time((balance((between(1,20000,X), perfect(X))), fail; true)).
-% % Up 6,372 ms, GC 47 ms, Thread Cpu 0 ms (Current 03/04/19 22:35:07)
-% Yes
+babies(0, 0) :- !.
+babies(N, X) :-
+   N > 0,
+   M is N-1,
+   both/cage2:adults(M, X).
+
+:- end_module.
+
+year2(X) :-
+   both/cage2:adults(12, X).
