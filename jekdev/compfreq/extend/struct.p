@@ -100,11 +100,14 @@ runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 2c') :-
 runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 3') :-
    \+ aggregate(sum(1), fail, _).
 runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 4') :-
+   aggregate(mul(X), between(1, 10, X), S),
+   S == 3628800.
+runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 5') :-
    catch(aggregate(_, (  (  Y = 1
                          ;  Y = 2),
                          between(1, 10, _)), _), error(E,_), true),
    E == instantiation_error.
-runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 5') :-
+runner:case(aggregate, 3, extend_struct, 'XLOG 5.2, XLOG 6') :-
    catch(aggregate(sum(_), (  (  Y = 1
                               ;  Y = 2), 1), _), error(E,_), true),
    E == type_error(callable,1).
@@ -149,11 +152,14 @@ runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 2c') :-
 runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 3') :-
    \+ sys_collect(sum(1), fail, _).
 runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 4') :-
+   sys_collect(mul(X), between(1, 10, X), S),
+   S == 3628800.
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 5') :-
    catch(sys_collect(_, (  (  Y = 1
                            ;  Y = 2),
                            between(1, 10, _)), _), error(E,_), true),
    E == instantiation_error.
-runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 5') :-
+runner:case(sys_collect, 3, extend_struct, 'XLOG 5.3, XLOG 6') :-
    catch(sys_collect(sum(_), (  (  Y = 1
                                 ;  Y = 2), 1), _), error(E,_), true),
    E == type_error(callable,1).
