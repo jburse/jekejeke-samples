@@ -48,6 +48,18 @@ The following samples have already been uploaded:
 - [jekmin/benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/benchmark):
   Benchmark CLP(FD) Performance.
 
+# Prolog Packages
+
+The following Prolog packages in SWI format have already been uploaded:
+- [pack/games](https://github.com/jburse/jekejeke-samples/tree/master/pack/games):
+  Various game packages.
+- [pack/language](https://github.com/jburse/jekejeke-samples/tree/master/pack/language):
+  Various language packages.
+- [pack/utility](https://github.com/jburse/jekejeke-samples/tree/master/pack/utility):
+  Various utility packages.
+- [pack/develop](https://github.com/jburse/jekejeke-samples/tree/master/pack/develop):
+  Various development packages.
+
 # Issues and Contributing
 
 Feel free to fork for non-commercial attributed use. There
@@ -55,5 +67,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 24.02.2018 (Updated 28.08.2018)
+Jan Burse, 24.02.2018 (Updated 04.05.2019)
 
