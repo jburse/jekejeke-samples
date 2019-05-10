@@ -1,5 +1,5 @@
 /**
- * Lexical and semantical language data in Prolog.
+ * Icon for Simple text based dungeon game in Prolog.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -29,7 +29,4 @@
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-:- module(wordnet, [wordnet/0]).
-
-wordnet :-
-   write('hello world!'), nl.
+icon('images/wumpus.png').

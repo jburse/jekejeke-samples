@@ -1,5 +1,5 @@
 /**
- * Lexical and semantical language data in Prolog.
+ * Read line utility based on ISO core standard.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -29,7 +29,37 @@
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-:- module(wordnet, [wordnet/0]).
 
-wordnet :-
-   write('hello world!'), nl.
+:- module(console, [read_line/1]).
+
+/**
+ * read_line(X):
+ * read_line(S, X):
+ * The predicate suceeds in X with a line, not including the end of
+ * line characters, or fails if we are at end of file. The binary
+ * arity predicate allows specifying an input stream.
+ */
+% read_line(-Atom)
+read_line(X) :-
+   current_input(S),
+   read_line(S, X).
+
+% read_line(+Stream, -Atom)
+read_line(S, X) :-
+   get_code(S, C),
+   read_line(S, C, L),
+   atom_codes(X, L).
+
+% read_line(+Stream, +Code, -List)
+read_line(_, -1, _) :- !, fail.
+read_line(_, 0'\n, []) :- !.
+read_line(S, C, [C|L]) :-
+   get_code(S, D),
+   read_line2(S, D, L).
+
+% read_line2(+Stream, +Code, -List)
+read_line2(_, -1, []) :- !.
+read_line2(_, 0'\n, []) :- !.
+read_line2(S, C, [C|L]) :-
+   get_code(S, D),
+   read_line2(S, D, L).

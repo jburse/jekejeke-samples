@@ -1,5 +1,5 @@
 /**
- * Lexical and semantical language data in Prolog.
+ * Simple text based dungeon game in Prolog.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -29,7 +29,25 @@
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-:- module(wordnet, [wordnet/0]).
 
-wordnet :-
-   write('hello world!'), nl.
+/**
+ * Obtained rights, copyright notice of BASIC version found
+ * in The Best of Creative Computing Volume 1 (published 1976)
+ * https://www.atariarchives.org/bcc1/showpage.php?page=247
+ * and that we translated to Prolog.
+ *
+ * 0010  REM- HUNT THE WUMPUS
+ * 0015  REM:  BY GREGORY YOB
+ *
+ * Game must have been create before, we assume 1972 since
+ * the German Wikipedia mentions this date. The Englis Wikipedia
+ * refers probably to a TI-99/4A version from 1973.
+ */
+name(wumpus).
+
+title('Hunt The Wumpus').
+version('1.0.0').
+
+home('http://www.jekejeke.ch/').
+author('(c) 2019, XLOG Technologies GmbH, Switzerland', 'info@xlog.ch').
+author('(c) 1972, Gregory Yob, United States', 'unknown@unknown').

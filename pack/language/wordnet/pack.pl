@@ -29,7 +29,11 @@
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-:- module(wordnet, [wordnet/0]).
+name(wordnet).
 
-wordnet :-
-   write('hello world!'), nl.
+title('WordNet Database').
+version('1.0.0').
+
+home('http://www.jekejeke.ch/').
+author('(c) 2019, XLOG Technologies GmbH, Switzerland', 'info@xlog.ch').
+author('(c) 1985-2019, Princeton University, United States', 'fellbaum@cs.princeton.edu').
