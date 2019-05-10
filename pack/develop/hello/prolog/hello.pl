@@ -30,7 +30,7 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- module(hello, [main/0]).
+:- module(hello, [hello/0]).
 
-main :-
-	writeln('hello world!').
+hello :-
+   write('Hello World!'), nl.
