@@ -32,7 +32,7 @@
 
 /**
  * Obtained rights, copyright notice found in
- * https://github.com/mndrix/roman/archive/v0.1.0.zip from 2015-07-10:
+ * http://github.com/mndrix/roman/archive/v0.1.0.zip from 2015-07-10:
  * This is free and unencumbered software released into the public domain.
  *
  * Anyone is free to copy, modify, publish, use, compile, sell, or
@@ -56,7 +56,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * For more information, please refer to <http://unlicense.org/>
+ * For more information, please refer to http://unlicense.org/
  */
 name(roman).
 
