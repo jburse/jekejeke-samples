@@ -61,8 +61,12 @@
 
 :- module(roman, [roman/2]).
 
-:- use_module(library(standard/dcg)).
-:- use_module(library(finite/clpfd)).
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(standard/dcg)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(finite/clpfd)); true.
+:- current_prolog_flag(dialect, swi)
+-> use_module(library(clpfd)); true.
 
 % roman(+-Integer, -+List)
 roman(Arabic, Roman) :-
