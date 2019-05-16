@@ -104,5 +104,6 @@ digit(1) --> "I".
 % X = [88,73,86],
 % Y = 'XIV'
 
-% ?- roman(X, "XIV").
-% X = 14
+% ?- atom_codes('XIV', Y), roman(X, Y).
+% Y = [88, 73, 86],
+% X = 14.
