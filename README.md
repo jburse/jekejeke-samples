@@ -4,45 +4,27 @@ This repostory contains Prolog text samples for Jekejeke
 Prolog. Here and then you might see other artefacts
 such as Java code, SQL code, XML documents, etc...
 
-The samples are organized along the main components of
-Jekejeke Prolog. We thus find samples for the Runtime Library,
-the Development Enviroment, the Minlog Extension and Prolog Packages.
+The samples are organized along the main components of Jekejeke
+Prolog. We thus find samples for the Runtime Library, the Development
+Enviroment, the Minlog Extension and Prolog Packages.
 
 # Runtime Library Samples
 
 The following samples have already been uploaded:
-- [jekrun/reference](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/reference):
-  Tutorial for the Language Reference.
-- [jekrun/interface](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/interface):
-  Tutorial for the Programming Interface.
-- [jekrun/frequent](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/frequent):
-  Tutorial for the Frequent Predicates.
-- [jekrun/benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark):
-  Benchmark ISO Performance.
-- [jekrun/benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist):
-  Benchmark Module "distributed".
-- [jekrun/deployandroid](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployandroid):
-  Android Deployment Method Example.
-- [jekrun/deployment](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployment):
-  Deployment Methods Examples.
+- [jekrun](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/):
+  Samples for the Runtime Library.
 
 # Development Environment Samples
 
 The following samples have already been uploaded:
-- [jekdev](https://github.com/jburse/jekejeke-samples/tree/master/jekdev):
+- [jekdev](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/):
   Samples for the Development Environment.
 
 # Minlog Extension Samples
 
 The following samples have already been uploaded:
-- [jekmin/reference](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/reference):
-  Tutorial for the Language Reference.
-- [jekmin/compliance](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/compliance):
-  CLP(FD) Test Cases.
-- [jekmin/compfreq](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/compfreq):
-  Multiprecision and Symbolic Test Cases.
-- [jekmin/benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/benchmark):
-  Benchmark CLP(FD) Performance.
+- [jekmin](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/):
+  Samples for the Minlog Extension.
 
 # Prolog Packages
 
@@ -57,5 +39,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 24.02.2018 (Updated 04.05.2019)
+Jan Burse, 24.02.2018 (Updated 18.05.2019)
 
