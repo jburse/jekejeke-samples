@@ -46,10 +46,7 @@ The following samples have already been uploaded:
 
 # Prolog Packages
 
-This directory contains our currated Prolog packages. The packages here are dual
-packages, means they work for both Jekejeke Prolog and SWI-Prolog.
-As dual packages they have also an icon associated.
-
+This directory contains our currated Prolog packages:
 - [pack](https://github.com/jburse/jekejeke-samples/tree/master/pack/):
   Various Prolog packages Volume Nr. 1.
 
