@@ -1,6 +1,6 @@
 # What is this?
 
-This repostory contains the Prolog texts for our currated
+This repostory contains the Prolog texts for our curated
 Prolog packages Volume Nr. 1. Here and then you might see
 other artefacts such as BASIC code, artwork images, etc...
 
