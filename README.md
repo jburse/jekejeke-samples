@@ -6,7 +6,7 @@ such as Java code, SQL code, XML documents, etc...
 
 The samples are organized along the main components of
 Jekejeke Prolog. We thus find samples for the Runtime Library,
-the Development Enviroment and the Minlog Extension.
+the Development Enviroment, the Minlog Extension and Prolog Packages.
 
 # Runtime Library Samples
 
@@ -50,15 +50,12 @@ The following samples have already been uploaded:
 
 # Prolog Packages
 
-The following Prolog packages in SWI format have already been uploaded:
-- [pack/games](https://github.com/jburse/jekejeke-samples/tree/master/pack/games):
-  Various game packages.
-- [pack/language](https://github.com/jburse/jekejeke-samples/tree/master/pack/language):
-  Various language packages.
-- [pack/utility](https://github.com/jburse/jekejeke-samples/tree/master/pack/utility):
-  Various utility packages.
-- [pack/develop](https://github.com/jburse/jekejeke-samples/tree/master/pack/develop):
-  Various development packages.
+This directory contains our currated Prolog packages. The packages here are dual
+packages, means they work for both Jekejeke Prolog and SWI-Prolog.
+As dual packages they have also an icon associated.
+
+- [pack](https://github.com/jburse/jekejeke-samples/tree/master/pack/games):
+  Various Prolog packages Volume Nr. 1.
 
 # Issues and Contributing
 
