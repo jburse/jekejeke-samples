@@ -47,9 +47,13 @@
 :- module(wumpus, [wumpus/0]).
 
 :- use_module(console).
-:- use_module(library(advanced/arith)).
-:- use_module(library(basic/lists)).
-:- use_module(library(basic/random)).
+
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(advanced/arith)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(basic/lists)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(basic/random)); true.
 
 % wumpus
 wumpus :- preamble,
