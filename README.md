@@ -29,12 +29,8 @@ The following samples have already been uploaded:
 # Development Environment Samples
 
 The following samples have already been uploaded:
-- [jekdev/reference](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/reference):
-  Tutorial for the Language Reference.
-- [jekdev/compliance](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/compliance):
-  ISO core compliance test suite.
-- [jekdev/compfreq](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/compfreq):
-  Module system test suite.
+- [jekdev](https://github.com/jburse/jekejeke-samples/tree/master/jekdev):
+  Samples for the Development Environment.
 
 # Minlog Extension Samples
 
@@ -54,7 +50,7 @@ This directory contains our currated Prolog packages. The packages here are dual
 packages, means they work for both Jekejeke Prolog and SWI-Prolog.
 As dual packages they have also an icon associated.
 
-- [pack](https://github.com/jburse/jekejeke-samples/tree/master/pack/games):
+- [pack](https://github.com/jburse/jekejeke-samples/tree/master/pack/):
   Various Prolog packages Volume Nr. 1.
 
 # Issues and Contributing

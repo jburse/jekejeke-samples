@@ -5,7 +5,7 @@ Prolog packages Volume Nr. 1. Here and then you might see
 other artefacts such as BASIC code, artwork images, etc...
 
 The Prolog texts are organized along various categories.
-We thus find Prolog texts for games, language processing,
+We thus find Prolog packages for games, language processing,
 utilities and development tools.
 
 # Various game packages
