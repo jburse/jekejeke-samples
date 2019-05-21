@@ -31,7 +31,7 @@
  */
 
 /**
- * Obtained rights, copyright notice found in
+ * Obtained rights, copyright notice found in ZIP by Michael Hendricks
  * http://github.com/mndrix/roman/archive/v0.1.0.zip from 2015-07-10:
  * This is free and unencumbered software released into the public domain.
  *
