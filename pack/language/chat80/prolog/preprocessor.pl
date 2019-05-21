@@ -68,19 +68,22 @@ user:term_expansion((:- if(C)), unit) :- !,
    ;  C
    -> sys_push_stack(on)
    ;  sys_push_stack(off)).
-user:term_expansion((:- elif(C)), unit) :- !, sys_pop_stack,
+user:term_expansion((:- elif(C)), unit) :- !,
+   (  sys_peek_stack
+   -> D = off
+   ;  D = on), sys_pop_stack,
    (  sys_peek_stack
    -> sys_push_stack(off)
-   ;  C
+   ;  D = off, C
    -> sys_push_stack(on)
    ;  sys_push_stack(off)).
 user:term_expansion((:- else), unit) :- !,
    (  sys_peek_stack
-   -> C = off
-   ;  C = on), sys_pop_stack,
+   -> D = off
+   ;  D = on), sys_pop_stack,
    (  sys_peek_stack
    -> sys_push_stack(off)
-   ;  C = off
+   ;  D = off
    -> sys_push_stack(on)
    ;  sys_push_stack(off)).
 user:term_expansion((:- endif), unit) :- !, sys_pop_stack.
