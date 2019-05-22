@@ -168,7 +168,7 @@ quantificate(W-V, N, P0, P) :- !,
    quantificate(W, N1, P0, P1).
 quantificate(0, _, P, P) :- !.
 quantificate(V, N, P0, '$VAR'(Nr)^P) :-
-   Vr is V/\ -V,                                  % rightmost bit
+   Vr is V/\ -(V),                                % rightmost bit
    log2(Vr, I),
    Nr is N+I,
    N1 is Nr+1,
@@ -405,15 +405,15 @@ setplus(V1, V2, V) :-
    V is V1\/V2.
 
 setminus(W1-V1, W2-V2, S) :- !,
-   V is V1/\ \V2,
+   V is V1/\ \(V2),
    setminus(W1, W2, W),
    mkset(W, V, S).
 setminus(W-V1, V2, W-V) :- !,
-   V is V1/\ \V2.
+   V is V1/\ \(V2).
 setminus(V1, _-V2, V) :- !,
-   V is V1/\ \V2.
+   V is V1/\ \(V2).
 setminus(V1, V2, V) :-
-   V is V1/\ \V2.
+   V is V1/\ \(V2).
 
 mkset(0, V, V) :- !.
 mkset(W, V, W-V).

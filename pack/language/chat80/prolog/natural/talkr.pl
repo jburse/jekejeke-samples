@@ -114,7 +114,7 @@ header([X|H]) :-
    header(H).
 
 decomp(setof(X,P,S), [S,=,setof,X], P).
-decomp(\+P, [\+], P) :-
+decomp(\+(P), [\+], P) :-
    complex(P).
 decomp(numberof(X,P,N), [N,=,numberof,X], P).
 decomp(X^P, [exists,X|XX], P1) :-

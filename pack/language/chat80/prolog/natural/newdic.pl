@@ -97,7 +97,7 @@
 % General Dictionary
 
 word(Word) :-
-   ~ Word.
+   ~(Word).
 word(Word) :-
    conj(Word).
 word(Word) :-
@@ -141,14 +141,14 @@ word(Word) :-
 ~ whose.
 ~ there.
 ~ of.
-~ ''''.
-~ ','.
+~('''').
+~(',').
 ~ s.
 ~ than.
 ~ at.
 ~ the.
 ~ not.
-~ as.
+~(as).
 ~ that.
 ~ less.
 ~ more.

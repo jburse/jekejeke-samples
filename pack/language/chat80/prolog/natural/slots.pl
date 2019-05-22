@@ -187,9 +187,9 @@ i_adj(sup(Op0,adj(Adj)), Type-X, Type-V, _,
 
 i_s(s(Subj,Verb,VArgs,VMods), Pred, Up, Id) :-
    i_verb(Verb, P, Tense, Voice, Neg, Slots0, XA0, Meta),
-   i_subj(Voice, Subj, Slots0, Slots1, QSubj, SUp, - -Id),
+   i_subj(Voice, Subj, Slots0, Slots1, QSubj, SUp, -(-Id)),
    append(SUp, VArgs, TArgs),
-   i_verb_args(TArgs, XA0, XA, Slots1, Slots, Args0, Args, Up0, + -Id),
+   i_verb_args(TArgs, XA0, XA, Slots1, Slots, Args0, Args, Up0, +(-Id)),
    append(Up0, VMods, Mods),
    i_verb_mods(Mods, Tense, XA, Slots, Args, Up, +Id),
    reshape_pred(Meta, QSubj, Neg, P, Args0, Pred).
@@ -336,10 +336,10 @@ noun_template(Noun, TypeV, V, apply(F,P),
 
 verb_template(have, Y=Z,
    [slot(subj,TypeS,S,-Id,free),slot(dir,TypeV,Y,_,free),slot(prep(of),TypeV,Z,_,free)],
-   held_arg(poss,- - +Id,TypeS-S), have).
+   held_arg(poss,-(-(+Id)),TypeS-S), have).
 verb_template(have, Y=Z,
-   [slot(subj,TypeS,S,- -Id,free),slot(dir,TypeV,Y,_,free),slot(prep(as),TypeV,Z,_,free)],
-   held_arg(poss,- - - +Id,TypeS-S), have).
+   [slot(subj,TypeS,S,-(-(Id)),free),slot(dir,TypeV,Y,_,free),slot(prep(as),TypeV,Z,_,free)],
+   held_arg(poss,-(-(-(+Id))),TypeS-S), have).
 verb_template(Verb, Pred,
    [slot(subj,TypeS,S,_,free)|Slots], [], transparent) :-
    verb_type(Verb, _+Kind),
