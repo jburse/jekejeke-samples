@@ -58,6 +58,9 @@
 :- use_module(natural/slots).
 :- use_module(natural/newg).
 :- use_module(natural/scopes).
+:- use_module(natural/ptree).
+:- use_module(natural/qplan).
+:- use_module(natural/talkr).
 
 /* Read a sentence */
 
@@ -151,4 +154,3 @@ lc(K, K) :-
 
 to_nl :- repeat,
    get0(10), !.
-

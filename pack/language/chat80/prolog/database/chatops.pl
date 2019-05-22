@@ -51,5 +51,26 @@
 
 :- endif.
 
-:- module(chatops, [op(900,xfx,~=),op(900,xfx,=+),op(900,xfx,=:),op(400,xfy,&),op(300,fx,~),op(200,xfx,--),op(359,xf,ject)]).
+:- module(chatops, [op(900,xfx,~=),op(900,xfx,=:),op(400,xfy,&),op(300,fx,~),op(200,xfx,--),op(359,xf,ject),~= /2,=: /2]).
+
+% :- mode ~=(+,+), =+(+,-), =:(+,?).
+
+:- thread_local sys_variable/2.
+
+Var ~= Val :-
+   retract(sys_variable(Var, _)), !,
+   assertz(sys_variable(Var, Val)).
+Var ~= Val :-
+   assertz(sys_variable(Var, Val)).
+
+% Var =+ Val :-
+%    retract(sys_variable(Var, Val0)), !,
+%    Val is Val0+1,
+%    assertz(sys_variable(Var, Val)).
+% Var =+ Val,
+%    Val is 1,
+%    assertz(sys_variable(Var, Val)).
+
+Var =: Val :-
+   sys_variable(Var, Val).
 

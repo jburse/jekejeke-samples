@@ -33,6 +33,8 @@
 :- module(edinburgh, []).
 
 :- use_module(library(misc/text)).
+:- use_module(library(advanced/arith)).
+:- use_module(library(basic/lists)).
 
 /**
  * get0(X):
@@ -66,6 +68,28 @@ skip_blank(X, Y) :-
 skip_blank(_, Y) :-
    get_code(X),
    skip_blank(X, Y).
+
+/**
+ * tab(N):
+ * Put N space character codes to the current output.
+ */
+% tab(+Integer)
+:- public tab/1.
+tab(N) :-
+   between(1, N, _),
+   put(" "), fail.
+tab(_).
+
+/**
+ * put(L):
+ * Put the character codes from the list L to the current output.
+ */
+% put(+List)
+:- public put/1.
+put(L) :-
+   member(C, L),
+   put_code(C), fail.
+put(_).
 
 /**
  * name(T, L):

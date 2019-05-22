@@ -1,5 +1,5 @@
 /**
- * Prolog text templa from Chat80 as a module.
+ * Prolog text slots from Chat80 as a module.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
