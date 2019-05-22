@@ -1,5 +1,5 @@
 /**
- * Prolog text aggreg from Chat80 as a module.
+ * Prolog text ndtabl from Chat80 as a module.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -33,7 +33,7 @@
 /**
  * Obtained rights comment in Prolog text and text from LICENSE file:
  *
- * @(#)chatops.pl	24.1 2/23/88
+ * @(#)ndtabl.pl	24.1 2/23/88
  *
  * Copyright 1986, Fernando C.N. Pereira and David H.D. Warren,
  *
@@ -51,5 +51,57 @@
 
 :- endif.
 
-:- module(chatops, [op(900,xfx,~=),op(900,xfx,=+),op(900,xfx,=:),op(400,xfy,&),op(300,fx,~),op(200,xfx,--),op(359,xf,ject)]).
+:- module(ndtabl, [nd/3,nd/4,nd/5]).
+
+:- discontiguous nd/3.
+:- discontiguous nd/4.
+:- discontiguous nd/5.
+
+% :-mode
+%    nd(+,-,-),
+%    nd(+,-,-,-),
+%    nd(+,-,-,-,-).
+
+nd(african, 19, 26).
+nd(american, 19, 26).
+nd(area, 51, 51).
+nd(area, 22, 22, 51).
+nd(asian, 21, 26).
+nd(aggregate, 103, 3, 100, 51).
+nd(one_of, 99, 200, -99).
+nd(ratio, 99, 51, 51, 3).
+nd(card, 99, 100, 3).
+nd(borders, 29, 22, 22).
+nd(capital, 22, 22).
+nd(capital, 22, 22, 23).
+nd(city, 18, 18).
+nd(continent, 8, 8).
+nd(country, 22, 22).
+nd(drains, 16, 16, 10).
+nd(eastof, 40, 22, 22).
+nd(european, 19, 26).
+nd(exceeds, 99, 51, 51).
+nd(flows, 19, 16, 22).
+nd(flows, 19, 16, 22, 22).
+nd(in, 29, 26, 15).
+nd(latitude, 23, 23).
+nd(latitude, 22, 22, 23).
+nd(longitude, 26, 26).
+nd(longitude, 22, 22, 26).
+nd(northof, 40, 22, 22).
+nd(ocean, 7, 7).
+nd(population, 51, 51).
+nd(population, 23, 23, 51).
+nd(region, 12, 12).
+nd(rises, 16, 16, 22).
+nd(river, 16, 16).
+nd(sea, 8, 8).
+nd(place, 23, 23).
+nd(seamass, 10, 10).
+nd(southof, 40, 22, 22).
+nd(westof, 40, 22, 22).
+nd(=<, 99, 51, 51).
+nd(<, 99, 51, 51).
+nd(>, 99, 51, 51).
+nd(>=, 99, 51, 51).
 

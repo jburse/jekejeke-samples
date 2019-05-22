@@ -1,5 +1,5 @@
 /**
- * Prolog text aggreg from Chat80 as a module.
+ * Prolog text xgrun from Chat80 as a module.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -33,7 +33,7 @@
 /**
  * Obtained rights comment in Prolog text and text from LICENSE file:
  *
- * @(#)chatops.pl	24.1 2/23/88
+ * @(#)xgrun.pl	24.1 2/23/88
  *
  * Copyright 1986, Fernando C.N. Pereira and David H.D. Warren,
  *
@@ -47,9 +47,21 @@
 
 :- if(current_prolog_flag(dialect,jekejeke)).
 
-:- package(library(database)).
+:- package(library(natural)).
 
 :- endif.
 
-:- module(chatops, [op(900,xfx,~=),op(900,xfx,=+),op(900,xfx,=:),op(400,xfy,&),op(300,fx,~),op(200,xfx,--),op(359,xf,ject)]).
+:- module(xgrun, [terminal/5,gap/1,(virtual)/3]).
 
+% :- mode terminal(?,+,?,+,?),
+%         gap(+),
+%         virtual(+,+,?).
+
+terminal(T, S, S, x(_,terminal,T,X), X).
+terminal(T, [T|S], S, X, X) :-
+   gap(X).
+
+gap(x(gap,_,_,_)).
+gap([]).
+
+virtual(NT, x(_,nonterminal,NT,X), X).
