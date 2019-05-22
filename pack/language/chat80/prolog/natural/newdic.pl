@@ -51,7 +51,7 @@
 
 :- endif.
 
-:- module(newdic, [word/1,conj/1,int_pron/2,int_art/4,det/4,number/3,quantifier_pron/3,prep/1,noun_form/3,verb_form/4,verb_type/2,rel_pron/2,poss_pron/4,pers_pron/5,terminator/2,name/1,loc_pred/2,adj/2,rel_adj/2,sup_adj/2,adverb/1,(~)/1]).
+:- module(newdic, [word/1,conj/1,int_pron/2,int_art/4,det/4,number/3,quantifier_pron/3,prep/1,noun_form/3,verb_form/4,verb_type/2,rel_pron/2,poss_pron/4,pers_pron/5,terminator/2,name/1,loc_pred/2,adj/2,rel_adj/2,sup_adj/2,adverb/1,(~)/1,check_words/2]).
 :- use_module('../database/chatops').
 :- use_module(templa).
 
@@ -461,3 +461,20 @@ verb_type(flow, main+intrans).
 adverb(yesterday).
 adverb(tomorrow).
 
+% :- mode check_words(+,-).
+% :- mode check_word(+,-).
+
+check_words([], []).
+check_words([Word|Words], [RevWord|RevWords]) :-
+   check_word(Word, RevWord),
+   check_words(Words, RevWords).
+
+check_word(Word, Word) :-
+   word(Word), !.
+check_word(Word, NewWord) :-
+   write('? '),
+   write(Word),
+   write(' -> (!. to abort) '), flush_output,
+   read(NewWord0),
+   NewWord0 \== !,
+   check_word(NewWord0, NewWord).

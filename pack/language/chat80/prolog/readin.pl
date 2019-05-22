@@ -50,17 +50,7 @@
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(edinburgh)); true.
 :- current_prolog_flag(dialect, jekejeke)
--> use_module(library(preprocessor)); true.
-:- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(standard/dcg)); true.
-:- use_module(database/world0).
-:- use_module(database/ndtabl).
-:- use_module(natural/slots).
-:- use_module(natural/newg).
-:- use_module(natural/scopes).
-:- use_module(natural/ptree).
-:- use_module(natural/qplan).
-:- use_module(natural/talkr).
 
 /* Read a sentence */
 
