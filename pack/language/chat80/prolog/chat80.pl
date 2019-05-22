@@ -32,6 +32,7 @@
 
 /**
  * Obtained rights comment in Prolog text and text from LICENSE file:
+ * https://www.kaggle.com/nltkdata/chat-80/home
  *
  * Copyright 1986, Fernando C.N. Pereira and David H.D. Warren,
  *

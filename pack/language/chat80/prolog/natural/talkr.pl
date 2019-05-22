@@ -52,10 +52,13 @@
 :- endif.
 
 :- module(talkr, [write_tree/1,answer/1,satisfy/4]).
+
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(edinburgh)); true.
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(standard/dcg)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(basic/lists)); true.
 :- use_module('../database/chatops').
 :- use_module('../database/world0').
 
