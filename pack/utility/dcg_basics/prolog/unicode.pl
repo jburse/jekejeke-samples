@@ -81,8 +81,8 @@ sys_code_type(digit(Y), X) :-
    code_digit(X, 10, Y).
 sys_code_type(xdigit(Y), X) :-
    code_digit(X, 16, Y).
-sys_code_type(T, X) :-
-   sys_class(X, T).
+sys_code_type(digit, X) :-
+   sys_class(X, digit).
 
 % sys_type_code(+Spec, -Integer)
 :- private sys_type_code/2.
@@ -107,8 +107,8 @@ sys_type_code(xdigit(Y), X) :- !,
    0 =< Y,
    Y =< 15,
    sys_digit_code(Y, X).
-sys_type_code(T, X) :-
-   sys_class(X, T).
+sys_type_code(digit, X) :-
+   sys_class(X, digit).
 
 % sys_digit_code(+Integer, -Integer)
 :- private sys_digit_code/2.

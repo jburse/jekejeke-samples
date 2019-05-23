@@ -66,7 +66,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-:- module(dcg_basics, [whites/2,white/2,blanks/2,blank/2,nonblanks/3,nonblank/3,digits/3,digit/3,integer/3,number/3,xdigits/3,xdigit/3,xinteger/3]).
+:- module(dcg_basics, [whites/2,white/2,blanks/2,blank/2,nonblanks/3,nonblank/3,digits/3,digit/3,integer/3,number/3,xdigits/3,xdigit/3,xinteger/3,string_without/4]).
 
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(unicode); true.
@@ -74,6 +74,8 @@
 ;  use_module(conversion).
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(standard/dcg)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(basic/lists)); true.
 
 /**********************************************************/
 /* White, Blank and Nonblank                              */
@@ -182,7 +184,7 @@ exponent([0'e|L], R) --> "E", !,
 exponent(L, L) --> [].
 
 /**********************************************************/
-/* Hex Integer                                            */
+/* Hex and String                                         */
 /**********************************************************/
 
 % xdigits(-List, +List, -List)
@@ -219,3 +221,15 @@ xint_codes([D0|D], L) --> "+", !,
 xint_codes([D0|D], L) -->
    xdigit(D0),
    xdigits(D, L).
+
+% string_without(+List, -List, +list, -List)
+string_without(Not, L) -->
+   string_without(Not, L, []).
+string_without(Not, [H|T], L) -->
+   char_without(Not, H), !,
+   string_without(Not, T, L).
+string_without(_, L, L) --> [].
+
+char_without(Not, C) -->
+   [C],
+   {\+ member(C, Not)}.
