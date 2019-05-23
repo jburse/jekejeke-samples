@@ -17,6 +17,8 @@ The following Prolog packages in dual format have already been uploaded:
 # Various language processing packages
 
 The following Prolog packages in dual format have already been uploaded:
+- [language/chat80](https://github.com/jburse/jekejeke-samples/tree/master/pack/language/):
+  Chat80 System.
 - [language/roman](https://github.com/jburse/jekejeke-samples/tree/master/pack/language/):
   Roman Numerals.
 - [language/wordnet](https://github.com/jburse/jekejeke-samples/tree/master/pack/wordnet/):
@@ -25,8 +27,6 @@ The following Prolog packages in dual format have already been uploaded:
 # Various utility packages
 
 The following Prolog packages in dual format have already been uploaded:
-- [utility/error](https://github.com/jburse/jekejeke-samples/tree/master/pack/utility/error):
-  Error Generation.
 - [utility/dcg_basics](https://github.com/jburse/jekejeke-samples/tree/master/pack/utility/dcg_basics):
   Basic DCG Utilities.
 
@@ -43,5 +43,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 18.05.2019
+Jan Burse, 18.05.2019 (Updated 23.05.2019)
 
