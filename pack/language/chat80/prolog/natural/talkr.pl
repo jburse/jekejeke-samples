@@ -51,7 +51,7 @@
 
 :- endif.
 
-:- module(talkr, [write_tree/1,answer/1,satisfy/4]).
+:- module(talkr, [write_tree/1,answer/1,satisfy/4,answer/2,check_answer/3]).
 
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(edinburgh)); true.
@@ -250,3 +250,14 @@ pick([_|S], X) :- !,
 pick([], _) :- !, fail.
 pick(X, X).
 
+% Version of answer/1 which returns answer
+
+answer((answer([]):-E), [B]) :- !,
+   holds(E, B).
+answer((answer([X]):-E), S) :- !,
+   seto(X, E, S).
+answer((answer(X):-E), S) :-
+   seto(X, E, S).
+
+check_answer(A, A, true) :- !.
+check_answer(_, _, 'wrong answer').

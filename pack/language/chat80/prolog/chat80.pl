@@ -50,6 +50,8 @@
 -> use_module(library(edinburgh)); true.
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(preprocessor)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(advanced/arith)); true.
 :- use_module(readin).
 :- use_module(database/chatops).
 :- use_module(database/world0).
@@ -134,51 +136,36 @@ control([do,mini,demo,'.']) :- !,
 control([do,main,demo,'.']) :- !,
    write('Executing main demo...'), nl,
    demo(main), fail.
-% control([test,chat,'.']) :- !,
-%    test_chat, fail.
+control([test,chat,'.']) :- !, test_chat, fail.
 control(U0) :-
    check_words(U0, U),
    process(U), fail.
 
 process(U) :-
-   uptime(TParse1),
-   sentence(E, U, [], [], []),
-   uptime(TParse2),
-   TParse is TParse2-TParse1,
-   report(E, 'Parse', TParse, tree),
+   sentence(E, U, [], [], []), !,
+   report(E, 'Parse', tree),
 
-   uptime(TSemantics1),
    i_sentence(E, QT),
    clausify(QT, UE),
-   simplify(UE, S),
-   uptime(TSemantics2),
-   TSemantics is TSemantics2-TSemantics1,
-   report(S, 'Semantics', TSemantics, expr),
+   simplify(UE, S), !,
+   report(S, 'Semantics', expr),
 
-   uptime(TPlanning1),
    qplan(S, S1), !,
-   uptime(TPlanning2),
-   TPlanning is TPlanning2-TPlanning1,
-   report(S1, 'Planning', TPlanning, expr),
+   report(S1, 'Planning', expr),
 
-   uptime(TReply1),
    answer(S1), !, nl,
-   uptime(TReply2),
-   TReply is TReply2-TReply1,
-   report(_, 'Reply', TReply, none).
+   report(_, 'Reply', none).
 process(_) :- failure.
 
 failure :-
    write('I don''t understand!'), nl.
 
-report(Item, Label, Time, Mode) :-
-   tracing =: on, !, nl,
+report(Item, Label, Mode) :-
+   tracing =: on, !,
    write(Label),
-   write(': '),
-   write(Time),
-   write('msec.'), nl,
+   write(': '), nl,
    report_item(Mode, Item).
-report(_, _, _, _).
+report(_, _, _).
 
 report_item(none, _).
 report_item(expr, Item) :-
@@ -187,18 +174,6 @@ report_item(tree, Item) :-
    print_tree(Item), nl.
 % report_item(quant,Item) :-
 %    pp_quant(Item,2), nl.
-
-:- if(current_prolog_flag(dialect,jekejeke)).
-
-uptime(X) :-
-   statistics(uptime, X).
-
-:- else.
-
-uptime(T) :-
-   statistics(walltime, [T|_]).
-
-:- endif.
 
 /* ----------------------------------------------------------------------
 	Simple questions
@@ -340,3 +315,67 @@ inform1([H|T]) :-
    out(H),
    put(" "),
    inform1(T).
+
+/* ----------------------------------------------------------------------
+	Top level processing for verification and performance analysis
+   ---------------------------------------------------------------------- */
+
+test_chat :-
+   process(1, Time1),
+   show_result('Parse', 0, Time1),
+   process(2, Time2),
+   show_result('Semantics', Time1, Time2),
+   process(3, Time3),
+   show_result('Planning', Time2, Time3),
+   process(4, Time4),
+   show_result('Reply', Time3, Time4).
+
+show_result(Label, TimeA, TimeB) :-
+   Time is TimeB-TimeA,
+   write(Label),
+   write(': '),
+   write(Time),
+   write(' ms'), nl.
+
+process(Level, Time) :-
+   uptime(Time1),
+   (  between(1, 150, _),
+      ed(_, Sentence, _),
+      process(Sentence, _, Level), fail; true),
+   uptime(Time2),
+   Time is Time2-Time1.
+
+process(Sentence, Answer, Level) :-
+   (  Level > 0
+   -> sentence(E, Sentence, [], [], []), !; true),
+
+   (  Level > 1
+   -> i_sentence(E, QT),
+      clausify(QT, UE),
+      simplify(UE, S), !; true),
+
+   (  Level > 2
+   -> qplan(S, S1), !; true),
+
+   (  Level > 3
+   -> answer(S1, Answer), !; true).
+
+/* ----------------------------------------------------------------------
+	Timing Utility
+   ---------------------------------------------------------------------- */
+
+:- if(current_prolog_flag(dialect,jekejeke)).
+
+uptime(X) :-
+   statistics(uptime, X).
+
+:- else.
+
+uptime(T) :-
+   statistics(walltime, [T|_]).
+
+:- endif.
+
+
+
+
