@@ -63,7 +63,8 @@ river(brahmaputra, [indian_ocean,bangladesh,china]).
 river(colorado, [pacific,mexico,united_states]).
 river(congo_river, [atlantic,zaire,zambia]).
 river(cubango, [botswana,south_africa,angola]).
-river(danube, [black_sea,romania,yugoslavia,hungary,czechoslovakia,austria,west_germany]).
+river(danube, [black_sea,romania,yugoslavia,hungary,czechoslovakia,austria,
+                 west_germany]).
 river(don, [black_sea,soviet_union]).
 river(elbe, [atlantic,west_germany,east_germany,czechoslovakia]).
 river(euphrates, [persian_gulf,iraq,syria,turkey]).

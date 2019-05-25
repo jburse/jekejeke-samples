@@ -335,10 +335,14 @@ noun_template(Noun, TypeV, V, apply(F,P),
    meta_noun(Noun, TypeV, V, TypeX, X, P, F).
 
 verb_template(have, Y=Z,
-   [slot(subj,TypeS,S,-Id,free),slot(dir,TypeV,Y,_,free),slot(prep(of),TypeV,Z,_,free)],
+   [slot(subj,TypeS,S,-Id,free),
+      slot(dir,TypeV,Y,_,free),
+      slot(prep(of),TypeV,Z,_,free)],
    held_arg(poss,-(-(+Id)),TypeS-S), have).
 verb_template(have, Y=Z,
-   [slot(subj,TypeS,S,-(-(Id)),free),slot(dir,TypeV,Y,_,free),slot(prep(as),TypeV,Z,_,free)],
+   [slot(subj,TypeS,S,-(-(Id)),free),
+      slot(dir,TypeV,Y,_,free),
+      slot(prep(as),TypeV,Z,_,free)],
    held_arg(poss,-(-(-(+Id))),TypeS-S), have).
 verb_template(Verb, Pred,
    [slot(subj,TypeS,S,_,free)|Slots], [], transparent) :-

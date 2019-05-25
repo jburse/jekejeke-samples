@@ -51,7 +51,8 @@
 
 :- endif.
 
-:- module(talkr, [write_tree/1,answer/1,satisfy/4,answer/2,check_answer/3]).
+:- module(talkr, [write_tree/1,answer/1,satisfy/4,
+                    answer/2,check_answer/3]).
 
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(edinburgh)); true.
@@ -161,9 +162,9 @@ answer((answer(X):-E)) :-
    respond(S).
 
 seto(X, E, S) :-
-                                                  %	portray_clause(({X} :- E)),
+%	portray_clause(({X} :- E)),
    phrase(satisfy(E, G), Vars),
-                                                  %	portray_clause(({X} :- G)),
+%	portray_clause(({X} :- G)),
    (  setof(X, Vars^G, S) -> true
    ;  S = []).
 
