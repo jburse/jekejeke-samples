@@ -179,11 +179,11 @@ runner:case(read_term, 2, stream_read, 'ISO 8.14.1.4, ISO 2') :-
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 1') :-
    op(9, xf, e),
    with_input_from(atom('1e-9.'), read_term(X, [])),
-   X == e(1)-9.
+   X == -(e(1),9).
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 2') :-
    op(9, xf, e),
    with_input_from(atom('1.0e- 9.'), read_term(X, [])),
-   X == e(1.0)-9.
+   X == -(e(1.0),9).
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 3') :-
    op(9, fy, fy),
    op(9, yf, yf),

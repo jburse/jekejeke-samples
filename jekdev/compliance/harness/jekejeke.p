@@ -47,13 +47,19 @@ run_test :-
    set_prolog_flag(base_url, '/Projects/Jekejeke/Prototyping/samples/jekdev/compliance/classes/stream'),
    time((  runner_batch, nl)).
 
+% run_test_debug
+run_test_debug :-
+   write('% running test cases.'), nl,
+   set_prolog_flag(base_url, '/Projects/Jekejeke/Prototyping/samples/jekdev/compliance/classes/stream'),
+   time((  runner_batch_debug, nl)).
+
 % run_test2
 run_test2 :-
    write('% running test cases.'), nl,
    make_directory('/files/classes/'),
    make_directory('/files/classes/stream/'),
    set_prolog_flag(base_url, '/files/classes/stream'),
-                                                  %   time((runner_batch2, nl)).
+%   time((runner_batch_debug, nl)).
    time((  runner_batch, nl)).
 
 % run_diagnose

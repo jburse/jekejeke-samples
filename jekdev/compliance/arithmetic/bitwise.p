@@ -53,7 +53,7 @@
 
 runner:ref(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4').
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 2') :-
-   10 is \ \10.
+   10 is \(\10).
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 3') :-
    -11 is \10.
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 4') :-
@@ -119,8 +119,8 @@ runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 4') :-
 
 runner:ref(xor, -3, arithmetic_bitwise, 'Corr.2 9.4.6.4').
 runner:case(xor, -3, arithmetic_bitwise, 'Corr.2 9.4.6.4, ISO 1') :-
-   6 is 10 xor 12.
+   6 is xor(10,12).
 runner:case(xor, -3, arithmetic_bitwise, 'Corr.2 9.4.6.4, ISO 2') :-
-   130 is 125 xor 255.
+   130 is xor(125,255).
 runner:case(xor, -3, arithmetic_bitwise, 'Corr.2 9.4.6.4, ISO 3') :-
-   -6 is -10 xor 12.
+   -6 is xor(-10,12).

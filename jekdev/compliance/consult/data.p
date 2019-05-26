@@ -55,7 +55,7 @@
 
 runner:ref(clause, 2, consult_data, 'ISO 8.8.1.4').
 
-:- dynamic cat/0.
+:- dynamic(cat/0).
 cat.
 
 runner:case(clause, 2, consult_data, 'ISO 8.8.1.4, ISO 1') :-
@@ -180,7 +180,7 @@ runner:case(retract, 1, consult_data, 'ISO 8.9.3.4, ISO 15') :-
 
 runner:ref(asserta, 1, consult_data, 'ISO 8.9.1.4').
 
-:- dynamic legs/2.
+:- dynamic(legs/2).
 legs(A, 6) :-
    insect(A).
 legs(A, 7) :- A,

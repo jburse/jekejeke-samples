@@ -44,66 +44,66 @@
 /* Char Type etc..                                                 */
 /*******************************************************************/
 
-/* char_type(C, N) */
+/* char_class(C, N) */
 
-runner:ref(char_type, 2, extra_regex, 'XLOG 2.1.1').
-runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 1') :-
-   char_type(' ', N),
-   N == white.
-runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 2') :-
-   char_type('\n', N),
-   N == control.
-runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 3') :-
-   char_type('\xFFFE\', N),
+runner:ref(char_class, 2, extra_regex, 'XLOG 2.1.1').
+runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 1') :-
+   char_class(' ', N),
+   N == blank.
+runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 2') :-
+   char_class('\n', N),
+   N == cntrl.
+runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 3') :-
+   char_class('\xFFFE\', N),
    N == inval.
-runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 4') :-
-   char_type(!, N),
+runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 4') :-
+   char_class(!, N),
    N == solo.
-runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 5') :-
-   char_type('A', N),
+runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 5') :-
+   char_class('A', N),
    N == upper.
-runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 6') :-
-   catch(char_type(_, _), error(E,_), true),
+runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 6') :-
+   catch(char_class(_, _), error(E,_), true),
    nonvar(E),
    E = instantiation_error.
-runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 7') :-
-   catch(char_type(77, _), error(E,_), true),
+runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 7') :-
+   catch(char_class(77, _), error(E,_), true),
    nonvar(E),
    E = type_error(atom,_).
 /* unicode >0xFFFF, deseret alphabet */
-runner:case(char_type, 2, extra_regex, 'XLOG 2.1.1, XLOG 8') :-
-   char_type(𐐬, N),
+runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 8') :-
+   char_class(𐐬, N),
    N == lower.
 
-/* code_type(C, N) */
+/* code_class(C, N) */
 
-runner:ref(code_type, 2, extra_regex, 'XLOG 2.1.2').
-runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 1') :-
-   code_type(0'_, N),
+runner:ref(code_class, 2, extra_regex, 'XLOG 2.1.2').
+runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 1') :-
+   code_class(0'_, N),
    N == score.
-runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 2') :-
-   code_type(0'a, N),
+runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 2') :-
+   code_class(0'a, N),
    N == lower.
-runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 3') :-
-   code_type(0'¼, N),
+runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 3') :-
+   code_class(0'¼, N),
    N == other.
-runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 4') :-
-   code_type(0'0, N),
+runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 4') :-
+   code_class(0'0, N),
    N == digit.
-runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 5') :-
-   code_type(0'=, N),
-   N == graph.
-runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 6') :-
-   catch(code_type(_, _), error(E,_), true),
+runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 5') :-
+   code_class(0'=, N),
+   N == symbol.
+runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 6') :-
+   catch(code_class(_, _), error(E,_), true),
    nonvar(E),
    E = instantiation_error.
-runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 7') :-
-   catch(code_type(foo, _), error(E,_), true),
+runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 7') :-
+   catch(code_class(foo, _), error(E,_), true),
    nonvar(E),
    E = type_error(integer,_).
 /* unicode >0xFFFF, deseret alphabet */
-runner:case(code_type, 2, extra_regex, 'XLOG 2.1.2, XLOG 8') :-
-   code_type(0'𐐄, N),
+runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 8') :-
+   code_class(0'𐐄, N),
    N == upper.
 
 /*******************************************************************/
