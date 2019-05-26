@@ -48,11 +48,11 @@ runner:case(eval_neg, 2, groebner_parteval, 'groebner 0.9.1, 2.1, XLOG 1') :-
    printable(X, Y),
    Y == -5.
 runner:case(eval_neg, 2, groebner_parteval, 'groebner 0.9.1, 2.1, XLOG 2') :-
-   X is -1/3,
+   X is -(1/3),
    printable(X, Y),
    Y == -1/3.
 runner:case(eval_neg, 2, groebner_parteval, 'groebner 0.9.2, 2.1, XLOG 3') :-
-   X is - (1+sqrt(2)),
+   X is -(1+sqrt(2)),
    printable(X, Y),
    Y == -1-sqrt(2).
 

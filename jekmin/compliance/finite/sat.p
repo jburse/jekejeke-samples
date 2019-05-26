@@ -49,19 +49,19 @@ runner:case(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1, XLOG 2') :-
    call_residue(sat(~X+Y), L),
    L == [sat((X->(Y->1;0);1))].
 runner:case(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1, XLOG 3') :-
-   call_residue(sat(~ (X* ~Y)), L),
+   call_residue(sat(~(X* ~Y)), L),
    L == [sat((X->(Y->1;0);1))].
 runner:case(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1, XLOG 4') :-
    call_residue(sat(X=<Y), L),
    L == [sat((X->(Y->1;0);1))].
 runner:case(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1, XLOG 5') :-
-   call_residue(sat(~ (X>Y)), L),
+   call_residue(sat(~(X>Y)), L),
    L == [sat((X->(Y->1;0);1))].
 runner:case(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1, XLOG 6') :-
    call_residue(sat(X#Y), L),
    L == [sat((X->(Y->0;1);Y->1;0))].
 runner:case(expr_eval, 2, finite_sat, 'CLP(B) 0.9.4, 1.1, XLOG 7') :-
-   call_residue(sat(~ (X=:=Y)), L),
+   call_residue(sat(~(X=:=Y)), L),
    L == [sat((X->(Y->0;1);Y->1;0))].
 
 % sat/1

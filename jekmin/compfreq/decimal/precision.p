@@ -81,7 +81,7 @@ runner:case(mp_abnormal, 1, decimal_precision, 'decimal 0.9.1, 1.4, XLOG 1') :-
    catch(_ is mp(_,16), error(E,_), true),
    E == instantiation_error.
 runner:case(mp_abnormal, 1, decimal_precision, 'decimal 0.9.1, 1.4, XLOG 2') :-
-   X is mp(- (2/3),16),
+   X is mp(-(2/3),16),
    X == -0d0.6666666666666667.
 
 % mp_decimal/2.
