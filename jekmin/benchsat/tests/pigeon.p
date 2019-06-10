@@ -38,18 +38,20 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- current_prolog_flag(dialect, swi)
--> use_module(library(clpb)); true.
+:- current_prolog_flag(dialect, jekejeke) -> true
+;  use_module(library(clpb)).
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(finite/clpb)); true.
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(basic/lists)); true.
 
+% pigeon(-List)
 pigeon(X) :-
    pigeon(5, 5, X),
    term_variables(X, L),
    labeling(L).
 
+% pigeon(+Integer, +Integer, -List)
 pigeon(N, M, X) :-
    dim(N, M, X),
    placed(X),

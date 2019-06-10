@@ -1,5 +1,5 @@
 /**
- * CLP(B) test orthogonal basis.
+ * SICStus Prolog code for the benchmark harness.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,60 +30,12 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- current_prolog_flag(dialect, jekejeke) -> true
-;  use_module(library(clpb)).
-:- current_prolog_flag(dialect, jekejeke)
--> use_module(library(finite/clpb)); true.
-:- current_prolog_flag(dialect, jekejeke)
--> use_module(library(basic/lists)); true.
+% ?- ensure_loaded('/Projects/Jekejeke/Prototyping/samples/jekrun/benchmark/sicstus.p').
 
-% ortho(-Integer)
-ortho(N) :-
-   dim2(4, 4, X),
-   basis(X),
-   term_variables(X, L),
-   findall(hit, labeling(L), R),
-   length(R, N).
+uptime(X) :-
+   statistics(walltime, [X|_]).
 
-/************************************************************/
-/* Normality and Basis                                      */
-/************************************************************/
+gctime(X) :-
+   statistics(garbage_collection, [X|_]).
 
-% basis(+Matrice)
-basis([]).
-basis([B|A]) :-
-   basis(A),
-   ortho(A, B),
-   unit(B).
-
-% ortho(+Matrice, +Vector)
-ortho([], _).
-ortho([B|D], A) :-
-   prod(A, B, C),
-   sat(C=:=0),
-   ortho(D, A).
-
-% unit(+Vector)
-unit(A) :-
-   prod(A, A, B),
-   sat(B=:=1).
-
-% prod(+Vector, +Vector, -Constraint)
-prod([], [], 0).
-prod([A|C], [B|D], A*B#E) :-
-   prod(C, D, E).
-
-/************************************************************/
-/* Matrice Constructor                                      */
-/************************************************************/
-
-% dim2(+Integer, +Integer, -Matrice)
-dim2(B, C, A) :-
-   length(A, B),
-   dims2(A, C).
-
-% dim2(+Matric, +Integer)
-dims2([], _).
-dims2([A|C], B) :-
-   length(A, B),
-   dims2(C, B).
+:- ensure_loaded('suite5.p').

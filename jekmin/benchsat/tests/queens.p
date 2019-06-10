@@ -30,8 +30,8 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- current_prolog_flag(dialect, swi)
--> use_module(library(clpb)); true.
+:- current_prolog_flag(dialect, jekejeke) -> true
+;  use_module(library(clpb)).
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(finite/clpb)); true.
 :- current_prolog_flag(dialect, jekejeke)
@@ -39,7 +39,7 @@
 
 :- ensure_loaded('../mukai/finsat.p').
 
-% queens(-List)
+% queens(-Binaries)
 queens(X) :-
    queens(7, X),
    term_variables(X, L),
