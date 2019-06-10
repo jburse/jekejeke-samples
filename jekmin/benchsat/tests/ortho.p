@@ -1,0 +1,81 @@
+/**
+ * CLP(B) test orthogonal basis.
+ *
+ * Warranty & Liability
+ * To the extent permitted by applicable law and unless explicitly
+ * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
+ * regarding the provided information. XLOG Technologies GmbH assumes
+ * no liability that any problems might be solved with the information
+ * provided by XLOG Technologies GmbH.
+ *
+ * Rights & License
+ * All industrial property rights regarding the information - copyright
+ * and patent rights in particular - are the sole property of XLOG
+ * Technologies GmbH. If the company was not the originator of some
+ * excerpts, XLOG Technologies GmbH has at least obtained the right to
+ * reproduce, change and translate the information.
+ *
+ * Reproduction is restricted to the whole unaltered document. Reproduction
+ * of the information is only allowed for non-commercial uses. Selling,
+ * giving away or letting of the execution of the library is prohibited.
+ * The library can be distributed as part of your applications and libraries
+ * for execution provided this comment remains unchanged.
+ *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
+ * Trademarks
+ * Jekejeke is a registered trademark of XLOG Technologies GmbH.
+ */
+
+:- current_prolog_flag(dialect, swi)
+-> use_module(library(clpb)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(finite/clpb)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(basic/lists)); true.
+
+ortho(N) :-
+   dim2(4, 4, X),
+   basis(X),
+   term_variables(X, L),
+   sat_count(L, N).
+
+/************************************************************/
+/* Normality and Basis                                      */
+/************************************************************/
+
+basis([]).
+basis([B|A]) :-
+   basis(A),
+   ortho(A, B),
+   unit(B).
+
+ortho([], _).
+ortho([B|D], A) :-
+   prod(A, B, C),
+   sat(C=:=0),
+   ortho(D, A).
+
+unit(A) :-
+   prod(A, A, B),
+   sat(B=:=1).
+
+prod([], [], 0).
+prod([A|C], [B|D], A*B#E) :-
+   prod(C, D, E).
+
+/************************************************************/
+/* Matrice Constructor                                      */
+/************************************************************/
+
+dim2(B, C, A) :-
+   length(A, B),
+   dims2(A, C).
+
+dims2([], _).
+dims2([A|C], B) :-
+   length(A, B),
+   dims2(C, B).
