@@ -1,5 +1,5 @@
 /**
- * CLP(B) test tsat2.
+ * CLP(B) test primes.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,4 +30,17 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-tsat2(_).
+:- current_prolog_flag(dialect, jekejeke) -> true
+;  use_module(library(clpb)).
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(finite/clpb)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(basic/lists)); true.
+
+:- ensure_loaded('../mukai/finsat.p').
+
+primes(X) :-
+   [X,Y,Z] ins 0..31,
+   #\ Y#^Z#^(X#=Y*Z#/\Y#\=1#/\Z#\=1),
+   term_variables(X, V),
+   labeling(V).

@@ -1,5 +1,5 @@
 /**
- * CLP(B) test nagic series.
+ * CLP(B) test magic series.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly

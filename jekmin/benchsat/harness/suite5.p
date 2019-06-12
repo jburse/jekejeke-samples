@@ -10,7 +10,7 @@
 :- ensure_loaded('../tests/pigeon.p').
 :- ensure_loaded('../tests/ortho.p').
 :- ensure_loaded('../tests/queens.p').
-:- ensure_loaded('../tests/tsat2.p').
+:- ensure_loaded('../tests/primes.p').
 :- ensure_loaded('../tests/magic.p').
 :- ensure_loaded('../tests/tcount2.p').
 
@@ -19,7 +19,9 @@ suite5 :-
    bench(28, pigeon(_), T1, G1),
    bench(53, ortho(_), T2, G2),
    bench(5, queens(_), T3, G3),
-   bench(200, tsat2(_), T4, G4),
+   numlen(10),
+   bench(5, primes(_), T4, G4),
+   numlen(4),
    bench(25, magic(_), T5, G5),
    bench(200, tcount2(_), T6, G6),
    T is T1+T2+T3+T4+T5+T6,

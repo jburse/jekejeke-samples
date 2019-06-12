@@ -38,20 +38,33 @@
 :- op(100, xfx, ..).
 :- op(700, xfx, in).
 :- op(700, xfx, ins).
+
 :- op(700, xfx, #=).
 :- op(700, xfx, #\=).
+:- op(700, xfx, #<).
+:- op(700, xfx, #>).
+:- op(700, xfx, #=<).
+:- op(700, xfx, #>=).
+
+:- op(740, yfx, #\/).
+:- op(720, yfx, #/\).
+:- op(700, fy, #\).
+:- op(700, xfy, #^).                              %%% experiment
+
 :- op(760, yfx, #<==>).
+:- op(760, xfx, #==>).
+:- op(760, xfx, #<==).
 
 /*******************************************************************/
 /* Domain Membership                                               */
 /*******************************************************************/
 
-% in(+Vec, +List)
+% in(+Vec, +Range)
 X in L :-
    bitin(X, L, T),
    sat(T).
 
-% ins(+List, +List)
+% ins(+List, +Range)
 V ins _ :-
    var(V),
    throw(error(instantiation_error,_)).
@@ -62,17 +75,12 @@ V ins _ :-
 X ins _ :-
    throw(error(type_error(list,X),_)).
 
-% bitin(+Vec, +List, -Sat)
-bitin(X, N..N, A) :- !,
-   numvec(N, Y),
-   biteq(X, Y, A).
-bitin(X, N..M, A+B) :-
-   N < M, !,
-   numvec(N, Y),
-   biteq(X, Y, A),
-   K is N+1,
-   bitin(X, K..M, B).
-bitin(_, _, 0).
+% bitin(+Vec, +Range, -Sat)
+bitin(X, N..M, ~T* ~S) :-
+   numvec(N, A),
+   numvec(M, B),
+   bitls(X, A, T),
+   bitls(B, X, S).
 
 /*******************************************************************/
 /* Equality & Inequality                                           */
@@ -112,24 +120,85 @@ X #\= Y :-
    biteq(A, B, T),
    sat(~T).
 
+% #<(+Vec, +Vec)
+X #< Y :-
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   bitls(A, B, T),
+   sat(T).
+
+% #>(+Vec, +Vec)
+X #> Y :-
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   bitls(B, A, T),
+   sat(T).
+
+% #>=(+Vec, +Vec)
+X #>= Y :-
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   bitls(A, B, T),
+   sat(~T).
+
+% #=<(+Vec, +Vec)
+X #=< Y :-
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   bitls(B, A, T),
+   sat(~T).
+
 % biteq(+Vec, +Vec, -Sat)
 biteq([], [], 1).
 biteq([X|L], [Y|R], (X=:=Y)*H) :-
    biteq(L, R, H).
 
+% bitls(+Vec, +Vec, -Sat)
+bitls([], [], 0).
+bitls([X|L], [Y|R], (X<Y)+(X=:=Y)*H) :-
+   bitls(L, R, H).
+
 % bitexpr(+Expr, -Vec)
+bitexpr([X|L], R) :- !,
+   R = [X|L].
 bitexpr(X+Y, C) :- !,
    bitexpr(X, A),
    bitexpr(Y, B),
    addvec(A, B, C, _).
+bitexpr(X*Y, C) :- !,
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   numvec(0, D),
+   mulvec(A, B, D, C).
 bitexpr(N, A) :-
-   integer(N), !,
    numvec(N, A).
-bitexpr(L, L).
 
 /*******************************************************************/
 /* Reified Equality & Inequality                                   */
 /*******************************************************************/
+
+% #\/(+Sat, +Sat)
+X #\/ Y :-
+   satexpr(X, A),
+   satexpr(Y, B),
+   sat(A+B).
+
+% #/\(+Sat, +Sat)
+X #/\ Y :-
+   satexpr(X, A),
+   satexpr(Y, B),
+   sat(A*B).
+
+% #\(+Sat)
+#\ X :-
+   satexpr(X, A),
+   sat(~A).
+
+% #^(+Var, +Sat)
+X #^ Y :-                                         %%% experiment
+   satexpr(Y, A),
+   bitquant(X, A, T),
+   sat(T).
 
 % #<==>(+Sat, +Sat)
 X #<==> Y :-
@@ -137,6 +206,21 @@ X #<==> Y :-
    satexpr(Y, B),
    sat(A=:=B).
 
+% #==>(+Sat, +Sat)
+X #==> Y :-
+   satexpr(X, A),
+   satexpr(Y, B),
+   sat(A=<B).
+
+% #<==(+Sat, +Sat)
+X #<== Y :-
+   satexpr(X, A),
+   satexpr(Y, B),
+   sat(A>=B).
+
+satexpr([X|L], T) :- !,
+   numvec(1, B),
+   biteq([X|L], B, T).
 satexpr(X#=Y, T) :- !,
    bitexpr(X, A),
    bitexpr(Y, B),
@@ -145,22 +229,81 @@ satexpr(X#\=Y, ~T) :- !,
    bitexpr(X, A),
    bitexpr(Y, B),
    biteq(A, B, T).
+satexpr(X#<Y, T) :- !,
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   bitls(A, B, T).
+satexpr(X#>Y, T) :- !,
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   bitls(B, A, T).
+satexpr(X#>=Y, ~T) :- !,
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   bitls(A, B, T).
+satexpr(X#=<Y, ~T) :- !,
+   bitexpr(X, A),
+   bitexpr(Y, B),
+   bitls(B, A, T).
+satexpr(X#\/Y, T+S) :- !,
+   satexpr(X, T),
+   satexpr(Y, S).
+satexpr(X#/\Y, T*S) :- !,
+   satexpr(X, T),
+   satexpr(Y, S).
+satexpr(#\X, ~T) :- !,
+   satexpr(X, T).
+satexpr(X#^Y, T) :- !,                                             %%% experiment
+   satexpr(Y, A),
+   bitquant(X, A, T).
+satexpr(X#<==>Y, T=:=S) :- !,
+   satexpr(X, T),
+   satexpr(Y, S).
+satexpr(X#==>Y, T=<S) :- !,
+   satexpr(X, T),
+   satexpr(Y, S).
+satexpr(X#<==Y, T>=S) :- !,
+   satexpr(X, T),
+   satexpr(Y, S).
 satexpr(N, T) :-
-   integer(N), !,
    numvec(N, A),
    numvec(1, B),
    biteq(A, B, T).
-satexpr(L, T) :-
-   numvec(1, B),
-   biteq(L, B, T).
+
+bitquant([], A, A).                               %%% experiment
+bitquant([X|Y], A, X^B) :-
+   var(X), !,
+   bitquant(Y, A, B).
+bitquant([_|Y], A, B) :-
+   bitquant(Y, A, B).
 
 /*******************************************************************/
 /* Bit Arithmetic                                                  */
 /*******************************************************************/
 
-% numvec(+Integer, -Vec)
+:- dynamic sys_numlen/1.
+
+numlen(K) :-
+   retract(sys_numlen(_)), !,
+   assertz(sys_numlen(K)).
+numlen(K) :-
+   assertz(sys_numlen(K)).
+
+% numvec(-+Integer, -+Vec)
+numvec(N, L) :-
+   ground(L), !,
+   numvec(L, 0, N).
+numvec(N, L) :-
+   sys_numlen(K), !,
+   numvec(K, N, L, _).
 numvec(N, L) :-
    numvec(4, N, L, _).
+
+% numvec(+List, +Integer, -Integer)
+numvec([], S, S).
+numvec([X|L], S, T) :-
+   H is 2*S+X,
+   numvec(L, H, T).
 
 % numvec(+Integer, +Integer, -Vec, -Integer)
 numvec(0, N, [], N) :- !.
@@ -183,3 +326,21 @@ fulladd(X, Y, Z, S, J+K) :-
 
 % halfadd(+Bool, +Bool, -Bool, -Bool)
 halfadd(X, Y, X#Y, X*Y).
+
+% mulvec(+List, +List, +List, -List)
+mulvec([], _, S, S).
+mulvec([X|L], R, S, T) :-
+   shiftvec(S, H, _),
+   mulbit(R, X, J),
+   addvec(H, J, K, _),
+   mulvec(L, R, K, T).
+
+% mulbit(+List, +Bool, -List)
+mulbit([], _, []).
+mulbit([Y|R], X, [X*Y|H]) :-
+   mulbit(R, X, H).
+
+% shiftvec(+List, -List, -Bool)
+shiftvec([], [], 0).
+shiftvec([X|L], [Y|R], X) :-
+   shiftvec(L, R, Y).
