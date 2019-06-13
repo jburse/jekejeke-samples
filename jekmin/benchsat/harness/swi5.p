@@ -13,4 +13,7 @@ uptime(T) :-
 gctime(T) :-
    statistics(garbage_collection, [_,_,T|_]).
 
+card(I, L) :-
+   sat(card([I],L)).
+
 :- ensure_loaded('suite5.p').

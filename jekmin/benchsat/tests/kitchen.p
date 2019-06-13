@@ -1,5 +1,5 @@
 /**
- * CLP(B) test tcount2.
+ * CLP(B) test kitchen.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,4 +30,39 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-tcount2(_).
+:- current_prolog_flag(dialect, jekejeke) -> true
+;  use_module(library(clpb)).
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(finite/clpb)); true.
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(basic/lists)); true.
+
+kitchen(L) :-
+   length(L, 18),
+   freezer(L, F),
+   card(4, F),
+   stove(L, G),
+   card(3, G),
+   free(L, H),
+   card(2, H),
+   allowed(L),
+   labeling(L).
+
+freezer([X,Y|L], [~X*Y|R]) :-
+   freezer(L, R).
+freezer([], []).
+
+stove([X,Y|L], [X* ~Y|R]) :-
+   stove(L, R).
+stove([], []).
+
+free([X,Y|L], [~X* ~Y|R]) :-
+   free(L, R).
+free([], []).
+
+allowed([X,Y,Z,T|L]) :- !,
+   sat(~(~X*Y*Z* ~T)),
+   sat(~(X* ~Y* ~Z*T)),
+   allowed([Z,T|L]).
+allowed([_,_]).
+allowed([]).
