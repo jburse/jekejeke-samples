@@ -59,3 +59,107 @@ runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 4') :-
    catch(numbervars(_, -2, _), error(E,_), true),
    E == representation_error(not_less_than_zero).
 
+/* A *-> B */
+
+runner:ref(*->, 2, extra_vars, 'XLOG 3.2.1').
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 1') :- true *-> true.
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 2') :-
+   \+ (  true *-> fail).
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 3') :-
+   \+ (  fail *-> true).
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 4a') :-
+   (  true
+   *->X = 1),
+   X == 1.
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 4b') :-
+   findall(X, (  true
+              *->X = 1), [_]).
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 5a') :-
+   (  (  X = 1
+      ;  X = 2) *-> true),
+   X == 1.
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 5b') :-
+   findall(X, (  (  X = 1
+                 ;  X = 2) *-> true), [_,X|_]),
+   X == 2.
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 5c') :-
+   findall(X, (  (  X = 1
+                 ;  X = 2) *-> true), [_,_]).
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 6a') :-
+   (  true
+   *->(  X = 1
+      ;  X = 2)),
+   X == 1.
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 6b') :-
+   findall(X, (  true
+              *->(  X = 1
+                 ;  X = 2)), [_,X|_]),
+   X == 2.
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, ISO 6c') :-
+   findall(X, (  true
+              *->(  X = 1
+                 ;  X = 2)), [_,_]).
+runner:case(*->, 2, extra_vars, 'XLOG 3.2.1, XLOG 1') :-
+   findall(X-Y, (  (  Y = 1
+                   ;  Y = 2),
+                   (  (  X = 1, !
+                      ;  X = 2) *-> true)), [_,_]).
+
+/* A *-> B ; C */
+
+runner:ref(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2').
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 1') :-
+   true *-> true; fail.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 2') :-
+   fail *-> true; true.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 3') :-
+   \+ (  true *-> fail; fail).
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 4') :-
+   \+ (  fail *-> true; fail).
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 5') :-
+   (  true
+   *->X = 1
+   ;  X = 2),
+   X == 1.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 6') :-
+   (  fail
+   *->X = 1
+   ;  X = 2),
+   X == 2.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 7a') :-
+   (  true
+   *->(  X = 1
+      ;  X = 2); true),
+   X == 1.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 7b') :-
+   findall(X, (  true
+              *->(  X = 1
+                 ;  X = 2); true), [_,X|_]),
+   X == 2.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 7c') :-
+   findall(X, (  true
+              *->(  X = 1
+                 ;  X = 2); true), [_,_]).
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 8a') :-
+   (  (  X = 1
+      ;  X = 2) *-> true; true),
+   X == 1.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 8b') :-
+   findall(X, (  (  X = 1
+                 ;  X = 2) *-> true; true), [_,X|_]),
+   X == 2.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 8C') :-
+   findall(X, (  (  X = 1
+                 ;  X = 2) *-> true; true), [_,_]).
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, ISO 9') :-
+   (  ! *-> fail), true; true.
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, XLOG 1') :-
+   findall(X-Y, (  (  Y = 1
+                   ;  Y = 2),
+                   (  (  X = 1
+                      ;  X = 2) *-> true; true)), [_,_,_,_]).
+runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, XLOG 2') :-
+   findall(X-Y, (  (  Y = 1
+                   ;  Y = 2),
+                   (  (  X = 1, !
+                      ;  X = 2) *-> true; true)), [_,_]).

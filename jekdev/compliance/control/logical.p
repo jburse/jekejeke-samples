@@ -127,6 +127,11 @@ runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 6c') :-
    findall(X, (  true
               -> (  X = 1
                  ;  X = 2)), [_,_]).
+runner:case(->, 2, control_logical, 'ISO 7.8.7.4, XLOG 1') :-
+   findall(X-Y, (  (  Y = 1
+                   ;  Y = 2),
+                   (  (  X = 1, !
+                      ;  X = 2) -> true)), [_,_]).
 
 /* A -> B ; C */
 
@@ -172,6 +177,16 @@ runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 8b') :-
                  ;  X = 2) -> true; true), [_]).
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 9') :-
    (  ! -> fail), true; true.
+runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, XLOG 1') :-
+   findall(X-Y, (  (  Y = 1
+                   ;  Y = 2),
+                   (  (  X = 1
+                      ;  X = 2) -> true; true)), [_,_]).
+runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, XLOG 2') :-
+   findall(X-Y, (  (  Y = 1
+                   ;  Y = 2),
+                   (  (  X = 1, !
+                      ;  X = 2) -> true; true)), [_,_]).
 
 /* \+ A */
 
