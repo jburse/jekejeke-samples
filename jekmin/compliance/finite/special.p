@@ -40,25 +40,26 @@
 
 :- use_module(library(misc/residue)).
 :- use_module(library(finite/clpfd)).
+:- use_module(library(advanced/sets)).
 % :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
 
 % sys_abs_lin(+Prod, +Integer, -Prod, -Integer, +Wrap)
 runner:ref(sys_abs_lin, 5, finite_special, 'CLP(FD) 0.8.3, 3.1').
 runner:case(sys_abs_lin, 5, finite_special, 'CLP(FD) 0.8.3, 3.1, XLOG 1') :-
-   call_residue(abs(X) #= Y, L),
+   call_residue2(abs(X) #= Y, L),
    L == [abs(X)#=Y].
 runner:case(sys_abs_lin, 5, finite_special, 'CLP(FD) 0.8.3, 3.1, XLOG 2') :-
-   call_residue(X #= abs(Y+Z), L),
-   L = [_,_,V#=_],
-   L == [X#> -1,X#=abs(V),V#=Y+Z].
+   call_residue2(X #= abs(Y+Z), L),
+   L = [V#=_,_,_],
+   L == [V#=Y+Z,X#=abs(V),X#> -1].
 runner:case(sys_abs_lin, 5, finite_special, 'CLP(FD) 0.8.3, 3.1, XLOG 3') :-
-   call_residue(abs(Y)+abs(Z) #= X, L),
-   L = [_#=V,_#=W,_],
-   L == [abs(Z)#=V,abs(Y)#=W,V#=X-W].
+   call_residue2(abs(Y)+abs(Z) #= X, L),
+   L = [_,_#=W,_#=V],
+   L == [V#=X-W,abs(Y)#=W,abs(Z)#=V].
 runner:case(sys_abs_lin, 5, finite_special, 'CLP(FD) 0.8.3, 3.1, XLOG 4') :-
-   call_residue(Y #= abs(2*X), L),
-   L = [_,_,_,V#=_],
-   L == [V#> -1,Y#> -1,Y#=2*V,V#=abs(X)].
+   call_residue2(Y #= abs(2*X), L),
+   L = [V#=_,_,_,_],
+   L == [V#=abs(X),V#> -1,Y#=2*V,Y#> -1].
 runner:case(sys_abs_lin, 5, finite_special, 'CLP(FD) 0.8.3, 3.1, XLOG 5') :-
    catch((  abs(X) #= _,
             X = a), error(E,_), true),
@@ -67,12 +68,12 @@ runner:case(sys_abs_lin, 5, finite_special, 'CLP(FD) 0.8.3, 3.1, XLOG 5') :-
 % sys_sqrv(+Wrap, +Wrap)
 runner:ref(sys_sqrv, 2, finite_special, 'CLP(FD) 0.8.4, 3.2').
 runner:case(sys_sqrv, 2, finite_special, 'CLP(FD) 0.8.4, 3.2, XLOG 1') :-
-   call_residue(Y*Y #= X, L),
+   call_residue2(Y*Y #= X, L),
    L == [Y*Y#=X].
 runner:case(sys_sqrv, 2, finite_special, 'CLP(FD) 0.8.4, 3.2, XLOG 2') :-
-   call_residue(X*X+Y*Y #= Z, L),
-   L = [_#=V,_#=W,_],
-   L == [Y*Y#=V,X*X#=W,V#=Z-W].
+   call_residue2(X*X+Y*Y #= Z, L),
+   L = [_,_#=W,_#=V],
+   L == [V#=Z-W,X*X#=W,Y*Y#=V].
 runner:case(sys_sqrv, 2, finite_special, 'CLP(FD) 0.8.4, 3.2, XLOG 3') :-
    catch((  X*X #= Y,
             Y = a), error(E,_), true),
@@ -93,26 +94,26 @@ runner:case('sys_const sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.3, XLOG 3
    \+ (  Y #= abs(_),
          Y = -10).
 runner:case('sys_const sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.3, XLOG 4') :-
-   call_residue((  Y #= abs(X),
-                   Y = 10), L),
+   call_residue2((  Y #= abs(X),
+                    Y = 10), L),
    L == [X in-10\/10].
 
 % sys_var(+Wrap, +Wrap)
 % sys_absv(+Wrap, +Wrap)
 runner:ref('sys_var sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.4').
 runner:case('sys_var sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.4, XLOG 1') :-
-   call_residue((  X = Y,
-                   abs(X) #= Y), L),
+   call_residue2((  X = Y,
+                    abs(X) #= Y), L),
    L == [X#> -1].
 runner:case('sys_var sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.4, XLOG 2') :-
-   call_residue((  Z #= X+Y,
-                   T #= abs(X),
-                   Y = 0), L),
-   L == [T#> -1,T#=abs(Z)].
+   call_residue2((  _ #= X+Y,
+                    T #= abs(X),
+                    Y = 0), L),
+   permutation(L, [T#> -1,T#=abs(X)]).
 runner:case('sys_var sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.4, XLOG 3') :-
-   call_residue((  abs(T) #= X,
-                   _ #= T+Y,
-                   Y = 0), L),
+   call_residue2((  abs(T) #= X,
+                    _ #= T+Y,
+                    Y = 0), L),
    L == [abs(T)#=X].
 
 % sys_in(+Wrap, +Set, +Bound)
@@ -120,36 +121,36 @@ runner:case('sys_var sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.4, XLOG 3')
 % SWI-Prolog usually has stronger bounds
 runner:ref('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5').
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 1') :-
-   call_residue((  Y #= abs(X),
-                   X in -30..20), L),
-   L == [X in-30..20,Y in 0..30,Y#=abs(X)].
+   call_residue2((  Y #= abs(X),
+                    X in -30..20), L),
+   permutation(L, [X in-30..20,Y in 0..30,Y#=abs(X)]).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 2') :-
-   call_residue((  abs(X) #= Y,
-                   Y in -10..20), L),
-   L == [Y in-10..20,X in-20..20,abs(X)#=Y].
+   call_residue2((  abs(X) #= Y,
+                    Y in -10..20), L),
+   permutation(L, [Y in-10..20,X in-20..20,abs(X)#=Y]).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 3') :-
-   call_residue((  X in 10..20,
-                   Y #= abs(X)), L),
-   L == [Y in 10..20,X in 10..20,Y#=abs(X)].
+   call_residue2((  X in 10..20,
+                    Y #= abs(X)), L),
+   permutation(L, [Y in 10..20,X in 10..20,Y#=abs(X)]).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 4') :-
-   call_residue((  Y #= abs(X),
-                   X in -20.. -10), L),
-   L == [X in-20.. -10,Y in 10..20,Y#=abs(X)].
+   call_residue2((  Y #= abs(X),
+                    X in -20.. -10), L),
+   permutation(L, [X in-20.. -10,Y in 10..20,Y#=abs(X)]).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 5') :-
    \+ (  abs(_) #= Y,
          Y in -20.. -10).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 6') :-
-   call_residue((  X #> 5,
-                   Y #= abs(X)), L),
-   L == [Y#>5,X#>5,Y#=abs(X)].
+   call_residue2((  X #> 5,
+                    Y #= abs(X)), L),
+   permutation(L, [Y#>5,X#>5,Y#=abs(X)]).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 7') :-
-   call_residue((  abs(X) #= Y,
-                   Y #> 5), L),
+   call_residue2((  abs(X) #= Y,
+                    Y #> 5), L),
    L == [Y#>5,abs(X)#=Y].
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 8') :-
-   call_residue((  Y #= abs(X),
-                   X #< -5), L),
-   L == [X#=< -6,Y#>5,Y#=abs(X)].
+   call_residue2((  Y #= abs(X),
+                    X #< -5), L),
+   permutation(L, [X#=< -6,Y#>5,Y#=abs(X)]).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 9') :-
    abs(X) #= Y,
    Y #=< 0,
@@ -159,19 +160,19 @@ runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 10')
    Y in -5..0,
    X == 0.
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 11') :-
-   call_residue((  X #> 5,
-                   abs(X) #= Y), L),
-   L == [Y#>5,X#>5,Y#=abs(X)].
+   call_residue2((  X #> 5,
+                    abs(X) #= Y), L),
+   permutation(L, [Y#>5,X#>5,Y#=abs(X)]).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 12') :-
    \+ (  abs(_) #= Y,
          Y #< -5).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 13') :-
-   call_residue((  abs(X) #= Y,
-                   Y #=< 5), L),
-   L == [Y#=<5,X in-5..5,abs(X)#=Y].
+   call_residue2((  abs(X) #= Y,
+                    Y #=< 5), L),
+   permutation(L, [Y#=<5,X in-5..5,abs(X)#=Y]).
 runner:case('sys_in sys_absv', 5, finite_special, 'CLP(FD) 0.8.3, 3.5, XLOG 14') :-
-   call_residue((  abs(X) #= Y,
-                   Y #\= 0), L),
+   call_residue2((  abs(X) #= Y,
+                    Y #\= 0), L),
    L == [Y#\=0,abs(X)#=Y].
 
 % sys_absv(+Wrap, +Wrap)
@@ -187,9 +188,9 @@ runner:case('sys_absv sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.6, XLOG 2'
    abs(X) #= 3,
    Y == 3.
 runner:case('sys_absv sys_absv', 4, finite_special, 'CLP(FD) 0.8.3, 3.6, XLOG 3') :-
-   call_residue((  abs(X) #= 3,
-                   abs(X) #= Y), L),
-   L = [Y in 0..3,X in-3\/3,Y#=abs(X)].
+   call_residue2((  abs(X) #= 3,
+                    abs(X) #= Y), L),
+   permutation(L, [Y in 0..3,X in-3\/3,Y#=abs(X)]).
 
 % sys_const(+Wrap, +Integer)
 % sys_sqrv(+Wrap, +Wrap)
@@ -199,8 +200,8 @@ runner:case('sys_const sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.7, XLOG 1
    X*X #= Y,
    Y == 100.
 runner:case('sys_const sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.7, XLOG 2') :-
-   call_residue((  X*X #= Y,
-                   Y = 100), L),
+   call_residue2((  X*X #= Y,
+                    Y = 100), L),
    L == [X in-10\/10].
 runner:case('sys_const sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.7, XLOG 3') :-
    \+ (  Y #= X*X,
@@ -213,18 +214,18 @@ runner:case('sys_const sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.7, XLOG 4
 % sys_sqrv(+Wrap, +Wrap)
 runner:ref('sys_var sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.8').
 runner:case('sys_var sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.8, XLOG 1') :-
-   call_residue((  X*X #= Y,
-                   X = Y), L),
+   call_residue2((  X*X #= Y,
+                    X = Y), L),
    L == [X in 0..1].
 runner:case('sys_var sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.8, XLOG 2') :-
-   call_residue((  Z #= X+Y,
-                   T #= X*X,
-                   Y = 0), L),
-   L == [T#> -1,T#=Z*Z].
+   call_residue2((  Z #= X+Y,
+                    T #= X*X,
+                    Y = 0), L),
+   permutation(L, [T#> -1,T#=Z*Z]).
 runner:case('sys_var sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.8, XLOG 3') :-
-   call_residue((  T*T #= X,
-                   _ #= T+Y,
-                   Y = 0), L),
+   call_residue2((  T*T #= X,
+                    _ #= T+Y,
+                    Y = 0), L),
    L == [T*T#=X].
 
 % sys_in(+Wrap, +Set, +Bound)
@@ -232,36 +233,36 @@ runner:case('sys_var sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.3, 3.8, XLOG 3')
 % SWI-Prolog usually has stronger bounds
 runner:ref('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9').
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 1') :-
-   call_residue((  Y #= X*X,
-                   X in -30..20), L),
-   L == [X in-30..20,Y in 0..900,Y#=X*X].
+   call_residue2((  Y #= X*X,
+                    X in -30..20), L),
+   permutation(L, [X in-30..20,Y in 0..900,Y#=X*X]).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 2') :-
-   call_residue((  X*X #= Y,
-                   Y in -10..20), L),
-   L == [Y in-10..20,X in-4..4,X*X#=Y].
+   call_residue2((  X*X #= Y,
+                    Y in -10..20), L),
+   permutation(L, [Y in-10..20,X in-4..4,X*X#=Y]).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 3') :-
-   call_residue((  X in 10..20,
-                   Y #= X*X), L),
-   L == [Y in 100..400,X in 10..20,Y#=X*X].
+   call_residue2((  X in 10..20,
+                    Y #= X*X), L),
+   permutation(L, [Y in 100..400,X in 10..20,Y#=X*X]).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 4') :-
-   call_residue((  Y #= X*X,
-                   X in -20.. -10), L),
-   L == [X in-20.. -10,Y in 100..400,Y#=X*X].
+   call_residue2((  Y #= X*X,
+                    X in -20.. -10), L),
+   permutation(L, [X in-20.. -10,Y in 100..400,Y#=X*X]).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 5') :-
    \+ (  X*X #= Y,
          Y in -20.. -10).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 6') :-
-   call_residue((  X #> 5,
-                   Y #= X*X), L),
-   L == [Y#>35,X#>5,Y#=X*X].
+   call_residue2((  X #> 5,
+                    Y #= X*X), L),
+   permutation(L, [Y#>35,X#>5,Y#=X*X]).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 7') :-
-   call_residue((  X*X #= Y,
-                   Y #> 5), L),
+   call_residue2((  X*X #= Y,
+                    Y #> 5), L),
    L == [Y#>5,X*X#=Y].
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 8') :-
-   call_residue((  Y #= X*X,
-                   X #< -5), L),
-   L == [X#=< -6,Y#>35,Y#=X*X].
+   call_residue2((  Y #= X*X,
+                    X #< -5), L),
+   permutation(L, [X#=< -6,Y#>35,Y#=X*X]).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 9') :-
    X*X #= Y,
    Y #=< 0,
@@ -271,19 +272,19 @@ runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 10')
    Y in -5..0,
    X == 0.
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 11') :-
-   call_residue((  X #> 5,
-                   X*X #= Y), L),
-   L == [Y#>35,X#>5,Y#=X*X].
+   call_residue2((  X #> 5,
+                    X*X #= Y), L),
+   permutation(L, [Y#>35,X#>5,Y#=X*X]).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 12') :-
    \+ (  X*X #= Y,
          Y #< -5).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 13') :-
-   call_residue((  X*X #= Y,
-                   Y #=< 5), L),
-   L == [Y#=<5,X in-2..2,X*X#=Y].
+   call_residue2((  X*X #= Y,
+                    Y #=< 5), L),
+   permutation(L, [Y#=<5,X in-2..2,X*X#=Y]).
 runner:case('sys_in sys_sqrv', 5, finite_special, 'CLP(FD) 0.8.3, 3.9, XLOG 14') :-
-   call_residue((  X*X #= Y,
-                   Y #\= 0), L),
+   call_residue2((  X*X #= Y,
+                    Y #\= 0), L),
    L == [Y#\=0,X*X#=Y].
 
 % sys_sqrv(+Wrap, +Wrap)
@@ -299,6 +300,6 @@ runner:case('sys_sqrv sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.4, 3.10, XLOG 2
    X*X #= 4,
    Y == 4.
 runner:case('sys_sqrv sys_sqrv', 4, finite_special, 'CLP(FD) 0.8.4, 3.10, XLOG 3') :-
-   call_residue((  X*X #= 4,
-                   X*X #= Y), L),
-   L == [Y in 0..4,X in-2\/2,Y#=X*X].
+   call_residue2((  X*X #= 4,
+                    X*X #= Y), L),
+   permutation(L, [Y in 0..4,X in-2\/2,Y#=X*X]).

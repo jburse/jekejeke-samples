@@ -45,11 +45,11 @@
 % sto(+Term)
 runner:ref(sto, 1, term_delay, 'Term 0.9.3, 1.1').
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 1') :-
-   call_residue(sto(X), L),
+   call_residue2(sto(X), L),
    L == [sto(X)].
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 2') :-
-   call_residue((  sto(X),
-                   X = f(Y,Z,T)), L),
+   call_residue2((  sto(X),
+                    X = f(Y,Z,T)), L),
    L == [sto(Y),sto(Z),sto(T)].
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 3') :-
    \+ (  sto(X),
@@ -59,21 +59,21 @@ runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 4') :-
          X = g(Y),
          Y = f(Y)).
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 5') :-
-   call_residue((  sto(_), fail; true), L),
+   call_residue2((  sto(_), fail; true), L),
    L == [].
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 6a') :-
-   findall(L-X-Y, call_residue((  sto(X)
-                               ;  sto(Y)), L), R),
+   findall(L-X-Y, call_residue2((  sto(X)
+                                ;  sto(Y)), L), R),
    R = [[sto(A)]-B-_|_],
    A == B.
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 6b') :-
-   findall(L-X-Y, call_residue((  sto(X)
-                               ;  sto(Y)), L), R),
+   findall(L-X-Y, call_residue2((  sto(X)
+                                ;  sto(Y)), L), R),
    R = [_,[sto(A)]-_-B|_],
    A == B.
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 6c') :-
-   findall(L-X-Y, call_residue((  sto(X)
-                               ;  sto(Y)), L), R),
+   findall(L-X-Y, call_residue2((  sto(X)
+                                ;  sto(Y)), L), R),
    R = [_,_].
 
 % neq(+Term, +Term)

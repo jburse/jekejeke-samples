@@ -54,7 +54,7 @@ runner:case(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1, XLOG 2') :-
 runner:case(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1, XLOG 3') :-
    \+ _ in 2..1.
 runner:case(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1, XLOG 4') :-
-   call_residue(_ in inf..sup, L),
+   call_residue2(_ in inf..sup, L),
    L == [].
 runner:case(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1, XLOG 5') :-
    catch(_ in 1..inf, error(E,_), true),
@@ -66,19 +66,19 @@ runner:case(sys_expr_range, 3, finite_sets, 'CLP(FD) 0.8.3, 2.1, XLOG 6') :-
 % sys_union_set(+Set, +Set, -Set)
 runner:ref(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2').
 runner:case(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2, XLOG 1') :-
-   call_residue(X in 5\/3\/1, L),
+   call_residue2(X in 5\/3\/1, L),
    L == [X in 1\/3\/5].
 runner:case(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2, XLOG 2') :-
-   call_residue(X in 3..sup\/inf..0, L),
+   call_residue2(X in 3..sup\/inf..0, L),
    L == [X in inf..0\/3..sup].
 runner:case(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2, XLOG 3') :-
-   call_residue(X in 1\/2\/3, L),
+   call_residue2(X in 1\/2\/3, L),
    L == [X in 1..3].
 runner:case(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2, XLOG 4') :-
-   call_residue(X in inf..1\/3..sup, L),
+   call_residue2(X in inf..1\/3..sup, L),
    L == [X#\=2].
 runner:case(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2, XLOG 5') :-
-   call_residue(_ in inf..1\/2..sup, L),
+   call_residue2(_ in inf..1\/2..sup, L),
    L == [].
 runner:case(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2, XLOG 6') :-
    catch(_ in _\/5..10, error(E,_), true),
@@ -87,7 +87,7 @@ runner:case(sys_union_set, 3, finite_sets, 'CLP(FD) 0.8.3, 2.2, XLOG 6') :-
 % sys_inter_set(+Set, +Set, -Set)
 runner:ref(sys_inter_set, 3, finite_sets, 'CLP(FD) 0.8.4, 2.3').
 runner:case(sys_inter_set, 3, finite_sets, 'CLP(FD) 0.8.4, 2.3, XLOG 1') :-
-   call_residue(X in 0..10/\5..15, L),
+   call_residue2(X in 0..10/\5..15, L),
    L == [X in 5..10].
 runner:case(sys_inter_set, 3, finite_sets, 'CLP(FD) 0.8.4, 2.3, XLOG 2') :-
    \+ _ in 0..5/\10..15.
@@ -98,10 +98,10 @@ runner:case(sys_inter_set, 3, finite_sets, 'CLP(FD) 0.8.4, 2.3, XLOG 3') :-
 % sys_comp_set(+Set, -Set)
 runner:ref(sys_comp_set, 2, finite_sets, 'CLP(FD) 0.8.4, 2.4').
 runner:case(sys_comp_set, 2, finite_sets, 'CLP(FD) 0.8.4, 2.4, XLOG 1') :-
-   call_residue(X in \5..10, L),
+   call_residue2(X in \5..10, L),
    L == [X in inf..4\/11..sup].
 runner:case(sys_comp_set, 2, finite_sets, 'CLP(FD) 0.8.4, 2.4, XLOG 2') :-
-   call_residue(_ in 1\/ \1, L),
+   call_residue2(_ in 1\/ \1, L),
    L == [].
 runner:case(sys_comp_set, 2, finite_sets, 'CLP(FD) 0.8.4, 2.4, XLOG 3') :-
    catch(_ in \0.._, error(E,_), true),
@@ -113,27 +113,27 @@ runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 1') :-
    X #\= _,
    var(X).
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 2') :-
-   call_residue(3*X #< 2*Y+X, L),
+   call_residue2(3*X #< 2*Y+X, L),
    L == [X#=<Y-1].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 3') :-
-   call_residue(2*Y+X #> 3*X, L),
+   call_residue2(2*Y+X #> 3*X, L),
    L == [Y#>X].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 4') :-
-   call_residue(X*X+Y*Y #=< 100, L),
-   L = [_#=W,_,_#=V],
-   L == [X*X#=W,V#=< -W+100,Y*Y#=V].
+   call_residue2(X*X+Y*Y #=< 100, L),
+   L = [_,_#=W,_#=V],
+   L == [V#=< -W+100,X*X#=W,Y*Y#=V].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 5') :-
-   call_residue(abs(X)+abs(Y) #>= 100, L),
-   L = [_#=W,_,_#=V],
-   L == [abs(X)#=W,V#> -W+99,abs(Y)#=V].
+   call_residue2(abs(X)+abs(Y) #>= 100, L),
+   L = [_,_#=W,_#=V],
+   L == [V#> -W+99,abs(X)#=W,abs(Y)#=V].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 6') :-
-   call_residue(3*_ #\= 100, L),
+   call_residue2(3*_ #\= 100, L),
    L == [].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 7') :-
-   call_residue(100*X #> 100, L),
+   call_residue2(100*X #> 100, L),
    L == [X#>1].
 runner:case(sys_compare_expr, 3, finite_sets, 'CLP(FD) 0.8.3, 2.5, XLOG 8') :-
-   call_residue(101*X #< 100, L),
+   call_residue2(101*X #< 100, L),
    L == [X#=<0].
 
 % sys_set_agent(+Ref, +Wrap, +Prod, +Set, +Bound)
@@ -143,7 +143,7 @@ runner:case(sys_set_agent, 5, finite_sets, 'CLP(FD) 0.8.4, 2.6, XLOG 1') :-
 runner:case(sys_set_agent, 5, finite_sets, 'CLP(FD) 0.8.4, 2.6, XLOG 2') :-
    \+ 2*_+2*_ in 3\/5\/7.
 runner:case(sys_set_agent, 5, finite_sets, 'CLP(FD) 0.8.4, 2.6, XLOG 3') :-
-   call_residue(6*X+15*Y in 10..20, L),
+   call_residue2(6*X+15*Y in 10..20, L),
    L == [2*X+5*Y in 4..6].
 
 % sys_const(+Wrap, +Integer)
@@ -164,9 +164,9 @@ runner:case('sys_const sys_in', 5, finite_sets, 'CLP(FD) 0.8.3, 2.7, XLOG 3') :-
 % sys_in(+Wrap, +Set, +Bound)
 runner:ref('sys_var sys_in', 5, finite_sets, 'CLP(FD) 0.8.3, 2.8').
 runner:case('sys_var sys_in', 5, finite_sets, 'CLP(FD) 0.8.3, 2.8, XLOG 1') :-
-   call_residue((  Y+Z #= X,
-                   X in 1..100,
-                   Y #= 0), L),
+   call_residue2((  Y+Z #= X,
+                    X in 1..100,
+                    Y #= 0), L),
    L == [Z in 1..100].
 runner:case('sys_var sys_in', 5, finite_sets, 'CLP(FD) 0.8.3, 2.8, XLOG 2') :-
    -X in 5,
@@ -178,8 +178,8 @@ runner:case('sys_var sys_in', 5, finite_sets, 'CLP(FD) 0.8.3, 2.8, XLOG 3') :-
 % sys_in(+Wrap, +Set, +Bound)
 runner:ref('sys_in sys_in', 6, finite_sets, 'CLP(FD) 0.8.3, 2.9').
 runner:case('sys_in sys_in', 6, finite_sets, 'CLP(FD) 0.8.3, 2.9, XLOG 1') :-
-   call_residue((  X in 1..100,
-                   X in 50..150), L),
+   call_residue2((  X in 1..100,
+                    X in 50..150), L),
    L == [X in 50..100].
 runner:case('sys_in sys_in', 6, finite_sets, 'CLP(FD) 0.8.3, 2.9, XLOG 2') :-
    \+ (  X in 1..50,
@@ -189,28 +189,28 @@ runner:case('sys_in sys_in', 6, finite_sets, 'CLP(FD) 0.8.3, 2.9, XLOG 3') :-
    X in 1..3,
    X == 3.
 runner:case('sys_in sys_in', 6, finite_sets, 'CLP(FD) 0.8.3, 2.9, XLOG 4') :-
-   call_residue((  X in 0..5,
-                   X in 3\/5\/7), L),
+   call_residue2((  X in 0..5,
+                    X in 3\/5\/7), L),
    L == [X in 3\/5].
 runner:case('sys_in sys_in', 6, finite_sets, 'CLP(FD) 0.8.3, 2.9, XLOG 5') :-
-   call_residue((  X in \ (3\/5)\/7,
-                   X in 0..5), L),
+   call_residue2((  X in \ (3\/5)\/7,
+                    X in 0..5), L),
    L == [X in 0..2\/4].
 
 % sys_const(+Wrap, +Integer)
 % sys_set_agent(+Ref, +Wrap, +Prod, +Set, +Bound)
 runner:ref('sys_const sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.10').
 runner:case('sys_const sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.10, XLOG 1') :-
-   call_residue((  X #=< 3*Z-2*Y,
-                   X = 1), L),
+   call_residue2((  X #=< 3*Z-2*Y,
+                    X = 1), L),
    L == [2*Y#=<3*Z-1].
 runner:case('sys_const sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.10, XLOG 2') :-
-   call_residue((  X #> 3*Z-2*Y,
-                   Y = 2), L),
+   call_residue2((  X #> 3*Z-2*Y,
+                    Y = 2), L),
    L == [X#>3*Z-4].
 runner:case('sys_const sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.10, XLOG 3') :-
-   call_residue((  X #\= -3*Z+2*Y,
-                   Z = 3), L),
+   call_residue2((  X #\= -3*Z+2*Y,
+                    Z = 3), L),
    L == [X#\=2*Y-9].
 runner:case('sys_const sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.10, XLOG 4') :-
    catch((  _+X in 1..100,
@@ -221,55 +221,55 @@ runner:case('sys_const sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.10, XLOG 4') 
 % sys_set_agent(+Ref, +Wrap, +Prod, +Set, +Bound)
 runner:ref('sys_var sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.11').
 runner:case('sys_var sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.11, XLOG 1') :-
-   call_residue((  X #=< 3*Z-2*Y,
-                   X = Y), L),
+   call_residue2((  X #=< 3*Z-2*Y,
+                    X = Y), L),
    L == [X#=<Z].
 runner:case('sys_var sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.11, XLOG 2') :-
-   call_residue((  X #> 3*Z-2*Y,
-                   X = Z), L),
+   call_residue2((  X #> 3*Z-2*Y,
+                    X = Z), L),
    L == [Y#>X].
 runner:case('sys_var sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.11, XLOG 3') :-
-   call_residue((  X #\= 3*Z-2*Y,
-                   Z = Y), L),
+   call_residue2((  X #\= 3*Z-2*Y,
+                    Z = Y), L),
    L == [X#\=Z].
 
 % sys_in(+Wrap, +Set, +Bound)
 % sys_set_agent(+Ref, +Wrap, +Prod, +Set, +Bound)
 runner:ref('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12').
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 1') :-
-   call_residue((  X+Y in 1..100,
-                   X in 1..100), L),
+   call_residue2((  X+Y in 1..100,
+                    X in 1..100), L),
    permutation(L, [Y in-99..99,X in 1..100,X+Y in 1..100]).
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 2') :-
-   call_residue((  X+Y in 1..100,
-                   Y in 1..100), L),
-   L == [Y in 1..100,X+Y in 1..100].
+   call_residue2((  X+Y in 1..100,
+                    Y in 1..100), L),
+   permutation(L, [Y in 1..100,X+Y in 1..100]).
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 3') :-
-   call_residue((  3*X+Y in 1..100,
-                   X in 1..100), L),
+   call_residue2((  3*X+Y in 1..100,
+                    X in 1..100), L),
    permutation(L, [Y in-299..97,X in 1..100,3*X+Y in 1..100]).
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 4') :-
-   call_residue((  X+3*Y in 1..100,
-                   X in 1..100), L),
+   call_residue2((  X+3*Y in 1..100,
+                    X in 1..100), L),
    permutation(L, [Y in-33..33,X in 1..100,X+3*Y in 1..100]).
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 5') :-
-   call_residue((  3*X+2*Y in 1..100,
-                   X in 1..100), L),
+   call_residue2((  3*X+2*Y in 1..100,
+                    X in 1..100), L),
    permutation(L, [Y in-149..48,X in 1..100,3*X+2*Y in 1..100]).
 
 % sys_set_agent(+Ref, +Wrap, +Prod, +Set, +Bound)
 % sys_set_agent(+Ref, +Wrap, +Prod, +Set, +Bound)
 runner:ref('sys_set sys_set', 10, finite_sets, 'CLP(FD) 0.8.3, 2.13').
 runner:case('sys_set sys_set', 10, finite_sets, 'CLP(FD) 0.8.3, 2.13, XLOG 1') :-
-   call_residue((  X+Y in 1..100,
-                   X+Y in 50..150), L),
+   call_residue2((  X+Y in 1..100,
+                    X+Y in 50..150), L),
    L == [X+Y in 50..100].
 runner:case('sys_set sys_set', 10, finite_sets, 'CLP(FD) 0.8.3, 2.13, XLOG 2') :-
    \+ (  X+Y in 1..50,
          X+Y in 100..150).
 runner:case('sys_set sys_set', 10, finite_sets, 'CLP(FD) 0.8.3, 2.13, XLOG 3') :-
-   call_residue((  X+Y in 3..5,
-                   X+Y in 1..3), L),
+   call_residue2((  X+Y in 3..5,
+                    X+Y in 1..3), L),
    L == [Y#= -X+3].
 
 % +List ins +Set
@@ -278,7 +278,7 @@ runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.14, XLOG 1') :-
    catch([_|_] ins 10..15, error(E,_), true),
    E == instantiation_error.
 runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.14, XLOG 2') :-
-   call_residue([X,Y] ins 1\/2\/3, L),
+   call_residue2([X,Y] ins 1\/2\/3, L),
    L == [X in 1..3,Y in 1..3].
 runner:case(ins, 2, finite_sets, 'CLP(FD) 0.8.4, 2.14, XLOG 3') :-
    catch(foo ins 10..sup, error(E,_), true),
