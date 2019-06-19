@@ -66,7 +66,20 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-:- module(dcg_basics, [whites/2,white/2,blanks/2,blank/2,nonblanks/3,nonblank/3,digits/3,digit/3,integer/3,number/3,xdigits/3,xdigit/3,xinteger/3,string_without/4]).
+:- module(dcg_basics, [whites/2,
+                         white/2,
+                         blanks/2,
+                         blank/2,
+                         nonblanks/3,
+                         nonblank/3,
+                         digits/3,
+                         digit/3,
+                         integer/3,
+                         number/3,
+                         xdigits/3,
+                         xdigit/3,
+                         xinteger/3,
+                         string_without/4]).
 
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(unicode); true.
