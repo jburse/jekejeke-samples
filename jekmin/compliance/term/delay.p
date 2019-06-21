@@ -129,8 +129,8 @@ runner:case(sto_dif, 3, term_delay, 'Term 1.0.8, 1.3, XLOG 2') :-
 % freeze(+Term, +Goal)
 runner:ref(freeze, 2, term_delay, 'Term 1.0.0, 1.4').
 runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 1') :-
-   call_residue((  freeze(X, X > 0),
-                   freeze(X, X < 0)), L),
+   call_residue2((  freeze(X, X > 0),
+                    freeze(X, X < 0)), L),
    L == [freeze(X,X>0),freeze(X,X<0)].
 runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 2') :-
    freeze(X, X > 0),
@@ -167,11 +167,11 @@ runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 8') :-
 % when(+Cond, +Goal)
 runner:ref(when, 2, term_delay, 'Term 1.0.0, 1.5').
 runner:case(when, 2, term_delay, 'Term 1.0.0, 1.5, XLOG 1') :-
-   call_residue(when((nonvar(X),nonvar(Y)), X < Y), L),
+   call_residue2(when((nonvar(X),nonvar(Y)), X < Y), L),
    L == [when((nonvar(X),nonvar(Y)),X<Y)].
 runner:case(when, 2, term_delay, 'Term 1.0.0, 1.5, XLOG 2') :-
-   call_residue((  when((nonvar(X),nonvar(Y)), X < Y),
-                   X = 0), L),
+   call_residue2((  when((nonvar(X),nonvar(Y)), X < Y),
+                    X = 0), L),
    L == [when(nonvar(Y),0<Y)].
 runner:case(when, 2, term_delay, 'Term 1.0.0, 1.5, XLOG 3') :-
    when((nonvar(X),nonvar(Y)), X < Y),
