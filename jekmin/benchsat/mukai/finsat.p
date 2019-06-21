@@ -253,7 +253,7 @@ satexpr(X#/\Y, T*S) :- !,
    satexpr(Y, S).
 satexpr(#\X, ~T) :- !,
    satexpr(X, T).
-satexpr(X#^Y, T) :- !,                                             %%% experiment
+satexpr(X#^Y, T) :- !,                            %%% experiment
    satexpr(Y, A),
    bitquant(X, A, T).
 satexpr(X#<==>Y, T=:=S) :- !,
