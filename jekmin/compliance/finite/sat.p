@@ -126,88 +126,88 @@ runner:case(labeling, 1, finite_sat, 'CLP(B) 0.9.4, 1.3, XLOG 4') :-
    sat(~X=< ~Y),
    \+ labeling([X,Y]).
 
-% sat_count/2
-runner:ref(sat_count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4').
-runner:case(sat_count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 1') :-
-   catch(sat_count(_, _), error(E,_), true),
+% count/2
+runner:ref(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4').
+runner:case(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 1') :-
+   catch(count(_, _), error(E,_), true),
    E == instantiation_error.
-runner:case(sat_count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 2') :-
-   catch(sat_count(foo, _), error(E,_), true),
+runner:case(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 2') :-
+   catch(count(foo, _), error(E,_), true),
    E == type_error(list,foo).
-runner:case(sat_count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 3') :-
+runner:case(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 3') :-
    sat(X=<Y),
    sat(Y=<Z),
    sat(Z=<X),
-   sat_count([X,Y,Z], N),
+   count([X,Y,Z], N),
    N == 2.
-runner:case(sat_count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 4') :-
+runner:case(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 4') :-
    sat(X=<Y),
    sat(X=< ~Y),
    sat(~X=<Y),
    sat(~X=< ~Y),
-   sat_count([X,Y], N),
+   count([X,Y], N),
    N == 0.
 
 % card/2
 runner:ref(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5').
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 1') :-
-   catch(card(_, _), error(E,_), true),
+   catch(sat(card(_,_)), error(E,_), true),
    E == instantiation_error.
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 2') :-
-   catch(card(3, foo), error(E,_), true),
+   catch(sat(card([3],foo)), error(E,_), true),
    E == type_error(list,foo).
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 3') :-
    length(L, 3),
-   \+ card(-1, L).
+   \+ sat(card([-1],L)).
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 4') :-
    length(L, 3),
-   \+ card(4, L).
+   \+ sat(card([4],L)).
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5a') :-
    findall(L, (  length(L, 3),
-                 card(2, L),
+                 sat(card([2],L)),
                  labeling(L)), R),
    R = [S|_],
    S == [0,1,1].
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5b') :-
    findall(L, (  length(L, 3),
-                 card(2, L),
+                 sat(card([2],L)),
                  labeling(L)), R),
    R = [_,S|_],
    S == [1,0,1].
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5c') :-
    findall(L, (  length(L, 3),
-                 card(2, L),
+                 sat(card([2],L)),
                  labeling(L)), R),
    R = [_,_,S|_],
    S == [1,1,0].
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5d') :-
    findall(L, (  length(L, 3),
-                 card(2, L),
+                 sat(card([2],L)),
                  labeling(L)), R),
    R = [_,_,_].
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 6') :-
    length(L, 6),
-   card(3, L),
-   sat_count(L, N),
+   sat(card([3],L)),
+   count(L, N),
    N == 20.
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 7') :-
-   card(2, [X0,X1,X1]),
+   sat(card([2],[X0,X1,X1])),
    X0 == 0,
    X1 == 1.
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 8a') :-
    findall(L, (  L = [X0,X1,Y0,Y1],
-                 card(7, [X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1]),
+                 sat(card([7],[X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1])),
                  labeling(L)), R),
    R = [S|_],
    S == [1,0,1,1].
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 8b') :-
    findall(L, (  L = [X0,X1,Y0,Y1],
-                 card(7, [X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1]),
+                 sat(card([7],[X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1])),
                  labeling(L)), R),
    R = [_,S|_],
    S == [1,1,0,1].
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 8c') :-
    findall(L, (  L = [X0,X1,Y0,Y1],
-                 card(7, [X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1]),
+                 sat(card([7],[X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1])),
                  labeling(L)), R),
    R = [_,_].

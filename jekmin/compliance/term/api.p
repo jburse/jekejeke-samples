@@ -32,7 +32,7 @@ verify_attributes(V, _, true) :-
 % put_atts(+Var, +Term, +Term)
 runner:ref(put_atts, 3, term_api, 'Term 1.0.0, 2.1').
 runner:case(put_atts, 3, term_api, 'Term 1.0.0, 2.1, XLOG 1') :-
-   call_residue(put_atts(X, test1, bar), L),
+   call_residue2(put_atts(X, test1, bar), L),
    L == [put_atts(X,test1,bar)].
 runner:case(put_atts, 3, term_api, 'Term 1.0.0, 2.1, XLOG 2') :-
    put_atts(X, test1, bar(Y)),
@@ -88,7 +88,7 @@ attr_unify_hook(L, _) :-
 % put_attr(+Var, +Term, +Term)
 runner:ref(put_attr, 3, term_api, 'Term 1.0.0, 2.4').
 runner:case(put_attr, 3, term_api, 'Term 1.0.0, 2.4, XLOG 1') :-
-   call_residue(put_attr(X, test2, bar), L),
+   call_residue2(put_attr(X, test2, bar), L),
    L == [put_attr(X,test2,bar)].
 runner:case(put_attr, 3, term_api, 'Term 1.0.0, 2.4, XLOG 2') :-
    put_attr(X, test2, bar(Y)),
@@ -118,7 +118,7 @@ runner:case(get_attr, 3, term_api, 'Term 1.0.0, 2.5, XLOG 3') :-
       (  put_attr(X, test2, [X,Y]),
          put_attr(Y, test2, [X,Y]),
          X = Y)),
-   A == 'L=[_A,_A]\n'.
+   A == 'L=[_B,_B]\n'.
 
 % del_attr(+Var, +Term)
 runner:ref(del_attr, 2, term_api, 'Term 1.0.0, 2.6').
