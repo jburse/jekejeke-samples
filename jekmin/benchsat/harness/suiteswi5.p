@@ -11,6 +11,7 @@
 :- ensure_loaded('../tests/ortho.p').
 :- ensure_loaded('../tests/queens.p').
 :- ensure_loaded('../tests/primes.p').
+:- ensure_loaded('../tests/config.p').
 :- ensure_loaded('../tests/magic.p').
 :- ensure_loaded('../tests/kitchen.p').
 
@@ -22,9 +23,10 @@ suite5 :-
    numlen(10),
    bench(5, primes(_), T4, G4),
    numlen(4),
-   bench(25, magic(_), T5, G5),
-   bench(6, kitchen(_), T6, G6),
-   T is T1+T2+T3+T4+T5+T6,
-   G is G1+G2+G3+G4+G5+G6,
+   bench(4, config(_), T5, G5),
+   bench(25, magic(_), T6, G6),
+   bench(6, kitchen(_), T7, G7),
+   T is T1+T2+T3+T4+T5+T6+T7,
+   G is G1+G2+G3+G4+G5+G6+G7,
    write('Total'),
    show(T, G), nl.

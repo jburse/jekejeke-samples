@@ -18,4 +18,7 @@ gctime(T) :-
 count(L, N) :-
    sat_count(+[1|L], N).
 
+-(X, Y) :-
+   Y is -X.
+
 :- ensure_loaded('suiteswi5.p').
