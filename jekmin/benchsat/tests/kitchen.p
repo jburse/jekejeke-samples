@@ -40,11 +40,11 @@
 kitchen(L) :-
    length(L, 18),
    freezer(L, F),
-   card(4, F),
+   sat(card([4],F)),
    stove(L, G),
-   card(3, G),
+   sat(card([3],G)),
    free(L, H),
-   card(2, H),
+   sat(card([2],H)),
    allowed(L),
    labeling(L).
 

@@ -42,8 +42,7 @@ ortho(N) :-
    dim2(4, 4, X),
    basis(X),
    term_variables(X, L),
-   findall(hit, labeling(L), R),
-   length(R, N).
+   count(L, N).
 
 /************************************************************/
 /* Normality and Basis                                      */
@@ -52,9 +51,9 @@ ortho(N) :-
 % basis(+Matrice)
 basis([]).
 basis([B|A]) :-
-   basis(A),
+   unit(B),
    ortho(A, B),
-   unit(B).
+   basis(A).
 
 % ortho(+Matrice, +Vector)
 ortho([], _).

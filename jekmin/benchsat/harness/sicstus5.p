@@ -32,13 +32,16 @@
 
 % ?- ensure_loaded('/Projects/Jekejeke/Prototyping/samples/jekrun/benchmark/sicstus.p').
 
+:- use_module(library(clpb)).
+:- use_module(library(aggregate)).
+
 uptime(X) :-
    statistics(walltime, [X|_]).
 
 gctime(X) :-
    statistics(garbage_collection, [X|_]).
 
-card(I, L) :-
-   sat(card([I],L)).
+count(L, N) :-
+   aggregate_all(count, L^labeling(L), N).
 
-:- ensure_loaded('suite5.p').
+:- ensure_loaded('suiteswi5.p').

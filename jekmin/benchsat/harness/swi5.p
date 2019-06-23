@@ -7,13 +7,15 @@
 
 % ?- ensure_loaded('/Projects/Jekejeke/Prototyping/samples/jekmin/benchmark/harness/swi4.p').
 
+:- use_module(library(clpb)).
+
 uptime(T) :-
    statistics(walltime, [T|_]).
 
 gctime(T) :-
    statistics(garbage_collection, [_,_,T|_]).
 
-card(I, L) :-
-   sat(card([I],L)).
+count(L, N) :-
+   sat_count(+[1|L], N).
 
-:- ensure_loaded('suite5.p').
+:- ensure_loaded('suiteswi5.p').
