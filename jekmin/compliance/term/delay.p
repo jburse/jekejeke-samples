@@ -114,15 +114,25 @@ runner:case(dif, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 7') :-
    Z = b,
    \+ X = a,
    \+ X = b.
+runner:case(dif, 2, term_delay, 'Term 1.0.8, 1.2, XLOG 5') :-
+   call_residue2((  dif((Y,Z), (Z,T)),
+                    T = Z), L),
+   L == [dif(Y,Z)].
+runner:case(dif, 2, term_delay, 'Term 1.0.8, 1.2, XLOG 6') :-
+   call_residue2((  dif((Y,Z), (Z,T)),
+                    Z = T), L),
+   L == [dif(Y,T)].
 
 % sto(+Term) dif(+Term, +Term)
 runner:ref(sto_dif, 3, term_delay, 'Term 1.0.8, 1.3').
 runner:case(sto_dif, 3, term_delay, 'Term 1.0.8, 1.3, XLOG 1') :-
-   \+ (  sto(X),
-         dif(X, _),
+   \+ (  Y = s(Y),
+         sto(X),
+         dif(X, Y),
          X = g(X)).
 runner:case(sto_dif, 3, term_delay, 'Term 1.0.8, 1.3, XLOG 2') :-
-   \+ (  dif(X, _),
+   \+ (  Y = s(Y),
+         dif(X, Y),
          sto(X),
          X = g(X)).
 
