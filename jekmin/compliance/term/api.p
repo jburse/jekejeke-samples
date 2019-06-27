@@ -22,9 +22,8 @@
 /*********************************************************************/
 
 :- begin_module(test1).
-:- public verify_attributes/3.
-verify_attributes(V, _, true) :-
-   get_atts(V, test1, L),
+:- public verify_attributes/2.
+verify_attributes(L, _) :-
    write('L='),
    write(L), nl.
 :- end_module.
@@ -32,7 +31,7 @@ verify_attributes(V, _, true) :-
 % put_atts(+Var, +Term, +Term)
 runner:ref(put_atts, 3, term_api, 'Term 1.0.0, 2.1').
 runner:case(put_atts, 3, term_api, 'Term 1.0.0, 2.1, XLOG 1') :-
-   call_residue2(put_atts(X, test1, bar), L),
+   call_residue(put_atts(X, test1, bar), L),
    L == [put_atts(X,test1,bar)].
 runner:case(put_atts, 3, term_api, 'Term 1.0.0, 2.1, XLOG 2') :-
    put_atts(X, test1, bar(Y)),
@@ -88,7 +87,7 @@ attr_unify_hook(L, _) :-
 % put_attr(+Var, +Term, +Term)
 runner:ref(put_attr, 3, term_api, 'Term 1.0.0, 2.4').
 runner:case(put_attr, 3, term_api, 'Term 1.0.0, 2.4, XLOG 1') :-
-   call_residue2(put_attr(X, test2, bar), L),
+   call_residue(put_attr(X, test2, bar), L),
    L == [put_attr(X,test2,bar)].
 runner:case(put_attr, 3, term_api, 'Term 1.0.0, 2.4, XLOG 2') :-
    put_attr(X, test2, bar(Y)),

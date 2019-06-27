@@ -45,11 +45,11 @@
 % sto(+Term)
 runner:ref(sto, 1, term_delay, 'Term 0.9.3, 1.1').
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 1') :-
-   call_residue2(sto(X), L),
+   call_residue(sto(X), L),
    L == [sto(X)].
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 2') :-
-   call_residue2((  sto(X),
-                    X = f(Y,Z,T)), L),
+   call_residue((  sto(X),
+                   X = f(Y,Z,T)), L),
    L == [sto(Y),sto(Z),sto(T)].
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 3') :-
    \+ (  sto(X),
@@ -59,27 +59,27 @@ runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 4') :-
          X = g(Y),
          Y = f(Y)).
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 5') :-
-   call_residue2((  sto(_), fail; true), L),
+   call_residue((  sto(_), fail; true), L),
    L == [].
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 6a') :-
-   findall(L-X-Y, call_residue2((  sto(X)
-                                ;  sto(Y)), L), R),
+   findall(L-X-Y, call_residue((  sto(X)
+                               ;  sto(Y)), L), R),
    R = [[sto(A)]-B-_|_],
    A == B.
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 6b') :-
-   findall(L-X-Y, call_residue2((  sto(X)
-                                ;  sto(Y)), L), R),
+   findall(L-X-Y, call_residue((  sto(X)
+                               ;  sto(Y)), L), R),
    R = [_,[sto(A)]-_-B|_],
    A == B.
 runner:case(sto, 1, term_delay, 'Term 0.9.3, 1.1, XLOG 6c') :-
-   findall(L-X-Y, call_residue2((  sto(X)
-                                ;  sto(Y)), L), R),
+   findall(L-X-Y, call_residue((  sto(X)
+                               ;  sto(Y)), L), R),
    R = [_,_].
 
 % dif(+Term, +Term)
 runner:ref(dif, 2, term_delay, 'Term 1.0.0, 1.2').
 runner:case(dif, 2, term_delay, 'Term 1.0.0, 1.2, XLOG 1') :-
-   call_residue2(dif(f(X,X), f(Y,Z)), L),
+   call_residue(dif(f(X,X), f(Y,Z)), L),
    L == [dif((X,Y),(Y,Z))].
 runner:case(dif, 2, term_delay, 'Term 1.0.0, 1.2, XLOG 2') :-
    dif(f, f(_,_)).
@@ -115,12 +115,12 @@ runner:case(dif, 2, term_delay, 'Term 1.0.0, 1.2, SWI7 7') :-
    \+ X = a,
    \+ X = b.
 runner:case(dif, 2, term_delay, 'Term 1.0.8, 1.2, XLOG 5') :-
-   call_residue2((  dif((Y,Z), (Z,T)),
-                    T = Z), L),
+   call_residue((  dif((Y,Z), (Z,T)),
+                   T = Z), L),
    L == [dif(Y,Z)].
 runner:case(dif, 2, term_delay, 'Term 1.0.8, 1.2, XLOG 6') :-
-   call_residue2((  dif((Y,Z), (Z,T)),
-                    Z = T), L),
+   call_residue((  dif((Y,Z), (Z,T)),
+                   Z = T), L),
    L == [dif(Y,T)].
 
 % sto(+Term) dif(+Term, +Term)
@@ -139,8 +139,8 @@ runner:case(sto_dif, 3, term_delay, 'Term 1.0.8, 1.3, XLOG 2') :-
 % freeze(+Term, +Goal)
 runner:ref(freeze, 2, term_delay, 'Term 1.0.0, 1.4').
 runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 1') :-
-   call_residue2((  freeze(X, X > 0),
-                    freeze(X, X < 0)), L),
+   call_residue((  freeze(X, X > 0),
+                   freeze(X, X < 0)), L),
    L == [freeze(X,X>0),freeze(X,X<0)].
 runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 2') :-
    freeze(X, X > 0),
@@ -177,11 +177,11 @@ runner:case(freeze, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 8') :-
 % when(+Cond, +Goal)
 runner:ref(when, 2, term_delay, 'Term 1.0.0, 1.5').
 runner:case(when, 2, term_delay, 'Term 1.0.0, 1.5, XLOG 1') :-
-   call_residue2(when((nonvar(X),nonvar(Y)), X < Y), L),
+   call_residue(when((nonvar(X),nonvar(Y)), X < Y), L),
    L == [when((nonvar(X),nonvar(Y)),X<Y)].
 runner:case(when, 2, term_delay, 'Term 1.0.0, 1.5, XLOG 2') :-
-   call_residue2((  when((nonvar(X),nonvar(Y)), X < Y),
-                    X = 0), L),
+   call_residue((  when((nonvar(X),nonvar(Y)), X < Y),
+                   X = 0), L),
    L == [when(nonvar(Y),0<Y)].
 runner:case(when, 2, term_delay, 'Term 1.0.0, 1.5, XLOG 3') :-
    when((nonvar(X),nonvar(Y)), X < Y),
