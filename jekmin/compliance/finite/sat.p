@@ -211,3 +211,105 @@ runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 8c') :-
                  sat(card([7],[X0,X1,X1,Y0,Y0,Y1,Y1,Y1,Y1])),
                  labeling(L)), R),
    R = [_,_].
+
+% random_labeling/1
+runner:ref(random_labeling, 1, finite_sat, 'CLP(B) 1.0.8, 1.6').
+runner:case(random_labeling, 1, finite_sat, 'CLP(B) 1.0.8, 1.6, XLOG 1') :-
+   catch(random_labeling(_), error(E,_), true),
+   E == instantiation_error.
+runner:case(random_labeling, 1, finite_sat, 'CLP(B) 1.0.8, 1.6, XLOG 2') :-
+   catch(random_labeling(foo), error(E,_), true),
+   E == type_error(list,foo).
+runner:case(random_labeling, 1, finite_sat, 'CLP(B) 1.0.8, 1.6, XLOG 3a') :-
+   findall(X-Y-Z, (  sat(X=<Y),
+                     sat(Y=<Z),
+                     sat(Z=<X),
+                     random_labeling([X,Y,Z])), L),
+   L = [R|_],
+   (  R == 0-0-0
+   ;  R == 1-1-1).
+runner:case(random_labeling, 1, finite_sat, 'CLP(B) 1.0.8, 1.6, XLOG 3b') :-
+   findall(X-Y-Z, (  sat(X=<Y),
+                     sat(Y=<Z),
+                     sat(Z=<X),
+                     random_labeling([X,Y,Z])), L),
+   L = [_,R|_],
+   (  R == 0-0-0
+   ;  R == 1-1-1).
+runner:case(random_labeling, 1, finite_sat, 'CLP(B) 1.0.8, 1.6, XLOG 3c') :-
+   findall(X-Y-Z, (  sat(X=<Y),
+                     sat(Y=<Z),
+                     sat(Z=<X),
+                     random_labeling([X,Y,Z])), L),
+   L = [_,_].
+runner:case(random_labeling, 1, finite_sat, 'CLP(B) 1.0.8, 1.6, XLOG 4') :-
+   sat(X=<Y),
+   sat(X=< ~Y),
+   sat(~X=<Y),
+   sat(~X=< ~Y),
+   \+ random_labeling([X,Y]).
+
+% pseudo/4
+runner:ref(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7').
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 1') :-
+   catch(pseudo(_, _, _, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 2') :-
+   catch(pseudo(_, foo, _, _), error(E,_), true),
+   E == type_error(list,foo).
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 3') :-
+   call_residue((  pseudo([1,2,3], [X,Y,Z], >=, 4),
+                   Y = 1), L),
+   L == [pseudo([1,3],[X,Z],>=,2)].
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 4') :-
+   \+ (  pseudo([1,2,3], [_,_,Z], >, 4),
+         Z = 0).
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 5') :-
+   call_residue((  pseudo([1,2,3], [X,Y,Z], >, 4),
+                   X = Y), L),
+   L == [pseudo([3,3],[Y,Z],>,4)].
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 6a') :-
+   findall(X-Y-Z, (  pseudo([1,-2,3], [X,Y,Z], >=, 3),
+                     labeling([X,Y,Z])), L),
+   L = [R|_],
+   R = 0-0-1.
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 6b') :-
+   findall(X-Y-Z, (  pseudo([1,-2,3], [X,Y,Z], >=, 3),
+                     labeling([X,Y,Z])), L),
+   L = [_,R|_],
+   R = 1-0-1.
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 6c') :-
+   findall(X-Y-Z, (  pseudo([1,-2,3], [X,Y,Z], >=, 3),
+                     labeling([X,Y,Z])), L),
+   L = [_,_].
+
+% weighted_maximum/3
+runner:ref(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8').
+runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 1') :-
+   catch(weighted_maximum(_, _, _), error(E,_), true),
+   E == instantiation_error.
+runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 2') :-
+   catch(weighted_maximum(_, foo, _), error(E,_), true),
+   E == type_error(list,foo).
+runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 3') :-
+   sat(~(X#Y#Z)),
+   weighted_maximum([1,2,3], [X,Y,Z], M),
+   M == 5.
+runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 4') :-
+   sat(X#Y#Z),
+   weighted_maximum([-1,-2,-3], [X,Y,Z], M),
+   M == -1.
+runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 5a') :-
+   findall(X-Y-Z, (  sat((X=<Y)*(Y=<Z)),
+                     weighted_maximum([1,-1,1], [X,Y,Z], _)), L),
+   L = [R|_],
+   R = 0-0-1.
+runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 5b') :-
+   findall(X-Y-Z, (  sat((X=<Y)*(Y=<Z)),
+                     weighted_maximum([1,-1,1], [X,Y,Z], _)), L),
+   L = [_,R|_],
+   R = 1-1-1.
+runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 5c') :-
+   findall(X-Y-Z, (  sat((X=<Y)*(Y=<Z)),
+                     weighted_maximum([1,-1,1], [X,Y,Z], _)), L),
+   L = [_,_].
