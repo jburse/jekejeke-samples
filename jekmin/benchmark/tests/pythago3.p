@@ -21,12 +21,19 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(finite/clpfd)).
-% :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
+:- current_prolog_flag(dialect, jekejeke) -> true
+;  use_module(library(clpfd)).
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(finite/clpfd)); true.
 
 % pythago3(-List)
 pythago3(X) :-

@@ -21,7 +21,7 @@ for(N) :-
  * The predicate succeeds for N times executing the goal G.
  */
 % test(+Integer, +Goal)
-:- meta_predicate test(?,0).
+:- meta_predicate(test(?,0)).
 test(N, X) :-
    for(N),
    call(X), fail.
@@ -45,7 +45,7 @@ show(T, G) :-
  * for M times executing the goal X.
  */
 % bench(+Integer, +Goal, -Integer, -Integer)
-:- meta_predicate bench(?,0,?,?).
+:- meta_predicate(bench(?,0,?,?)).
 bench(M, X, T, G) :-
    uptime(T1),
    gctime(G1),
