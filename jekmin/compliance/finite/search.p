@@ -292,45 +292,45 @@ runner:case(random_label, 1, finite_search, 'CLP(FD) 1.0.8, 6.6, XLOG 12') :-
    catch(random_label([foo]), error(E,_), true),
    E == type_error(integer,foo).
 
-% maximum/2
+% label_maximum/2
 % Not available in SWI-Prolog
-runner:ref(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7').
-runner:case(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 1') :-
+runner:ref(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7').
+runner:case(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 1') :-
    X in 0..10,
    M #= -X*X+9*X-14,
-   maximum([X], M),
+   label_maximum([X], M),
    M == 6.
-runner:case(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 2') :-
+runner:case(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 2') :-
    [X,Y,Z] ins 0..10,
    X*X+2*Y*Y+3*Z*Z #=< 100,
    M #= X*Y*Z,
-   maximum([X,Y,Z], M),
+   label_maximum([X,Y,Z], M),
    X == 6,
    Y == 4,
    Z == 3.
-runner:case(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 3a') :-
+runner:case(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 3a') :-
    findall(X, (  X in 0..10,
                  M #= -X*X+9*X-14,
-                 maximum([X], M)), L),
+                 label_maximum([X], M)), L),
    L = [R|_],
    R == 4.
-runner:case(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 3b') :-
+runner:case(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 3b') :-
    findall(X, (  X in 0..10,
                  M #= -X*X+9*X-14,
-                 maximum([X], M)), L),
+                 label_maximum([X], M)), L),
    L = [_,R|_],
    R == 5.
-runner:case(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 3b') :-
+runner:case(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 3b') :-
    findall(X, (  X in 0..10,
                  M #= -X*X+9*X-14,
-                 maximum([X], M)), L),
+                 label_maximum([X], M)), L),
    L = [_,_].
-runner:case(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 4') :-
-   catch(maximum(_, _), error(E,_), true),
+runner:case(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 4') :-
+   catch(label_maximum(_, _), error(E,_), true),
    E == instantiation_error.
-runner:case(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 5') :-
-   catch(maximum([_|foo], _), error(E,_), true),
+runner:case(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 5') :-
+   catch(label_maximum([_|foo], _), error(E,_), true),
    E == type_error(list,foo).
-runner:case(maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 6') :-
-   catch(maximum([foo], _), error(E,_), true),
+runner:case(label_maximum, 2, finite_search, 'CLP(FD) 1.0.8, 6.7, XLOG 6') :-
+   catch(label_maximum([foo], _), error(E,_), true),
    E == type_error(integer,foo).
