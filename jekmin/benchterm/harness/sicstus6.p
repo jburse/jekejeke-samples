@@ -1,5 +1,5 @@
 /**
- * Compatiblity library for sto/1, SWI-Prolog variant.
+ * SICStus Prolog code for the benchmark harness.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,3 +30,12 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+% ?- ensure_loaded('/Projects/Jekejeke/Prototyping/samples/jekrun/benchmark/sicstus.p').
+
+uptime(X) :-
+   statistics(walltime, [X|_]).
+
+gctime(X) :-
+   statistics(garbage_collection, [X|_]).
+
+:- ensure_loaded('suite6.p').

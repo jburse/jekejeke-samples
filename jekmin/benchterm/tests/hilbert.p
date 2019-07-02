@@ -30,7 +30,12 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(term/herbrand)).
+:- current_prolog_flag(dialect, jekejeke)
+-> use_module(library(term/herbrand)); true.
+:- current_prolog_flag(dialect, swi)
+-> use_module('../compat/herbrand.p'); true.
+:- current_prolog_flag(dialect, sicstus)
+-> use_module('../compat/herbrand2.p'); true.
 
 % hilbert(-Integer)
 hilbert(N) :-
