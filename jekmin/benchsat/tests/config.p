@@ -1,4 +1,6 @@
 /**
+ * CLP(B) test configuration.
+ *
  * Automotive configuration - Küchlin, 2013
  * http://ceur-ws.org/Vol-1128/paper3.pdf
  *

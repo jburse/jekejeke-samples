@@ -1,5 +1,5 @@
 /**
- * CLP(B) test primes.
+ * CLP(B) test primes via CLP(FD) encoding.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly

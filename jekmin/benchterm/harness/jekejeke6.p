@@ -1,5 +1,5 @@
 /**
- * CLP(B) test magic series via CLP(FD) encoding.
+ * Jekejeke Prolog code for the benchmark harness.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,37 +30,14 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- current_prolog_flag(dialect, jekejeke) -> true
-;  use_module(library(clpb)).
-:- current_prolog_flag(dialect, jekejeke)
--> use_module(library(finite/clpb)); true.
-:- current_prolog_flag(dialect, jekejeke)
--> use_module(library(basic/lists)); true.
+% ?- ensure_loaded('/Projects/Jekejeke/Prototyping/samples/jekmin/benchmark/jekejeke4.p').
 
-:- ensure_loaded('../mukai/finsat.p').
+% :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
 
-% magic(-Binaries)
-magic(L) :-
-   magic(5, L, B),
-   term_variables(L-B, V),
-   labeling(V).
+uptime(X) :-
+   statistics(uptime, X).
 
-% magic(+Integer, -Binaries, -Binaries)
-magic(N, L, Z) :-
-   length(L, N),
-   L ins 0..N,
-   series(L, 0, L, Z).
+gctime(X) :-
+   statistics(gctime, X).
 
-series([], _, _, []).
-series([X|R], I, L, [B|Z]) :-
-   count(L, I, C, B),
-   X #= C,
-   J is I+1,
-   series(R, J, L, Z).
-
-count([], _, 0, []).
-count([X|R], I, B+C, [B|Z]) :-
-   B in 0..1,
-   X#=I #<==> B,
-   count(R, I, C, Z).
-
+:- ensure_loaded('suite6.p').

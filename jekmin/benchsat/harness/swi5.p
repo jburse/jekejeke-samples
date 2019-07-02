@@ -21,4 +21,4 @@ count(L, N) :-
 -(X, Y) :-
    Y is -X.
 
-:- ensure_loaded('suiteswi5.p').
+:- ensure_loaded('suite5.p').

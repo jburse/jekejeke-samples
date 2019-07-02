@@ -44,4 +44,4 @@ gctime(X) :-
 count(L, N) :-
    aggregate_all(count, L^labeling(L), N).
 
-:- ensure_loaded('suiteswi5.p').
+:- ensure_loaded('suite5.p').
