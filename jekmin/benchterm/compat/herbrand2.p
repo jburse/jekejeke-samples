@@ -1,5 +1,6 @@
 /**
- * sto/1 test hilbert proof.
+ * Compatiblity library for sto/1, SICStus Prolog variant.
+ * Verification of sto/1 before unification.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,29 +31,3 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- current_prolog_flag(dialect, jekejeke)
--> use_module(library(term/herbrand)); true.
-:- current_prolog_flag(dialect, swi)
--> use_module('../compat/herbrand.p'); true.
-% :- (current_prolog_flag(dialect, sicstus) ->
-%       use_module('../compat/herbrand2.p'); true).
-:- current_prolog_flag(dialect, sicstus)
--> use_module('../compat/herbrand3.p'); true.
-
-% hilbert(-Integer)
-hilbert(N) :-
-   hilbert((p->(p->f)->f), 13, N).
-
-% hilbert(+Formula, +Integer, -Integer)
-hilbert(F, N, M) :-
-   N > 0,
-   H is N-1,
-   hilbert2(F, H, M).
-
-% hilbert2(+Formula, +Integer, -Integer)
-hilbert2((A->_->A), N, N).
-hilbert2(((A->B->C)->(A->B)->A->C), N, N).
-hilbert2(B, N, M) :-
-   sto(A),
-   hilbert((A->B), N, H),
-   hilbert(A, H, M).
