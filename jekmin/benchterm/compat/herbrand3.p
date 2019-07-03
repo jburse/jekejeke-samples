@@ -31,3 +31,24 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
+:- module(herbrand3, [sto/1]).
+:- use_module(library(atts)).
+
+:- attribute(herbrand3/1).
+
+sto(X) :-
+   acyclic_term(X),
+   term_variables(X, L),
+   sys_ensure_stos(L).
+
+sys_ensure_stos([X|Y]) :-
+   sys_ensure_sto(X),
+   sys_ensure_stos(Y).
+sys_ensure_stos([]).
+
+sys_ensure_sto(X) :-
+   get_atts(X, herbrand3(_)), !.
+sys_ensure_sto(X) :-
+   put_atts(X, herbrand3(X)).
+
+verify_attributes(V, _, [sto(V)]).
