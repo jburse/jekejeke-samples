@@ -33,11 +33,13 @@
 :- ensure_loaded('util.p').
 
 :- ensure_loaded('../tests/hilbert.p').
+:- ensure_loaded('../tests/insanity.p').
 
 suite6 :-
    bench(1001, dummy, _, _),
    bench(8, hilbert(_), T1, G1),
-   T is T1,
-   G is G1,
+   bench(46, insanity(_), T2, G2),
+   T is T1+T2,
+   G is G1+G2,
    write('Total'),
    show(T, G), nl.
