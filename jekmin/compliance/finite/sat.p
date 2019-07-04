@@ -282,6 +282,21 @@ runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 6c') :-
    findall(X-Y-Z, (  pseudo([1,-2,3], [X,Y,Z], >=, 3),
                      labeling([X,Y,Z])), L),
    L = [_,_].
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 7') :-
+   catch(pseudo([2,3], [_,_], foo, 4), error(E,_), true),
+   E == type_error(comparator,foo).
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 8') :-
+   \+ pseudo([2,3], [_,_], =:=, 6).
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 9') :-
+   call_residue(pseudo([2,3], [_,_], =\=, 6), L),
+   L == [].
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 10') :-
+   \+ (  pseudo([-2,3], [X,Y], =<, -1),
+         X = Y).
+runner:case(pseudo, 4, finite_sat, 'CLP(B) 1.0.8, 1.7, XLOG 11') :-
+   call_residue((  pseudo([2,-3], [X,Y], <, 1),
+                   X = Y), L),
+   L == [].
 
 % weighted_maximum/3
 runner:ref(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8').
