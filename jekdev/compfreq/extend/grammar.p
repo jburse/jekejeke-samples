@@ -278,11 +278,11 @@ runner:case({}, 3, extend_grammar, 'WG17 DCGD 7.14.7, XLOG 5') :-
    with_output_to(atom(X),
       phrase((  p,
                 {write(hello)
-              ;  write(world)}), [abc], [])), !,
+             ;  write(world)}), [abc], [])), !,
    X == hello.
 runner:case({}, 3, extend_grammar, 'WG17 DCGD 7.14.7, XLOG 6') :-
    findall(X, with_output_to(atom(X),
                  phrase((  p,
                            {write(hello)
-                         ;  write(world)}), [abc], [])), [_,X|_]),
+                        ;  write(world)}), [abc], [])), [_,X|_]),
    X == world.
