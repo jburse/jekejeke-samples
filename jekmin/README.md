@@ -27,6 +27,10 @@ The following samples have already been uploaded:
 The following samples have already been uploaded:
 - [benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/benchmark):
   Benchmark CLP(FD) Performance.
+- [benchsat](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/benchsat):
+  Benchmark CLP(B) Performance.
+- [benchterm](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/benchterm):
+  Benchmark Herbrand Performance.
 
 # Issues and Contributing
 
@@ -35,5 +39,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 18.05.2019
+Jan Burse, 18.05.2019 (Updated 05.07.2019)
 
