@@ -30,14 +30,9 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_package(library(jekdev/reference/testing)).
-
 % ?- sys_add_path('file:/C:/Projects/Jekejeke/Prototyping/samples/jekmin/compliance/').
 
-%%% :- use_module(library(bootload/toolkit)).
-%%%  :- sys_init_capability('jekmin.platform.headless.CapabilityMinlog').
-
-%%%  :- sys_add_path('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/').
+:- use_package(library(jekdev/reference/testing)).
 
 :- ensure_loaded(suite).
 :- use_module(library(testing/runner)).
