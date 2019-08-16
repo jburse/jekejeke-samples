@@ -57,11 +57,9 @@ runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 2') :-
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 3') :-
    -11 is \10.
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 4') :-
-   catch(_ is \_, error(E,_), true),
-   E == instantiation_error.
+   catch(_ is \_, error(E, _), true), E == instantiation_error.
 runner:case(\, -2, arithmetic_bitwise, 'ISO 9.4.5.4, ISO 5') :-
-   catch(_ is \2.5, error(E,_), true),
-   E == type_error(integer,2.5).
+   catch(_ is \2.5, error(E, _), true), E == type_error(integer, 2.5).
 
 /* X /\ Y */
 
@@ -73,8 +71,7 @@ runner:case(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, ISO 3') :-
 runner:case(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, ISO 4') :-
    4 is -10/\12.
 runner:case(/\, -3, arithmetic_bitwise, 'ISO 9.4.3.4, ISO 6') :-
-   catch(_ is foobar/\2, error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is foobar/\2, error(E, _), true), E == type_error(evaluable, foobar/0).
 
 /* X \/ Y */
 
@@ -86,8 +83,7 @@ runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 3') :-
 runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 4') :-
    -2 is -10\/12.
 runner:case(\/, -3, arithmetic_bitwise, 'ISO 9.4.4.4, ISO 5') :-
-   catch(_ is 77\/_, error(E,_), true),
-   E == instantiation_error.
+   catch(_ is 77\/_, error(E, _), true), E == instantiation_error.
 
 /* X << Y */
 
@@ -99,8 +95,7 @@ runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 2') :-
 runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 3') :-
    -64 is -16<<2.
 runner:case(<<, -3, arithmetic_bitwise, 'ISO 9.4.2.4, ISO 5') :-
-   catch(_ is foobar<<2, error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is foobar<<2, error(E, _), true), E == type_error(evaluable, foobar/0).
 
 /* X >> Y */
 
@@ -112,15 +107,14 @@ runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 2') :-
 runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 3') :-
    -4 is -16>>2.
 runner:case(>>, -3, arithmetic_bitwise, 'ISO 9.4.1.4, ISO 4') :-
-   catch(_ is 77>>_, error(E,_), true),
-   E == instantiation_error.
+   catch(_ is 77>>_, error(E, _), true), E == instantiation_error.
 
 /* xor(X,Y) */
 
 runner:ref(xor, -3, arithmetic_bitwise, 'Corr.2 9.4.6.4').
 runner:case(xor, -3, arithmetic_bitwise, 'Corr.2 9.4.6.4, ISO 1') :-
-   6 is xor(10,12).
+   6 is xor(10, 12).
 runner:case(xor, -3, arithmetic_bitwise, 'Corr.2 9.4.6.4, ISO 2') :-
-   130 is xor(125,255).
+   130 is xor(125, 255).
 runner:case(xor, -3, arithmetic_bitwise, 'Corr.2 9.4.6.4, ISO 3') :-
-   -6 is xor(-10,12).
+   -6 is xor(-10, 12).

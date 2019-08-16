@@ -55,8 +55,8 @@ runner:case(truncate, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 8') :-
 runner:case(truncate, -2, arithmetic_moddiv, 'ISO 9.1.7, XLOG 1') :-
    7.0 is truncate(7.6).
 runner:case(truncate, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 9') :-
-   catch(_ is truncate(foobar), error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is truncate(foobar), error(E, _), true),
+   E == type_error(evaluable, foobar/0).
 
 /* floor(X) */
 
@@ -86,7 +86,7 @@ runner:case(round, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 4') :-
 runner:case(round, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 5') :-
    -1.0 is round(-0.6).
 runner:case(round, -2, arithmetic_moddiv, 'ISO 9.1.7, ISO 6') :-
-   catch(_ is round(_), error(E,_), true),
+   catch(_ is round(_), error(E, _), true),
    E == instantiation_error.
 
 /* X // Y */
@@ -99,7 +99,7 @@ runner:case(//, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 23') :-
 runner:case(//, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 3') :-
    -2 is -5//2.
 runner:case(//, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 4') :-
-   catch(_ is 7//0, error(E,_), true),
+   catch(_ is 7//0, error(E, _), true),
    E == evaluation_error(zero_divisor).
 /* extra */
 runner:case(//, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 4') :-
@@ -117,10 +117,10 @@ runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 3') :-
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 4') :-
    -1 is -5 rem 2.
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 5') :-
-   catch(_ is 77 rem _, error(E,_), true),
+   catch(_ is 77 rem _, error(E, _), true),
    E == instantiation_error.
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 6') :-
-   catch(_ is 7 rem 0, error(E,_), true),
+   catch(_ is 7 rem 0, error(E, _), true),
    E == evaluation_error(zero_divisor).
 /* extra */
 runner:case(rem, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 7') :-
@@ -136,8 +136,8 @@ runner:case(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3, XLOG 2') :-
 runner:case(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3, XLOG 3') :-
    -3 is -5 div 2.
 runner:case(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3, XLOG 4') :-
-   catch(_ is foobar div 77, error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is foobar div 77, error(E, _), true),
+   E == type_error(evaluable, foobar/0).
 /* extra */
 runner:case(div, -3, arithmetic_moddiv, 'Corr.2 9.1.3, XLOG 5') :-
    -3 is -7.5 div 3.5.
@@ -152,15 +152,15 @@ runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 31') :-
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 32') :-
    -1 is 7 mod-2.
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 33') :-
-   catch(_ is 77 mod _, error(E,_), true),
+   catch(_ is 77 mod _, error(E, _), true),
    E == instantiation_error.
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 34') :-
-   catch(_ is foobar mod 77, error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is foobar mod 77, error(E, _), true),
+   E == type_error(evaluable, foobar/0).
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 1') :-
    1.5 is 7.5 mod 2.
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, ISO 36') :-
-   catch(_ is 7 mod 0, error(E,_), true),
+   catch(_ is 7 mod 0, error(E, _), true),
    E == evaluation_error(zero_divisor).
 /* extra */
 runner:case(mod, -3, arithmetic_moddiv, 'ISO 9.1.7, XLOG 2') :-

@@ -67,12 +67,11 @@ runner:case(\==, 2, structure_compare, 'ISO 8.4.1.4, ISO 16') :-
 
 runner:ref(@<, 2, structure_compare, 'ISO 8.4.1.4').
 runner:case(@<, 2, structure_compare, 'ISO 8.4.1.4, ISO 8') :-
-   \+ foo(a,b) @< north(a).
+   \+ foo(a, b) @< north(a).
 runner:case(@<, 2, structure_compare, 'ISO 8.4.1.4, ISO 10') :-
-   foo(a,_) @< foo(b,_).
+   foo(a, _) @< foo(b, _).
 runner:case(@<, 2, structure_compare, 'ISO 8.4.1.4, ISO 11') :-
-   foo(X,a) @< foo(Y,b)
-;  foo(Y,a) @< foo(X,b).
+   foo(X, a) @< foo(Y, b); foo(Y, a) @< foo(X, b).
 
 /* X @> Y */
 
@@ -94,8 +93,7 @@ runner:case(@=<, 2, structure_compare, 'ISO 8.4.1.4, ISO 6') :-
 runner:case(@=<, 2, structure_compare, 'ISO 8.4.1.4, ISO 12') :-
    X @=< X.
 runner:case(@=<, 2, structure_compare, 'ISO 8.4.1.4, ISO 14') :-
-   X @=< Y
-;  Y @=< X.
+   X @=< Y; Y @=< X.
 
 /* X @>= Y */
 
@@ -117,9 +115,9 @@ runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 3') :-
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 4') :-
    compare(=, X, X).
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 5') :-
-   compare(>, foo(a,b), north(a)).
+   compare(>, foo(a, b), north(a)).
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 6') :-
-   compare(<, foo(a,_), foo(b,_)).
+   compare(<, foo(a, _), foo(b, _)).
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 7') :-
    compare(>, a, 'A').
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 8') :-

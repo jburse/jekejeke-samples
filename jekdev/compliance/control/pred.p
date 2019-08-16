@@ -58,12 +58,10 @@ runner:case(current_predicate, 1, control_pred, 'ISO 8.8.2.4, ISO 1') :-
 runner:case(current_predicate, 1, control_pred, 'ISO 8.8.2.4, ISO 2') :-
    \+ current_predicate(current_predicate/1).
 
-elk(X) :-
-   moose(X).
+elk(X) :- moose(X).
 
 runner:case(current_predicate, 1, control_pred, 'ISO 8.8.2.4, ISO 3') :-
-   current_predicate(elk/A),
-   A == 1.
+   current_predicate(elk/A), A == 1.
 runner:case(current_predicate, 1, control_pred, 'ISO 8.8.2.4, ISO 4') :-
    \+ current_predicate(ulk/_).
 
@@ -73,19 +71,12 @@ insect(ant).
 insect(bee).
 
 runner:case(current_predicate, 1, control_pred, 'ISO 8.8.2.4, ISO 5a') :-
-   current_predicate(N/1),
-   (  N == elk
-   ;  N == insect).
+   current_predicate(N/1), (N == elk; N == insect).
 runner:case(current_predicate, 1, control_pred, 'ISO 8.8.2.4, ISO 5b') :-
-   current_predicate(N/1),
-   (  N == elk
-   ;  N == insect),
-   current_predicate(M/1),
-   M \== N,
-   (  M == elk
-   ;  M == insect).
+   current_predicate(N/1), (N == elk; N == insect),
+   current_predicate(M/1), M \== N, (M == elk; M == insect).
 runner:case(current_predicate, 1, control_pred, 'ISO 8.8.2.4, ISO 6') :-
-   catch(current_predicate(4), error(E,_), true),
-   E == type_error(predicate_indicator,4).
+   catch(current_predicate(4), error(E, _), true),
+   E == type_error(predicate_indicator, 4).
 
 

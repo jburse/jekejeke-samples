@@ -51,13 +51,9 @@
 
 runner:ref(is, 2, arithmetic_basic, 'ISO 8.6.1.4').
 runner:case(is, 2, arithmetic_basic, 'ISO 8.6.1.4, ISO 1') :-
-   Result is 3+11.0,
-   Result == 14.0.
+   Result is 3+11.0, Result == 14.0.
 runner:case(is, 2, arithmetic_basic, 'ISO 8.6.1.4, ISO 2') :-
-   X = 1+2,
-   Y is X*3,
-   X == 1+2,
-   Y == 9.
+   X = 1+2, Y is X*3, X == 1+2, Y == 9.
 runner:case(is, 2, arithmetic_basic, 'ISO 8.6.1.4, ISO 3') :-
    3 is 3.
 runner:case(is, 2, arithmetic_basic, 'ISO 8.6.1.4, ISO 4') :-
@@ -65,24 +61,21 @@ runner:case(is, 2, arithmetic_basic, 'ISO 8.6.1.4, ISO 4') :-
 runner:case(is, 2, arithmetic_basic, 'ISO 8.6.1.4, ISO 5') :-
    \+ foobar is 77.
 runner:case(is, 2, arithmetic_basic, 'ISO 8.6.1.4, ISO 6') :-
-   catch(77 is _, error(E,_), true),
-   E == instantiation_error.
+   catch(77 is _, error(E, _), true), E == instantiation_error.
 
 /* - X */
 
 runner:ref(-, -2, arithmetic_basic, 'ISO 9.1.7').
 runner:case(-, -2, arithmetic_basic, 'ISO 9.1.7, ISO 6') :-
-   -7 is -7.
+   -7 is - 7.
 runner:case(-, -2, arithmetic_basic, 'ISO 9.1.7, ISO 7') :-
    8 is - (3-11).
 runner:case(-, -2, arithmetic_basic, 'ISO 9.1.7, ISO 8') :-
    7.8 is - (3.2-11).
 runner:case(-, -2, arithmetic_basic, 'ISO 9.1.7, ISO 9') :-
-   catch(_ is -_, error(E,_), true),
-   E == instantiation_error.
+   catch(_ is -_, error(E, _), true), E == instantiation_error.
 runner:case(-, -2, arithmetic_basic, 'ISO 9.1.7, ISO 10') :-
-   catch(_ is -foobar, error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is -foobar, error(E, _), true), E == type_error(evaluable, foobar/0).
 
 /* abs(X) */
 
@@ -94,8 +87,7 @@ runner:case(abs, -2, arithmetic_basic, 'ISO 9.1.7, ISO 53') :-
 runner:case(abs, -2, arithmetic_basic, 'ISO 9.1.7, ISO 54') :-
    7.8 is abs(3.2-11.0).
 runner:case(abs, -2, arithmetic_basic, 'ISO 9.1.7, ISO 55') :-
-   catch(_ is abs(_), error(E,_), true),
-   E == instantiation_error.
+   catch(_ is abs(_), error(E, _), true), E == instantiation_error.
 
 /* sign(X) */
 
@@ -107,8 +99,7 @@ runner:case(sign, -2, arithmetic_basic, 'ISO 9.1.4, XLOG 2') :-
 runner:case(sign, -2, arithmetic_basic, 'ISO 9.1.4, XLOG 3') :-
    -1.0 is sign(3.2-11).
 runner:case(sign, -2, arithmetic_basic, 'ISO 9.1.4, XLOG 5') :-
-   catch(_ is sign(foobar), error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is sign(foobar), error(E, _), true), E == type_error(evaluable, foobar/0).
 
 /* float(X) */
 
@@ -130,8 +121,7 @@ runner:case(+, -3, arithmetic_basic, 'ISO 9.1.7, ISO 2') :-
 runner:case(+, -3, arithmetic_basic, 'ISO 9.1.7, ISO 3') :-
    14.2 is 0+(3.2+11).
 runner:case(+, -3, arithmetic_basic, 'ISO 9.1.7, ISO 5') :-
-   catch(_ is foobar+77, error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is foobar+77, error(E, _), true), E == type_error(evaluable, foobar/0).
 % runner:case(+, -3, arithmetic_basic, iso) :- current_prolog_flag(max_integer, M),
 %    catch(_ is M+1, error(E, _), true), E==evaluation_error(int_overflow).
 % runner:case(+, -3, arithmetic_basic, iso) :- current_prolog_flag(max_integer, M),
@@ -147,8 +137,7 @@ runner:case(-, -3, arithmetic_basic, 'ISO 9.1.7, ISO 12') :-
 runner:case(-, -3, arithmetic_basic, 'ISO 9.1.7, ISO 13') :-
    -14.2 is 0-(3.2+11).
 runner:case(-, -3, arithmetic_basic, 'ISO 9.1.7, ISO 14') :-
-   catch(_ is 77-_, error(E,_), true),
-   E == instantiation_error.
+   catch(_ is 77-_, error(E, _), true), E == instantiation_error.
 % runner:case(-, -3, arithmetic_basic, iso) :- current_prolog_flag(max_integer, M),
 %    catch(_ is (-1)-M, error(E, _), true), E==evaluation_error(int_overflow).
 
@@ -162,8 +151,7 @@ runner:case(*, -3, arithmetic_basic, 'ISO 9.1.7, ISO 17') :-
 runner:case(*, -3, arithmetic_basic, 'ISO 9.1.7, ISO 18') :-
    21.299999999999997 is 1.5*(3.2+11).
 runner:case(*, -3, arithmetic_basic, 'ISO 9.1.7, ISO 19') :-
-   catch(_ is 77*_, error(E,_), true),
-   E == instantiation_error.
+   catch(_ is 77*_, error(E, _), true), E == instantiation_error.
 % runner:case(*, -3, arithmetic_basic, iso) :- current_prolog_flag(max_integer, M),
 %    catch(_ is M*2, error(E, _), true), E==evaluation_error(int_overflow).
 
@@ -179,11 +167,9 @@ runner:case(/, -3, arithmetic_basic, 'ISO 9.1.7, ISO 25') :-
 runner:case(/, -3, arithmetic_basic, 'ISO 9.1.7, ISO 26') :-
    -2.3333333333333335 is -7/3.
 runner:case(/, -3, arithmetic_basic, 'ISO 9.1.7, ISO 28') :-
-   catch(_ is foobar/77, error(E,_), true),
-   E == type_error(evaluable,foobar/0).
+   catch(_ is foobar/77, error(E, _), true), E == type_error(evaluable, foobar/0).
 runner:case(/, -3, arithmetic_basic, 'ISO 9.1.7, ISO 29') :-
-   catch(_ is 3/0, error(E,_), true),
-   E == evaluation_error(zero_divisor).
+   catch(_ is 3/0, error(E, _), true), E == evaluation_error(zero_divisor).
 
 /* X^Y */
 
@@ -191,8 +177,8 @@ runner:ref(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4').
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 1') :-
    1 is 0^0.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 1') :-
-   catch(_ is 3^1.0, error(E,_), true),
-   E = type_error(integer,_).
+   catch(_ is 3^1.0, error(E, _), true),
+   E = type_error(integer, _).
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 3') :-
    -27 is -3^3.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 4') :-
@@ -200,11 +186,11 @@ runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 4') :-
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, ISO 5') :-
    7625597484987 is 3^3^3.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 2') :-
-   catch(_ is 1^ -1, error(E,_), true),
+   catch(_ is 1^ -1, error(E, _), true),
    E == representation_error(not_less_than_zero).
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 3') :-
-   catch(_ is 2^ -1.5, error(E,_), true),
-   E = type_error(integer,_).
+   catch(_ is 2^ -1.5, error(E, _), true),
+   E = type_error(integer, _).
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 4') :-
    9.0 is 3.0^2.
 runner:case(^, -3, arithmetic_basic, 'Corr.2 9.3.10.4, XLOG 5') :-

@@ -56,137 +56,81 @@ runner:case(fail, 0, control_kernel, 'ISO 7.8.2.4, ISO 1') :-
 /* true */
 
 runner:ref(true, 0, control_kernel, 'ISO 7.8.1.4').
-runner:case(true, 0, control_kernel, 'ISO 7.8.1.4, ISO 1') :- true.
+runner:case(true, 0, control_kernel, 'ISO 7.8.1.4, ISO 1') :-
+   true.
 
 /* ! */
 
 runner:ref(!, 0, control_kernel, 'ISO 7.8.4.4').
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 1') :- !.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 2') :-
-   \+ (  !, fail; true).
+   \+ (!, fail; true).
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 3') :-
    call(!), fail; true.
 
 :- meta_predicate twice(0).
-twice(!) :-
-   write('C ').
-twice(true) :-
-   write('Moss ').
+twice(!) :- write('C ').
+twice(true) :- write('Moss ').
 
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 4a') :-
-   with_output_to(atom(X), (  twice(_), !,
-                              write('Forwards '))), !,
-   X == 'C Forwards '.
+   with_output_to(atom(X), (twice(_), !, write('Forwards '))), !, X == 'C Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 4b') :-
-   \+ with_output_to(atom(_), (  twice(_), !,
-                                 write('Forwards '), fail)).
+   \+ with_output_to(atom(_), (twice(_), !, write('Forwards '), fail)).
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 5a') :-
-   with_output_to(atom(X), (  (  !
-                              ;  write('No ')),
-                              write('Cut disjunction '))), !,
+   with_output_to(atom(X), ((!; write('No ')), write('Cut disjunction '))), !,
    X == 'Cut disjunction '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 5b') :-
-   \+ with_output_to(atom(_), (  (  !
-                                 ;  write('No ')),
-                                 write('Cut disjunction '), fail)).
+   \+ with_output_to(atom(_), ((!; write('No ')), write('Cut disjunction '), fail)).
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 6a') :-
-   with_output_to(atom(X), (  twice(_),
-                              (  write('No '); !),
-                              write('Cut '))), !,
-   X == 'C No Cut '.
+   with_output_to(atom(X), (twice(_), (write('No '); !), write('Cut '))), !, X == 'C No Cut '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 6b') :-
-   findall(X, with_output_to(atom(X), (  twice(_),
-                                         (  write('No '); !),
-                                         write('Cut '))), [_,X|_]),
+   findall(X, with_output_to(atom(X), (twice(_), (write('No '); !), write('Cut '))), [_, X|_]),
    X == 'Cut '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 6c') :-
-   findall(X, with_output_to(atom(X), (  twice(_),
-                                         (  write('No '); !),
-                                         write('Cut '))), [_,_]).
+   findall(X, with_output_to(atom(X), (twice(_), (write('No '); !), write('Cut '))), [_, _]).
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 7a') :-
-   with_output_to(atom(X), \+ (  twice(_),
-                                 (  !, fail
-                                 ;  write('No ')))), !,
-   X == 'C '.
-runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 7b') :-
-   \+ (  twice(_),
-         (  !, fail
-         ;  write('No '))).
+   with_output_to(atom(X), \+ (twice(_), (!, fail; write('No ')))), !, X == 'C '.
+runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 7b') :- \+ (twice(_), (!, fail; write('No '))).
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 8a') :-
-   with_output_to(atom(Y), (  twice(X),
-                              call(X),
-                              write('Forwards '))), !,
-   Y == 'C Forwards '.
+   with_output_to(atom(Y), (twice(X), call(X), write('Forwards '))), !, Y == 'C Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 8b') :-
-   findall(Y, with_output_to(atom(Y), (  twice(X),
-                                         call(X),
-                                         write('Forwards '))), [_,Y|_]),
+   findall(Y, with_output_to(atom(Y), (twice(X), call(X), write('Forwards '))), [_, Y|_]),
    Y == 'Moss Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 8c') :-
-   findall(Y, with_output_to(atom(Y), (  twice(X),
-                                         call(X),
-                                         write('Forwards '))), [_,_]).
+   findall(Y, with_output_to(atom(Y), (twice(X), call(X), write('Forwards '))), [_, _]).
 
 :- meta_predicate goal(0).
-goal((  twice(_), !)).
+goal((twice(_), !)).
 goal(write('Three ')).
 
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 9a') :-
-   with_output_to(atom(Y), (  goal(X),
-                              call(X),
-                              write('Forwards '))), !,
-   Y == 'C Forwards '.
+   with_output_to(atom(Y), (goal(X), call(X), write('Forwards '))), !, Y == 'C Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 9b') :-
-   findall(Y, with_output_to(atom(Y), (  goal(X),
-                                         call(X),
-                                         write('Forwards '))), [_,Y|_]),
+   findall(Y, with_output_to(atom(Y), (goal(X), call(X), write('Forwards '))), [_, Y|_]),
    Y == 'Three Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 9c') :-
-   findall(Y, with_output_to(atom(Y), (  goal(X),
-                                         call(X),
-                                         write('Forwards '))), [_,_]).
+   findall(Y, with_output_to(atom(Y), (goal(X), call(X), write('Forwards '))), [_, _]).
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 10a') :-
-   with_output_to(atom(Y), (  twice(_),
-                              \+ \+ !,
-                              write('Forwards '))), !,
-   Y == 'C Forwards '.
+   with_output_to(atom(Y), (twice(_), \+ \+ !, write('Forwards '))), !, Y == 'C Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 10b') :-
-   findall(Y, with_output_to(atom(Y), (  twice(_),
-                                         \+ \+ !,
-                                         write('Forwards '))), [_,Y|_]),
+   findall(Y, with_output_to(atom(Y), (twice(_), \+ \+ !, write('Forwards '))), [_, Y|_]),
    Y == 'Moss Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 10c') :-
-   findall(Y, with_output_to(atom(Y), (  twice(_),
-                                         \+ \+ !,
-                                         write('Forwards '))), [_,_]).
+   findall(Y, with_output_to(atom(Y), (twice(_), \+ \+ !, write('Forwards '))), [_, _]).
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 11a') :-
-   with_output_to(atom(Y), (  twice(_),
-                              once(!),
-                              write('Forwards '))), !,
-   Y == 'C Forwards '.
+   with_output_to(atom(Y), (twice(_), once(!), write('Forwards '))), !, Y == 'C Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 11b') :-
-   findall(Y, with_output_to(atom(Y), (  twice(_),
-                                         once(!),
-                                         write('Forwards '))), [_,Y|_]),
+   findall(Y, with_output_to(atom(Y), (twice(_), once(!), write('Forwards '))), [_, Y|_]),
    Y == 'Moss Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 11c') :-
-   findall(Y, with_output_to(atom(Y), (  twice(_),
-                                         once(!),
-                                         write('Forwards '))), [_,_]).
+   findall(Y, with_output_to(atom(Y), (twice(_), once(!), write('Forwards '))), [_, _]).
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 12a') :-
-   with_output_to(atom(Y), (  twice(_),
-                              call(!),
-                              write('Forwards '))), !,
-   Y == 'C Forwards '.
+   with_output_to(atom(Y), (twice(_), call(!), write('Forwards '))), !, Y == 'C Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 12b') :-
-   findall(Y, with_output_to(atom(Y), (  twice(_),
-                                         call(!),
-                                         write('Forwards '))), [_,Y|_]),
+   findall(Y, with_output_to(atom(Y), (twice(_), call(!), write('Forwards '))), [_, Y|_]),
    Y == 'Moss Forwards '.
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 12c') :-
-   findall(Y, with_output_to(atom(Y), (  twice(_),
-                                         call(!),
-                                         write('Forwards '))), [_,_]).
+   findall(Y, with_output_to(atom(Y), (twice(_), call(!), write('Forwards '))), [_, _]).
 
 /* sys_local_cut */
 
@@ -203,62 +147,42 @@ runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, XLOG 2') :-
 
 :- multifile foo/1.
 :- dynamic foo/1.
-foo(X) :-
-   Y is X*2,
-   throw(test(Y)).
+foo(X) :- Y is X*2, throw(test(Y)).
 
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 1') :-
-   catch(foo(5), test(Y), true),
-   Y == 10.
+   catch(foo(5), test(Y), true), Y == 10.
 
-bar(X) :-
-   X = Y,
-   throw(Y).
+bar(X) :- X = Y, throw(Y).
 
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 2') :-
-   catch(bar(3), Z, true),
-   Z == 3.
+   catch(bar(3), Z, true), Z == 3.
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 3') :-
    catch(true, _, 3).
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 4a') :-
-   with_output_to(atom(X), catch(true, _, write(demoen))), !,
-   X == ''.
+   with_output_to(atom(X), catch(true, _, write(demoen))), !, X == ''.
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 4b') :-
-   catch((  catch(true, _, write(demoen)),
-            throw(bla)), E, true),
-   E == bla.
+   catch((catch(true, _, write(demoen)), throw(bla)), E, true), E == bla.
 
-car(X) :-
-   X = 1,
-   throw(X).
+car(X) :- X = 1, throw(X).
 
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 5a') :-
-   catch(car(_), Y, true),
-   Y == 1.
+   catch(car(_), Y, true), Y == 1.
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 5b') :-
-   catch(car(X), _, true),
-   var(X).
+   catch(car(X), _, true), var(X).
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 6') :-
-   \+ catch(number_codes(_, "1a0"), error(syntax_error(_),_), fail).
+   \+ catch(number_codes(_, "1a0"), error(syntax_error(_), _), fail).
 
-coo(X) :-
-   throw(X).
-g :-
-   catch(p, _, write(h2)),
-   coo(c).
+coo(X) :- throw(X).
+g :- catch(p, _, write(h2)), coo(c).
 p.
-p :-
-   throw(b).
+p :- throw(b).
 
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 7a') :-
-   with_output_to(atom(X), catch(g, _, write(h1))), !,
-   X == h1.
+   with_output_to(atom(X), catch(g, _, write(h1))), !, X == h1.
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 7b') :-
-   with_output_to(atom(_), catch(g, C, write(h1))), !,
-   C == c.
+   with_output_to(atom(_), catch(g, C, write(h1))), !, C == c.
 runner:case(catch, 3, control_kernel, 'ISO 7.8.9.4, ISO 8') :-
-   catch(coo(_), error(E,_), true),
-   E == instantiation_error.
+   catch(coo(_), error(E, _), true), E == instantiation_error.
 
 /* throw(E), ISO 7.8.10.4 */
 

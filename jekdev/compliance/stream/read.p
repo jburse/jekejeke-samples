@@ -55,62 +55,50 @@
 
 runner:ref(write, 1, stream_read, 'ISO 8.14.2.5').
 runner:case(write, 1, stream_read, 'ISO 8.14.2.4, ISO 4') :-
-   with_output_to(atom(X), write('1<2')),
-   X == '1<2'.
+   with_output_to(atom(X), write('1<2')), X == '1<2'.
 runner:case(write, 1, stream_read, 'ISO 8.14.2.4, ISO 5') :-
-   with_output_to(atom(X), write('$VAR'(0))),
-   X == 'A'.
+   with_output_to(atom(X), write('$VAR'(0))), X == 'A'.
 runner:case(write, 1, stream_read, 'ISO 6.3.4.3, XLOG 1') :-
-   op(9, fy, fy),
-   op(9, yf, yf),
-   with_output_to(atom(X), write(yf(fy(1)))),
-   X == '(fy 1)yf'.
+   op(9, fy, fy), op(9, yf, yf),
+   with_output_to(atom(X), write(yf(fy(1)))), X == '(fy 1)yf'.
 runner:case(write, 1, stream_read, 'ISO 6.3.4.3, XLOG 2') :-
-   op(9, fy, fy),
-   op(9, yfx, yfx),
-   with_output_to(atom(X), write(yfx(fy(1),2))),
-   X == '(fy 1)yfx 2'.
+   op(9, fy, fy), op(9, yfx, yfx),
+   with_output_to(atom(X), write(yfx(fy(1), 2))), X == '(fy 1)yfx 2'.
 runner:case(write, 1, stream_read, 'ISO 6.3.4.3, XLOG 3') :-
-   op(9, fy, fy),
-   op(9, xfy, xfy),
-   with_output_to(atom(X), write(fy(xfy(1,2)))),
-   X == 'fy 1 xfy 2'.
+   op(9, fy, fy), op(9, xfy, xfy),
+   with_output_to(atom(X), write(fy(xfy(1, 2)))), X == 'fy 1 xfy 2'.
 runner:case(write, 1, stream_read, 'ISO 6.4.1, XLOG 1') :-
-   with_output_to(atom(X), write(//*)),
-   X == //* .
+   with_output_to(atom(X), write(//*)), X == //* .
 
 /* writeq(X) */
 
 runner:ref(writeq, 1, stream_read, 'ISO 8.14.2.5').
 runner:case(writeq, 1, stream_read, 'ISO 8.14.2.4, ISO 4') :-
-   with_output_to(atom(X), writeq('1<2')),
-   X == '''1<2'''.
+   with_output_to(atom(X), writeq('1<2')), X == '''1<2'''.
 runner:case(writeq, 1, stream_read, 'ISO 8.14.2.4, ISO 5') :-
-   with_output_to(atom(X), writeq('$VAR'(0))),
-   X == 'A'.
+   with_output_to(atom(X), writeq('$VAR'(0))), X == 'A'.
 runner:case(writeq, 1, stream_read, 'ISO 6.4.1, XLOG 1') :-
-   with_output_to(atom(X), writeq(//*)),
-   X == //* .
+   with_output_to(atom(X), writeq(//*)), X == //* .
 
 /* write_canonical(X) */
 
 runner:ref(write_canonical, 1, stream_read, 'ISO 8.14.2.5').
 runner:case(write_canonical, 1, stream_read, 'ISO 8.14.2.4, ISO 2') :-
-   with_output_to(atom(X), write_canonical([1,2,3])),
-   X == '''.''(1,''.''(2,''.''(3,[])))'.
+   with_output_to(atom(X), write_canonical([1, 2, 3])),
+   X == '''.''(1, ''.''(2, ''.''(3, [])))'.
 runner:case(write_canonical, 1, stream_read, 'ISO 8.14.2.4, XLOG 1') :-
-   with_output_to(atom(X), write_canonical((a,b))),
-   X == ''',''(a,b)'.
+   with_output_to(atom(X), write_canonical((a, b))),
+   X == ''',''(a, b)'.
 runner:case(write_canonical, 1, stream_read, 'ISO 8.14.2.4, XLOG 2') :-
-   with_output_to(atom(X), write_canonical(1<2)),
-   X == '<(1,2)'.
+   with_output_to(atom(X), write_canonical(1 < 2)),
+   X == '<(1, 2)'.
 
 /* write_term(X,L) */
 
 runner:ref(write_term, 2, stream_read, 'ISO 8.14.2.4').
 runner:case(write_term, 2, stream_read, 'ISO 8.14.2.4, ISO 1') :-
-   with_output_to(atom(X), write_term([1,2,3], [])),
-   X == '[1,2,3]'.
+   with_output_to(atom(X), write_term([1, 2, 3], [])),
+   X == '[1, 2, 3]'.
 runner:case(write_term, 2, stream_read, 'ISO 8.14.2.4, ISO 3') :-
    with_output_to(atom(X), write_term('1<2', [])),
    X == '1<2'.
@@ -121,124 +109,111 @@ runner:case(write_term, 2, stream_read, 'ISO 8.14.2.4, ISO 6') :-
    with_output_to(atom(X), write_term('$VAR'(51), [numbervars(true)])),
    X == 'Z1'.
 runner:case(write_term, 2, stream_read, 'ISO 8.14.2.4, XLOG 1') :-
-   with_output_to(atom(X), write_term(f(',',a), [quoted(true)])),
-   X == 'f('','',a)'.
+   with_output_to(atom(X), write_term(f(',', a), [quoted(true)])),
+   X == 'f('','', a)'.
 runner:case(write_term, 2, stream_read, 'ISO 8.14.2.4, XLOG 2') :-
-   with_output_to(atom(X), write_term((a;b|c), [quoted(true)])),
-   X == 'a;b|c'.
+   with_output_to(atom(X), write_term((a; b | c), [quoted(true)])),
+   X == 'a; b | c'.
 
 /* read(X) */
 
 runner:ref(read, 1, stream_read, 'ISO 8.14.1.4, ISO 6.3.3.1').
 runner:case(read, 1, stream_read, 'ISO 8.14.1.4, ISO 1a') :-
-   with_input_from(atom('term1. term2. '), read(X)),
-   X == term1.
+   with_input_from(atom('term1. term2. '), read(X)), X == term1.
 runner:case(read, 1, stream_read, 'ISO 8.14.1.4, ISO 1b') :-
-   findall(X, with_input_from(atom('term1. term2. '), (  read(_)
-                                                      ;  read_line(X))), [_,X|_]),
-   X == 'term2. '.
+   findall(X, with_input_from(atom('term1. term2. '), (read(_); read_line(X))), [_, X|_]), X == 'term2. '.
 runner:case(read, 1, stream_read, 'ISO 8.14.1.4, ISO 4') :-
    \+ with_input_from(atom('3.1. term2. '), read(4.1)).
 runner:case(read, 1, stream_read, 'ISO 8.14.1.4, ISO 5') :-
-   catch(with_input_from(atom('foo 123. term2. '), read(_)), error(E,_), true),
-   E = syntax_error(_).
+   catch(with_input_from(atom('foo 123. term2. '), read(_)), error(E, _), true), E = syntax_error(_).
 runner:case(read, 1, stream_read, 'ISO 8.14.1.4, ISO 6') :-
-   catch(with_input_from(atom('3.1 '), read(_)), error(E,_), true),
-   E = syntax_error(_).
+   catch(with_input_from(atom('3.1 '), read(_)), error(E, _), true), E = syntax_error(_).
 runner:case(read, 1, stream_read, 'ISO 8.14.1.4, XLOG 1') :-
-   with_input_from(atom('3.1 '), (  catch(read(_), error(_,_), fail)
-                                 ;  read_line(end_of_file))).
+   with_input_from(atom('3.1 '), (catch(read(_), error(_, _), fail); read_line(end_of_file))).
 runner:case(read, 1, stream_read, 'ISO 6.3.3.1, XLOG 1') :-
-   catch(with_input_from(atom('[a,b|,].'), read(_)), error(E,_), true),
+   catch(with_input_from(atom('[a,b|,].'), read(_)), error(E, _), true),
    E == syntax_error(cannot_start_term).
 runner:case(read, 1, stream_read, 'ISO 6.3.3.1, XLOG 2') :-
-   catch(with_input_from(atom('{,}.'), read(_)), error(E,_), true),
+   catch(with_input_from(atom('{,}.'), read(_)), error(E, _), true),
    E == syntax_error(cannot_start_term).
 runner:case(read, 1, stream_read, 'ISO 6.3.3.1, XLOG 3') :-
-   catch(with_input_from(atom('''\\N''.'), read(_)), error(E,_), true),
+   catch(with_input_from(atom('''\\N''.'), read(_)), error(E, _), true),
    E == syntax_error(illegal_escape).
 runner:case(read, 1, stream_read, 'ISO 6.3.3.1, XLOG 4') :-
-   catch(with_input_from(atom('X = |.'), read(_)), error(E,_), true),
+   catch(with_input_from(atom('X = |.'), read(_)), error(E, _), true),
    E == syntax_error(cannot_start_term).
 
 /* read_term(X,L) */
 
 runner:ref(read_term, 2, stream_read, 'ISO 8.14.1.4').
 runner:case(read_term, 2, stream_read, 'ISO 8.14.1.4, ISO 1') :-
-   findall(X, with_input_from(atom('term1. term2. '), (  read_term(X,
-                                                            [variables(_),variable_names(_),singletons(_)])
-                                                      ;  read_line(X))), [_,X|_]),
+   findall(X, with_input_from(atom('term1. term2. '), (read_term(X,
+         [variables(_), variable_names(_), singletons(_)]); read_line(X))), [_, X|_]),
    X == 'term2. '.
 runner:case(read_term, 2, stream_read, 'ISO 8.14.1.4, ISO 2') :-
    with_input_from(atom('foo(A+Roger,A+_). term2. '), read_term(X,
-                                                         [variables(VL),variable_names(VN),singletons(VS)])),
-   X = foo(X1+X2,X1+X3),
-   permutation(VL, [X1,X2,X3]),
-   permutation(VN, ['A'=X1,'Roger'=X2]),
-   VS == ['Roger'=X2].
+      [variables(VL), variable_names(VN), singletons(VS)])), X = foo(X1+X2, X1+X3),
+   permutation(VL, [X1, X2, X3]),
+   permutation(VN, ['A' = X1, 'Roger' = X2]),
+   VS == ['Roger' = X2].
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 1') :-
    op(9, xf, e),
    with_input_from(atom('1e-9.'), read_term(X, [])),
-   X == -(e(1),9).
+   X == -(e(1), 9).
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 2') :-
    op(9, xf, e),
    with_input_from(atom('1.0e- 9.'), read_term(X, [])),
-   X == -(e(1.0),9).
+   X == -(e(1.0), 9).
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 3') :-
-   op(9, fy, fy),
-   op(9, yf, yf),
+   op(9, fy, fy), op(9, yf, yf),
    with_input_from(atom('fy 1 yf.'), read_term(X, [])),
    X == fy(yf(1)).
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 4') :-
-   op(9, fy, fy),
-   op(9, yfx, yfx),
+   op(9, fy, fy), op(9, yfx, yfx),
    with_input_from(atom('fy 1 yfx 2.'), read_term(X, [])),
-   X == fy(yfx(1,2)).
+   X == fy(yfx(1, 2)).
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 5') :-
-   op(9, fy, fy),
-   op(9, xfy, xfy),
+   op(9, fy, fy), op(9, xfy, xfy),
    with_input_from(atom('1 xfy 2 yf.'), read_term(X, [])),
-   X == xfy(1,yf(2)).
+   X == xfy(1, yf(2)).
 
 /* variable_names(N) write option */
 
 runner:ref(variable_names, 1, stream_read, 'Corr 3, 7.10.4').
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 1') :-
-   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
-                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
-   R == 'foo(A+Roger,A+_)'.
+   with_output_to(atom(R), write_term(foo(A+Roger, A+H),
+      [variable_names(['A' = A, 'Roger' = Roger, '_' = H])])),
+   R == 'foo(A+Roger, A+_)'.
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 2') :-
-   A = Roger,
-   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
-                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
-   R == 'foo(Roger+Roger,Roger+_)'.
+   A = Roger, with_output_to(atom(R), write_term(foo(A+Roger, A+H),
+      [variable_names(['A' = A, 'Roger' = Roger, '_' = H])])),
+   R == 'foo(Roger+Roger, Roger+_)'.
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 3') :-
-   A = foo,
-   with_output_to(atom(R), write_term(foo(A+Roger,A+H),
-                              [variable_names(['A'=A,'Roger'=Roger,'_'=H])])),
-   R == 'foo(foo+Roger,foo+_)'.
+   A = foo, with_output_to(atom(R), write_term(foo(A+Roger, A+H),
+      [variable_names(['A' = A, 'Roger' = Roger, '_' = H])])),
+   R == 'foo(foo+Roger, foo+_)'.
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 1') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names([_=T])])), error(E,_), true),
+   catch(with_output_to(atom(_), write_term(T, [variable_names([_ = T])])), error(E, _), true),
    E == instantiation_error.
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 65') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names(['_/*.*/'=T])])), error(E,_), true),
-   E == domain_error(variable_name,'_/*.*/').
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['_/*.*/' = T])])), error(E, _), true),
+   E == domain_error(variable_name, '_/*.*/').
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 5') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names([x=T])])), error(E,_), true),
-   E == domain_error(variable_name,x).
+   catch(with_output_to(atom(_), write_term(T, [variable_names([x = T])])), error(E, _), true),
+   E == domain_error(variable_name, x).
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 6') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names(['x+y'=T])])), error(E,_), true),
-   E == domain_error(variable_name,'x+y').
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['x+y' = T])])), error(E, _), true),
+   E == domain_error(variable_name, 'x+y').
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 50') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names(['))'=T])])), error(E,_), true),
-   E == domain_error(variable_name,'))').
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['))' = T])])), error(E, _), true),
+   E == domain_error(variable_name, '))').
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 7') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names([7=T])])), error(E,_), true),
-   E == type_error(atom,7).
+   catch(with_output_to(atom(_), write_term(T, [variable_names([7 = T])])), error(E, _), true),
+   E == type_error(atom, 7).
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 8') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names([1+2=T])])), error(E,_), true),
-   E == type_error(atom,1+2).
+   catch(with_output_to(atom(_), write_term(T, [variable_names([1+2 = T])])), error(E, _), true),
+   E == type_error(atom, 1+2).
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, ISO 9') :-
-   catch(with_output_to(atom(_), write_term(T, [variable_names(['$VAR'(9)=T])])), error(E,_), true),
-   E == type_error(atom,'$VAR'(9)).
+   catch(with_output_to(atom(_), write_term(T, [variable_names(['$VAR'(9) = T])])), error(E, _), true),
+   E == type_error(atom, '$VAR'(9)).
 

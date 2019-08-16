@@ -51,87 +51,57 @@
 
 runner:ref(',', 2, control_logical, 'ISO 7.8.5.4').
 runner:case(',', 2, control_logical, 'ISO 7.8.5.4, ISO 1') :-
-   \+ (  X = 1,
-         var(X)).
+   \+ (X = 1, var(X)).
 runner:case(',', 2, control_logical, 'ISO 7.8.5.4, ISO 2') :-
-   var(X),
-   X = 1,
-   X == 1.
+   var(X), X = 1, X == 1.
 runner:case(',', 2, control_logical, 'ISO 7.8.5.4, ISO 3') :-
-   X = true,
-   call(X).
+   X = true, call(X).
 
 /* A; B */
 
 runner:ref(;, 2, control_logical, 'ISO 7.8.6.4').
-runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 1') :- true; fail.
+runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 1') :-
+   true; fail.
 runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 2') :-
-   \+ (  !, fail; true).
-runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 3') :- !
-;  call(3).
+   \+ (!, fail; true).
+runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 3') :-
+   !; call(3).
 runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 4a') :-
-   (  X = 1, !
-   ;  X = 2),
-   X == 1.
+   (X = 1, !; X = 2), X == 1.
 runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 4b') :-
-   findall(X, (  X = 1, !
-              ;  X = 2), [_]).
+   findall(X, (X = 1, !; X = 2), [_]).
 runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 5a') :-
-   (  X = 1
-   ;  X = 2),
-   (  true; !),
-   X == 1.
+   (X = 1; X = 2), (true; !), X == 1.
 runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 5b') :-
-   findall(X, (  (  X = 1
-                 ;  X = 2),
-                 (  true; !)), [_,X|_]),
-   X == 1.
+   findall(X, ((X = 1; X = 2), (true; !)), [_, X|_]), X == 1.
 runner:case(;, 2, control_logical, 'ISO 7.8.6.4, ISO 5c') :-
-   findall(X, (  (  X = 1
-                 ;  X = 2),
-                 (  true; !)), [_,_]).
+   findall(X, ((X = 1; X = 2), (true; !)), [_, _]).
 
 /* A -> B */
 
 runner:ref(->, 2, control_logical, 'ISO 7.8.7.4').
-runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 1') :- true -> true.
+runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 1') :-
+   true -> true.
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 2') :-
-   \+ (  true -> fail).
+   \+ (true -> fail).
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 3') :-
-   \+ (  fail -> true).
+   \+ (fail -> true).
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 4a') :-
-   (  true
-   -> X = 1),
-   X == 1.
+   (true -> X = 1), X == 1.
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 4b') :-
-   findall(X, (  true
-              -> X = 1), [_]).
+   findall(X, (true -> X = 1), [_]).
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 5a') :-
-   (  (  X = 1
-      ;  X = 2) -> true),
-   X == 1.
+   ((X = 1; X = 2) -> true), X == 1.
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 5b') :-
-   findall(X, (  (  X = 1
-                 ;  X = 2) -> true), [_]).
+   findall(X, ((X = 1; X = 2) -> true), [_]).
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 6a') :-
-   (  true
-   -> (  X = 1
-      ;  X = 2)),
-   X == 1.
+   (true -> (X = 1; X = 2)), X == 1.
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 6b') :-
-   findall(X, (  true
-              -> (  X = 1
-                 ;  X = 2)), [_,X|_]),
-   X == 2.
+   findall(X, (true -> (X = 1; X = 2)), [_, X|_]), X == 2.
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, ISO 6c') :-
-   findall(X, (  true
-              -> (  X = 1
-                 ;  X = 2)), [_,_]).
+   findall(X, (true -> (X = 1; X = 2)), [_, _]).
 runner:case(->, 2, control_logical, 'ISO 7.8.7.4, XLOG 1') :-
-   findall(X-Y, (  (  Y = 1
-                   ;  Y = 2),
-                   (  (  X = 1, !
-                      ;  X = 2) -> true)), [_,_]).
+   findall(X-Y, ((Y = 1; Y = 2), ((X = 1, !; X = 2) -> true)), [_, _]).
 
 /* A -> B ; C */
 
@@ -141,52 +111,29 @@ runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 1') :-
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 2') :-
    fail -> true; true.
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 3') :-
-   \+ (  true -> fail; fail).
+   \+ (true -> fail; fail).
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 4') :-
-   \+ (  fail -> true; fail).
+   \+ (fail -> true; fail).
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 5') :-
-   (  true
-   -> X = 1
-   ;  X = 2),
-   X == 1.
+   (true -> X = 1; X = 2), X == 1.
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 6') :-
-   (  fail
-   -> X = 1
-   ;  X = 2),
-   X == 2.
+   (fail -> X = 1; X = 2), X == 2.
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 7a') :-
-   (  true
-   -> (  X = 1
-      ;  X = 2); true),
-   X == 1.
+   (true -> (X = 1; X = 2); true), X == 1.
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 7b') :-
-   findall(X, (  true
-              -> (  X = 1
-                 ;  X = 2); true), [_,X|_]),
-   X == 2.
+   findall(X, (true -> (X = 1; X = 2); true), [_, X|_]), X == 2.
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 7c') :-
-   findall(X, (  true
-              -> (  X = 1
-                 ;  X = 2); true), [_,_]).
+   findall(X, (true -> (X = 1; X = 2); true), [_, _]).
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 8a') :-
-   (  (  X = 1
-      ;  X = 2) -> true; true),
-   X == 1.
+   ((X = 1; X = 2) -> true; true), X == 1.
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 8b') :-
-   findall(X, (  (  X = 1
-                 ;  X = 2) -> true; true), [_]).
+   findall(X, ((X = 1; X = 2) -> true; true), [_]).
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, ISO 9') :-
-   (  ! -> fail), true; true.
+   (! -> fail), true; true.
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, XLOG 1') :-
-   findall(X-Y, (  (  Y = 1
-                   ;  Y = 2),
-                   (  (  X = 1
-                      ;  X = 2) -> true; true)), [_,_]).
+   findall(X-Y, ((Y = 1; Y = 2), ((X = 1; X = 2) -> true; true)), [_, _]).
 runner:case(if_then_else, 3, control_logical, 'ISO 7.8.8.4, XLOG 2') :-
-   findall(X-Y, (  (  Y = 1
-                   ;  Y = 2),
-                   (  (  X = 1, !
-                      ;  X = 2) -> true; true)), [_,_]).
+   findall(X-Y, ((Y = 1; Y = 2), ((X = 1, !; X = 2) -> true; true)), [_, _]).
 
 /* \+ A */
 
@@ -196,15 +143,13 @@ runner:case(\+, 1, control_logical, 'ISO 8.15.1.4, ISO 1') :-
 runner:case(\+, 1, control_logical, 'ISO 8.15.1.4, ISO 2') :-
    \+ \+ !.
 runner:case(\+, 1, control_logical, 'ISO 8.15.1.4, ISO 3') :-
-   \+ (  !, fail).
+   \+ (!, fail).
 runner:case(\+, 1, control_logical, 'ISO 8.15.1.4, ISO 4') :-
    \+ 4 = 5.
 runner:case(\+, 1, control_logical, 'ISO 8.15.1.4, ISO 5') :-
-   catch(\+ 3, error(E,_), true),
-   E == type_error(callable,3).
+   catch(\+ 3, error(E, _), true), E == type_error(callable, 3).
 runner:case(\+, 1, control_logical, 'ISO 8.15.1.4, ISO 6') :-
-   catch(\+ _, error(E,_), true),
-   E == instantiation_error.
+   catch(\+ _, error(E, _), true), E == instantiation_error.
 % runner:case(\+, 1, control_logical, 'ISO 8.15.1.4, ISO 7') :- \+ (X = f(X)).
 
 /* repeat */
@@ -212,7 +157,7 @@ runner:case(\+, 1, control_logical, 'ISO 8.15.1.4, ISO 6') :-
 runner:ref(repeat, 0, control_logical, 'ISO 8.15.3.4').
 % runner:case(repeat, 0, control_logical, 'ISO 8.15.3.4, ISO 1') :- repeat, write('hello '), fail.
 runner:case(repeat, 0, control_logical, 'ISO 8.15.3.4, ISO 2') :-
-   \+ (  repeat, !, fail).
+   \+ (repeat, !, fail).
 
 /* once(A) */
 
@@ -220,19 +165,11 @@ runner:ref(once, 1, control_logical, 'ISO 8.15.2.4').
 runner:case(once, 1, control_logical, 'ISO 8.15.2.4, ISO 1') :-
    once(!).
 runner:case(once, 1, control_logical, 'ISO 8.15.2.4, ISO 2a') :-
-   once(!),
-   (  X = 1
-   ;  X = 2),
-   X == 1.
+   once(!), (X = 1; X = 2), X == 1.
 runner:case(once, 1, control_logical, 'ISO 8.15.2.4, ISO 2b') :-
-   findall(X, (  once(!),
-                 (  X = 1
-                 ;  X = 2)), [_,X|_]),
-   X == 2.
+   findall(X, (once(!), (X = 1; X = 2)), [_, X|_]), X == 2.
 runner:case(once, 1, control_logical, 'ISO 8.15.2.4, ISO 2c') :-
-   findall(X, (  once(!),
-                 (  X = 1
-                 ;  X = 2)), [_,_]).
+   findall(X, (once(!), (X = 1; X = 2)), [_, _]).
 runner:case(once, 1, control_logical, 'ISO 8.15.2.4, ISO 3') :-
    once(repeat).
 runner:case(once, 1, control_logical, 'ISO 8.15.2.4, ISO 4') :-
@@ -245,9 +182,7 @@ runner:case(once, 1, control_logical, 'ISO 8.15.2.4, ISO 4') :-
 
 runner:ref(call, 1, control_logical, 'ISO 7.8.3.4, Corr.2 7.8.3.4').
 
-b(X) :-
-   Y = (write(X),X),
-   call(Y).
+b(X) :- Y = (write(X), X), call(Y).
 
 a(1).
 a(2).
@@ -257,80 +192,48 @@ runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 1') :-
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 2') :-
    \+ call(fail).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 3') :-
-   \+ call((  fail, _)).
+   \+ call((fail, _)).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 4') :-
-   \+ call((  fail,
-              call(1))).
+   \+ call((fail, call(1))).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 5a') :-
-   with_output_to(atom(A), catch(b(_), error(_,_), true)), !,
-   A = '_A'.
+   with_output_to(atom(A), catch(b(_), error(_, _), true)), !, A = '_A'.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 5b') :-
-   with_output_to(atom(_), catch(b(_), error(E,_), true)),
-   nonvar(E),
-   E = instantiation_error.
+   with_output_to(atom(_), catch(b(_), error(E, _), true)),
+   nonvar(E), E = instantiation_error.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 6a') :-
-   with_output_to(atom(A), catch(b(3), error(_,_), true)), !,
-   A = ''.
+   with_output_to(atom(A), catch(b(3), error(_, _), true)), !, A = ''.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 6b') :-
-   with_output_to(atom(_), catch(b(3), error(E,_), true)),
-   nonvar(E),
-   E = type_error(callable,_).
+   with_output_to(atom(_), catch(b(3), error(E, _), true)),
+   nonvar(E), E = type_error(callable, _).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 7a') :-
-   Z = !,
-   call((  Z = !,
-           a(X), Z)),
-   X == 1,
-   Z == !.
+   Z = !, call((Z = !, a(X), Z)), X == 1, Z == !.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 7b') :-
-   findall(Z-X, (  Z = !,
-                   call((  Z = !,
-                           a(X), Z))), [_]).
+   findall(Z-X, (Z = !, call((Z = !, a(X), Z))), [_]).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 8a') :-
-   call((  Z = !,
-           a(X), Z)),
-   X == 1,
-   Z == !.
+   call((Z = !, a(X), Z)), X == 1, Z == !.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 8b') :-
-   findall(Z-X, call((  Z = !,
-                        a(X), Z)), [_,Z-X|_]),
-   X == 2,
-   Z == !.
+   findall(Z-X, call((Z = !, a(X), Z)), [_, Z-X|_]), X == 2, Z == !.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 8c') :-
-   findall(Z-X, call((  Z = !,
-                        a(X), Z)), [_,_]).
+   findall(Z-X, call((Z = !, a(X), Z)), [_, _]).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 9a') :-
-   with_output_to(atom(A), catch(call((  write(3), _)), error(_,_), true)), !,
-   A = '3'.
+   with_output_to(atom(A), catch(call((write(3), _)), error(_, _), true)), !, A = '3'.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 9b') :-
-   with_output_to(atom(_), catch(call((  write(3), _)), error(E,_), true)),
-   nonvar(E),
-   E = instantiation_error.
+   with_output_to(atom(_), catch(call((write(3), _)), error(E, _), true)),
+   nonvar(E), E = instantiation_error.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 10a') :-
-   with_output_to(atom(A), catch(call((  write(3),
-                                         call(1))), error(_,_), true)), !,
-   A = '3'.
+   with_output_to(atom(A), catch(call((write(3), call(1))), error(_, _), true)), !, A = '3'.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 10b') :-
-   with_output_to(atom(_), catch(call((  write(3),
-                                         call(1))), error(E,_), true)),
-   nonvar(E),
-   E = type_error(callable,_).
+   with_output_to(atom(_), catch(call((write(3), call(1))), error(E, _), true)),
+   nonvar(E), E = type_error(callable, _).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 11') :-
-   catch(call(_), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   catch(call(_), error(E, _), true), nonvar(E), E = instantiation_error.
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 12') :-
-   catch(call(1), error(E,_), true),
-   nonvar(E),
-   E = type_error(callable,_).
+   catch(call(1), error(E, _), true), nonvar(E), E = type_error(callable, _).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 13') :-
-   catch(call((  fail, 1)), error(E,_), true),
-   nonvar(E),
-   E = type_error(callable,_).
+   catch(call((fail, 1)), error(E, _), true), nonvar(E), E = type_error(callable, _).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 14') :-
-   with_output_to(atom(_), catch(call((  write(3), 1)), error(E,_), true)),
-   nonvar(E),
-   E = type_error(callable,_).
+   with_output_to(atom(_), catch(call((write(3), 1)), error(E, _), true)),
+   nonvar(E), E = type_error(callable, _).
 runner:case(call, 1, control_logical, 'ISO 7.8.3.4, ISO 15') :-
-   catch(call((  1; true)), error(E,_), true),
-   nonvar(E),
-   E = type_error(callable,_).
+   catch(call((1; true)), error(E, _), true),
+   nonvar(E), E = type_error(callable, _).

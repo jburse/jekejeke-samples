@@ -52,8 +52,7 @@ runner:ref(var, 1, structure_intatom, 'ISO 8.3.1.4').
 runner:case(var, 1, structure_intatom, 'ISO 8.3.1.4, ISO 1') :-
    \+ var(foo).
 runner:case(var, 1, structure_intatom, 'ISO 8.3.1.4, ISO 3') :-
-   \+ (  foo = Foo,
-         var(Foo)).
+   \+ (foo = Foo, var(Foo)).
 runner:case(var, 1, structure_intatom, 'ISO 8.3.1.4, ISO 4') :-
    var(_).
 
@@ -65,8 +64,7 @@ runner:case(nonvar, 1, structure_intatom, 'ISO 8.3.7.4, ISO 1') :-
 runner:case(nonvar, 1, structure_intatom, 'ISO 8.3.7.4, ISO 2') :-
    nonvar(foo).
 runner:case(nonvar, 1, structure_intatom, 'ISO 8.3.7.4, ISO 4') :-
-   foo = Foo,
-   nonvar(Foo).
+   foo = Foo, nonvar(Foo).
 runner:case(nonvar, 1, structure_intatom, 'ISO 8.3.7.4, ISO 5') :-
    \+ nonvar(_).
 runner:case(nonvar, 1, structure_intatom, 'ISO 8.3.7.4, ISO 6') :-
@@ -169,7 +167,7 @@ runner:case(callable, 1, structure_intatom, 'Corr.2 8.3.9.4, ISO 2') :-
 runner:case(callable, 1, structure_intatom, 'Corr.2 8.3.9.4, ISO 3') :-
    \+ callable(_).
 runner:case(callable, 1, structure_intatom, 'Corr.2 8.3.9.4, ISO 4') :-
-   callable((1,2)).
+   callable((1, 2)).
 runner:case(callable, 1, structure_intatom, 'Corr.2 8.3.9.4, XLOG 1') :-
    callable(string).
 
@@ -178,14 +176,13 @@ runner:ref(ground, 1, structure_intatom, 'Corr.2 8.3.10.4').
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, ISO 1') :-
    ground(3).
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, ISO 2') :-
-   \+ ground(a(1,_)).
+   \+ ground(a(1, _)).
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 1') :-
    ground(atom).
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 2') :-
    ground(a(b)).
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 3') :-
-   foo = Foo,
-   ground(Foo).
+   foo = Foo, ground(Foo).
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 4') :-
    \+ ground(_).
 runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 5') :-
@@ -194,27 +191,15 @@ runner:case(ground, 1, structure_intatom, 'Corr.2 8.3.10.4, XLOG 5') :-
 /* acyclic_term(X) */
 runner:ref(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4').
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, ISO 1') :-
-   acyclic_term(a(_,1)).
+   acyclic_term(a(_, 1)).
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, ISO 2') :-
-   X = f(X),
-   \+ acyclic_term(X).
+   X = f(X), \+ acyclic_term(X).
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 1') :-
-   X = f(X),
-   Y = g(X),
-   \+ acyclic_term(Y).
+   X = f(X), Y = g(X), \+ acyclic_term(Y).
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 2') :-
-   X = f(Y),
-   Y = g(X),
-   Z = h(X),
-   \+ acyclic_term(Z).
+   X = f(Y), Y = g(X), Z = h(X), \+ acyclic_term(Z).
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 3') :-
-   X = [a,b,Y|c],
-   Y = [d,e,Z|f],
-   Z = [g,h,i],
-   acyclic_term(X).
+   X = [a, b, Y|c], Y = [d, e, Z|f], Z = [g, h, i], acyclic_term(X).
 runner:case(acyclic_term, 1, structure_intatom, 'Corr.2 8.3.11.4, XLOG 4') :-
-   X = [a,b,Y|c],
-   Y = [d,e,Z|f],
-   Z = [g,h,X|i],
-   \+ acyclic_term(X).
+   X = [a, b, Y|c], Y = [d, e, Z|f], Z = [g, h, X|i], \+ acyclic_term(X).
 

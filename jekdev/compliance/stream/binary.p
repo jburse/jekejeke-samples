@@ -51,66 +51,51 @@
 
 runner:ref(put_byte, 1, stream_binary, 'ISO 8.13.3').
 runner:case(put_byte, 1, stream_binary, 'ISO 8.13.3, ISO 1') :-
-   with_output_to(bytes(L), put_byte(116)),
-   L == [116].
+   with_output_to(bytes(L), put_byte(116)), L == [116].
 runner:case(put_byte, 1, stream_binary, 'ISO 8.13.3, ISO 3') :-
-   catch(put_byte(_), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   catch(put_byte(_), error(E, _), true),
+   nonvar(E), E = instantiation_error.
 runner:case(put_byte, 1, stream_binary, 'ISO 8.13.3, ISO 4') :-
-   catch(put_byte(ty), error(E,_), true),
-   nonvar(E),
-   E = type_error(_,ty).
+   catch(put_byte(ty), error(E, _), true),
+   nonvar(E), E = type_error(_, ty).
 
 /* peek_byte(B) */
 
 runner:ref(peek_byte, 1, stream_binary, 'ISO 8.13.2').
 runner:case(peek_byte, 1, stream_binary, 'ISO 8.13.2, ISO 1') :-
-   with_input_from(bytes("qwerty "), peek_byte(B)),
-   B == 113.
+   with_input_from(bytes("qwerty "), peek_byte(B)), B == 113.
 runner:case(peek_byte, 1, stream_binary, 'ISO 8.13.2, ISO 3a') :-
    \+ with_input_from(bytes("qwerty "), peek_byte(114)).
 runner:case(peek_byte, 1, stream_binary, 'ISO 8.13.2, ISO 3b') :-
-   with_input_from(bytes("qwerty "), (  peek_byte(114)
-                                     ;  get_byte(B))),
-   B == 113.
+   with_input_from(bytes("qwerty "), (peek_byte(114); get_byte(B))), B == 113.
 runner:case(peek_byte, 1, stream_binary, 'ISO 8.13.2, ISO 4') :-
-   with_input_from(bytes(""), peek_byte(B)),
-   B == -1.
+   with_input_from(bytes(""), peek_byte(B)), B == -1.
 
 /* peek_byte(S,B) */
 
 runner:ref(peek_byte, 2, stream_binary, 'ISO 8.13.2').
 runner:case(peek_byte, 2, stream_binary, 'ISO 8.13.2, ISO 5') :-
-   current_output(O),
-   catch(peek_byte(O, _), error(E,_), true),
-   nonvar(E),
-   E = permission_error(_,_,_).
+   current_output(O), catch(peek_byte(O, _), error(E, _), true),
+   nonvar(E), E = permission_error(_, _, _).
 
 /* get_byte(B) */
 
 runner:ref(get_byte, 1, stream_binary, 'ISO 8.13.1').
 runner:case(get_byte, 1, stream_binary, 'ISO 8.13.1, ISO 1') :-
-   with_input_from(bytes("qwerty "), get_byte(B)),
-   B == 113.
+   with_input_from(bytes("qwerty "), get_byte(B)), B == 113.
 runner:case(get_byte, 1, stream_binary, 'ISO 8.13.1, ISO 3a') :-
    \+ with_input_from(bytes("qwerty "), get_byte(114)).
 runner:case(get_byte, 1, stream_binary, 'ISO 8.13.1, ISO 3b') :-
-   with_input_from(bytes("qwerty "), (  get_byte(114)
-                                     ;  get_byte(B))),
-   B == 119.
+   with_input_from(bytes("qwerty "), (get_byte(114); get_byte(B))), B == 119.
 runner:case(get_byte, 1, stream_binary, 'ISO 8.13.1, ISO 4') :-
-   with_input_from(bytes(""), get_byte(B)),
-   B == -1.
+   with_input_from(bytes(""), get_byte(B)), B == -1.
 
 /* get_byte(S,B) */
 
 runner:ref(get_byte, 2, stream_binary, 'ISO 8.13.1').
 runner:case(get_byte, 2, stream_binary, 'ISO 8.13.1, ISO 5') :-
-   current_output(O),
-   catch(get_byte(O, _), error(E,_), true),
-   nonvar(E),
-   E = permission_error(_,_,_).
+   current_output(O), catch(get_byte(O, _), error(E, _), true),
+   nonvar(E), E = permission_error(_, _, _).
 
 /* flush_output, ISO 8.11.7 */
 

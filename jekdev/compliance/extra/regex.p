@@ -48,63 +48,47 @@
 
 runner:ref(char_class, 2, extra_regex, 'XLOG 2.1.1').
 runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 1') :-
-   char_class(' ', N),
-   N == blank.
+   char_class(' ', N), N == blank.
 runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 2') :-
-   char_class('\n', N),
-   N == cntrl.
+   char_class('\n', N), N == cntrl.
 runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 3') :-
-   char_class('\xFFFE\', N),
-   N == inval.
+   char_class('\xFFFE\', N), N == inval.
 runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 4') :-
-   char_class(!, N),
-   N == solo.
+   char_class(!, N), N == solo.
 runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 5') :-
-   char_class('A', N),
-   N == upper.
+   char_class('A', N), N == upper.
 runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 6') :-
-   catch(char_class(_, _), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   catch(char_class(_, _), error(E, _), true),
+   nonvar(E), E = instantiation_error.
 runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 7') :-
-   catch(char_class(77, _), error(E,_), true),
-   nonvar(E),
-   E = type_error(atom,_).
+   catch(char_class(77, _), error(E, _), true),
+   nonvar(E), E = type_error(atom, _).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(char_class, 2, extra_regex, 'XLOG 2.1.1, XLOG 8') :-
-   char_class(𐐬, N),
-   N == lower.
+   char_class(𐐬, N), N == lower.
 
 /* code_class(C, N) */
 
 runner:ref(code_class, 2, extra_regex, 'XLOG 2.1.2').
 runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 1') :-
-   code_class(0'_, N),
-   N == score.
+   code_class(0'_, N), N == score.
 runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 2') :-
-   code_class(0'a, N),
-   N == lower.
+   code_class(0'a, N), N == lower.
 runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 3') :-
-   code_class(0'¼, N),
-   N == other.
+   code_class(0'¼, N), N == other.
 runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 4') :-
-   code_class(0'0, N),
-   N == digit.
+   code_class(0'0, N), N == digit.
 runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 5') :-
-   code_class(0'=, N),
-   N == symbol.
+   code_class(0'=, N), N == symbol.
 runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 6') :-
-   catch(code_class(_, _), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   catch(code_class(_, _), error(E, _), true),
+   nonvar(E), E = instantiation_error.
 runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 7') :-
-   catch(code_class(foo, _), error(E,_), true),
-   nonvar(E),
-   E = type_error(integer,_).
+   catch(code_class(foo, _), error(E, _), true),
+   nonvar(E), E = type_error(integer, _).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 8') :-
-   code_class(0'𐐄, N),
-   N == upper.
+   code_class(0'𐐄, N), N == upper.
 
 /*******************************************************************/
 /* Code Upper etc..                                                */
@@ -114,97 +98,73 @@ runner:case(code_class, 2, extra_regex, 'XLOG 2.1.2, XLOG 8') :-
 
 runner:ref(code_upper, 2, extra_regex, 'XLOG 2.2.1').
 runner:case(code_upper, 2, extra_regex, 'XLOG 2.2.1, XLOG 1') :-
-   code_upper(0'_, D),
-   D == 0'_.
+   code_upper(0'_, D), D == 0'_.
 runner:case(code_upper, 2, extra_regex, 'XLOG 2.2.1, XLOG 2') :-
-   code_upper(0xFFFE, D),
-   D == 0xFFFE.
+   code_upper(0xFFFE, D), D == 0xFFFE.
 runner:case(code_upper, 2, extra_regex, 'XLOG 2.2.1, XLOG 3') :-
-   code_upper(0'a, D),
-   D == 0'A.
+   code_upper(0'a, D), D == 0'A.
 runner:case(code_upper, 2, extra_regex, 'XLOG 2.2.1, XLOG 4') :-
-   code_upper(0'A, D),
-   D == 0'A.
+   code_upper(0'A, D), D == 0'A.
 runner:case(code_upper, 2, extra_regex, 'XLOG 2.2.1, XLOG 5') :-
-   catch(code_upper(_, _), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   catch(code_upper(_, _), error(E, _), true),
+   nonvar(E), E = instantiation_error.
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(code_upper, 2, extra_regex, 'XLOG 2.2.1, XLOG 6') :-
-   code_upper(0'𐐬, D),
-   D == 0'𐐄.
+   code_upper(0'𐐬, D), D == 0'𐐄.
 
 /* code_lower(C, D) */
 
 runner:ref(code_lower, 2, extra_regex, 'XLOG 2.2.2').
 runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 1') :-
-   code_lower(0'=, D),
-   D == 0'= .
+   code_lower(0'=, D), D == 0'= .
 runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 2') :-
-   code_lower(0'0, D),
-   D == 0'0.
+   code_lower(0'0, D), D == 0'0.
 runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 3') :-
-   code_lower(0'a, D),
-   D == 0'a.
+   code_lower(0'a, D), D == 0'a.
 runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 4') :-
-   code_lower(0'A, D),
-   D == 0'a.
+   code_lower(0'A, D), D == 0'a.
 runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 5') :-
-   catch(code_lower(foo, _), error(E,_), true),
-   nonvar(E),
-   E = type_error(integer,_).
+   catch(code_lower(foo, _), error(E, _), true),
+   nonvar(E), E = type_error(integer, _).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(code_lower, 2, extra_regex, 'XLOG 2.2.2, XLOG 6') :-
-   code_lower(0'𐐄, D),
-   D == 0'𐐬.
+   code_lower(0'𐐄, D), D == 0'𐐬.
 
 /* upcase_atom(A, B) */
 
 runner:ref(upcase_atom, 2, extra_regex, 'XLOG 2.2.3').
 runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 1') :-
-   upcase_atom('_A7', D),
-   D == '_A7'.
+   upcase_atom('_A7', D), D == '_A7'.
 runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 2') :-
-   upcase_atom('\xFFFE\', D),
-   D == '\xFFFE\'.
+   upcase_atom('\xFFFE\', D), D == '\xFFFE\'.
 runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 3') :-
-   upcase_atom(abc, D),
-   D == 'ABC'.
+   upcase_atom(abc, D), D == 'ABC'.
 runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 4') :-
-   upcase_atom('ABC', D),
-   D == 'ABC'.
+   upcase_atom('ABC', D), D == 'ABC'.
 runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 5') :-
-   catch(upcase_atom(_, _), error(E,_), true),
-   nonvar(E),
-   E = instantiation_error.
+   catch(upcase_atom(_, _), error(E, _), true),
+   nonvar(E), E = instantiation_error.
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(upcase_atom, 2, extra_regex, 'XLOG 2.2.3, XLOG 6') :-
-   upcase_atom(𐐫𐐬𐐭, D),
-   D == '𐐃𐐄𐐅'.
+   upcase_atom(𐐫𐐬𐐭, D), D == '𐐃𐐄𐐅'.
 
 /* downcase_atom(A, B) */
 
 runner:ref(downcase_atom, 2, extra_regex, 'XLOG 2.2.4').
 runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 1') :-
-   downcase_atom(=<, D),
-   D == =< .
+   downcase_atom(=<, D), D == =< .
 runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 2') :-
-   downcase_atom('123', D),
-   D == '123'.
+   downcase_atom('123', D), D == '123'.
 runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 3') :-
-   downcase_atom(abc, D),
-   D == abc.
+   downcase_atom(abc, D), D == abc.
 runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 4') :-
-   downcase_atom('ABC', D),
-   D == abc.
+   downcase_atom('ABC', D), D == abc.
 runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 5') :-
-   catch(downcase_atom(77, _), error(E,_), true),
-   nonvar(E),
-   E = type_error(atom,_).
+   catch(downcase_atom(77, _), error(E, _), true),
+   nonvar(E), E = type_error(atom, _).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(downcase_atom, 2, extra_regex, 'XLOG 2.2.4, XLOG 6') :-
-   downcase_atom('𐐃𐐄𐐅', D),
-   D == 𐐫𐐬𐐭.
+   downcase_atom('𐐃𐐄𐐅', D), D == 𐐫𐐬𐐭.
 
 /*******************************************************************/
 /* Create Patern Match etc..                                       */
@@ -287,21 +247,21 @@ runner:case(pattern_match, 2, extra_regex, 'XLOG 2.3.1, XLOG 30') :-
 
 /* setting boundary=part, ignore_case=true */
 runner:case(pattern_match, 2, extra_regex, 'XLOG 2.3.1, XLOG 31') :-
-   pattern_match(foobarbaz, 'BAR', [boundary(part),ignore_case(true)]).
+   pattern_match(foobarbaz, 'BAR', [boundary(part), ignore_case(true)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 2.3.1, XLOG 32') :-
-   \+ pattern_match(foobarbaz, 'FOOBAZ', [boundary(part),ignore_case(true)]).
+   \+ pattern_match(foobarbaz, 'FOOBAZ', [boundary(part), ignore_case(true)]).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(pattern_match, 2, extra_regex, 'XLOG 2.3.1, XLOG 33') :-
-   pattern_match('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, [boundary(part),ignore_case(true)]).
+   pattern_match('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, [boundary(part), ignore_case(true)]).
 
 /* setting boundary=word, ignore_case=true */
 runner:case(pattern_match, 2, extra_regex, 'XLOG 2.3.1, XLOG 34') :-
-   pattern_match('foo bar baz', bar, [boundary(word),ignore_case(true)]).
+   pattern_match('foo bar baz', bar, [boundary(word), ignore_case(true)]).
 runner:case(pattern_match, 2, extra_regex, 'XLOG 2.3.1, XLOG 35') :-
-   \+ pattern_match('foo bar baz', 'FOO BAZ', [boundary(word),ignore_case(true)]).
+   \+ pattern_match('foo bar baz', 'FOO BAZ', [boundary(word), ignore_case(true)]).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(pattern_match, 2, extra_regex, 'XLOG 2.3.1, XLOG 36') :-
-   pattern_match('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, [boundary(word),ignore_case(true)]).
+   pattern_match('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, [boundary(word), ignore_case(true)]).
 
 /* pattern_replace(S, P, R, T) */
 /* default settings */
@@ -311,21 +271,17 @@ runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 1') :-
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 2') :-
    \+ pattern_replace(foobarbaz, 'bar*', 'tok*', _).
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 3') :-
-   pattern_replace(foobarbaz, '*bar*', '*tok*', X),
-   X == footokbaz.
+   pattern_replace(foobarbaz, '*bar*', '*tok*', X), X == footokbaz.
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 4') :-
    \+ pattern_replace(foobarbaz, baz, tok, _).
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 5') :-
-   pattern_replace(foobarbaz, '*baz', '*tok', X),
-   X == foobartok.
+   pattern_replace(foobarbaz, '*baz', '*tok', X), X == foobartok.
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 6') :-
-   pattern_replace(foobarbaz, '*baz*', '*tok*', X),
-   X == foobartok.
+   pattern_replace(foobarbaz, '*baz*', '*tok*', X), X == foobartok.
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 7') :-
    \+ pattern_replace(foobarbaz, '*foo', '*tok', _).
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 8') :-
-   pattern_replace(foobarbaz, '*foo*', '*tok*', X),
-   X == tokbarbaz.
+   pattern_replace(foobarbaz, '*foo*', '*tok*', X), X == tokbarbaz.
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 9') :-
    pattern_replace(foobarfoobar, '*foo*', '*tok*', X),
    X == tokbarfoobar.
@@ -400,24 +356,24 @@ runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 32') :-
 
 /* setting boundary=part, ignore_case=true */
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 33') :-
-   pattern_replace(foobarbaz, 'BAR', tok, X, [boundary(part),ignore_case(true)]),
+   pattern_replace(foobarbaz, 'BAR', tok, X, [boundary(part), ignore_case(true)]),
    X == fooTOKbaz.
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 34') :-
-   \+ pattern_replace(foobarbaz, 'FOOBAZ', tok, _, [boundary(part),ignore_case(true)]).
+   \+ pattern_replace(foobarbaz, 'FOOBAZ', tok, _, [boundary(part), ignore_case(true)]).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 35') :-
-   pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(part),ignore_case(true)]),
+   pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(part), ignore_case(true)]),
    X == '𐐀𐐁𐐂𐐶𐐷𐐸𐐆𐐇𐐈'.
 
 /* setting boundary=word, ignore_case=true */
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 36') :-
-   pattern_replace('foo bar baz', 'BAR', tok, X, [boundary(word),ignore_case(true)]),
+   pattern_replace('foo bar baz', 'BAR', tok, X, [boundary(word), ignore_case(true)]),
    X == 'foo TOK baz'.
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 37') :-
-   \+ pattern_replace('foo foo bar', baz, tok, _, [boundary(word),ignore_case(true)]).
+   \+ pattern_replace('foo foo bar', baz, tok, _, [boundary(word), ignore_case(true)]).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(pattern_replace, 4, extra_regex, 'XLOG 2.3.2, XLOG 38') :-
-   pattern_replace('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(word),ignore_case(true)]),
+   pattern_replace('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(word), ignore_case(true)]),
    X == '𐐀𐐁𐐂 𐐶𐐷𐐸 𐐆𐐇𐐈'.
 
 /* last_pattern_replace(S, P, R, T) */
@@ -428,21 +384,17 @@ runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 1') :-
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 2') :-
    \+ last_pattern_replace(foobarbaz, '*bar', '*tok', _).
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 3') :-
-   last_pattern_replace(foobarbaz, '*bar*', '*tok*', X),
-   X == footokbaz.
+   last_pattern_replace(foobarbaz, '*bar*', '*tok*', X), X == footokbaz.
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 4') :-
-   last_pattern_replace(foobarbaz, '*baz', '*tok', X),
-   X == foobartok.
+   last_pattern_replace(foobarbaz, '*baz', '*tok', X), X == foobartok.
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 5') :-
    \+ last_pattern_replace(foobarbaz, foo, tok, _).
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 6') :-
    \+ last_pattern_replace(foobarbaz, '*foo', '*tok', _).
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 7') :-
-   last_pattern_replace(foobarbaz, 'foo*', 'tok*', X),
-   X == tokbarbaz.
+   last_pattern_replace(foobarbaz, 'foo*', 'tok*', X), X == tokbarbaz.
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 8') :-
-   last_pattern_replace(foobarbaz, '*foo*', '*tok*', X),
-   X == tokbarbaz.
+   last_pattern_replace(foobarbaz, '*foo*', '*tok*', X), X == tokbarbaz.
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 9') :-
    last_pattern_replace(foobarfoobar, '*bar*', '*tok*', X),
    X == foobarfootok.
@@ -517,24 +469,24 @@ runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 32') :-
 
 /* setting boundary=part, ignore_case=true */
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 33') :-
-   last_pattern_replace(foobarbaz, 'BAR', tok, X, [boundary(part),ignore_case(true)]),
+   last_pattern_replace(foobarbaz, 'BAR', tok, X, [boundary(part), ignore_case(true)]),
    X == fooTOKbaz.
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 34') :-
-   \+ last_pattern_replace(foobarbaz, 'FOOBAZ', tok, _, [boundary(part),ignore_case(true)]).
+   \+ last_pattern_replace(foobarbaz, 'FOOBAZ', tok, _, [boundary(part), ignore_case(true)]).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 35') :-
-   last_pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(part),ignore_case(true)]),
+   last_pattern_replace('𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(part), ignore_case(true)]),
    X == '𐐀𐐁𐐂𐐶𐐷𐐸𐐆𐐇𐐈'.
 
 /* setting boundary=word, ignore_case=true */
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 36') :-
-   last_pattern_replace('foo bar baz', 'BAR', tok, X, [boundary(word),ignore_case(true)]),
+   last_pattern_replace('foo bar baz', 'BAR', tok, X, [boundary(word), ignore_case(true)]),
    X == 'foo TOK baz'.
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 37') :-
-   \+ last_pattern_replace('foo foo bar', baz, tok, _, [boundary(word),ignore_case(true)]).
+   \+ last_pattern_replace('foo foo bar', baz, tok, _, [boundary(word), ignore_case(true)]).
 /* unicode >0xFFFF, deseret alphabet */
 runner:case(last_pattern_replace, 4, extra_regex, 'XLOG 2.3.3, XLOG 38') :-
-   last_pattern_replace('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(word),ignore_case(true)]),
+   last_pattern_replace('𐐀𐐁𐐂 𐐃𐐄𐐅 𐐆𐐇𐐈', 𐐫𐐬𐐭, '𐐎𐐏𐐐', X, [boundary(word), ignore_case(true)]),
    X == '𐐀𐐁𐐂 𐐶𐐷𐐸 𐐆𐐇𐐈'.
 
 /*******************************************************************/
@@ -548,14 +500,14 @@ runner:case(pattern_match, 3, extra_regex, 'XLOG 2.4.1, XLOG 1') :-
    pattern_match(foobarbaz, '*bar*', [style(parse)]).
 /* ignore_case=true downgrade */
 runner:case(pattern_match, 3, extra_regex, 'XLOG 2.4.1, XLOG 2') :-
-   pattern_match(foobarbaz, '*BAR*', [ignore_case(true),style(parse)]).
+   pattern_match(foobarbaz, '*BAR*', [ignore_case(true), style(parse)]).
 runner:case(pattern_match, 3, extra_regex, 'XLOG 2.4.1, XLOG 3') :-
-   \+ pattern_match(foobarbaz, '=*BAR*', [ignore_case(true),style(parse)]).
+   \+ pattern_match(foobarbaz, '=*BAR*', [ignore_case(true), style(parse)]).
 /* bondary=part downgrade */
 runner:case(pattern_match, 3, extra_regex, 'XLOG 2.4.1, XLOG 3') :-
-   pattern_match(foobarbaz, bar, [boundary(part),style(parse)]).
+   pattern_match(foobarbaz, bar, [boundary(part), style(parse)]).
 runner:case(pattern_match, 3, extra_regex, 'XLOG 2.4.1, XLOG 4') :-
-   \+ pattern_match(foobarbaz, '`bar`', [boundary(part),style(parse)]).
+   \+ pattern_match(foobarbaz, '`bar`', [boundary(part), style(parse)]).
 
 /* pattern_replace(S, P, R, T, O) */
 
@@ -565,16 +517,16 @@ runner:case(pattern_replace, 5, extra_regex, 'XLOG 2.4.2, XLOG 1') :-
    X == footokfoobar.
 /* ignore_case=true downgrade */
 runner:case(pattern_replace, 5, extra_regex, 'XLOG 2.4.2, XLOG 2') :-
-   pattern_replace(foobarfoobar, '*BAR*', '*tok*', X, [ignore_case(true),style(parse)]),
+   pattern_replace(foobarfoobar, '*BAR*', '*tok*', X, [ignore_case(true), style(parse)]),
    X == fooTOKfoobar.
 runner:case(pattern_replace, 5, extra_regex, 'XLOG 2.4.2, XLOG 3') :-
-   \+ pattern_replace(foobarfoobar, '=*BAR*', '*tok*', _, [ignore_case(true),style(parse)]).
+   \+ pattern_replace(foobarfoobar, '=*BAR*', '*tok*', _, [ignore_case(true), style(parse)]).
 /* bondary=part downgrade */
 runner:case(pattern_replace, 5, extra_regex, 'XLOG 2.4.2, XLOG 4') :-
-   pattern_replace(foobarfoobar, bar, tok, X, [boundary(part),style(parse)]),
+   pattern_replace(foobarfoobar, bar, tok, X, [boundary(part), style(parse)]),
    X == footokfoobar.
 runner:case(pattern_replace, 5, extra_regex, 'XLOG 2.4.2, XLOG 5') :-
-   \+ pattern_replace(foobarfoobar, '`bar`', '`tok`', _, [boundary(part),style(parse)]).
+   \+ pattern_replace(foobarfoobar, '`bar`', '`tok`', _, [boundary(part), style(parse)]).
 
 /* last_pattern_replace(S, P, R, T, O) */
 
@@ -584,13 +536,13 @@ runner:case(last_pattern_replace, 5, extra_regex, 'XLOG 2.4.3, XLOG 1') :-
    X == foobarfootok.
 /* ignore_case=true downgrade */
 runner:case(last_pattern_replace, 5, extra_regex, 'XLOG 2.4.3, XLOG 2') :-
-   last_pattern_replace(foobarfoobar, '*BAR*', '*tok*', X, [ignore_case(true),style(parse)]),
+   last_pattern_replace(foobarfoobar, '*BAR*', '*tok*', X, [ignore_case(true), style(parse)]),
    X == foobarfooTOK.
 runner:case(last_pattern_replace, 5, extra_regex, 'XLOG 2.4.3, XLOG 3') :-
-   \+ last_pattern_replace(foobarfoobar, '=*BAR*', '*tok*', _, [ignore_case(true),style(parse)]).
+   \+ last_pattern_replace(foobarfoobar, '=*BAR*', '*tok*', _, [ignore_case(true), style(parse)]).
 /* bondary=part downgrade */
 runner:case(last_pattern_replace, 5, extra_regex, 'XLOG 2.4.3, XLOG 4') :-
-   last_pattern_replace(foobarfoobar, bar, tok, X, [boundary(part),style(parse)]),
+   last_pattern_replace(foobarfoobar, bar, tok, X, [boundary(part), style(parse)]),
    X == foobarfootok.
 runner:case(last_pattern_replace, 5, extra_regex, 'XLOG 2.4.3, XLOG 5') :-
-   \+ last_pattern_replace(foobarfoobar, '`bar`', '`tok`', _, [boundary(part),style(parse)]).
+   \+ last_pattern_replace(foobarfoobar, '`bar`', '`tok`', _, [boundary(part), style(parse)]).
