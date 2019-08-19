@@ -57,7 +57,8 @@ run_test_debug :-
    time(runner_batch_debug).
 
 % run_diagnose
-run_diagnose :- diagnose_online.
+run_diagnose :-
+   diagnose_online.
 
 % run_report
 run_report :-
@@ -106,7 +107,8 @@ run_tracker_debug :-
    time(analyze_batch).
 
 % run_control
-run_control :- list_cover_source.
+run_control :-
+   list_cover_source.
 
 % run_cover
 run_cover :-
@@ -120,6 +122,8 @@ run_cover :-
 % run_summary
 run_summary :-
    set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/'), summary_batch,
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/15_min/15_stdy/07_compliance/'),
+   summary_batch,
    set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/'), summary_batch.
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/15_min/15_stdy/07_compliance/'),
+   summary_batch.
