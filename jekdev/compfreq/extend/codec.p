@@ -50,173 +50,173 @@
 
 /* text_escape(T, E) */
 
-runner:ref(text_escape, 2, extend_codec, 'XLOG 6.1').
-runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 1') :-
+runner:ref(text_escape, 2, extend_codec, 'XLOG 2.5.1').
+runner:case(text_escape, 2, extend_codec, 'XLOG 2.5.1, XLOG 1') :-
    text_escape(X, 'This is an "experiment"'),
    X = 'This is an "experiment"'.
-runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 2') :-
+runner:case(text_escape, 2, extend_codec, 'XLOG 2.5.1, XLOG 2') :-
    text_escape(X, 'This is an &quot;experiment&quot;'),
    X = 'This is an "experiment"'.
-runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 3') :-
+runner:case(text_escape, 2, extend_codec, 'XLOG 2.5.1, XLOG 3') :-
    text_escape(X, 'This is an &#x22;experiment&#x22;'),
    X = 'This is an "experiment"'.
-runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 4') :-
+runner:case(text_escape, 2, extend_codec, 'XLOG 2.5.1, XLOG 4') :-
    text_escape(X, 'This is an &#34;experiment&#34;'),
    X = 'This is an "experiment"'.
-runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 5') :-
+runner:case(text_escape, 2, extend_codec, 'XLOG 2.5.1, XLOG 5') :-
    text_escape('This is an "experiment"', X),
    X == 'This is an &quot;experiment&quot;'.
-runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 6') :-
+runner:case(text_escape, 2, extend_codec, 'XLOG 2.5.1, XLOG 6') :-
    catch(text_escape(123, _), error(E, _), true),
    E == type_error(atom, 123).
-runner:case(text_escape, 2, extend_codec, 'XLOG 6.1, XLOG 7') :-
+runner:case(text_escape, 2, extend_codec, 'XLOG 2.5.1, XLOG 7') :-
    catch(text_escape(_, _), error(E, _), true),
    E == instantiation_error.
 
 /* hex_block(T, E) */
 
-runner:ref(hex_block, 2, extend_codec, 'XLOG 6.2').
-runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 1') :-
+runner:ref(hex_block, 2, extend_codec, 'XLOG 2.5.2').
+runner:case(hex_block, 2, extend_codec, 'XLOG 2.5.2, XLOG 1') :-
    atom_block(foob, B), hex_block(C, B),
    C == '666F6F62'.
-runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 2') :-
+runner:case(hex_block, 2, extend_codec, 'XLOG 2.5.2, XLOG 2') :-
    hex_block('666F6F62', B), atom_block(C, B),
    C = foob.
-runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 3') :-
+runner:case(hex_block, 2, extend_codec, 'XLOG 2.5.2, XLOG 3') :-
    catch(hex_block(_, 123), error(E, _), true),
    E == type_error(ref, 123).
-runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 4') :-
+runner:case(hex_block, 2, extend_codec, 'XLOG 2.5.2, XLOG 4') :-
    catch(hex_block(_, _), error(E, _), true),
    E == instantiation_error.
-runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 5') :-
+runner:case(hex_block, 2, extend_codec, 'XLOG 2.5.2, XLOG 5') :-
    catch(hex_block(foo, _), error(E, _), true),
    nonvar(E), E = representation_error(_).
-runner:case(hex_block, 2, extend_codec, 'XLOG 6.2, XLOG 6') :-
+runner:case(hex_block, 2, extend_codec, 'XLOG 2.5.2, XLOG 6') :-
    catch(hex_block('Ff', _), error(E, _), true),
    nonvar(E), E = representation_error(_).
 
 /* base64_block(T, E) */
 
-runner:ref(base64_block, 2, extend_codec, 'XLOG 6.3').
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 1') :-
+runner:ref(base64_block, 2, extend_codec, 'XLOG 2.5.3').
+runner:case(base64_block, 2, extend_codec, 'XLOG 2.5.3, XLOG 1') :-
    atom_block(foob, B), base64_block(C, B),
    C == 'Zm9vYg=='.
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 2') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 2.5.3, XLOG 2') :-
    atom_block('The quick brown fox jumps over the lazy dog.', B),
    base64_block(C, B),
    C == 'VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVy\nIHRoZSBsYXp5IGRvZy4='.
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 3') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 2.5.3, XLOG 3') :-
    base64_block('Zm9vYg==', B), atom_block(C, B),
    C == foob.
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 4') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 2.5.3, XLOG 4') :-
    base64_block('VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVy\nIHRoZSBsYXp5IGRvZy4=', B),
    atom_block(C, B),
    C == 'The quick brown fox jumps over the lazy dog.'.
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 5') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 2.5.3, XLOG 5') :-
    catch(base64_block(_, 123), error(E, _), true),
    E == type_error(ref, 123).
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 6') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 2.5.3, XLOG 6') :-
    catch(base64_block(_, _), error(E, _), true),
    E == instantiation_error.
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 7') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 2.5.3, XLOG 7') :-
    catch(base64_block(foo, _), error(E, _), true),
    nonvar(E), E = representation_error(_).
-runner:case(base64_block, 2, extend_codec, 'XLOG 6.3, XLOG 8') :-
+runner:case(base64_block, 2, extend_codec, 'XLOG 2.5.3, XLOG 8') :-
    catch(base64_block('Z_8=', _), error(E, _), true),
    nonvar(E), E = representation_error(_).
 
 /* uri_puny(S, P) */
 
-runner:ref(uri_puny, 2, extend_codec, 'XLOG 6.4').
-runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 1') :-
+runner:ref(uri_puny, 2, extend_codec, 'XLOG 2.5.4').
+runner:case(uri_puny, 2, extend_codec, 'XLOG 2.5.4, XLOG 1') :-
    uri_puny('http://zürich.ch/robots.txt', X),
    X == 'http://xn--zrich-kva.ch/robots.txt'.
-runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 2') :-
+runner:case(uri_puny, 2, extend_codec, 'XLOG 2.5.4, XLOG 2') :-
    uri_puny(X, 'http://xn--zrich-kva.ch/robots.txt'),
    X == 'http://zürich.ch/robots.txt'.
-runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 3') :-
+runner:case(uri_puny, 2, extend_codec, 'XLOG 2.5.4, XLOG 3') :-
    catch(uri_puny(_, 123), error(E, _), true),
    E == type_error(atom, 123).
-runner:case(uri_puny, 2, extend_codec, 'XLOG 6.4, XLOG 4') :-
+runner:case(uri_puny, 2, extend_codec, 'XLOG 2.5.4, XLOG 4') :-
    catch(uri_puny(_, _), error(E, _), true),
    E == instantiation_error.
 
 /* sha1_hash(B, H) */
 
-runner:ref(sha1_hash, 2, extend_codec, 'XLOG 6.5').
-runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 1') :-
+runner:ref(sha1_hash, 2, extend_codec, 'XLOG 2.5.5').
+runner:case(sha1_hash, 2, extend_codec, 'XLOG 2.5.5, XLOG 1') :-
    atom_block('hello world', B), sha1_hash(B, C), hex_block(D, C),
    D == '2AAE6C35C94FCFB415DBE95F408B9CE91EE846ED'.
-runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 2') :-
+runner:case(sha1_hash, 2, extend_codec, 'XLOG 2.5.5, XLOG 2') :-
    atom_block('GeeksForGeeks', B), sha1_hash(B, C), hex_block(D, C),
    D == 'ADDF120B430021C36C232C99EF8D926AEA2ACD6B'.
-runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 3') :-
+runner:case(sha1_hash, 2, extend_codec, 'XLOG 2.5.5, XLOG 3') :-
    catch(sha1_hash(123, _), error(E, _), true),
    E == type_error(ref, 123).
-runner:case(sha1_hash, 2, extend_codec, 'XLOG 6.5, XLOG 4') :-
+runner:case(sha1_hash, 2, extend_codec, 'XLOG 2.5.5, XLOG 4') :-
    catch(sha1_hash(_, _), error(E, _), true),
    E == instantiation_error.
 
 /* term_atom(T, A, O) */
 
-runner:ref(term_atom, 3, extend_codec, 'XLOG 6.6').
-runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 1') :-
+runner:ref(term_atom, 3, extend_codec, 'XLOG 2.5.6').
+runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 1') :-
    term_atom(X, '[1,2,3]', [double_quotes(string)]), X == [1, 2, 3].
-runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 2') :-
+runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 2') :-
    term_atom('1<2', X, [double_quotes(string)]), X == '''1<2'''.
-runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 3') :-
+runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 3') :-
    term_atom(X, '"foo"', [double_quotes(string)]), X == '$STR'(foo).
-runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 4') :-
+runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 4') :-
    term_atom('$STR'(bar), X, [double_quotes(string)]), X == '"bar"'.
-runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 5') :-
+runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 5') :-
    term_atom('$STR'('\xFFFD\'), X, [double_quotes(string)]), X == '"\\uFFFD"'.
-runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 6') :-
+runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 6') :-
    term_atom(X, '"\\""', [double_quotes(string)]), X == '$STR'('"').
-runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 7') :-
+runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 7') :-
    catch(term_atom(_, "abc", [double_quotes(string)]), error(E, _), true),
    E == type_error(atom, [97, 98, 99]).
-runner:case(term_atom, 3, extend_codec, 'XLOG 6.6, XLOG 8') :-
+runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 8') :-
    catch(term_atom(_, '"\\u00"', [double_quotes(string)]), error(E, _), true),
    E == syntax_error(illegal_escape).
 
 /* date_atom(L, F, D, A) */
 
-runner:ref(date_atom, 4, extend_codec, 'XLOG 6.7').
-runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 1') :-
+runner:ref(date_atom, 4, extend_codec, 'XLOG 2.5.7').
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 1') :-
    get_time(de_CH, 1549463357000, 'Europe/Berlin', D),
    date_atom(de_CH, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, R),
    R == 'Mi, 06 Feb 2019 15:29:17 MEZ'.
-runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 2') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 2') :-
    get_time(en_GB, 1549463357000, 'GMT', D),
    date_atom(en_GB, 'EEE, dd MMM yyyy HH:mm:ss ''GMT''', D, R),
    R == 'Wed, 06 Feb 2019 14:29:17 GMT'.
-runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 3') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 3') :-
    date_atom(de_CH, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, 'Mi, 06 Feb 2019 15:29:17 MEZ'),
    get_time(T, D), T == 1549463357000.
-runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 4') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 4') :-
    date_atom(en_GB, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, 'Wed, 06 Feb 2019 14:29:17 GMT'),
    get_time(T, D), T == 1549463357000.
-runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 5') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 5') :-
    catch(date_atom('EEE, dd MMM yyyy HH:mm:ss zzz', _, _), error(E, _), true),
    nonvar(E), E = representation_error(_).
-runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 6') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 6') :-
    get_time(ja_JP_JP, 1549556043201, 'JST', D),
    date_atom(en_GB, 'GGGG y-MM-dd zzz', D, R),
    R == 'Heisei 31-02-08 JST'.
-runner:case(date_atom, 4, extend_codec, 'XLOG 6.7, XLOG 7') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 7') :-
    get_time(ja_JP_JP, -1357544756799, 'JST', D),
    date_atom(ja_JP_JP, 'GGGG y-MM-dd zzz', D, R),
    R == '昭和 1-12-26 JST'.
 
 /* rfc1123_atom(T, A) */
 
-runner:ref(rfc1123_atom, 4, extend_codec, 'XLOG 6.8').
-runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 6.8, XLOG 1') :-
+runner:ref(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.8').
+runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.8, XLOG 1') :-
    rfc1123_atom(1549463357000, X),
    X == 'Wed, 06 Feb 2019 14:29:17 GMT'.
-runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 6.8, XLOG 2') :-
+runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.8, XLOG 2') :-
    rfc1123_atom(X, 'Wed, 06 Feb 2019 14:29:17 GMT'),
    X == 1549463357000.
-runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 6.8, XLOG 3') :-
+runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.8, XLOG 3') :-
    catch(rfc1123_atom(_, _), error(E, _), true),
    E == instantiation_error.

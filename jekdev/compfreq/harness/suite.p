@@ -41,3 +41,4 @@
 :- ensure_loaded('../extend/invoke').
 :- ensure_loaded('../extend/struct').
 :- ensure_loaded('../extend/codec').
+:- ensure_loaded('../extend/tabel').
