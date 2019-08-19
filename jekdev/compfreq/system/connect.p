@@ -48,28 +48,22 @@ runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 1') :-
    Q == 'foo=bar'.
 runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 2') :-
    make_query(V, N, R, 'foo=bar'),
-   V == foo,
-   N == bar,
-   R == ''.
+   V == foo, N == bar, R == ''.
 runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 3') :-
    make_query(foo, bar, 'foo=baz&jack=jill', Q),
    Q == 'foo=bar&foo=baz&jack=jill'.
 runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 4') :-
    make_query(V, N, R, 'foo=bar&foo=baz&jack=jill'),
-   V == foo,
-   N == bar,
-   R == 'foo=baz&jack=jill'.
+   V == foo, N == bar, R == 'foo=baz&jack=jill'.
 runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 5') :-
-   catch(make_query(_, _, _, _), error(E,_), true),
+   catch(make_query(_, _, _, _), error(E, _), true),
    E == instantiation_error.
 runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 6') :-
    make_query(foo, baür, 'foo=ba%C3%B6z', Q),
    Q = 'foo=baür&foo=ba%C3%B6z'.
 runner:case(make_query, 4, system_connect, 'XLOG 1.1, XLOG 7') :-
    make_query(N, V, R, 'foo=ba%C3%BCr&foo=ba%C3%B6z'),
-   N == foo,
-   V == baür,
-   R == 'foo=ba%C3%B6z'.
+   N == foo, V == baür, R == 'foo=ba%C3%B6z'.
 
 /* make_uri(S, Q, H, U) */
 
@@ -79,20 +73,16 @@ runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 1') :-
    U == '/example.org/foo?bar#baz'.
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 2') :-
    make_uri(S, Q, H, '/example.org/foo?bar#baz'),
-   S == '/example.org/foo',
-   Q == bar,
-   H == baz.
+   S == '/example.org/foo', Q == bar, H == baz.
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 3') :-
-   catch(make_uri(_, _, foo, _), error(E,_), true),
+   catch(make_uri(_, _, foo, _), error(E, _), true),
    E == instantiation_error.
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 4') :-
    make_uri('/example.org/foäo', 'ba%C3%B6r', baüz, U),
    U == '/example.org/foäo?ba%C3%B6r#baüz'.
 runner:case(make_uri, 4, system_connect, 'XLOG 1.2, XLOG 5') :-
    make_uri(S, Q, H, '/example.org/fo%C3%A4o?ba%C3%B6r#ba%C3%BCz'),
-   S == '/example.org/foäo',
-   Q == 'ba%C3%B6r',
-   H == baüz.
+   S == '/example.org/foäo', Q == 'ba%C3%B6r', H == baüz.
 
 /* uri_encode(U, E) */
 
@@ -104,8 +94,8 @@ runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 2') :-
    uri_encode(X, '/example.org/foo%20bar'),
    X == '/example.org/foo bar'.
 runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 3') :-
-   catch(uri_encode(123, _), error(E,_), true),
-   E == type_error(atom,123).
+   catch(uri_encode(123, _), error(E, _), true),
+   E == type_error(atom, 123).
 runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 4') :-
    uri_encode('/example.org/foäo?baör#baüz', X),
    X == '/example.org/fo%C3%A4o?ba%C3%B6r#ba%C3%BCz'.
@@ -118,23 +108,19 @@ runner:case(uri_encode, 2, system_connect, 'XLOG 1.3, XLOG 5') :-
 runner:ref(make_link, 4, system_connect, 'XLOG 1.4').
 runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 1') :-
    make_link(S, P, H, '/example.org/foo?jack=jill&jack=jeff#bar'),
-   S == '/example.org/foo',
-   P == [jack-jill,jack-jeff],
-   H == bar.
+   S == '/example.org/foo', P == [jack-jill, jack-jeff], H == bar.
 runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 2') :-
-   make_link('/example.org/foo', [jack-jill,jack-jeff], bar, U),
+   make_link('/example.org/foo', [jack-jill, jack-jeff], bar, U),
    U == '/example.org/foo?jack=jill&jack=jeff#bar'.
 runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 3') :-
    make_link(S, P, H, 'foo?bar=%2520'),
-   S == foo,
-   P == [bar-'%20'],
-   H == ''.
+   S == foo, P == [bar-'%20'], H == ''.
 runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 4') :-
    make_link(foo, [bar-'%20'], '', X),
    X == 'foo?bar=%2520'.
 runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 5') :-
-   catch(make_link(_, _, _, _), error(E,_), true),
+   catch(make_link(_, _, _, _), error(E, _), true),
    E == instantiation_error.
 runner:case(make_link, 4, system_connect, 'XLOG 1.4, XLOG 6') :-
-   catch(make_link(_, 123, _, _), error(E,_), true),
-   E == type_error(list,123).
+   catch(make_link(_, 123, _, _), error(E, _), true),
+   E == type_error(list, 123).

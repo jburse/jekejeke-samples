@@ -48,7 +48,7 @@
 runner:ref(sys_atom_slash, 2, system_notation, 'XLOG 3.1').
 /* traditional notation */
 runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 1 Error') :-
-   catch(sys_atom_slash(_, _), error(E,_), true),
+   catch(sys_atom_slash(_, _), error(E, _), true),
    E == instantiation_error.
 runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 2 Module') :-
    sys_atom_slash(X, basic/lists),
@@ -63,11 +63,11 @@ runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 5 Locale') :-
    sys_atom_slash('system.notation$foo$bar', X),
    X == foo/bar.
 runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 6 Error') :-
-   catch(sys_atom_slash(foo/bar, _), error(E,_), true),
-   E == type_error(atom,foo/bar).
+   catch(sys_atom_slash(foo/bar, _), error(E, _), true),
+   E == type_error(atom, foo/bar).
 runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 7 Error') :-
-   catch(sys_atom_slash(_, {123}), error(E,_), true),
-   E == domain_error(array,123).
+   catch(sys_atom_slash(_, {123}), error(E, _), true),
+   E == domain_error(array, 123).
 runner:case(sys_atom_slash, 2, system_notation, 'XLOG 3.1, XLOG 8 Foreign') :-
    sys_atom_slash(X, 'String'),
    X == 'java.lang.String'.
@@ -91,11 +91,11 @@ runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 1 Pass') :-
    sys_callable_colon(X, Y),
    Y == X.
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 2 Module') :-
-   sys_callable_colon(X, basic/lists:member(A,B)),
-   X == 'jekpro.frequent.basic.lists\bmember'(A,B).
+   sys_callable_colon(X, basic/lists:member(A, B)),
+   X == 'jekpro.frequent.basic.lists\bmember'(A, B).
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 3 Module') :-
-   sys_callable_colon('jekpro.frequent.basic.lists\bmember'(A,B), X),
-   X == basic/lists:member(A,B).
+   sys_callable_colon('jekpro.frequent.basic.lists\bmember'(A, B), X),
+   X == basic/lists:member(A, B).
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 4 Locale') :-
    sys_callable_colon(X, foo/bar:baz),
    X == 'system.notation$foo$bar\bbaz'.
@@ -106,42 +106,42 @@ runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 6 Pass') :-
    sys_callable_colon(foo/bar, X),
    X == foo/bar.
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 7 Error') :-
-   catch(sys_callable_colon(_, basic/lists:_), error(E,_), true),
+   catch(sys_callable_colon(_, basic/lists:_), error(E, _), true),
    E == instantiation_error.
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 8 Error') :-
-   catch(sys_callable_colon(_, foo/bar:123), error(E,_), true),
-   E == type_error(callable,123).
+   catch(sys_callable_colon(_, foo/bar:123), error(E, _), true),
+   E == type_error(callable, 123).
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 9 Foreign') :-
-   sys_callable_colon(X, 'String':length(abc,3)),
-   X == 'java.lang.String\blength'(abc,3).
+   sys_callable_colon(X, 'String':length(abc, 3)),
+   X == 'java.lang.String\blength'(abc, 3).
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 10 Foreign') :-
-   sys_callable_colon('java.lang.String\blength'(abc,3), X),
-   X == 'String':length(abc,3).
+   sys_callable_colon('java.lang.String\blength'(abc, 3), X),
+   X == 'String':length(abc, 3).
 /* array notation */
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 11 Foreign') :-
-   sys_callable_colon(X, {int}:new(10,A)),
-   X == 'int[]\bnew'(10,A).
+   sys_callable_colon(X, {int}:new(10, A)),
+   X == 'int[]\bnew'(10, A).
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 12 Locale') :-
-   sys_callable_colon(X, {integer}:new(10,A)),
-   X == 'system.notation$integer[]\bnew'(10,A).
+   sys_callable_colon(X, {integer}:new(10, A)),
+   X == 'system.notation$integer[]\bnew'(10, A).
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 13 Foreign') :-
-   sys_callable_colon('int[]\bnew'(10,A), X),
-   X == {int}:new(10,A).
+   sys_callable_colon('int[]\bnew'(10, A), X),
+   X == {int}:new(10, A).
 /* receiver notation */
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 14 Locale') :-
-   sys_callable_colon(C, geometry/point(X,Y)::getx(X)),
-   C == 'system.notation$geometry$point\bgetx'(geometry/point(X,Y),X).
+   sys_callable_colon(C, geometry/point(X, Y)::getx(X)),
+   C == 'system.notation$geometry$point\bgetx'(geometry/point(X, Y), X).
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 15 Locale') :-
-   sys_callable_colon('system.notation$geometry$point\bgetx'(geometry/point(X,Y),X), C),
-   C == geometry/point(X,Y)::getx(X).
+   sys_callable_colon('system.notation$geometry$point\bgetx'(geometry/point(X, Y), X), C),
+   C == geometry/point(X, Y)::getx(X).
 runner:case(sys_callable_colon, 2, system_notation, 'XLOG 3.2, XLOG 16 Locale') :-
-   sys_callable_colon('system.notation$geometry$point\bgetx'(P/point(X,Y),X), C),
-   C == geometry/point:getx(P/point(X,Y),X).
+   sys_callable_colon('system.notation$geometry$point\bgetx'(P/point(X, Y), X), C),
+   C == geometry/point:getx(P/point(X, Y), X).
 
 runner:ref(sys_indicator_colon, 2, system_notation, 'XLOG 3.3').
 /* traditional notation */
 runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 3.3, XLOG 1 Error') :-
-   catch(sys_indicator_colon(_, _), error(E,_), true),
+   catch(sys_indicator_colon(_, _), error(E, _), true),
    E == instantiation_error.
 runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 3.3, XLOG 2 Module') :-
    sys_indicator_colon(X, basic/lists:member/2),
@@ -156,11 +156,11 @@ runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 3.3, XLOG 5 Locale') 
    sys_indicator_colon('system.notation$foo$bar\bbaz'/0, X),
    X == foo/bar:baz/0.
 runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 3.3, XLOG 6 Error') :-
-   catch(sys_indicator_colon(foo/bar, _), error(E,_), true),
-   E == type_error(integer,bar).
+   catch(sys_indicator_colon(foo/bar, _), error(E, _), true),
+   E == type_error(integer, bar).
 runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 3.3, XLOG 7 Error') :-
-   catch(sys_indicator_colon(_, {123}), error(E,_), true),
-   E == type_error(predicate_indicator,{123}).
+   catch(sys_indicator_colon(_, {123}), error(E, _), true),
+   E == type_error(predicate_indicator, {123}).
 runner:case(sys_indicator_colon, 2, system_notation, 'XLOG 3.3, XLOG 8 Foreign') :-
    sys_indicator_colon(X, 'String':length/2),
    X == 'java.lang.String\blength'/2.

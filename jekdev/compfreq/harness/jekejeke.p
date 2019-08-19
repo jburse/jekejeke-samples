@@ -48,7 +48,8 @@ run_test :-
    time(runner_batch).
 
 % run_diagnose
-run_diagnose :- diagnose_online.
+run_diagnose :-
+   diagnose_online.
 
 /********************************************************************/
 /* Report Generation                                                */

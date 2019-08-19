@@ -46,14 +46,14 @@
 runner:ref(limit, 2, extend_invoke, 'XLOG 4.1').
 runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 1') :-
    findall(X, limit(3, between(5, 10, X)), L),
-   L == [5,6,7].
+   L == [5, 6, 7].
 runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 2') :-
    findall(X, limit(3, between(5, 6, X)), L),
-   L == [5,6].
+   L == [5, 6].
 runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 3') :-
    \+ limit(0, repeat).
 runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 4') :-
-   catch(limit(_, _), error(E,_), true),
+   catch(limit(_, _), error(E, _), true),
    E == instantiation_error.
 
 /* offset(N, G) */
@@ -61,14 +61,14 @@ runner:case(limit, 2, extend_invoke, 'XLOG 4.1, XLOG 4') :-
 runner:ref(offset, 2, extend_invoke, 'XLOG 4.2').
 runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 1') :-
    findall(X, offset(3, between(5, 10, X)), L),
-   L == [8,9,10].
+   L == [8, 9, 10].
 runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 2') :-
    \+ offset(3, between(5, 6, _)).
 runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 3') :-
    findall(X, limit(5, offset(3, between(1, 10, X))), L),
-   L == [4,5,6,7,8].
+   L == [4, 5, 6, 7, 8].
 runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 4') :-
-   catch(offset(_, _), error(E,_), true),
+   catch(offset(_, _), error(E, _), true),
    E == instantiation_error.
 
 /* call_nth(G, N) */
@@ -76,14 +76,14 @@ runner:case(offset, 2, extend_invoke, 'XLOG 4.2, XLOG 4') :-
 runner:ref(call_nth, 2, extend_invoke, 'XLOG 4.3').
 runner:case(call_nth, 2, extend_invoke, 'XLOG 4.3, XLOG 1') :-
    findall(N, call_nth(between(5, 10, _), N), L),
-   L == [1,2,3,4,5,6].
+   L == [1, 2, 3, 4, 5, 6].
 runner:case(call_nth, 2, extend_invoke, 'XLOG 4.3, XLOG 2') :-
    call_nth(between(5, 10, X), 3),
    X == 7.
 runner:case(call_nth, 2, extend_invoke, 'XLOG 4.3, XLOG 3') :-
    \+ call_nth(repeat, 0).
 runner:case(call_nth, 2, extend_invoke, 'XLOG 4.3, XLOG 4') :-
-   catch(call_nth(_, _), error(E,_), true),
+   catch(call_nth(_, _), error(E, _), true),
    E == instantiation_error.
 
 /* foreach(G, T) */
@@ -103,15 +103,14 @@ runner:case(foreach, 2, extend_invoke, 'XLOG 4.4, XLOG 2') :-
 runner:case(foreach, 2, extend_invoke, 'XLOG 4.4, XLOG 3') :-
    \+ foreach(alpha(X), Y^beta(Y, X)).
 runner:case(foreach, 2, extend_invoke, 'XLOG 4.4, XLOG 4') :-
-   Y = foo(_,_,_),
-   foreach(between(1, 3, X), arg(X, Y, X)),
-   Y == foo(1,2,3).
+   Y = foo(_, _, _), foreach(between(1, 3, X), arg(X, Y, X)),
+   Y == foo(1, 2, 3).
 runner:case(foreach, 2, extend_invoke, 'XLOG 4.4, XLOG 5') :-
-   catch(foreach(_, beta(_, _)), error(E,_), true),
+   catch(foreach(_, beta(_, _)), error(E, _), true),
    E == instantiation_error.
 runner:case(foreach, 2, extend_invoke, 'XLOG 4.4, XLOG 6') :-
-   catch(foreach(alpha(_), 1), error(E,_), true),
-   E == type_error(callable,1).
+   catch(foreach(alpha(_), 1), error(E, _), true),
+   E == type_error(callable, 1).
 
 /* foreach(G, T, I, O) */
 
@@ -123,13 +122,13 @@ runner:case(foreach, 4, extend_invoke, 'XLOG 4.5, XLOG 1') :-
    O == I.
 runner:case(foreach, 4, extend_invoke, 'XLOG 4.5, XLOG 2') :-
    foreach(between(1, 3, X), 'C'(X), I, O),
-   I == [1,2,3|O].
+   I == [1, 2, 3|O].
 runner:case(foreach, 4, extend_invoke, 'XLOG 4.5, XLOG 3') :-
    foreach(between(1, 3, _), 'C'(Y), I, O),
-   I == [Y,Y,Y|O].
+   I == [Y, Y, Y|O].
 runner:case(foreach, 4, extend_invoke, 'XLOG 4.5, XLOG 4') :-
-   catch(foreach(_, 'C'(1), _, _), error(E,_), true),
+   catch(foreach(_, 'C'(1), _, _), error(E, _), true),
    E == instantiation_error.
 runner:case(foreach, 4, extend_invoke, 'XLOG 4.5, XLOG 5') :-
-   catch(foreach(alpha(_), 1, _, _), error(E,_), true),
-   E == type_error(callable,1).
+   catch(foreach(alpha(_), 1, _, _), error(E, _), true),
+   E == type_error(callable, 1).

@@ -59,29 +59,29 @@
 
 runner:ref(sys_new_instance, 2, system_proxy, 'XLOG 4.1').
 runner:case(sys_new_instance, 2, system_proxy, 'XLOG 4.1, XLOG 1 Error') :-
-   catch(sys_new_instance(_, _), error(E,_), true),
+   catch(sys_new_instance(_, _), error(E, _), true),
    E == instantiation_error.
 runner:case(sys_new_instance, 2, system_proxy, 'XLOG 4.1, XLOG 2 Java') :-
    sys_new_instance(alpha, X),
    reference(X).
 runner:case(sys_new_instance, 2, system_proxy, 'XLOG 4.1, XLOG 3 Error') :-
-   catch(sys_new_instance(gamma, _), error(E,_), true),
-   E = existence_error(proxy,_).
+   catch(sys_new_instance(gamma, _), error(E, _), true),
+   E = existence_error(proxy, _).
 
 runner:ref(sys_new_instance, 3, system_proxy, 'XLOG 4.2').
 runner:case(sys_new_instance, 3, system_proxy, 'XLOG 4.2, XLOG 1 Error') :-
-   catch(sys_new_instance(_, 7, _), error(E,_), true),
+   catch(sys_new_instance(_, 7, _), error(E, _), true),
    E == instantiation_error.
 runner:case(sys_new_instance, 3, system_proxy, 'XLOG 4.2, XLOG 2 Error') :-
-   catch(sys_new_instance(alpha, 7, _), error(E,_), true),
-   E = existence_error(proxy,_).
+   catch(sys_new_instance(alpha, 7, _), error(E, _), true),
+   E = existence_error(proxy, _).
 runner:case(sys_new_instance, 3, system_proxy, 'XLOG 4.2, XLOG 3 Java') :-
    sys_new_instance(gamma, 7, X),
    reference(X).
 
 runner:ref(sys_assignable_from, 2, system_proxy, 'XLOG 4.3').
 runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 4.3, XLOG 1 Error') :-
-   catch(sys_assignable_from(_, _), error(E,_), true),
+   catch(sys_assignable_from(_, _), error(E, _), true),
    E == instantiation_error.
 runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 4.3, XLOG 2 Prolog') :-
    sys_assignable_from(alpha, beta).
@@ -94,12 +94,12 @@ runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 4.3, XLOG 5 Java') :-
 
 runner:ref(sys_instance_of, 2, system_proxy, 'XLOG 4.4').
 runner:case(sys_instance_of, 2, system_proxy, 'XLOG 4.4, XLOG 1 Error') :-
-   catch(sys_instance_of(_, _), error(E,_), true),
+   catch(sys_instance_of(_, _), error(E, _), true),
    E == instantiation_error.
 runner:case(sys_instance_of, 2, system_proxy, 'XLOG 4.4, XLOG 2 Prolog') :-
-   sys_instance_of(beta(3,7), alpha).
+   sys_instance_of(beta(3, 7), alpha).
 runner:case(sys_instance_of, 2, system_proxy, 'XLOG 4.4, XLOG 3 Prolog') :-
-   \+ sys_instance_of(beta(3,7), gamma).
+   \+ sys_instance_of(beta(3, 7), gamma).
 runner:case(sys_instance_of, 2, system_proxy, 'XLOG 4.4, XLOG 4 Java') :-
    sys_new_instance(alpha, X),
    sys_instance_of(X, java/util/'Comparator').
