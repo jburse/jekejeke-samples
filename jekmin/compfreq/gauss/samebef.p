@@ -52,11 +52,9 @@ runner:case(eval_eq, 2, gauss_samebef, 'gauss 0.9.2, 3.1, XLOG 3') :-
 runner:case(eval_eq, 2, gauss_samebef, 'gauss 0.9.2, 3.1, XLOG 4') :-
    sqrt(2)+sqrt(3) =:= sqrt(3)+sqrt(2).
 runner:case(eval_eq, 2, gauss_samebef, 'gauss 0.9.2, 3.1, XLOG 5') :-
-   X is sqrt(1+sqrt(3)),
-   Y is sqrt(1+sqrt(2)),
-   \+ X =:= Y.
+   X is sqrt(1+sqrt(3)), Y is sqrt(1+sqrt(2)), \+ X =:= Y.
 runner:case(eval_eq, 2, gauss_samebef, 'gauss 0.9.2, 3.1, XLOG 6') :-
-   catch(1 =:= _, error(E,_), true),
+   catch(1 =:= _, error(E, _), true),
    E == evaluation_error(ordered).
 
 % eval_nq/2
@@ -70,8 +68,8 @@ runner:case(eval_nq, 2, gauss_samebef, 'gauss 0.9.2, 3.2, XLOG 3') :-
 runner:case(eval_nq, 2, gauss_samebef, 'gauss 0.9.2, 3.2, XLOG 4') :-
    1 =\= sqrt(2).
 runner:case(eval_nq, 2, gauss_samebef, 'gauss 0.9.2, 3.2, XLOG 5') :-
-   catch(_+_ =\= 7/5, error(E,_), true),
-   E == existence_error(procedure,polynom:gen_eq/2).
+   catch(_+_ =\= 7/5, error(E, _), true),
+   E == existence_error(procedure, polynom:gen_eq/2).
 
 % eval_ls/2
 runner:ref(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3').
@@ -86,12 +84,10 @@ runner:case(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3, XLOG 4') :-
 runner:case(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3, XLOG 5') :-
    \+ sqrt(2)+1 < sqrt(5).
 runner:case(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3, XLOG 6') :-
-   X is sqrt(1+sqrt(3)),
-   Y is sqrt(1+sqrt(2)),
-   \+ X < Y.
+   X is sqrt(1+sqrt(3)), Y is sqrt(1+sqrt(2)), \+ X < Y.
 runner:case(eval_ls, 2, gauss_samebef, 'gauss 0.9.2, 3.3, XLOG 7') :-
-   catch(_+_ < 7/5, error(E,_), true),
-   E == existence_error(procedure,polynom:gen_ls/2).
+   catch(_+_ < 7/5, error(E, _), true),
+   E == existence_error(procedure, polynom:gen_ls/2).
 
 % eval_lq/2
 runner:ref(eval_lq, 2, gauss_samebef, 'gauss 0.9.2, 3.4').
@@ -106,7 +102,7 @@ runner:case(eval_lq, 2, gauss_samebef, 'gauss 0.9.2, 3.4, XLOG 4') :-
 runner:case(eval_lq, 2, gauss_samebef, 'gauss 0.9.2, 3.4, XLOG 5') :-
    sqrt(2)+sqrt(3) =< sqrt(3)+sqrt(2).
 runner:case(eval_lq, 2, gauss_samebef, 'gauss 0.9.2, 3.4, XLOG 6') :-
-   catch(_/_ =< 3/4, error(E,_), true),
+   catch(_/_ =< 3/4, error(E, _), true),
    E == evaluation_error(ordered).
 
 % eval_gr/2
@@ -122,8 +118,8 @@ runner:case(eval_gr, 2, gauss_samebef, 'gauss 0.9.2, 3.5, XLOG 4') :-
 runner:case(eval_gr, 2, gauss_samebef, 'gauss 0.9.2, 3.5, XLOG 5') :-
    sqrt(2)+1 > sqrt(5).
 runner:case(eval_gr, 2, gauss_samebef, 'gauss 0.9.2, 3.5, XLOG 6') :-
-   catch(7 > _/_, error(E,_), true),
-   E == existence_error(procedure,fraction:gen_ls/2).
+   catch(7 > _/_, error(E, _), true),
+   E == existence_error(procedure, fraction:gen_ls/2).
 
 % eval_gq/2
 runner:ref(eval_gq, 2, gauss_samebef, 'gauss 0.9.2, 3.6').
@@ -138,149 +134,105 @@ runner:case(eval_gq, 2, gauss_samebef, 'gauss 0.9.2, 3.6, XLOG 4') :-
 runner:case(eval_gq, 2, gauss_samebef, 'gauss 0.9.2, 3.6, XLOG 5') :-
    \+ 141/100 >= sqrt(2).
 runner:case(eval_gq, 2, gauss_samebef, 'gauss 0.9.2, 3.6, XLOG 6') :-
-   catch(1 >= _, error(E,_), true),
+   catch(1 >= _, error(E, _), true),
    E == evaluation_error(ordered).
 
 % eval_min/3
 runner:ref(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7').
 runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 1') :-
-   X is min(1,5/6),
-   printable(X, Y),
-   Y == 5/6.
+   X is min(1, 5/6), printable(X, Y), Y == 5/6.
 runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 2') :-
-   X is min(-3,-4),
-   printable(X, Y),
-   Y == -4.
+   X is min(-3, -4), printable(X, Y), Y == - 4.
 runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 3') :-
-   X is min(142/100,sqrt(2)),
-   printable(X, Y),
-   Y == sqrt(2).
+   X is min(142/100, sqrt(2)), printable(X, Y), Y == sqrt(2).
 runner:case(eval_min, 3, gauss_samebef, 'gauss 0.9.2, 3.7, XLOG 4') :-
-   catch(_ is min(2*_,77), error(E,_), true),
-   nonvar(E),
-   E = type_error(evaluable,_).
+   catch(_ is min(2*_, 77), error(E, _), true),
+   nonvar(E), E = type_error(evaluable, _).
 
 % eval_max/3
 runner:ref(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8').
 runner:case(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8, XLOG 1') :-
-   X is max(1,5/6),
-   printable(X, Y),
-   Y == 1.
+   X is max(1, 5/6), printable(X, Y), Y == 1.
 runner:case(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8, XLOG 2') :-
-   X is max(8/5,5/6),
-   printable(X, Y),
-   Y == 1+3/5.
+   X is max(8/5, 5/6), printable(X, Y), Y == 1+3/5.
 runner:case(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8, XLOG 3') :-
-   X is max(sqrt(2)+1,sqrt(5)),
-   printable(X, Y),
-   Y == 1+sqrt(2).
+   X is max(sqrt(2)+1, sqrt(5)), printable(X, Y), Y == 1+sqrt(2).
 runner:case(eval_max, 3, gauss_samebef, 'gauss 0.9.2, 3.8, XLOG 4') :-
-   catch(_ is max(77,_), error(E,_), true),
+   catch(_ is max(77, _), error(E, _), true),
    E == evaluation_error(ordered).
 
 % eval_abs/2
 runner:ref(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9').
 runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9, XLOG 1') :-
-   X is abs(5/3),
-   printable(X, Y),
-   Y == 1+2/3.
+   X is abs(5/3), printable(X, Y), Y == 1+2/3.
 runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9, XLOG 2') :-
-   X is abs(1-sqrt(2)),
-   printable(X, Y),
-   Y == -1+sqrt(2).
+   X is abs(1-sqrt(2)), printable(X, Y), Y == - 1+sqrt(2).
 runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.2, 3.9, XLOG 3') :-
-   X is abs(-5/3),
-   printable(X, Y),
-   Y == 1+2/3.
+   X is abs(-5/3), printable(X, Y), Y == 1+2/3.
 runner:case(eval_abs, 2, gauss_samebef, 'gauss 0.9.3, 3.9, XLOG 4') :-
-   catch(_ is abs(_+_), error(E,_), true),
-   nonvar(E),
-   E = type_error(evaluable,_).
+   catch(_ is abs(_+_), error(E, _), true),
+   nonvar(E), E = type_error(evaluable, _).
 
 % eval_sign/2
 runner:ref(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10').
 runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 1') :-
-   X is sign(5/3),
-   X == 1.
+   X is sign(5/3), X == 1.
 runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 2') :-
-   X is sign(1-sqrt(2)),
-   X == -1.
+   X is sign(1-sqrt(2)), X == -1.
 runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 3') :-
-   X is sign(-5/3),
-   X == -1.
+   X is sign(-5/3), X == -1.
 runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.2, 3.10, XLOG 4') :-
-   X is sqrt(1+sqrt(3)),
-   Y is sqrt(1+sqrt(2)),
-   Z is sign(X-Y),
-   Z == 1.
+   X is sqrt(1+sqrt(3)), Y is sqrt(1+sqrt(2)), Z is sign(X-Y), Z == 1.
 runner:case(eval_sign, 2, gauss_samebef, 'gauss 0.9.3, 3.10, XLOG 5') :-
-   catch(_ is sign(_), error(E,_), true),
-   nonvar(E),
-   E = type_error(number,_).
+   catch(_ is sign(_), error(E, _), true),
+   nonvar(E), E = type_error(number, _).
 
 % eval_floor/2
 runner:ref(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11').
 runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 1') :-
-   X is floor(-100),
-   X == -100.
+   X is floor(-100), X == -100.
 runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 2') :-
-   X is floor(9/5),
-   X == 1.
+   X is floor(9/5), X == 1.
 runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 3') :-
-   X is floor((sqrt(77/3)+sqrt(33/7))*10^15),
-   X == 7237468644557458.
+   X is floor((sqrt(77/3)+sqrt(33/7))*10^15), X == 7237468644557458.
 runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.2, 3.11, XLOG 4') :-
-   X is floor(-9/5),
-   X == -2.
+   X is floor(-9/5), X == -2.
 runner:case(eval_floor, 2, gauss_samebef, 'gauss 0.9.3, 3.11, XLOG 45') :-
-   catch(_ is floor(_+_), error(E,_), true),
-   nonvar(E),
-   E = type_error(evaluable,_).
+   catch(_ is floor(_+_), error(E, _), true),
+   nonvar(E), E = type_error(evaluable, _).
 
 % eval_ceiling/2
 runner:ref(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12').
 runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 1') :-
-   X is ceiling(9/5),
-   X == 2.
+   X is ceiling(9/5), X == 2.
 runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 2') :-
-   X is ceiling(-9/5),
-   X == -1.
+   X is ceiling(-9/5), X == -1.
 runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 3') :-
-   X is ceiling((sqrt(2)+sqrt(5)-sqrt(11))*10^15),
-   X == 333656749517485.
+   X is ceiling((sqrt(2)+sqrt(5)-sqrt(11))*10^15), X == 333656749517485.
 runner:case(eval_ceiling, 2, gauss_samebef, 'gauss 0.9.2, 3.12, XLOG 4') :-
-   catch(_ is ceiling(_), error(E,_), true),
-   nonvar(E),
-   E = type_error(number,_).
+   catch(_ is ceiling(_), error(E, _), true),
+   nonvar(E), E = type_error(number, _).
 
 % eval_integer/2
 runner:ref(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13').
 runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 1') :-
-   X is integer(9/5),
-   X == 1.
+   X is integer(9/5), X == 1.
 runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 2') :-
-   X is integer(-9/5),
-   X == -1.
+   X is integer(-9/5), X == -1.
 runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 3') :-
-   X is integer((-sqrt(2))*10^15),
-   X == -1414213562373095.
+   X is integer((-sqrt(2))*10^15), X == -1414213562373095.
 runner:case(eval_integer, 2, gauss_samebef, 'gauss 0.9.2, 3.13, XLOG 4') :-
-   catch(_ is ceiling(2*_), error(E,_), true),
-   nonvar(E),
-   E = type_error(evaluable,_).
+   catch(_ is ceiling(2*_), error(E, _), true),
+   nonvar(E), E = type_error(evaluable, _).
 
 % eval_float/2
 runner:ref(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14').
 runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 1') :-
-   X is float(33),
-   X == 33.0.
+   X is float(33), X == 33.0.
 runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 2') :-
-   X is float(-5/7),
-   X == -0.7142857142857143.
+   X is float(-5/7), X == -0.7142857142857143.
 runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.2, 3.14, XLOG 3') :-
-   X is float(sqrt(1+sqrt(2))),
-   X == 1.5537739740300374.
+   X is float(sqrt(1+sqrt(2))), X == 1.5537739740300374.
 runner:case(eval_float, 2, gauss_samebef, 'gauss 0.9.3, 3.14, XLOG 4') :-
-   catch(_ is float(_), error(E,_), true),
-   nonvar(E),
-   E = type_error(number,_).
+   catch(_ is float(_), error(E, _), true),
+   nonvar(E), E = type_error(number, _).
