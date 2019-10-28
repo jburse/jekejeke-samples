@@ -132,8 +132,6 @@ runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 12b') :-
 runner:case(!, 0, control_kernel, 'ISO 7.8.4.4, ISO 12c') :-
    findall(Y, with_output_to(atom(Y), (twice(_), call(!), write('Forwards '))), [_, _]).
 
-/* sys_local_cut */
-
 /* halt(N) */
 
 /* catch(A, E, B) */
