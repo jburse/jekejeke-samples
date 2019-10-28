@@ -45,25 +45,25 @@
 /* compare.p extras                                             */
 /****************************************************************/
 
-/* locale_compare(O, X, Y) */
+/* compare(C, X, Y, O) */
 /* derived from compare/3 test cases, but We fix locale at en_UK */
-runner:ref(locale_compare, 3, extra_structure, 'XLOG 1.1.1').
-runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 1') :-
-   locale_compare(en_UK, <, 1.0, 1).
-runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 2') :-
-   locale_compare(en_UK, <, aardvark, zebra).
-runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 3') :-
-   locale_compare(en_UK, =, short, short).
-runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 4') :-
-   locale_compare(en_UK, =, X, X).
-runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 5') :-
-   locale_compare(en_UK, >, foo(a, b), north(a)).
-runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 6') :-
-   locale_compare(en_UK, <, foo(a, _), foo(b, _)).
-runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 7') :-
-   locale_compare(en_UK, <, a, 'A').
-runner:case(locale_compare, 3, extra_structure, 'XLOG 1.1.1, XLOG 8') :-
-   locale_compare(en_UK, <, œ, ü).
+runner:ref(compare, 4, extra_structure, 'XLOG 1.1.1').
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 1') :-
+   compare(<, 1.0, 1, [type(collator), locale(en_UK)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 2') :-
+   compare(<, aardvark, zebra, [type(collator), locale(en_UK)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 3') :-
+   compare(=, short, short, [type(collator), locale(en_UK)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 4') :-
+   compare(=, X, X, [type(collator), locale(en_UK)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 5') :-
+   compare(>, foo(a, b), north(a), [type(collator), locale(en_UK)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 6') :-
+   compare(<, foo(a, _), foo(b, _), [type(collator), locale(en_UK)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 7') :-
+   compare(<, a, 'A', [type(collator), locale(en_UK)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 8') :-
+   compare(<, œ, ü, [type(collator), locale(en_UK)]).
 
 /****************************************************************/
 /* intatom.p extras                                             */
