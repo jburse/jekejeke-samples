@@ -86,27 +86,52 @@ runner:case(call_nth, 2, extend_invoke, 'XLOG 2.3.3, XLOG 4') :-
    catch(call_nth(_, _), error(E, _), true),
    E == instantiation_error.
 
-/* distinct(G) */
+/* distinct(W, G) */
 
-gamma(1, a).
 gamma(1, b).
 gamma(1, a).
+gamma(1, a).
 delta(_).
 delta(_).
+tau(2).
+tau(1).
+tau(3).
 
-runner:ref(distinct, 1, extend_invoke, 'XLOG 2.3.4').
-runner:case(distinct, 1, extend_invoke, 'XLOG 2.3.4, XLOG 1') :-
-   findall(X-Y, distinct(gamma(X, Y)), L),
-   L == [1-a, 1-b].
-runner:case(distinct, 1, extend_invoke, 'XLOG 2.3.4, XLOG 2') :-
-   findall(X-Y, distinct(Y^gamma(X, Y)), L),
-   L == [1-a].
-runner:case(distinct, 1, extend_invoke, 'XLOG 2.3.4, XLOG 3') :-
-   findall(X, distinct(delta(X)), L),
+runner:ref(distinct, 2, extend_invoke, 'XLOG 2.3.4').
+runner:case(distinct, 2, extend_invoke, 'XLOG 2.3.4, XLOG 1') :-
+   findall(X-Y, distinct(X-Y, gamma(X, Y)), L),
+   L == [1-b, 1-a].
+runner:case(distinct, 2, extend_invoke, 'XLOG 2.3.4, XLOG 2') :-
+   findall(X-Y, distinct(X, gamma(X, Y)), L),
+   L == [1-b].
+runner:case(distinct, 2, extend_invoke, 'XLOG 2.3.4, XLOG 3') :-
+   findall(X, distinct(X, delta(X)), L),
    L = [_].
-runner:case(distinct, 1, extend_invoke, 'XLOG 2.3.4, XLOG 4') :-
-   catch(distinct(_), error(E, _), true),
+runner:case(distinct, 2, extend_invoke, 'XLOG 2.3.4, XLOG 4') :-
+   findall(X, distinct(X, tau(X)), L),
+   L == [2, 1, 3].
+runner:case(distinct, 2, extend_invoke, 'XLOG 2.3.4, XLOG 5') :-
+   catch(distinct(_, _), error(E, _), true),
    E == instantiation_error.
+
+/* order_by(W, G) */
+
+runner:ref(order_by, 2, extend_invoke, 'XLOG 2.3.5').
+runner:case(order_by, 2, extend_invoke, 'XLOG 2.3.5, XLOG 1') :-
+   findall(X-Y, order_by(X-Y, gamma(X, Y)), L),
+   L == [1-a, 1-b].
+runner:case(order_by, 2, extend_invoke, 'XLOG 2.3.5, XLOG 2') :-
+   findall(X-Y, order_by(X, gamma(X, Y)), L),
+   L == [1-b].
+runner:case(order_by, 2, extend_invoke, 'XLOG 2.3.5, XLOG 3') :-
+   findall(X, order_by(X, delta(X)), L),
+   L = [_].
+runner:case(order_by, 2, extend_invoke, 'XLOG 2.3.5, XLOG 4') :-
+   findall(X, order_by(X, tau(X)), L),
+   L == [1, 2, 3].
+runner:case(order_by, 2, extend_invoke, 'XLOG 2.3.5, XLOG 5') :-
+   catch(order_by(_, 1), error(E, _), true),
+   E == type_error(callable, 1).
 
 /* foreach(G, T) */
 
@@ -117,20 +142,20 @@ beta(1, a).
 beta(2, b).
 beta(3, c).
 
-runner:ref(foreach, 2, extend_invoke, 'XLOG 2.3.5').
-runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.5, XLOG 1') :-
+runner:ref(foreach, 2, extend_invoke, 'XLOG 2.3.6').
+runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.6, XLOG 1') :-
    foreach(fail, true).
-runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.5, XLOG 2') :-
+runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.6, XLOG 2') :-
    foreach(alpha(X), Y^beta(X, Y)).
-runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.5, XLOG 3') :-
+runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.6, XLOG 3') :-
    \+ foreach(alpha(X), Y^beta(Y, X)).
-runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.5, XLOG 4') :-
+runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.6, XLOG 4') :-
    Y = foo(_, _, _), foreach(between(1, 3, X), arg(X, Y, X)),
    Y == foo(1, 2, 3).
-runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.5, XLOG 5') :-
+runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.6, XLOG 5') :-
    catch(foreach(_, beta(_, _)), error(E, _), true),
    E == instantiation_error.
-runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.5, XLOG 6') :-
+runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.6, XLOG 6') :-
    catch(foreach(alpha(_), 1), error(E, _), true),
    E == type_error(callable, 1).
 
@@ -138,19 +163,19 @@ runner:case(foreach, 2, extend_invoke, 'XLOG 2.3.5, XLOG 6') :-
 
 'C'(X, [X|O], O).
 
-runner:ref(foreach, 4, extend_invoke, 'XLOG 2.3.6').
-runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.6, XLOG 1') :-
+runner:ref(foreach, 4, extend_invoke, 'XLOG 2.3.7').
+runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.7, XLOG 1') :-
    foreach(fail, 'C'(1), I, O),
    O == I.
-runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.6, XLOG 2') :-
+runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.7, XLOG 2') :-
    foreach(between(1, 3, X), 'C'(X), I, O),
    I == [1, 2, 3|O].
-runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.6, XLOG 3') :-
+runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.7, XLOG 3') :-
    foreach(between(1, 3, _), 'C'(Y), I, O),
    I == [Y, Y, Y|O].
-runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.6, XLOG 4') :-
+runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.7, XLOG 4') :-
    catch(foreach(_, 'C'(1), _, _), error(E, _), true),
    E == instantiation_error.
-runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.6, XLOG 5') :-
+runner:case(foreach, 4, extend_invoke, 'XLOG 2.3.7, XLOG 5') :-
    catch(foreach(alpha(_), 1, _, _), error(E, _), true),
    E == type_error(callable, 1).

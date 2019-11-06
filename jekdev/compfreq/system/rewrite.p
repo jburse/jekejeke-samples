@@ -1,5 +1,5 @@
 /**
- * Prolog code for the compliance assessment suite.
+ * Prolog code for the term expansion test cases.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,16 +30,42 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded('../system/connect').
-:- ensure_loaded('../system/load').
-:- ensure_loaded('../system/notation').
-:- ensure_loaded('../system/proxy').
-:- ensure_loaded('../system/quali').
-:- ensure_loaded('../system/rewrite').
+:- use_package(library(jekdev/reference/testing)).
 
-:- ensure_loaded('../extend/grammar').
-:- ensure_loaded('../extend/hiord').
-:- ensure_loaded('../extend/invoke').
-:- ensure_loaded('../extend/struct').
-:- ensure_loaded('../extend/codec').
-:- ensure_loaded('../extend/tabel').
+:- multifile runner:ref/4.
+:- discontiguous runner:ref/4.
+
+:- multifile runner:case/4.
+:- discontiguous runner:case/4.
+
+/* expand_goal(S, T) */
+
+runner:ref(expand_goal, 2, system_rewrite, 'XLOG 1.6.1').
+runner:case(expand_goal, 2, system_rewrite, 'XLOG 1.6.1, XLOG 1') :-
+   expand_goal(((a, b), c), X),
+   X == (a, b, c).
+runner:case(expand_goal, 2, system_rewrite, 'XLOG 1.6.1, XLOG 2') :-
+   expand_goal((a, true), X),
+   X == a.
+runner:case(expand_goal, 2, system_rewrite, 'XLOG 1.6.1, XLOG 3') :-
+   expand_goal((true, a), X),
+   X == a.
+runner:case(expand_goal, 2, system_rewrite, 'XLOG 1.6.1, XLOG 4') :-
+   expand_goal((a, true, b), X),
+   X == (a, b).
+runner:case(expand_goal, 2, system_rewrite, 'XLOG 1.6.1, XLOG 5') :-
+   expand_goal((A, true), X),
+   A == X.
+
+/* expand_term(S, T) */
+
+runner:ref(expand_term, 2, system_rewrite, 'XLOG 1.6.2').
+runner:case(expand_term, 2, system_rewrite, 'XLOG 1.6.2, XLOG 1') :-
+   expand_term(((a :- b) :- c), X),
+   X == (a :- c, b).
+runner:case(expand_term, 2, system_rewrite, 'XLOG 1.6.2, XLOG 2') :-
+   expand_term((a :- true), X),
+   X == a.
+runner:case(expand_term, 2, system_rewrite, 'XLOG 1.6.2, XLOG 3') :-
+   expand_term((A :- true), X),
+   A == X.

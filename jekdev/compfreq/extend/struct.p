@@ -104,42 +104,43 @@ runner:case(aggregate, 3, extend_struct, 'XLOG 2.4.2, XLOG 7') :-
    aggregate(last(@<, X), member(X, [goedel, escher, bach]), S),
    S == goedel.
 
-/* sys_collect(A, G, S): */
+/* aggregate(A, G, S, O): */
+/* derived from aggregate/3 test cases, type(hash) preserves input order */
 
-runner:ref(sys_collect, 3, extend_struct, 'XLOG 2.4.3').
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 1a') :-
-   findall(Y-S, sys_collect(sum(X), ((Y = 2; Y = 1; Y = 2),
-      between(1, 3, X)), S), [R|_]),
+runner:ref(aggregate, 4, extend_struct, 'XLOG 2.4.3').
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 1a') :-
+   findall(Y-S, aggregate(sum(X), ((Y = 2; Y = 1; Y = 2),
+      between(1, 3, X)), S, [type(hash)]), [R|_]),
    R == 2-12.
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 1b') :-
-   findall(Y-S, sys_collect(sum(X), ((Y = 2; Y = 1; Y = 2),
-      between(1, 3, X)), S), [_, R|_]),
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 1b') :-
+   findall(Y-S, aggregate(sum(X), ((Y = 2; Y = 1; Y = 2),
+      between(1, 3, X)), S, [type(hash)]), [_, R|_]),
    R == 1-6.
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 1c') :-
-   findall(Y-S, sys_collect(sum(X), ((Y = 2; Y = 1; Y = 2),
-      between(1, 3, X)), S), [_, _]).
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 2a') :-
-   findall((Y-S, A-B), sys_collect((sum(X), max(X)), ((Y = A; Y = B; Y = A),
-      between(1, 3, X)), S), [(R, A-B)|_]),
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 1c') :-
+   findall(Y-S, aggregate(sum(X), ((Y = 2; Y = 1; Y = 2),
+      between(1, 3, X)), S, [type(hash)]), [_, _]).
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 2a') :-
+   findall((Y-S, A-B), aggregate((sum(X), max(X)), ((Y = A; Y = B; Y = A),
+      between(1, 3, X)), S, [type(hash)]), [(R, A-B)|_]),
    R == A-(12, 3).
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 2b') :-
-   findall((Y-S, A-B), sys_collect((sum(X), max(X)), ((Y = A; Y = B; Y = A),
-      between(1, 3, X)), S), [_, (R, A-B)|_]),
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 2b') :-
+   findall((Y-S, A-B), aggregate((sum(X), max(X)), ((Y = A; Y = B; Y = A),
+      between(1, 3, X)), S, [type(hash)]), [_, (R, A-B)|_]),
    R == B-(6, 3).
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 2c') :-
-   findall((Y-S, A-B), sys_collect((sum(X), max(X)), ((Y = A; Y = B; Y = A),
-      between(1, 3, X)), S), [_, _]).
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 3') :-
-   \+ sys_collect(sum(1), fail, _).
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 4') :-
-   sys_collect(mul(X), between(1, 10, X), S),
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 2c') :-
+   findall((Y-S, A-B), aggregate((sum(X), max(X)), ((Y = A; Y = B; Y = A),
+      between(1, 3, X)), S, [type(hash)]), [_, _]).
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 3') :-
+   \+ aggregate(sum(1), fail, _).
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 4') :-
+   aggregate(mul(X), between(1, 10, X), S, [type(hash)]),
    S == 3628800.
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 5') :-
-   catch(sys_collect(_, ((Y = 1; Y = 2), between(1, 10, _)), _), error(E, _), true),
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 5') :-
+   catch(aggregate(_, ((Y = 1; Y = 2), between(1, 10, _)), _, [type(hash)]), error(E, _), true),
    E == instantiation_error.
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 6') :-
-   catch(sys_collect(sum(_), ((Y = 1; Y = 2), 1), _), error(E, _), true),
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 6') :-
+   catch(aggregate(sum(_), ((Y = 1; Y = 2), 1), _, [type(hash)]), error(E, _), true),
    E == type_error(callable, 1).
-runner:case(sys_collect, 3, extend_struct, 'XLOG 2.4.3, XLOG 7') :-
-   sys_collect(reduce('', atom_concat, X), member(X, [goedel, escher, bach]), S),
+runner:case(aggregate, 4, extend_struct, 'XLOG 2.4.3, XLOG 7') :-
+   aggregate(reduce('', atom_concat, X), member(X, [goedel, escher, bach]), S, [type(hash)]),
    S == goedelescherbach.

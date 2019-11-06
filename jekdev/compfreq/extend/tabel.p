@@ -44,6 +44,7 @@
 
 /* table/1, no aggregates */
 
+/* fibonacci */
 :- table table_test11/2.
 table_test11(0, 0) :- !.
 table_test11(1, 1) :- !.
