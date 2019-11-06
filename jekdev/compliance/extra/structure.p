@@ -65,6 +65,16 @@ runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 7') :-
 runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 8') :-
    compare(<, œ, ü, [type(collator), locale(en_UK)]).
 
+/* we use ignore case and reverse */
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 9') :-
+   compare(=, a, 'A', [ignore_case(true)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 10') :-
+   compare(=, a, 'A', [type(collator), locale(en_UK), ignore_case(true)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 11') :-
+   compare(<, a, 'A', [reverse(true)]).
+runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 12') :-
+   compare(>, a, 'A', [type(collator), locale(en_UK), reverse(true)]).
+
 /****************************************************************/
 /* intatom.p extras                                             */
 /****************************************************************/
@@ -124,6 +134,23 @@ runner:case(sort, 3, extra_structure, 'XLOG 1.3.1, XLOG 7') :-
    catch(sort([77|35], _, [type(hash)]), error(E, _), true),
    nonvar(E), E = type_error(list, _).
 
+/* we use locale, ignore case and reverse */
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.1, XLOG 8') :-
+   sort([a, 'A', £], X, [type(collator), locale(en_UK)]),
+   X == [£, a, 'A'].
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.1, XLOG 9') :-
+   sort([a, 'A', £], X, [ignore_case(true)]),
+   X == [a, £].
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.1, XLOG 10') :-
+   sort([a, 'A', £], X, [type(collator), locale(en_UK), ignore_case(true)]),
+   X == [£, a].
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.1, XLOG 11') :-
+   sort([a, 'A', £], X, [reverse(true)]),
+   X == [£, a, 'A'].
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.1, XLOG 12') :-
+   sort([a, 'A', £], X, [type(collator), locale(en_UK), reverse(true)]),
+   X == ['A', a, £].
+
 /* keysort(L, R, O) */
 /* derived from keysort/2 test cases, type(hash) preserves input order */
 runner:ref(keysort, 3, extra_structure, 'XLOG 1.3.2').
@@ -150,6 +177,23 @@ runner:case(keysort, 3, extra_structure, 'XLOG 1.3.2, XLOG 8') :-
    catch(keysort([77], _, [type(hash)]), error(E, _), true),
    nonvar(E), E = type_error(pair, 77).
 
+/* we use ignore case and reverse */
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.2, XLOG 9') :-
+   keysort([a-1, 'A'-2, £ -3], X, [type(collator), locale(en_UK)]),
+   X == [£ -3, a-1, 'A'-2].
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.2, XLOG 10') :-
+   keysort([a-1, 'A'-2, £ -3], X, [ignore_case(true)]),
+   X == [a-1, a-2, £ -3].
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.2, XLOG 11') :-
+   keysort([a-1, 'A'-2, £ -3], X, [type(collator), locale(en_UK), ignore_case(true)]),
+   X == [£ -3, a-1, a-2].
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.2, XLOG 12') :-
+   keysort([a-1, 'A'-2, £ -3], X, [reverse(true)]),
+   X == [£ -3, a-1, 'A'-2].
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.2, XLOG 13') :-
+   keysort([a-1, 'A'-2, £ -3], X, [type(collator), locale(en_UK), reverse(true)]),
+   X == ['A'-2, a-1, £ -3].
+
 /* hash_code(T, H) */
 runner:ref(hash_code, 2, extra_structure, 'XLOG 1.3.3').
 runner:case(hash_code, 2, extra_structure, 'XLOG 1.3.3, XLOG 1') :-
@@ -167,66 +211,66 @@ runner:case(hash_code, 2, extra_structure, 'XLOG 1.3.3, XLOG 6') :-
 
 /* sort(L, R, O), with collator */
 /* derived from sort/2 test cases, but We fix locale at en_UK */
-runner:ref(sort_collate, 3, extra_structure, 'XLOG 1.3.6').
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 1') :-
+runner:ref(sort, 3, extra_structure, 'XLOG 1.3.6').
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 1') :-
    sort([1, 1.0], L, [type(collator), locale(en_UK)]),
    L == [1.0, 1].
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 2') :-
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 2') :-
    sort([1.0, X, a, a, X], L, [type(collator), locale(en_UK)]),
    L == [X, 1.0, a].
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 3') :-
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 3') :-
    sort([north(a), shorter, short, foo(a, b)], L, [type(collator), locale(en_UK)]),
    L == [short, shorter, north(a), foo(a, b)].
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 4') :-
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 4') :-
    sort([f(U), V, f(V), U], L, [type(collator), locale(en_UK)]),
    (L == [U, V, f(U), f(V)]; L == [V, U, f(V), f(U)]).
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 5') :-
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 5') :-
    findall(Y, a(_, Y), L), sort(L, R, [type(collator), locale(en_UK)]),
    L = [A, B], (R == [A, B]; R == [B, A]).
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 6') :-
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 6') :-
    catch(sort(_, _, [type(collator), locale(en_UK)]), error(E, _), true),
    E == instantiation_error.
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 7') :-
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 7') :-
    catch(sort([77|35], _, [type(collator), locale(en_UK)]), error(E, _), true),
    nonvar(E), E = type_error(list, _).
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 8') :-
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 8') :-
    sort([a, 'A', b, 'B'], L, [type(collator), locale(en_UK)]),
    L == [a, 'A', b, 'B'].
-runner:case(sort_collate, 3, extra_structure, 'XLOG 1.3.6, XLOG 9') :-
+runner:case(sort, 3, extra_structure, 'XLOG 1.3.6, XLOG 9') :-
    sort([ü, u, œ, o], L, [type(collator), locale(en_UK)]),
    L == [o, œ, u, ü].
 
 /* keysort(L, R, O), with collator */
 /* derived from keysort/2 test cases, but We fix locale at en_UK */
-runner:ref(keysort_collate, 3, extra_structure, 'XLOG 1.3.7').
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 1') :-
+runner:ref(keysort, 3, extra_structure, 'XLOG 1.3.7').
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 1') :-
    keysort([1-x, 1.0-y], L, [type(collator), locale(en_UK)]),
    L == [1.0-y, 1-x].
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 2') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 2') :-
    keysort([1.0-z, X-x, a-y, a-x, X-y], L, [type(collator), locale(en_UK)]),
    L == [X-x, X-y, 1.0-z, a-y, a-x].
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 3') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 3') :-
    keysort([north(a)-x, shorter-y, short-z, foo(a, b)-t], L, [type(collator), locale(en_UK)]),
    L == [short-z, shorter-y, north(a)-x, foo(a, b)-t].
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 4') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 4') :-
    keysort([f(U)-x, V-y, f(V)-z, U-t], L, [type(collator), locale(en_UK)]),
    (L == [U-t, V-y, f(U)-x, f(V)-z]; L == [V-y, U-t, f(V)-z, f(U)-x]).
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 5') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 5') :-
    findall(X-Y, a(X, Y), L), keysort(L, R, [type(collator), locale(en_UK)]),
    L == R.
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 6') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 6') :-
    catch(keysort(_, _, [type(collator), locale(en_UK)]), error(E, _), true),
    E == instantiation_error.
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 7') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 7') :-
    catch(keysort([77-x|35], _, [type(collator), locale(en_UK)]), error(E, _), true),
    nonvar(E), E = type_error(list, _).
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 8') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 8') :-
    catch(keysort([77], _, [type(collator), locale(en_UK)]), error(E, _), true),
    nonvar(E), E = type_error(pair, 77).
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 9') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 9') :-
    keysort([a-1, 'A'-2, a-3, 'B'-4, b-5, 'B'-6], L, [type(collator), locale(en_UK)]),
    L == [a-1, a-3, 'A'-2, b-5, 'B'-4, 'B'-6].
-runner:case(keysort_collate, 3, extra_structure, 'XLOG 1.3.7, XLOG 10') :-
+runner:case(keysort, 3, extra_structure, 'XLOG 1.3.7, XLOG 10') :-
    keysort([ü-1, u-2, ü-3, œ-4, o-5, o-6], L, [type(collator), locale(en_UK)]),
    L == [o-5, o-6, œ-4, u-2, ü-1, ü-3].
 
