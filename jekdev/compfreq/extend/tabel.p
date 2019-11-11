@@ -42,6 +42,10 @@
 :- use_module(library(advanced/arith)).
 :- use_module(library(basic/lists)).
 
+/**********************************************************/
+/* Tabling                                                */
+/**********************************************************/
+
 /* table/1, no aggregates */
 
 /* fibonacci */
@@ -57,8 +61,11 @@ table_test11(N, X) :-
 
 /* member */
 :- table table_test12/2.
-table_test12(X, [X|_]).
-table_test12(X, [_|Y]) :- table_test12(X, Y).
+table_test12(X, [Y|Z]) :- table_test122(Z, X, Y).
+
+:- table table_test122/3.
+table_test122(_, X, X).
+table_test122([Y|Z], X, _) :- table_test122(Z, X, Y).
 
 runner:ref(table, 1, extend_tabel, 'XLOG 2.6.1').
 runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 1') :-
@@ -76,121 +83,94 @@ runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 3c') :-
 runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 4') :-
    findall(X, table_test12(X, [A, _, A]), [_, _]).
 
-/* recursive tabling */
+/* resync and error */
+:- table table_test16/1.
+table_test16(2).
+table_test16(1).
+table_test16(3).
 
-/* Test Data for Strongly Connected Components (SCC) */
-edge(11, 14).
-edge(14, 15).
-edge(15, 16).
-edge(16, 15).
-edge(16, 17).
-edge(11, 12).
-edge(12, 13).
-edge(13, 12).
+:- table table_test17/1.
+table_test17(X) :- X is 1/0.
 
-edge(21, 26).
-edge(21, 22).
-edge(22, 23).
-edge(23, 22).
-edge(24, 25).
-edge(25, 26).
-edge(26, 25).
-edge(25, 24).
-edge(26, 27).
-edge(22, 27).
+runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 11a') :-
+   table_test16(X), !,
+   X == 1.
+runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 11b') :-
+   findall(X, table_test16(X), L),
+   L == [1, 2, 3].
+runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 12a') :-
+   catch(table_test17(_), error(E, _), true),
+   E == evaluation_error(zero_divisor).
+runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 12b') :-
+   catch(table_test17(_), error(E, _), true),
+   E == evaluation_error(zero_divisor).
 
-/* right recursive */
-:- table table_test13/2.
-table_test13(X, X).
-table_test13(X, Y) :- edge(X, Z), table_test13(Z, Y).
-
-/* left recursive */
-:- table table_test14/2.
-table_test14(X, X).
-table_test14(X, Y) :- table_test14(X, Z), edge(Z, Y).
-
-/* left/right recursive */
-:- table table_test15/2.
-table_test15(X, X).
-table_test15(X, Y) :- edge(X, Y).
-table_test15(X, Y) :- table_test15(X, Z), table_test15(Z, Y).
-
-runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 5') :-
-   findall(X, table_test13(11, X), L),
-   L == [11, 12, 13, 14, 15, 16, 17].
-runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 6') :-
-   findall(X, table_test13(21, X), L),
-   L == [21, 22, 23, 24, 25, 26, 27].
-runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 7') :-
-   findall(X, table_test14(11, X), L),
-   L == [11, 12, 13, 14, 15, 16, 17].
-runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 8') :-
-   findall(X, table_test14(21, X), L),
-   L == [21, 22, 23, 24, 25, 26, 27].
-runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 9') :-
-   findall(X, table_test15(11, X), L),
-   L == [11, 12, 13, 14, 15, 16, 17].
-runner:case(table, 1, extend_tabel, 'XLOG 2.6.1, XLOG 10') :-
-   findall(X, table_test15(21, X), L),
-   L == [21, 22, 23, 24, 25, 26, 27].
+/**********************************************************/
+/* Eager Tabling                                          */
+/**********************************************************/
 
 /* table/1 plus as/2 */
 
-:- table table_test21/2 as [eager(true)].
-table_test21(Y, X) :- (Y = 2; Y = 1; Y = 1), (X = 1; X = Y).
+/* fibonacci */
+:- table table_test21/2 as [type(hash), eager(true)].
+table_test21(0, 0) :- !.
+table_test21(1, 1) :- !.
+table_test21(N, X) :-
+   H is N-1,
+   table_test21(H, Y),
+   J is H-1,
+   table_test21(J, Z),
+   X is Y+Z.
+
+/* member */
+:- table table_test22/2 as [type(hash), eager(true)].
+table_test22(X, [Y|Z]) :- table_test222(Z, X, Y).
+
+:- table table_test222/3 as [type(hash), eager(true)].
+table_test222(_, X, X).
+table_test222([Y|Z], X, _) :- table_test222(Z, X, Y).
 
 runner:ref(table_as, 2, extend_tabel, 'XLOG 2.6.2').
-runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 1a') :-
-   findall(Y-X, table_test21(Y, X), [R|_]),
-   R == 2-1.
-runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 1b') :-
-   retractall_table(table_test21(_, _)),
-   findall(Y-X, table_test21(Y, X), [_, R|_]),
-   R == 2-2.
-runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 1c') :-
-   retractall_table(table_test21(_, _)),
-   findall(Y-X, table_test21(Y, X), [_, _, R|_]),
-   R == 1-1.
-runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 1d') :-
-   retractall_table(table_test21(_, _)),
-   findall(Y-X, table_test21(Y, X), [_, _, _]).
-
-/* recursive tabling */
-
-/* right recursive */
-:- table table_test22/2 as [eager(true)].
-table_test22(X, X).
-table_test22(X, Y) :- edge(X, Z), table_test22(Z, Y).
-
-/* left recursive */
-:- table table_test23/2 as [eager(true)].
-table_test23(X, X).
-table_test23(X, Y) :- table_test23(X, Z), edge(Z, Y).
-
-/* left/right recursive */
-:- table table_test24/2 as [eager(true)].
-table_test24(X, X).
-table_test24(X, Y) :- edge(X, Y).
-table_test24(X, Y) :- table_test24(X, Z), table_test24(Z, Y).
-
+runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 1') :-
+   table_test21(10, X), X == 55.
 runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 2') :-
-   findall(X, table_test22(11, X), L),
-   L == [11, 14, 15, 16, 17, 12, 13].
-runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 3') :-
-   findall(X, table_test22(21, X), L),
-   L == [21, 26, 25, 24, 27, 22, 23].
+   \+ table_test22(3, [1, 2, 1]).
+runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 3a') :-
+   findall(X, table_test22(X, [1, 2, 1]), [X|_]),
+   X == 1.
+runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 3b') :-
+   findall(X, table_test22(X, [1, 2, 1]), [_, X|_]),
+   X == 2.
+runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 3c') :-
+   findall(X, table_test22(X, [1, 2, 1]), [_, _]).
 runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 4') :-
-   findall(X, table_test23(11, X), L),
-   L == [11, 14, 12, 13, 15, 16, 17].
-runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 5') :-
-   findall(X, table_test23(21, X), L),
-   L == [21, 26, 22, 23, 27, 25, 24].
-runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 6') :-
-   findall(X, table_test24(11, X), L),
-   L == [11, 14, 12, 13, 15, 16, 17].
-runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 7') :-
-   findall(X, table_test24(21, X), L),
-   L == [21, 26, 22, 23, 27, 25, 24].
+   findall(X, table_test22(X, [A, _, A]), [_, _]).
+
+/* resync and error */
+:- table table_test26/1 as [type(hash), eager(true)].
+table_test26(2).
+table_test26(1).
+table_test26(3).
+
+:- table table_test27/1 as [type(hash), eager(true)].
+table_test27(X) :- X is 1/0.
+
+runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 11a') :-
+   table_test26(X), !,
+   X == 2.
+runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 11b') :-
+   findall(X, table_test26(X), L),
+   L == [2, 1, 3].
+runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 12a') :-
+   catch(table_test27(_), error(E, _), true),
+   E == evaluation_error(zero_divisor).
+runner:case(table_as, 2, extend_tabel, 'XLOG 2.6.2, XLOG 12b') :-
+   catch(table_test27(_), error(E, _), true),
+   E == evaluation_error(zero_divisor).
+
+/**********************************************************/
+/* Tabling Mode Directed                                  */
+/**********************************************************/
 
 /* table/1, aggregates */
 
@@ -225,26 +205,52 @@ runner:case(table_aggr, 1, extend_tabel, 'XLOG 2.6.3, XLOG 5a') :-
 runner:case(table_aggr, 1, extend_tabel, 'XLOG 2.6.3, XLOG 5b') :-
    table_test35([A, _], Y, S, T), Y == A, S == 12, T == 3.
 
+/**********************************************************/
+/* Eager Tabling Mode Directed                            */
+/**********************************************************/
+
 /* table/1 plus as/2, aggregates */
 
-:- table table_test41(max, _) as [eager(true)].
-table_test41(Y, X) :- (Y = 1; Y = 1; Y = 2), (X = 1; X = Y).
+:- table table_test41(sum) as [type(hash), eager(true)].
+table_test41(X) :- between(1, 10, X).
+
+:- table table_test42(sum, max) as [type(hash), eager(true)].
+table_test42(X, X) :- between(1, 10, X).
+
+:- table table_test43(first(@<)) as [type(hash), eager(true)].
+table_test43(X) :- member(X, [goedel, escher, bach]).
+
+:- table table_test44(_, sum) as [type(hash), eager(true)].
+table_test44(Y, X) :- (Y = 2; Y = 1; Y = 2), between(1, 3, X).
+
+:- table table_test45(_, _, sum, max) as [type(hash), eager(true)].
+table_test45([A, B], Y, X, X) :- (Y = A; Y = B; Y = A), between(1, 3, X).
 
 runner:ref(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4').
-runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 1a') :-
-   findall(Y-X, table_test41(Y, X), [R|_]),
-   R == 1-1.
-runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 1b') :-
-   retractall_table(table_test41(_, _)),
-   findall(Y-X, table_test41(Y, X), [_, R|_]),
-   R == 2-1.
-runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 1c') :-
-   retractall_table(table_test41(_, _)),
-   findall(Y-X, table_test41(Y, X), [_, _, R|_]),
-   R == 2-2.
-runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 1d') :-
-   retractall_table(table_test41(_, _)),
-   findall(Y-X, table_test41(Y, X), [_, _, _]).
+runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 1') :-
+   (table_test41(_), fail; true),
+   table_test41(S), S == 55.
+runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 2') :-
+   (table_test42(_, _), fail; true),
+   table_test42(S, T), S == 55, T == 10.
+runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 3') :-
+   (table_test43(_), fail; true),
+   table_test43(S), S == bach.
+runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 4a') :-
+   (table_test44(1, _), fail; true),
+   table_test44(1, S), S == 6.
+runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 4b') :-
+   (table_test44(2, _), fail; true),
+   table_test44(2, S), S == 12.
+runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 5a') :-
+   (table_test45(_, _, _, _), fail; true),
+   table_test45([_, B], Y, S, T), Y == B, S == 6, T == 3.
+runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 5b') :-
+   table_test45([A, _], Y, S, T), Y == A, S == 12, T == 3.
+
+/**********************************************************/
+/* Table Access & Modify                                  */
+/**********************************************************/
 
 /* current_table/2 */
 
