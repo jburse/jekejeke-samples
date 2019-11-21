@@ -102,6 +102,12 @@ runner:case(uri_encode, 2, system_connect, 'XLOG 1.1.3, XLOG 4') :-
 runner:case(uri_encode, 2, system_connect, 'XLOG 1.1.3, XLOG 5') :-
    uri_encode(X, '/example.org/fo%C3%A4o?ba%C3%B6r#ba%C3%BCz'),
    X == '/example.org/foäo?baör#baüz'.
+runner:case(uri_encode, 2, system_connect, 'XLOG 1.1.3, XLOG 6') :-
+   uri_encode('a𝄞b€c', X),
+   X = 'a%F0%9D%84%9Eb%E2%82%ACc'.
+runner:case(uri_encode, 2, system_connect, 'XLOG 1.1.3, XLOG 7') :-
+   uri_encode(X, 'a%F0%9D%84%9Eb%E2%82%ACc'),
+   X = 'a𝄞b€c'.
 
 /* make_link(S, P, H, U) */
 
