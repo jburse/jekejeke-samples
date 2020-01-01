@@ -47,6 +47,7 @@
 :- use_module(library(stream/xml)).
 :- use_module(library(system/domain)).
 :- use_module(library(system/zone)).
+:- use_module(library(structure/bytes)).
 
 /* text_escape(T, E) */
 

@@ -40,6 +40,7 @@
 
 :- ensure_loaded('../harness/data').
 :- use_module(library(misc/residue)).
+:- use_module(library(structure/bytes)).
 
 /****************************************************************/
 /* compare.p extras                                             */
@@ -377,13 +378,13 @@ runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 4') :-
 /* atom_block(X, Y, O) */
 runner:ref(atom_block, 3, extra_structure, 'XLOG 1.4.6').
 runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 1') :-
-   atom_block(aÿbc, X, [encoding('utf-8')]), atom_block(Y, X, [encoding('utf-8')]),
+   atom_block(aÿbc, X, []), atom_block(Y, X, []),
    Y == aÿbc.
 runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 2') :-
-   atom_block(aǿbc, X, [encoding('utf-8')]), atom_block(Y, X, [encoding('utf-8')]),
+   atom_block(aǿbc, X, []), atom_block(Y, X, []),
    Y == aǿbc.
 runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 3') :-
-   atom_block('a𝄞b€c', X, [encoding('utf-8')]), atom_block(Y, X, [encoding('utf-8')]),
+   atom_block('a𝄞b€c', X, []), atom_block(Y, X, []),
    Y == 'a𝄞b€c'.
 runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 4') :-
    catch(atom_block(_, foo, []), error(E, _), true),
