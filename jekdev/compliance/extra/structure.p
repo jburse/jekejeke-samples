@@ -1,5 +1,5 @@
 /**
- * Prolog code for the extra structure theory test cases.
+ * Prolog code for the extra structure test cases.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -359,82 +359,6 @@ runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 5') :-
 runner:case(atom_number, 2, extra_structure, 'XLOG 1.4.4, XLOG 6') :-
    catch(atom_number(_, _), error(E, _), true),
    E == instantiation_error.
-
-/* atom_block(X, Y) */
-runner:ref(atom_block, 2, extra_structure, 'XLOG 1.4.5').
-runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 1') :-
-   atom_block(aÿbc, X), atom_block(Y, X),
-   Y == aÿbc.
-runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 2') :-
-   catch(atom_block(aǿbc, _), error(E, _), true),
-   E == representation_error(octet).
-runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 3') :-
-   catch(atom_block(_, foo), error(E, _), true),
-   E == type_error(ref, foo).
-runner:case(atom_block, 2, extra_structure, 'XLOG 1.4.5, XLOG 4') :-
-   catch(atom_block(_, _), error(E, _), true),
-   E == instantiation_error.
-
-/* atom_block(X, Y, O) */
-runner:ref(atom_block, 3, extra_structure, 'XLOG 1.4.6').
-runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 1') :-
-   atom_block(aÿbc, X, []), atom_block(Y, X, []),
-   Y == aÿbc.
-runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 2') :-
-   atom_block(aǿbc, X, []), atom_block(Y, X, []),
-   Y == aǿbc.
-runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 3') :-
-   atom_block('a𝄞b€c', X, []), atom_block(Y, X, []),
-   Y == 'a𝄞b€c'.
-runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 4') :-
-   catch(atom_block(_, foo, []), error(E, _), true),
-   E == type_error(ref, foo).
-runner:case(atom_block, 3, extra_structure, 'XLOG 1.4.6, XLOG 5') :-
-   catch(atom_block(_, _, []), error(E, _), true),
-   E == instantiation_error.
-
-/* term_atom(X, Y) */
-runner:ref(term_atom, 2, extra_structure, 'XLOG 1.4.7').
-runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.7, XLOG 1') :-
-   term_atom(X, '[1,2,3]'), X == [1, 2, 3].
-runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.7, XLOG 2') :-
-   term_atom(1 < 2, X), X == '1 < 2'.
-runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.7, XLOG 3') :-
-   term_atom('$VAR'(1), X), X == '''$VAR''(1)'.
-runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.7, XLOG 4') :-
-   term_atom(X, 'foo(A+Roger,A+_)'), X = foo(Y+_, Z+_), Y == Z.
-runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.7, XLOG 5') :-
-   term_atom('Foo', X), X == '''Foo'''.
-runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.7, XLOG 6') :-
-   catch(term_atom(_, 123), error(E, _), true),
-   E == type_error(atom, 123).
-runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.7, XLOG 7') :-
-   X is pi, term_atom(X, Y), Y == '3.141592653589793'.
-runner:case(term_atom, 2, extra_structure, 'XLOG 1.4.7, XLOG 8') :-
-   catch(term_atom(_, '''\\z'''), error(E, _), true),
-   E == syntax_error(illegal_escape).
-
-/* term_atom(X, Y, O) */
-runner:ref(term_atom, 3, extra_structure, 'XLOG 1.4.8').
-runner:case(term_atom, 3, extra_structure, 'XLOG 1.4.8, XLOG 1') :-
-   term_atom(X, '[1,2,3]', []), X == [1, 2, 3].
-runner:case(term_atom, 3, extra_structure, 'XLOG 1.4.8, XLOG 2') :-
-   term_atom(1 < 2, X, [ignore_ops(true)]), X == '<(1, 2)'.
-runner:case(term_atom, 3, extra_structure, 'XLOG 1.4.8, XLOG 3') :-
-   term_atom('$VAR'(1), X, [numbervars(true)]), X == 'B'.
-runner:case(term_atom, 3, extra_structure, 'XLOG 1.4.8, XLOG 4') :-
-   term_atom(X, 'foo(A+Roger,A+_)', [variable_names(L)]),
-   X = foo(Y+_, Z+_), Y == Z, L = ['A' = _, 'Roger' = _].
-runner:case(term_atom, 3, extra_structure, 'XLOG 1.4.8, XLOG 5') :-
-   term_atom('Foo', X, [quoted(false)]), X == 'Foo'.
-runner:case(term_atom, 3, extra_structure, 'XLOG 1.4.8, XLOG 6') :-
-   catch(term_atom(_, 123, []), error(E, _), true),
-   E == type_error(atom, 123).
-runner:case(term_atom, 3, extra_structure, 'XLOG 1.4.8, XLOG 7') :-
-   X is pi, term_atom(X, Y, []), Y == '3.141592653589793'.
-runner:case(term_atom, 3, extra_structure, 'XLOG 1.4.8, XLOG 8') :-
-   catch(term_atom(_, '''\\z''', []), error(E, _), true),
-   E == syntax_error(illegal_escape).
 
 /****************************************************************/
 /* term.p extras                                                */

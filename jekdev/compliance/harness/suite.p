@@ -59,3 +59,4 @@
 :- ensure_loaded('../extra/structure').
 :- ensure_loaded('../extra/regex').
 :- ensure_loaded('../extra/vars').
+:- ensure_loaded('../extra/block').
