@@ -158,66 +158,44 @@ runner:case(sha1_hash, 2, extend_codec, 'XLOG 2.5.5, XLOG 4') :-
    catch(sha1_hash(_, _), error(E, _), true),
    E == instantiation_error.
 
-/* term_atom(T, A, O) */
-
-runner:ref(term_atom, 3, extend_codec, 'XLOG 2.5.6').
-runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 1') :-
-   term_atom(X, '[1,2,3]', [double_quotes(string)]), X == [1, 2, 3].
-runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 2') :-
-   term_atom('1<2', X, [double_quotes(string)]), X == '''1<2'''.
-runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 3') :-
-   term_atom(X, '"foo"', [double_quotes(string)]), X == '$STR'(foo).
-runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 4') :-
-   term_atom('$STR'(bar), X, [double_quotes(string)]), X == '"bar"'.
-runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 5') :-
-   term_atom('$STR'('\xFFFD\'), X, [double_quotes(string)]), X == '"\\uFFFD"'.
-runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 6') :-
-   term_atom(X, '"\\""', [double_quotes(string)]), X == '$STR'('"').
-runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 7') :-
-   catch(term_atom(_, "abc", [double_quotes(string)]), error(E, _), true),
-   E == type_error(atom, [97, 98, 99]).
-runner:case(term_atom, 3, extend_codec, 'XLOG 2.5.6, XLOG 8') :-
-   catch(term_atom(_, '"\\u00"', [double_quotes(string)]), error(E, _), true),
-   E == syntax_error(illegal_escape).
-
 /* date_atom(L, F, D, A) */
 
-runner:ref(date_atom, 4, extend_codec, 'XLOG 2.5.7').
-runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 1') :-
+runner:ref(date_atom, 4, extend_codec, 'XLOG 2.5.6').
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.6, XLOG 1') :-
    get_time(de_CH, 1549463357000, 'Europe/Berlin', D),
    date_atom(de_CH, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, R),
    R == 'Mi, 06 Feb 2019 15:29:17 MEZ'.
-runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 2') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.6, XLOG 2') :-
    get_time(en_GB, 1549463357000, 'GMT', D),
    date_atom(en_GB, 'EEE, dd MMM yyyy HH:mm:ss ''GMT''', D, R),
    R == 'Wed, 06 Feb 2019 14:29:17 GMT'.
-runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 3') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.6, XLOG 3') :-
    date_atom(de_CH, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, 'Mi, 06 Feb 2019 15:29:17 MEZ'),
    get_time(T, D), T == 1549463357000.
-runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 4') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.6, XLOG 4') :-
    date_atom(en_GB, 'EEE, dd MMM yyyy HH:mm:ss zzz', D, 'Wed, 06 Feb 2019 14:29:17 GMT'),
    get_time(T, D), T == 1549463357000.
-runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 5') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.6, XLOG 5') :-
    catch(date_atom('EEE, dd MMM yyyy HH:mm:ss zzz', _, _), error(E, _), true),
    nonvar(E), E = representation_error(_).
-runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 6') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.6, XLOG 6') :-
    get_time(ja_JP_JP, 1549556043201, 'JST', D),
    date_atom(en_GB, 'GGGG y-MM-dd zzz', D, R),
    R == 'Heisei 31-02-08 JST'.
-runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 7') :-
+runner:case(date_atom, 4, extend_codec, 'XLOG 2.5.6, XLOG 7') :-
    get_time(ja_JP_JP, -1357544756799, 'JST', D),
    date_atom(ja_JP_JP, 'GGGG y-MM-dd zzz', D, R),
    R == '昭和 1-12-26 JST'.
 
 /* rfc1123_atom(T, A) */
 
-runner:ref(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.8').
-runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.8, XLOG 1') :-
+runner:ref(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.7').
+runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 1') :-
    rfc1123_atom(1549463357000, X),
    X == 'Wed, 06 Feb 2019 14:29:17 GMT'.
-runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.8, XLOG 2') :-
+runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 2') :-
    rfc1123_atom(X, 'Wed, 06 Feb 2019 14:29:17 GMT'),
    X == 1549463357000.
-runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.8, XLOG 3') :-
+runner:case(rfc1123_atom, 4, extend_codec, 'XLOG 2.5.7, XLOG 3') :-
    catch(rfc1123_atom(_, _), error(E, _), true),
    E == instantiation_error.
