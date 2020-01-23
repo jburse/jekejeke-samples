@@ -35,7 +35,7 @@ To see some results on our machines look at this directory:
 - [galery](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark/galery):
   Results Gallery non-Android
 - [galery2](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark/galery2):
-  Results Gallery Android
+  Further Results Gallery Compilers and Android
 
 We compare our Prolog system with some other Prolog systems on
 some hardware platforms. The hardware platforms include the non-Android
@@ -48,4 +48,4 @@ is no warranty for the samples. You might try a pull
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 21.08.2016 (Updated 01.02.2017)
+Jan Burse, 21.08.2016 (Updated 23.01.2020)

@@ -16,9 +16,6 @@ The following Prolog systems were tested so far:
 
 The following hardware platforms were tested so far:
 - **ideapad:** Lenovo Ideapad 700 (4 Cores/8 Hyperthreads)
-- **sony:** Sony Experia Tablet (4 Cores).
-- **nvidia:** Nvidia Shield K1 Tablet (4 Cores).
-- **huawei:** Huawei P10 Lite (8 Cores/4 Slow+4 Fast)
 
 # Issues and Contributing
 
@@ -27,4 +24,4 @@ is no warranty for the samples. You might try a pull
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 24.08.2016 (Updated 20.07.2018)
+Jan Burse, 24.08.2016 (Updated 23.01.2020)
