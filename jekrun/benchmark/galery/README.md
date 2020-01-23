@@ -10,7 +10,6 @@ The following Prolog systems were tested so far:
 - **ciao:** Ciao Prolog 1.15-1781
 - **bprolog:** B-Prolog Version 8.1
 - **xsb**: XSB Prolog x86
-- **sicstus:** SICStus 4.4.1 (interpreter mode)
 - **jiprolog:** JIProlog v4.1.6.1
 - **yap:** YAP (AMD64, version 6.3.0)
 
