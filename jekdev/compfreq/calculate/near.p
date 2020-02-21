@@ -1,5 +1,5 @@
 /**
- * Prolog code for the compliance assessment suite.
+ * Prolog code for the calculate near test cases.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,18 +30,36 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded('../system/connect').
-:- ensure_loaded('../system/load').
-:- ensure_loaded('../system/notation').
-:- ensure_loaded('../system/proxy').
-:- ensure_loaded('../system/quali').
-:- ensure_loaded('../system/rewrite').
+:- use_package(library(jekdev/reference/testing)).
 
-:- ensure_loaded('../extend/grammar').
-:- ensure_loaded('../extend/hiord').
-:- ensure_loaded('../extend/invoke').
-:- ensure_loaded('../extend/struct').
-:- ensure_loaded('../extend/codec').
-:- ensure_loaded('../extend/tabel').
+:- multifile runner:ref/4.
+:- discontiguous runner:ref/4.
 
-:- ensure_loaded('../calculate/near').
+:- multifile runner:case/4.
+:- discontiguous runner:case/4.
+
+:- use_module(library(advanced/approx)).
+
+/* rational(X) */
+
+runner:ref(rational, -2, calculate_near, 'XLOG 3.1.1').
+runner:case(rational, -2, calculate_near, 'XLOG 3.1.1, XLOG 1') :-
+   X is rational(-89/21), X == -4771671033761597#1125899906842624.
+runner:case(rational, -2, calculate_near, 'XLOG 3.1.1, XLOG 2') :-
+   X is rational(8*(pi-3)), X == 39854788871587#35184372088832.
+
+/* rationalize(X) */
+
+runner:ref(rationalize, -2, calculate_near, 'XLOG 3.1.2').
+runner:case(rationalize, -2, calculate_near, 'XLOG 3.1.2, XLOG 1') :-
+   X is rationalize(-89/21), X == -89#21.
+runner:case(rationalize, -2, calculate_near, 'XLOG 3.1.2, XLOG 2') :-
+   X is rationalize(8*(pi-3)), X == 121642183#107387442.
+
+/* rationalize32(X) */
+
+runner:ref(rationalize32, -2, calculate_near, 'XLOG 3.1.3').
+runner:case(rationalize32, -2, calculate_near, 'XLOG 3.1.3, XLOG 1') :-
+   X is rationalize32(-89/21), X == -89#21.
+runner:case(rationalize32, -2, calculate_near, 'XLOG 3.1.3, XLOG 2') :-
+   X is rationalize32(8*(pi-3)), X == 4591#4053.

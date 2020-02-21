@@ -110,6 +110,8 @@ runner:case(float, -2, arithmetic_basic, 'ISO 9.1.7, ISO 48') :-
    7.3 is float(7.3).
 runner:case(float, -2, arithmetic_basic, 'ISO 9.1.7, ISO 49') :-
    1.0 is float(5//3).
+runner:case(float, -2, arithmetic_basic, 'ISO 9.1.7, XLOG 1') :-
+   3.0E23 is float(3*10^23).
 
 /* X + Y */
 

@@ -395,7 +395,7 @@ runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 11') :-
    nonvar(E), E = type_error(_, 3).
 
 /****************************************************************/
-/* moddiv.p extras                                              */
+/* round.p extras                                               */
 /****************************************************************/
 
 /* integer(X)  */
@@ -408,3 +408,5 @@ runner:case(integer, -2, extra_structure, 'XLOG 1.6.1, XLOG 2') :-
 runner:case(integer, -2, extra_structure, 'XLOG 1.6.1, XLOG 3') :-
    catch(_ is integer(foobar), error(E, _), true),
    E == type_error(evaluable, foobar/0).
+runner:case(integer, -2, extra_structure, 'XLOG 1.6.1, XLOG 4') :-
+   300000000000000008388608 is integer(3.0E23).

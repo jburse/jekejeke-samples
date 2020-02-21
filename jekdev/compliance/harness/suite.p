@@ -60,3 +60,5 @@
 :- ensure_loaded('../extra/regex').
 :- ensure_loaded('../extra/vars').
 :- ensure_loaded('../extra/block').
+:- ensure_loaded('../extra/intnum').
+:- ensure_loaded('../extra/ratnum').
