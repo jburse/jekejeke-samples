@@ -295,7 +295,8 @@ runner:case(last_atom_concat, 3, extra_structure, 'XLOG 1.4.1, XLOG 4a') :-
 runner:case(last_atom_concat, 3, extra_structure, 'XLOG 1.4.1, XLOG 4b') :-
    findall(T1-T2, last_atom_concat(T1, T2, hello), [_, T1-T2|_]), T1 == hell, T2 == o.
 runner:case(last_atom_concat, 3, extra_structure, 'XLOG 1.4.1, XLOG 5') :-
-   catch(last_atom_concat(small, _, _), error(E, _), true), E == instantiation_error.
+   catch(last_atom_concat(small, _, _), error(E, _), true),
+   E == instantiation_error.
 
 /* last_sub_atom(X, Y, Z, U) */
 
@@ -303,26 +304,36 @@ runner:case(last_atom_concat, 3, extra_structure, 'XLOG 1.4.1, XLOG 5') :-
 /* derived from last_sub_atom/5 test cases. */
 runner:ref(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2').
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 1') :-
-   last_sub_atom(abracadabra, 0, 5, _, S), S == abrac.
+   last_sub_atom(abracadabra, 0, 5, _, S),
+   S == abrac.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 2') :-
-   last_sub_atom(abracadabra, _, 5, 0, S), S == dabra.
+   last_sub_atom(abracadabra, _, 5, 0, S),
+   S == dabra.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 3') :-
-   last_sub_atom(abracadabra, 3, L, 3, S), L == 5, S == acada.
+   last_sub_atom(abracadabra, 3, L, 3, S),
+   L == 5, S == acada.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 4a') :-
-   last_sub_atom(abracadabra, B, 2, A, ab), !, B == 7, A == 2.
+   last_sub_atom(abracadabra, B, 2, A, ab), !,
+   B == 7, A == 2.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 4b') :-
-   findall(A-B, last_sub_atom(abracadabra, B, 2, A, ab), [_, A-B|_]), B == 0, A == 9.
+   findall(A-B, last_sub_atom(abracadabra, B, 2, A, ab), [_, A-B|_]),
+   B == 0, A == 9.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 5') :-
-   last_sub_atom('Banana', 3, 2, _, S), S == an.
+   last_sub_atom('Banana', 3, 2, _, S),
+   S == an.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 6a') :-
-   last_sub_atom(charity, _, 3, _, S), !, S == ity.
+   last_sub_atom(charity, _, 3, _, S), !,
+   S == ity.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 6b') :-
-   findall(S, last_sub_atom(charity, _, 3, _, S), [_, S|_]), S == rit.
+   findall(S, last_sub_atom(charity, _, 3, _, S), [_, S|_]),
+   S == rit.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 7a') :-
-   last_sub_atom(ab, Start, Length, _, Sub_atom), !, Start == 2, Length == 0, Sub_atom = ''.
+   last_sub_atom(ab, Start, Length, _, Sub_atom), !,
+   Start == 2, Length == 0, Sub_atom = ''.
 runner:case(last_sub_atom, 5, extra_structure, 'XLOG 1.4.2, XLOG 7b') :-
    findall(Start-Length-Sub_atom, last_sub_atom(ab, Start, Length, _, Sub_atom),
-      [_, Start-Length-Sub_atom|_]), Start == 1, Length == 1, Sub_atom = b.
+      [_, Start-Length-Sub_atom|_]),
+   Start == 1, Length == 1, Sub_atom = b.
 
 /* atom_split(X, Y, Z) */
 runner:ref(atom_split, 3, extra_structure, 'XLOG 1.4.3').
@@ -393,20 +404,3 @@ runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 10') :-
 runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 11') :-
    catch(set_arg(0, 3, c, _), error(E, _), true),
    nonvar(E), E = type_error(_, 3).
-
-/****************************************************************/
-/* round.p extras                                               */
-/****************************************************************/
-
-/* integer(X)  */
-
-runner:ref(integer, -2, extra_structure, 'XLOG 1.6.1').
-runner:case(integer, -2, extra_structure, 'XLOG 1.6.1, XLOG 1') :-
-   0 is integer(-0.5).
-runner:case(integer, -2, extra_structure, 'XLOG 1.6.1, XLOG 2') :-
-   7 is integer(7.6).
-runner:case(integer, -2, extra_structure, 'XLOG 1.6.1, XLOG 3') :-
-   catch(_ is integer(foobar), error(E, _), true),
-   E == type_error(evaluable, foobar/0).
-runner:case(integer, -2, extra_structure, 'XLOG 1.6.1, XLOG 4') :-
-   300000000000000008388608 is integer(3.0E23).

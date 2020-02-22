@@ -48,13 +48,13 @@
 
 runner:ref(rdiv, -2, extra_ratnum, 'XLOG 6.1.1').
 runner:case(rdiv, -2, extra_ratnum, 'XLOG 6.1.1, XLOG 1') :-
-   X is 5#2 rdiv 10#7, X == 7#4.
+   7#4 is 5#2 rdiv 10#7.
 runner:case(rdiv, -2, extra_ratnum, 'XLOG 6.1.1, XLOG 2') :-
-   X is -5#2 rdiv 3, X == -5#6.
+   -5#6 is -5#2 rdiv 3.
 runner:case(rdiv, -2, extra_ratnum, 'XLOG 6.1.1, XLOG 3') :-
-   X is 4 rdiv 10#7, X == 14#5.
+   14#5 is 4 rdiv 10#7.
 runner:case(rdiv, -2, extra_ratnum, 'XLOG 6.1.1, XLOG 4') :-
-   X is 12 rdiv-6, X == -2.
+   -2 is 12 rdiv-6.
 
 /* #(X, Y) */
 
@@ -64,9 +64,17 @@ runner:case(#, -2, extra_ratnum, 'XLOG 6.1.2, XLOG 1') :-
 
 /* rational(X) */
 
-runner:ref(rational, -2, extra_ratnum, 'XLOG 6.1.3').
-runner:case(rational, -2, extra_ratnum, 'XLOG 6.1.3, XLOG 1') :-
-   true.
+runner:ref(rational, 1, extra_ratnum, 'XLOG 6.1.3').
+runner:case(rational, 1, extra_ratnum, 'XLOG 6.1.3, XLOG 1') :-
+   rational(10#7).
+runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.3, XLOG 2') :-
+   rational(-5#2).
+runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.3, XLOG 3') :-
+   rational(12).
+runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.3, XLOG 4') :-
+   rational(-6).
+runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.3, XLOG 4') :-
+   \+ rational(3.1415).
 
 /* numerator(X) */
 
@@ -103,6 +111,8 @@ runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 3') :-
    rational(12, N, D), N == 12, D == 1.
 runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 4') :-
    rational(-6, N, D), N == -6, D == 1.
+runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 5') :-
+   \+ rational(3.1415, _, _).
 
 /****************************************************************/
 /* ratio.p elem.p extras                                        */
@@ -324,25 +334,61 @@ runner:case(round, -2, extra_ratnum, 'XLOG 6.4.5, XLOG 4') :-
 
 runner:ref(//, -3, extra_ratnum, 'XLOG 6.4.6').
 runner:case(//, -3, extra_ratnum, 'XLOG 6.4.6, XLOG 1') :-
-   true.
+   1 is 5#2//10#7.
+runner:case(//, -3, extra_ratnum, 'XLOG 6.4.6, XLOG 2') :-
+   0 is -5#2//3.
+runner:case(//, -3, extra_ratnum, 'XLOG 6.4.6, XLOG 3') :-
+   2 is 4//10#7.
+runner:case(//, -3, extra_ratnum, 'XLOG 6.4.6, XLOG 4') :-
+   -2 is 12// -6.
 
 /* X rem Y */
 
 runner:ref(rem, -3, extra_ratnum, 'XLOG 6.4.7').
 runner:case(rem, -3, extra_ratnum, 'XLOG 6.4.7, XLOG 1') :-
-   true.
+   15#14 is 5#2 rem 10#7.
+runner:case(rem, -3, extra_ratnum, 'XLOG 6.4.7, XLOG 2') :-
+   -5#2 is -5#2 rem 3.
+runner:case(rem, -3, extra_ratnum, 'XLOG 6.4.7, XLOG 3') :-
+   8#7 is 4 rem 10#7.
+runner:case(rem, -3, extra_ratnum, 'XLOG 6.4.7, XLOG 4') :-
+   0 is 12 rem-6.
 
 /* X div Y */
 
 runner:ref(div, -3, extra_ratnum, 'XLOG 6.4.8').
 runner:case(div, -3, extra_ratnum, 'XLOG 6.4.8, XLOG 1') :-
-   true.
+   1 is 5#2 div 10#7.
+runner:case(div, -3, extra_ratnum, 'XLOG 6.4.8, XLOG 2') :-
+   -1 is -5#2 div 3.
+runner:case(div, -3, extra_ratnum, 'XLOG 6.4.8, XLOG 3') :-
+   2 is 4 div 10#7.
+runner:case(div, -3, extra_ratnum, 'XLOG 6.4.8, XLOG 4') :-
+   -2 is 12 div-6.
 
 /* X mod Y */
 
 runner:ref(mod, -3, extra_ratnum, 'XLOG 6.4.9').
 runner:case(mod, -3, extra_ratnum, 'XLOG 6.4.9, XLOG 1') :-
-   true.
+   15#14 is 5#2 mod 10#7.
+runner:case(mod, -3, extra_ratnum, 'XLOG 6.4.9, XLOG 2') :-
+   1#2 is -5#2 mod 3.
+runner:case(mod, -3, extra_ratnum, 'XLOG 6.4.9, XLOG 3') :-
+   8#7 is 4 mod 10#7.
+runner:case(mod, -3, extra_ratnum, 'XLOG 6.4.9, XLOG 4') :-
+   0 is 12 mod-6.
+
+/* divmod(X,Y,D,M) */
+
+runner:ref(divmod, 4, extra_ratnum, 'XLOG 6.4.10').
+runner:case(divmod, 4, extra_ratnum, 'XLOG 6.4.10, XLOG 1') :-
+   divmod(5#2, 10#7, D, M), D == 1, M == 15#14.
+runner:case(divmod, 4, extra_ratnum, 'XLOG 6.4.10, XLOG 2') :-
+   divmod(-5#2, 3, D, M), D == -1, M == 1#2.
+runner:case(divmod, 4, extra_ratnum, 'XLOG 6.4.10, XLOG 3') :-
+   divmod(4, 10#7, D, M), D == 2, M == 8#7.
+runner:case(divmod, 4, extra_ratnum, 'XLOG 6.4.10, XLOG 4') :-
+   divmod(12, -6, D, M), D == -2, M == 0.
 
 /****************************************************************/
 /* ratio.p compare.p extras                                    */

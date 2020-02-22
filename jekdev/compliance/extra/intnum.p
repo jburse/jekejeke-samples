@@ -91,3 +91,59 @@ runner:case(msb, -2, extra_intnum, 'XLOG 5.1.3, XLOG 6') :-
    X is msb(- 128), X == 6.
 runner:case(msb, -2, extra_intnum, 'XLOG 5.1.3, XLOG 7') :-
    X is msb(- 2^53), X == 52.
+
+/* lsb(X) */
+
+runner:ref(lsb, -2, extra_intnum, 'XLOG 5.1.4').
+runner:case(lsb, -2, extra_intnum, 'XLOG 5.1.4, XLOG 1') :-
+   X is lsb(12), X == 2.
+runner:case(lsb, -2, extra_intnum, 'XLOG 5.1.4, XLOG 2') :-
+   X is lsb(-12), X == 2.
+runner:case(lsb, -2, extra_intnum, 'XLOG 5.1.4, XLOG 3') :-
+   X is lsb(12*2^100), X == 102.
+runner:case(lsb, -2, extra_intnum, 'XLOG 5.1.4, XLOG 4') :-
+   X is lsb(-12*2^100), X == 102.
+
+/* popcount(X) */
+
+runner:ref(popcount, -2, extra_intnum, 'XLOG 5.1.5').
+runner:case(popcount, -2, extra_intnum, 'XLOG 5.1.5, XLOG 1') :-
+   X is popcount(12), X == 2.
+runner:case(popcount, -2, extra_intnum, 'XLOG 5.1.5, XLOG 2') :-
+   X is popcount(-12), X == 3.
+runner:case(popcount, -2, extra_intnum, 'XLOG 5.1.5, XLOG 3') :-
+   X is popcount(11*2^100), X == 3.
+runner:case(popcount, -2, extra_intnum, 'XLOG 5.1.5, XLOG 4') :-
+   X is popcount(-12*2^100), X == 103.
+
+/****************************************************************/
+/* round.p extras                                               */
+/****************************************************************/
+
+/* integer(X)  */
+
+runner:ref(integer, -2, extra_intnum, 'XLOG 5.2.1').
+runner:case(integer, -2, extra_intnum, 'XLOG 5.2.1, XLOG 1') :-
+   0 is integer(-0.5).
+runner:case(integer, -2, extra_intnum, 'XLOG 5.2.1, XLOG 2') :-
+   7 is integer(7.6).
+runner:case(integer, -2, extra_intnum, 'XLOG 5.2.1, XLOG 3') :-
+   catch(_ is integer(foobar), error(E, _), true),
+   E == type_error(evaluable, foobar/0).
+runner:case(integer, -2, extra_intnum, 'XLOG 5.2.1, XLOG 4') :-
+   300000000000000008388608 is integer(3.0E23).
+
+/* divmod(X,Y,D,M) */
+
+runner:ref(divmod, 4, extra_intnum, 'XLOG 5.2.2').
+runner:case(divmod, 4, extra_intnum, 'XLOG 5.2.2, XLOG 1') :-
+   divmod(7, 35, D, M), D == 0, M == 7.
+runner:case(divmod, 4, extra_intnum, 'XLOG 5.2.2, XLOG 2') :-
+   divmod(140, 14, D, M), D == 10, M == 0.
+runner:case(divmod, 4, extra_intnum, 'XLOG 5.2.2, XLOG 3') :-
+   divmod(7, -2, D, M), D == -4, M == -1.
+runner:case(divmod, 4, extra_intnum, 'XLOG 5.2.2, XLOG 4') :-
+   divmod(-5, 2, D, M), D == -3, M == 1.
+runner:case(divmod, 4, extra_intnum, 'XLOG 5.2.2, XLOG 5') :-
+   divmod(-15211807202738, -1394415660251, D, M),
+   D == 10, M == -1267650600228.
