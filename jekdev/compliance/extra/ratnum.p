@@ -248,7 +248,9 @@ runner:case(/, -3, extra_ratnum, 'XLOG 6.2.11, XLOG 4') :-
 
 runner:ref(^, -3, extra_ratnum, 'XLOG 6.2.12').
 runner:case(^, -3, extra_ratnum, 'XLOG 6.2.12, XLOG 1') :-
-   true.
+   -125#8 is -5#2^3.
+runner:case(^, -3, extra_ratnum, 'XLOG 6.2.12, XLOG 2') :-
+   1#2985984 is 12^ -6.
 
 /****************************************************************/
 /* ratio.p bits.p extras                                        */
@@ -258,13 +260,25 @@ runner:case(^, -3, extra_ratnum, 'XLOG 6.2.12, XLOG 1') :-
 
 runner:ref(gcd, -3, extra_ratnum, 'XLOG 6.3.1').
 runner:case(gcd, -3, extra_ratnum, 'XLOG 6.3.1, XLOG 1') :-
-   true.
+   5#14 is gcd(5#2, 10#7).
+runner:case(gcd, -3, extra_ratnum, 'XLOG 6.3.1, XLOG 2') :-
+   1#2 is gcd(-5#2, 3).
+runner:case(gcd, -3, extra_ratnum, 'XLOG 6.3.1, XLOG 3') :-
+   2#7 is gcd(4, 10#7).
+runner:case(gcd, -3, extra_ratnum, 'XLOG 6.3.1, XLOG 4') :-
+   6 is gcd(12, -6).
 
 /* lcm(X, Y) */
 
 runner:ref(lcm, -3, extra_ratnum, 'XLOG 6.3.2').
 runner:case(lcm, -3, extra_ratnum, 'XLOG 6.3.2, XLOG 1') :-
-   true.
+   10 is lcm(5#2, 10#7).
+runner:case(lcm, -3, extra_ratnum, 'XLOG 6.3.2, XLOG 2') :-
+   -15 is lcm(-5#2, 3).
+runner:case(lcm, -3, extra_ratnum, 'XLOG 6.3.2, XLOG 3') :-
+   20 is lcm(4, 10#7).
+runner:case(lcm, -3, extra_ratnum, 'XLOG 6.3.2, XLOG 4') :-
+   -12 is lcm(12, -6).
 
 /****************************************************************/
 /* ratio.p round.p extras                                      */
