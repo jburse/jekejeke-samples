@@ -40,39 +40,6 @@
 
 :- use_module(library(misc/bits)).
 
-% bitcount/2
-runner:ref(bitcount, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.1').
-runner:case(bitcount, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.1, XLOG 1') :-
-   X is bitcount(12), X == 2.
-runner:case(bitcount, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.1, XLOG 2') :-
-   X is bitcount(-12), X == 3.
-runner:case(bitcount, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.1, XLOG 3') :-
-   X is bitcount(11*2^100), X == 3.
-runner:case(bitcount, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.1, XLOG 4') :-
-   X is bitcount(-12*2^100), X == 103.
-
-% bitlength/2
-runner:ref(bitlength, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.2').
-runner:case(bitlength, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.2, XLOG 1') :-
-   X is bitlength(12), X == 4.
-runner:case(bitlength, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.2, XLOG 2') :-
-   X is bitlength(-12), X == 4.
-runner:case(bitlength, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.2, XLOG 3') :-
-   X is bitlength(12*2^100), X == 104.
-runner:case(bitlength, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.2, XLOG 4') :-
-   X is bitlength(-12*2^100), X == 104.
-
-% lowestsetbit/2
-runner:ref(lowestsetbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.3').
-runner:case(lowestsetbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.3, XLOG 1') :-
-   X is lowestsetbit(12), X == 2.
-runner:case(lowestsetbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.3, XLOG 2') :-
-   X is lowestsetbit(-12), X == 2.
-runner:case(lowestsetbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.3, XLOG 3') :-
-   X is lowestsetbit(12*2^100), X == 102.
-runner:case(lowestsetbit, 2, misc_bitprop, 'CLP(FD) 0.9.2, 1.3, XLOG 4') :-
-   X is lowestsetbit(-12*2^100), X == 102.
-
 % setbit/3
 runner:ref(setbit, 3, misc_bitprop, 'CLP(FD) 0.9.2, 1.4').
 runner:case(setbit, 3, misc_bitprop, 'CLP(FD) 0.9.2, 1.4, XLOG 1') :-
