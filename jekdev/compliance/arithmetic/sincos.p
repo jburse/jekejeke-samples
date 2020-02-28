@@ -203,3 +203,11 @@ runner:case(atan2, -3, arithmetic_sincos, 'Corr.2 9.3.13, ISO 2') :-
    0.0 is atan2(0, -1)-pi.
 runner:case(atan2, -3, arithmetic_sincos, 'Corr.2 9.3.13, ISO 3') :-
    catch(_ is atan2(0, 0), error(E, _), true), E == evaluation_error(undefined).
+
+/* epsilon */
+
+runner:ref(epsilon, -1, arithmetic_sincos, 'N208 9.7.3').
+runner:case(epsilon, -1, arithmetic_sincos, 'N208 9.7.3, XLOG 1') :-
+   \+ 1+epsilon =:= 1.
+runner:case(epsilon, -1, arithmetic_sincos, 'N208 9.7.3, XLOG 2') :-
+   2+epsilon =:= 2.

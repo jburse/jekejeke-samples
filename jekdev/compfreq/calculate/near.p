@@ -47,6 +47,8 @@ runner:case(rational, -2, calculate_near, 'XLOG 3.1.1, XLOG 1') :-
    X is rational(-89/21), X == -4771671033761597#1125899906842624.
 runner:case(rational, -2, calculate_near, 'XLOG 3.1.1, XLOG 2') :-
    X is rational(8*(pi-3)), X == 39854788871587#35184372088832.
+runner:case(rational, -2, calculate_near, 'XLOG 3.1.1, XLOG 3') :-
+   X is rational(903/(pi+903)), X == 35062387880435#35184372088832.
 
 /* rationalize(X) */
 
@@ -55,6 +57,8 @@ runner:case(rationalize, -2, calculate_near, 'XLOG 3.1.2, XLOG 1') :-
    X is rationalize(-89/21), X == -89#21.
 runner:case(rationalize, -2, calculate_near, 'XLOG 3.1.2, XLOG 2') :-
    X is rationalize(8*(pi-3)), X == 121642183#107387442.
+runner:case(rationalize, -2, calculate_near, 'XLOG 3.1.2, XLOG 3') :-
+   X is rationalize(903/(pi+903)), X == 222529257#223303450.
 
 /* rationalize32(X) */
 
@@ -63,3 +67,5 @@ runner:case(rationalize32, -2, calculate_near, 'XLOG 3.1.3, XLOG 1') :-
    X is rationalize32(-89/21), X == -89#21.
 runner:case(rationalize32, -2, calculate_near, 'XLOG 3.1.3, XLOG 2') :-
    X is rationalize32(8*(pi-3)), X == 4591#4053.
+runner:case(rationalize32, -2, calculate_near, 'XLOG 3.1.3, XLOG 3') :-
+   X is rationalize32(903/(pi+903)), X == 10635#10672.

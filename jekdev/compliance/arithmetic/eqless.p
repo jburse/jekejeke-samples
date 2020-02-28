@@ -59,7 +59,10 @@ runner:case(=:=, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 7') :-
 runner:case(=:=, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 14') :-
    3*2 =:= 7-1.
 runner:case(=:=, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 1') :-
-   catch(7 =:= -foobar, error(E, _), true), E == type_error(evaluable, foobar/0).
+   \+ -1048576 =:= -1024.
+runner:case(=:=, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 2') :-
+   catch(7 =:= -foobar, error(E, _), true),
+   E == type_error(evaluable, foobar/0).
 
 /* X =\= Y */
 
@@ -70,8 +73,11 @@ runner:case(=\=, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 8') :-
    \+ 1.0 =\= 1.
 runner:case(=\=, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 15') :-
    \+ 3*2 =\= 7-1.
-runner:case(=\=, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 2') :-
-   catch(7 =\= abs(_), error(E, _), true), E == instantiation_error.
+runner:case(=\=, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 3') :-
+   -1048576 =\= -1024.
+runner:case(=\=, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 4') :-
+   catch(7 =\= abs(_), error(E, _), true),
+   E == instantiation_error.
 
 /* X < Y */
 
@@ -82,8 +88,11 @@ runner:case(<, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 10') :-
    \+ 1.0 < 1.
 runner:case(<, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 16') :-
    \+ 3*2 < 7-1.
-runner:case(<, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 3') :-
-   catch(sign(foobar) < 7, error(E, _), true), E == type_error(evaluable, foobar/0).
+runner:case(<, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 5') :-
+   -1048576 < -1024.
+runner:case(<, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 6') :-
+   catch(sign(foobar) < 7, error(E, _), true),
+   E == type_error(evaluable, foobar/0).
 
 /* X > Y */
 
@@ -94,8 +103,11 @@ runner:case(>, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 11') :-
    \+ 1.0 > 1.
 runner:case(>, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 17') :-
    \+ 3*2 > 7-1.
+runner:case(>, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 7') :-
+   \+ -1048576 > -1024.
 runner:case(>, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 23') :-
-   catch(_ > 5, error(E, _), true), E == instantiation_error.
+   catch(_ > 5, error(E, _), true),
+   E == instantiation_error.
 
 /* X =< Y */
 
@@ -106,8 +118,11 @@ runner:case(=<, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 13') :-
    1.0 =< 1.
 runner:case(=<, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 19') :-
    3*2 =< 7-1.
-runner:case(=<, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 5') :-
-   catch(foobar+77 =< 7, error(E, _), true), E == type_error(evaluable, foobar/0).
+runner:case(=<, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 8') :-
+   -1048576 =< -1024.
+runner:case(=<, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 9') :-
+   catch(foobar+77 =< 7, error(E, _), true),
+   E == type_error(evaluable, foobar/0).
 
 /* X >= Y */
 
@@ -118,8 +133,11 @@ runner:case(>=, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 12') :-
    1.0 >= 1.
 runner:case(>=, 2, arithmetic_eqless, 'ISO 8.7.1.4, ISO 18') :-
    3*2 >= 7-1.
-runner:case(>=, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 6') :-
-   catch(77-_ >= 7, error(E, _), true), E == instantiation_error.
+runner:case(>=, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 10') :-
+   \+ -1048576 >= -1024.
+runner:case(>=, 2, arithmetic_eqless, 'ISO 8.7.1.4, XLOG 11') :-
+   catch(77-_ >= 7, error(E, _), true),
+   E == instantiation_error.
 
 /* min(X, Y) */
 
@@ -131,7 +149,10 @@ runner:case(min, -3, arithmetic_eqless, 'Corr.2 9.3.9, ISO 2') :-
 runner:case(min, -3, arithmetic_eqless, 'Corr.2 9.3.9, ISO 3') :-
    2.0 is min(3, 2.0).
 runner:case(min, -3, arithmetic_eqless, 'Corr.2 9.3.9, XLOG 1') :-
-   catch(3.0 is min(foobar, 3.0), error(E, _), true), E == type_error(evaluable, foobar/0).
+   -1048576 is min(-1048576, -1024).
+runner:case(min, -3, arithmetic_eqless, 'Corr.2 9.3.9, XLOG 2') :-
+   catch(3.0 is min(foobar, 3.0), error(E, _), true),
+   E == type_error(evaluable, foobar/0).
 
 /* max(X, Y) */
 
@@ -143,12 +164,7 @@ runner:case(max, -3, arithmetic_eqless, 'Corr.2 9.3.8, ISO 2') :-
 runner:case(max, -3, arithmetic_eqless, 'Corr.2 9.3.8, ISO 3') :-
    3.0 is max(3.0, 2).
 runner:case(max, -3, arithmetic_eqless, 'Corr.2 9.3.8, XLOG 1') :-
-   catch(3.0 is max(2.0, _), error(E, _), true), E == instantiation_error.
-
-/* epsilon */
-
-runner:ref(epsilon, -1, arithmetic_eqless, 'N208 9.7.3').
-runner:case(epsilon, -1, arithmetic_eqless, 'N208 9.7.3, XLOG 1') :-
-   \+ 1+epsilon =:= 1.
-runner:case(epsilon, -1, arithmetic_eqless, 'N208 9.7.3, XLOG 2') :-
-   1+epsilon/2 =:= 1.
+   -1024 is max(-1048576, -1024).
+runner:case(max, -3, arithmetic_eqless, 'Corr.2 9.3.8, XLOG 2') :-
+   catch(3.0 is max(2.0, _), error(E, _), true),
+   E == instantiation_error.

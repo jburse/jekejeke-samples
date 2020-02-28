@@ -67,13 +67,13 @@ runner:case(#, -2, extra_ratnum, 'XLOG 6.1.2, XLOG 1') :-
 runner:ref(rational, 1, extra_ratnum, 'XLOG 6.1.3').
 runner:case(rational, 1, extra_ratnum, 'XLOG 6.1.3, XLOG 1') :-
    rational(10#7).
-runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.3, XLOG 2') :-
+runner:case(rational, 1, extra_ratnum, 'XLOG 6.1.3, XLOG 2') :-
    rational(-5#2).
-runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.3, XLOG 3') :-
+runner:case(rational, 1, extra_ratnum, 'XLOG 6.1.3, XLOG 3') :-
    rational(12).
-runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.3, XLOG 4') :-
+runner:case(rational, 1, extra_ratnum, 'XLOG 6.1.3, XLOG 4') :-
    rational(-6).
-runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.3, XLOG 4') :-
+runner:case(rational, 1, extra_ratnum, 'XLOG 6.1.3, XLOG 4') :-
    \+ rational(3.1415).
 
 /* numerator(X) */
@@ -87,6 +87,9 @@ runner:case(numerator, -2, extra_ratnum, 'XLOG 6.1.4, XLOG 3') :-
    X is numerator(12), X == 12.
 runner:case(numerator, -2, extra_ratnum, 'XLOG 6.1.4, XLOG 4') :-
    X is numerator(-6), X == -6.
+runner:case(numerator, -2, extra_ratnum, 'XLOG 6.1.4, XLOG 5') :-
+   catch(_ is numerator(3.1415), error(E, _), true),
+   E == type_error(rational, 3.1415).
 
 /* denominator(X) */
 
@@ -99,6 +102,9 @@ runner:case(denominator, -2, extra_ratnum, 'XLOG 6.1.5, XLOG 3') :-
    X is denominator(12), X == 1.
 runner:case(denominator, -2, extra_ratnum, 'XLOG 6.1.5, XLOG 4') :-
    X is denominator(-6), X == 1.
+runner:case(denominator, -2, extra_ratnum, 'XLOG 6.1.5, XLOG 5') :-
+   catch(_ is denominator(3.1415), error(E, _), true),
+   E == type_error(rational, 3.1415).
 
 /* rational(X, N, D) */
 
@@ -112,7 +118,8 @@ runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 3') :-
 runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 4') :-
    rational(-6, N, D), N == -6, D == 1.
 runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 5') :-
-   \+ rational(3.1415, _, _).
+   catch(rational(3.1415, _, _), error(E, _), true),
+   E == type_error(rational, 3.1415).
 
 /****************************************************************/
 /* ratio.p elem.p extras                                        */
