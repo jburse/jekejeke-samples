@@ -120,6 +120,8 @@ runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 4') :-
 runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 5') :-
    catch(rational(3.1415, _, _), error(E, _), true),
    E == type_error(rational, 3.1415).
+runner:case(rational, 3, extra_ratnum, 'XLOG 6.1.6, XLOG 6') :-
+   rational(X, 4, -3), X = -4#3.
 
 /****************************************************************/
 /* ratio.p elem.p extras                                        */
@@ -189,7 +191,13 @@ runner:case(float, -2, extra_ratnum, 'XLOG 6.2.5, XLOG 4') :-
 
 runner:ref(decimal, -2, extra_ratnum, 'XLOG 6.2.6').
 runner:case(decimal, -2, extra_ratnum, 'XLOG 6.2.6, XLOG 1') :-
-   true.
+   X is decimal(10#7), X == 0d1.4285714285714286031492292750044725835323333740234375.
+runner:case(decimal, -2, extra_ratnum, 'XLOG 6.2.6, XLOG 2') :-
+   X is decimal(-5#2), X == -0d2.5.
+runner:case(decimal, -2, extra_ratnum, 'XLOG 6.2.6, XLOG 3') :-
+   X is decimal(5#2), X == 0d2.5.
+runner:case(decimal, -2, extra_ratnum, 'XLOG 6.2.6, XLOG 4') :-
+   X is decimal(-6), X == -0d6.
 
 /* float32(X) */
 
@@ -511,26 +519,42 @@ runner:case(>=, 2, extra_ratnum, 'XLOG 6.5.6, XLOG 5') :-
 runner:case(>=, 2, extra_ratnum, 'XLOG 6.5.6, XLOG 6') :-
    -10 >= -10.
 
+/* number_compare(C, X, Y) */
+
+runner:ref(number_compare, 3, extra_ratnum, 'XLOG 6.5.7').
+runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 1') :-
+   number_compare(C, 5#2, 10#7), C == > .
+runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 2') :-
+   number_compare(C, -5#2, 3), C == < .
+runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 3') :-
+   number_compare(C, 4, 10#7), C == > .
+runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 4') :-
+   number_compare(C, 12, -6), C == > .
+runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 5') :-
+   number_compare(C, 2#3, 2#3), C == = .
+runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 6') :-
+   number_compare(C, -10, -10), C == = .
+
 /* min(X, Y) */
 
-runner:ref(min, -3, extra_ratnum, 'XLOG 6.5.7').
-runner:case(min, -3, extra_ratnum, 'XLOG 6.5.7, XLOG 1') :-
+runner:ref(min, -3, extra_ratnum, 'XLOG 6.5.8').
+runner:case(min, -3, extra_ratnum, 'XLOG 6.5.8, XLOG 1') :-
    X is min(5#2, 10#7), X == 10#7.
-runner:case(min, -3, extra_ratnum, 'XLOG 6.5.7, XLOG 2') :-
+runner:case(min, -3, extra_ratnum, 'XLOG 6.5.8, XLOG 2') :-
    X is min(-5#2, 3), X == -5#2.
-runner:case(min, -3, extra_ratnum, 'XLOG 6.5.7, XLOG 3') :-
+runner:case(min, -3, extra_ratnum, 'XLOG 6.5.8, XLOG 3') :-
    X is min(4, 10#7), X == 10#7.
-runner:case(min, -3, extra_ratnum, 'XLOG 6.5.7, XLOG 4') :-
+runner:case(min, -3, extra_ratnum, 'XLOG 6.5.8, XLOG 4') :-
    X is min(12, -6), X == -6.
 
 /* max(X, Y) */
 
-runner:ref(max, -3, extra_ratnum, 'XLOG 6.5.8').
-runner:case(max, -3, extra_ratnum, 'XLOG 6.5.8, XLOG 1') :-
+runner:ref(max, -3, extra_ratnum, 'XLOG 6.5.9').
+runner:case(max, -3, extra_ratnum, 'XLOG 6.5.9, XLOG 1') :-
    X is max(5#2, 10#7), X == 5#2.
-runner:case(max, -3, extra_ratnum, 'XLOG 6.5.8, XLOG 2') :-
+runner:case(max, -3, extra_ratnum, 'XLOG 6.5.9, XLOG 2') :-
    X is max(-5#2, 3), X == 3.
-runner:case(max, -3, extra_ratnum, 'XLOG 6.5.8, XLOG 3') :-
+runner:case(max, -3, extra_ratnum, 'XLOG 6.5.9, XLOG 3') :-
    X is max(4, 10#7), X == 4.
-runner:case(max, -3, extra_ratnum, 'XLOG 6.5.8, XLOG 4') :-
+runner:case(max, -3, extra_ratnum, 'XLOG 6.5.9, XLOG 4') :-
    X is max(12, -6), X == 12.
