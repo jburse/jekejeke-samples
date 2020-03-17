@@ -21,22 +21,22 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
 % for(+Integer)
 for(_).
-for(N) :-
-   N > 1,
-   M is N-1,
-   for(M).
+for(N) :- N > 1, M is N-1, for(M).
 
 % test(+Integer, +Goal)
-:- meta_predicate test(?,0).
-test(N, X) :-
-   for(N),
-   call(X), fail.
+:- meta_predicate test(?, 0).
+test(N, X) :- for(N), call(X), fail.
 test(_, _).
 
 % show(+Integer, +Integer)
@@ -48,7 +48,7 @@ show(T, G) :-
    write(' gc) ms'), nl.
 
 % bench(+Integer, +Goal, -Integer, -Integer)
-:- meta_predicate bench(?,0,?,?).
+:- meta_predicate bench(?, 0, ?, ?).
 bench(M, X, T, G) :-
    uptime(T1),
    gctime(G1),

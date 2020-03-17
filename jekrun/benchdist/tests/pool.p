@@ -22,6 +22,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -34,45 +39,29 @@
 /* Normal Test Cases                                             */
 /*****************************************************************/
 
-pool :- create,
-   remove(X),
-   collatz(X, _).
+pool :-
+   create, remove(X), collatz(X, _).
 
-pool2 :- create,
-   horde(X^(  remove(X),
-              collatz(X, _)), 2).
+pool2 :-
+   create, horde(X^(remove(X), collatz(X, _)), 2).
 
-pool4 :- create,
-   horde(X^(  remove(X),
-              collatz(X, _)), 4).
+pool4 :-
+   create, horde(X^(remove(X), collatz(X, _)), 4).
 
-pool8 :- create,
-   horde(X^(  remove(X),
-              collatz(X, _)), 8).
+pool8 :-
+   create, horde(X^(remove(X), collatz(X, _)), 8).
 
 gotcha :-
-   once((  create,
-           remove(X),
-           collatz(X, _),
-           X = 16666)).
+   once((create, remove(X), collatz(X, _), X = 16666)).
 
 gotcha2 :-
-   once((  create,
-           horde(X^(  remove(X),
-                      collatz(X, _),
-                      X = 16666), 2))).
+   once((create, horde(X^(remove(X), collatz(X, _), X = 16666), 2))).
 
 gotcha4 :-
-   once((  create,
-           horde(X^(  remove(X),
-                      collatz(X, _),
-                      X = 16666), 4))).
+   once((create, horde(X^(remove(X), collatz(X, _), X = 16666), 4))).
 
 gotcha8 :-
-   once((  create,
-           horde(X^(  remove(X),
-                      collatz(X, _),
-                      X = 16666), 8))).
+   once((create, horde(X^(remove(X), collatz(X, _), X = 16666), 8))).
 
 /*****************************************************************/
 /* Pool Creation                                                 */
@@ -93,14 +82,16 @@ sys_setup_create :-
    between(454, 909, Y),
    A is Y//22,
    B is Y rem 22,
-   assertz(pool(A, B)), fail.
+   assertz(pool(A, B)),
+   fail.
 sys_setup_create :-
    between(10000, 20000, X),
    Y is X//22,
    C is X rem 22,
    A is Y//22,
    B is Y rem 22,
-   assertz(subpool(A, B, C)), fail.
+   assertz(subpool(A, B, C)),
+   fail.
 sys_setup_create.
 sys_setup_create :- fail.
 
@@ -111,12 +102,11 @@ sys_fini_create :-
 
 % remove(-Integer)
 remove(X) :-
-   retract_alt(pool(A,B)),
+   retract_alt(pool(A, B)),
    Y is A*22+B,
-   retract_alt(subpool(A,B,C)),
+   retract_alt(subpool(A, B, C)),
    X is Y*22+C.
 
 % retract_alt(+Head)
 retract_alt(H) :-
-   clause_ref(H, true, R),
-   erase_ref(R).
+   clause_ref(H, true, R), erase_ref(R).

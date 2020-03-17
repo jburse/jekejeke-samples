@@ -27,6 +27,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -41,80 +46,56 @@
 /*****************************************************************/
 
 queens :-
-   cross(8, X, Y),
-   modellabel(8, [X,Y|_]).
+   cross(8, X, Y), modellabel(8, [X, Y|_]).
 
 queens2 :-
-   balance((  cross(8, X, Y),
-              modellabel(8, [X,Y|_])), 2).
+   balance((cross(8, X, Y), modellabel(8, [X, Y|_])), 2).
 
 queens4 :-
-   balance((  cross(8, X, Y),
-              modellabel(8, [X,Y|_])), 4).
+   balance((cross(8, X, Y), modellabel(8, [X, Y|_])), 4).
 
 queens8 :-
-   balance((  cross(8, X, Y),
-              modellabel(8, [X,Y|_])), 8).
+   balance((cross(8, X, Y), modellabel(8, [X, Y|_])), 8).
 
 setup :-
-   model(8, [X,Y|Z]),
-   cross(8, X, Y),
-   label([X,Y|Z]).
+   model(8, [X, Y|Z]), cross(8, X, Y), label([X, Y|Z]).
 
 setup2 :-
-   setup_balance((  model(8, [X,Y|Z]),
-                    cross(8, X, Y),
-                    label([X,Y|Z])), 2).
+   setup_balance((model(8, [X, Y|Z]), cross(8, X, Y), label([X, Y|Z])), 2).
 
 setup4 :-
-   setup_balance((  model(8, [X,Y|Z]),
-                    cross(8, X, Y),
-                    label([X,Y|Z])), 4).
+   setup_balance((model(8, [X, Y|Z]), cross(8, X, Y), label([X, Y|Z])), 4).
 
 setup8 :-
-   setup_balance((  model(8, [X,Y|Z]),
-                    cross(8, X, Y),
-                    label([X,Y|Z])), 8).
+   setup_balance((model(8, [X, Y|Z]), cross(8, X, Y), label([X, Y|Z])), 8).
 
 /*****************************************************************/
 /* Reduced Test Cases                                            */
 /*****************************************************************/
 
 rqueens :-
-   cross(6, X, Y),
-   modellabel(6, [X,Y|_]).
+   cross(6, X, Y), modellabel(6, [X, Y|_]).
 
 rqueens2 :-
-   balance((  cross(6, X, Y),
-              modellabel(6, [X,Y|_])), 2).
+   balance((cross(6, X, Y), modellabel(6, [X, Y|_])), 2).
 
 rqueens4 :-
-   balance((  cross(6, X, Y),
-              modellabel(6, [X,Y|_])), 4).
+   balance((cross(6, X, Y), modellabel(6, [X, Y|_])), 4).
 
 rqueens8 :-
-   balance((  cross(6, X, Y),
-              modellabel(6, [X,Y|_])), 8).
+   balance((cross(6, X, Y), modellabel(6, [X, Y|_])), 8).
 
 rsetup :-
-   model(6, [X,Y|Z]),
-   cross(6, X, Y),
-   label([X,Y|Z]).
+   model(6, [X, Y|Z]), cross(6, X, Y), label([X, Y|Z]).
 
 rsetup2 :-
-   setup_balance((  model(6, [X,Y|Z]),
-                    cross(6, X, Y),
-                    label([X,Y|Z])), 2).
+   setup_balance((model(6, [X, Y|Z]), cross(6, X, Y), label([X, Y|Z])), 2).
 
 rsetup4 :-
-   setup_balance((  model(6, [X,Y|Z]),
-                    cross(6, X, Y),
-                    label([X,Y|Z])), 4).
+   setup_balance((model(6, [X, Y|Z]), cross(6, X, Y), label([X, Y|Z])), 4).
 
 rsetup8 :-
-   setup_balance((  model(6, [X,Y|Z]),
-                    cross(6, X, Y),
-                    label([X,Y|Z])), 8).
+   setup_balance((model(6, [X, Y|Z]), cross(6, X, Y), label([X, Y|Z])), 8).
 
 /*****************************************************************/
 /* The Queens Problem                                            */

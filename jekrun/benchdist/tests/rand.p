@@ -22,6 +22,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -29,27 +34,23 @@
 :- use_module(library(basic/random)).
 :- use_module(library(advanced/arith)).
 :- use_module(library(runtime/distributed)).
-:- use_module(library(misc/aggregate)).
+:- use_module(library(advanced/aggregate)).
 
 /*****************************************************************/
 /* Normal Test Cases                                             */
 /*****************************************************************/
 
 rand :-
-   seeds(120, X),
-   aggregate_all(sum(Y), sequence(120, X, Y), _).
+   seeds(120, X), aggregate_all(sum(Y), sequence(120, X, Y), _).
 
 rand2 :-
-   balance((  seeds(120, X),
-              aggregate_all(sum(Y), sequence(120, X, Y), _)), 2).
+   balance((seeds(120, X), aggregate_all(sum(Y), sequence(120, X, Y), _)), 2).
 
 rand4 :-
-   balance((  seeds(120, X),
-              aggregate_all(sum(Y), sequence(120, X, Y), _)), 4).
+   balance((seeds(120, X), aggregate_all(sum(Y), sequence(120, X, Y), _)), 4).
 
 rand8 :-
-   balance((  seeds(120, X),
-              aggregate_all(sum(Y), sequence(120, X, Y), _)), 8).
+   balance((seeds(120, X), aggregate_all(sum(Y), sequence(120, X, Y), _)), 8).
 
 /*****************************************************************/
 /* Some Helpers                                                  */

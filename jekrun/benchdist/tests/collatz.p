@@ -22,6 +22,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -34,92 +39,63 @@
 /*****************************************************************/
 
 many :-
-   between(10000, 20000, X),
-   collatz(X, _).
+   between(10000, 20000, X), collatz(X, _).
 
 many2 :-
-   balance(X^(  between(10000, 20000, X),
-                collatz(X, _)), 2).
+   balance(X^(between(10000, 20000, X), collatz(X, _)), 2).
 
 many4 :-
-   balance(X^(  between(10000, 20000, X),
-                collatz(X, _)), 4).
+   balance(X^(between(10000, 20000, X), collatz(X, _)), 4).
 
 many8 :-
-   balance(X^(  between(10000, 20000, X),
-                collatz(X, _)), 8).
+   balance(X^(between(10000, 20000, X), collatz(X, _)), 8).
 
 first :-
-   once((  between(10000, 20000, X),
-           collatz(X, _),
-           X = 16666)).
+   once((between(10000, 20000, X), collatz(X, _), X = 16666)).
 
 first2 :-
-   once(balance(X^(  between(10000, 20000, X),
-                     collatz(X, _),
-                     X = 16666), 2)).
+   once(balance(X^(between(10000, 20000, X), collatz(X, _), X = 16666), 2)).
 
 first4 :-
-   once(balance(X^(  between(10000, 20000, X),
-                     collatz(X, _),
-                     X = 16666), 4)).
+   once(balance(X^(between(10000, 20000, X), collatz(X, _), X = 16666), 4)).
 
 first8 :-
-   once(balance(X^(  between(10000, 20000, X),
-                     collatz(X, _),
-                     X = 16666), 8)).
+   once(balance(X^(between(10000, 20000, X), collatz(X, _), X = 16666), 8)).
 
 /*****************************************************************/
 /* Reduced Test Cases                                            */
 /*****************************************************************/
 
 rmany :-
-   between(1000, 2000, X),
-   collatz(X, _).
+   between(1000, 2000, X), collatz(X, _).
 
 rmany2 :-
-   balance(X^(  between(1000, 2000, X),
-                collatz(X, _)), 2).
+   balance(X^(between(1000, 2000, X), collatz(X, _)), 2).
 
 rmany4 :-
-   balance(X^(  between(1000, 2000, X),
-                collatz(X, _)), 4).
+   balance(X^(between(1000, 2000, X), collatz(X, _)), 4).
 
 rmany8 :-
-   balance(X^(  between(1000, 2000, X),
-                collatz(X, _)), 8).
+   balance(X^(between(1000, 2000, X), collatz(X, _)), 8).
 
 rfirst :-
-   once((  between(1000, 2000, X),
-           collatz(X, _),
-           X = 1666)).
+   once((between(1000, 2000, X), collatz(X, _), X = 1666)).
 
 rfirst2 :-
-   once(balance(X^(  between(1000, 2000, X),
-                     collatz(X, _),
-                     X = 1666), 2)).
+   once(balance(X^(between(1000, 2000, X), collatz(X, _), X = 1666), 2)).
 
 rfirst4 :-
-   once(balance(X^(  between(1000, 2000, X),
-                     collatz(X, _),
-                     X = 1666), 4)).
+   once(balance(X^(between(1000, 2000, X), collatz(X, _), X = 1666), 4)).
 
 rfirst8 :-
-   once(balance(X^(  between(1000, 2000, X),
-                     collatz(X, _),
-                     X = 1666), 8)).
+   once(balance(X^(between(1000, 2000, X), collatz(X, _), X = 1666), 8)).
 
 /*****************************************************************/
 /* The Collatz Function                                          */
 /*****************************************************************/
 
 collatz(1, 0) :- !.
+collatz(I, N) :- 1 =:= I/\1, !,
+   I0 is I*3+1, collatz(I0, N0), N is N0+1.
 collatz(I, N) :-
-   1 =:= I/\1, !,
-   I0 is I*3+1,
-   collatz(I0, N0),
-   N is N0+1.
-collatz(I, N) :-
-   I0 is I>>1,
-   collatz(I0, N0),
-   N is N0+1.
+   I0 is I>>1, collatz(I0, N0), N is N0+1.
