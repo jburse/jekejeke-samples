@@ -104,7 +104,7 @@ public class OutInCount {
         Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
         CallIn callin = inter.iterator(countGoal);
         callin.next();
-        wr.write(inter.unparseTerm(0, countVar));
+        wr.write(inter.unparseTerm(countVar));
         wr.write('\n');
         wr.flush();
         callin.close();

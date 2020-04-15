@@ -38,12 +38,6 @@ public final class Queue {
     private final ArrayList<QueueEntry> planned = new ArrayList<QueueEntry>();
 
     /**
-     * <p>Create a new queue.</p>
-     */
-    public Queue() {
-    }
-
-    /**
      * <p>Take the next runnable from the queue.</p>
      *
      * @return The runnable.

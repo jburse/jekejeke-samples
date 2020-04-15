@@ -70,7 +70,7 @@ public final class InTable {
         CallIn callin = inter.iterator(employeeGoal);
         while (callin.hasNext()) {
             callin.next();
-            wr.write(inter.unparseTerm(0, employeeVar));
+            wr.write(inter.unparseTerm(employeeVar));
             wr.write('\n');
             wr.flush();
         }

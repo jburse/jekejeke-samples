@@ -136,7 +136,7 @@ public class OutInLimit {
         CallIn callin = inter.iterator(limitGoal);
         while (callin.hasNext()) {
             callin.next();
-            wr.write(inter.unparseTerm(0, employeeVar));
+            wr.write(inter.unparseTerm(employeeVar));
             wr.write('\n');
             wr.flush();
         }
@@ -144,10 +144,12 @@ public class OutInLimit {
         wr.write('\n');
         wr.flush();
 
+        employeeVar = new TermVar();
+        employeeGoal = new TermCompound("employee", employeeVar);
         limitGoal = new TermCompound("limit", employeeGoal, 4);
         callin = inter.iterator(limitGoal);
         callin.next();
-        wr.write(inter.unparseTerm(0, employeeVar));
+        wr.write(inter.unparseTerm(employeeVar));
         wr.write('\n');
         wr.flush();
         callin.close();
@@ -155,12 +157,14 @@ public class OutInLimit {
         wr.write('\n');
         wr.flush();
 
+        employeeVar = new TermVar();
+        employeeGoal = new TermCompound("employee", employeeVar);
         limitGoal = new TermCompound("limit", employeeGoal, 6);
 
         callin = inter.iterator(limitGoal);
         while (callin.hasNext()) {
             callin.next();
-            wr.write(inter.unparseTerm(0, employeeVar));
+            wr.write(inter.unparseTerm(employeeVar));
             wr.write('\n');
             wr.flush();
         }

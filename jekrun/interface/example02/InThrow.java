@@ -71,8 +71,7 @@ public final class InThrow {
                     ((TermCompound) exceptionTerm).getFunctor().equals("ball")) {
                 Writer wr = (Writer)
                         inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-                wr.write(inter.unparseTerm(0,
-                        ((TermCompound) exceptionTerm).getArgWrapped(0)));
+                wr.write(inter.unparseTerm(((TermCompound) exceptionTerm).getArgWrapped(0)));
                 wr.write('\n');
                 wr.flush();
             }

@@ -22,6 +22,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -42,16 +47,18 @@ exec2(X, Y) :-
    flush_output(Z).
 
 process2(X) :-
-   lock(Y), repeat,
+   lock(Y),
+   repeat,
    setup_call_cleanup(
       Y::acquire,
-      (  exec2(X, 'Ha'),
-         exec2(X, 'Tschi')),
-      Y::release), fail.
+      (exec2(X, 'Ha'),
+      exec2(X, 'Tschi')),
+      Y::release),
+   fail.
 
-% Window 1
+% Tab 1
 % ?- init2.
 % ?- process2('P1').
 
-% Window 2
+% Tab 2
 % ?- process2('P2').

@@ -21,13 +21,17 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
 :- use_package(foreign(jekpro/tools/call)).
 
-:- foreign(employee3/1, 'example03.OutTable', employee('CallOut')).
+:- foreign(employee3/1, example03/'OutTable', employee('CallOut')).
 
-:- employee3(X),
-   write(X), nl, fail; true.
+:- employee3(X), write(X), nl, fail; true.

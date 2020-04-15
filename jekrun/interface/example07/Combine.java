@@ -70,13 +70,13 @@ public final class Combine {
             if (flip) {
                 callin.next();
                 wr.write("p(");
-                wr.write(inter.unparseTerm(0, pVar));
+                wr.write(inter.unparseTerm(pVar));
                 wr.write(").\n");
                 wr.flush();
             } else {
                 callin2.next();
                 wr.write("q(");
-                wr.write(inter.unparseTerm(0, qVar));
+                wr.write(inter.unparseTerm(qVar));
                 wr.write(").\n");
                 wr.flush();
             }
@@ -85,14 +85,14 @@ public final class Combine {
         while (callin.hasNext()) {
             callin.next();
             wr.write("p(");
-            wr.write(inter.unparseTerm(0, pVar));
+            wr.write(inter.unparseTerm(pVar));
             wr.write(").\n");
             wr.flush();
         }
         while (callin2.hasNext()) {
             callin2.next();
             wr.write("q(");
-            wr.write(inter.unparseTerm(0, qVar));
+            wr.write(inter.unparseTerm(qVar));
             wr.write(").\n");
             wr.flush();
         }
