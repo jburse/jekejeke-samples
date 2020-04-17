@@ -1,6 +1,5 @@
 package example01;
 
-import example01.Query;
 import jekpro.frequent.stream.ForeignConsole;
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
@@ -10,9 +9,7 @@ import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 
 /**
  * <p>Java code for the Java terminal main class.</p>
@@ -37,6 +34,11 @@ import java.io.Writer;
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  * <p/>
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ * <p/>
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -45,86 +47,70 @@ public final class Terminal {
     /**
      * <p>Main method.</p>
      *
-     * @param args The command line arguments, not used.
-     * @throws InterpreterException Problems with setup the knowledge base
-     *                              or executing the query.
-     * @throws InterpreterMessage   Problems with setup the knowledge base
-     *                              or executing the query.
-     * @throws IOException          Problems with reading from the standard input.
+     * @param args Not used.
+     * @throws InterpreterException Shit happens.
+     * @throws InterpreterMessage   Shit happens.
+     * @throws IOException          Shit happens.
      */
     public static void main(String[] args) throws InterpreterException,
             InterpreterMessage, IOException {
         /* setup the Prolog runtime */
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
-        /* load the Prolog code */
-        Object consultGoal = inter.parseTerm("consult(library(example01/table))");
-        inter.iterator(consultGoal).next().close();
+        try {
+            Knowledgebase.initKnowledgebase(inter);
+            /* load the Prolog code */
+            Object consultGoal = inter.parseTerm("consult(example01/table)");
+            inter.iterator(consultGoal).next().close();
 
-        /* read the search criteria */
-        Query query = new Query(inter);
-        Writer ttyout = (Writer) inter.getProperty(
-                ToolkitLibrary.PROP_SYS_DISP_OUTPUT);
-        Reader ttyin = (Reader) inter.getProperty(
-                ToolkitLibrary.PROP_SYS_DISP_INPUT);
-        ttyout.write("Firstname: ");
-        ttyout.flush();
-        query.setFirstname(ForeignConsole.readLine(ttyin));
-        ttyout.write("Name: ");
-        ttyout.flush();
-        query.setName(ForeignConsole.readLine(ttyin));
-        ttyout.write("Age From: ");
-        ttyout.flush();
-        query.setAgeFrom(ForeignConsole.readLine(ttyin));
-        ttyout.write("Age To: ");
-        ttyout.flush();
-        query.setAgeTo(ForeignConsole.readLine(ttyin));
-        ttyout.write("Salary From: ");
-        ttyout.flush();
-        query.setSalaryFrom(ForeignConsole.readLine(ttyin));
-        ttyout.write("Salary To: ");
-        ttyout.flush();
-        query.setSalaryTo(ForeignConsole.readLine(ttyin));
+            /* read the search criteria */
+            Query query = new Query(inter);
+            BufferedReader ttyin = new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("Firstname: ");
+            query.setFirstname(ttyin.readLine());
+            System.out.print("Name: ");
+            query.setName(ttyin.readLine());
+            System.out.print("Age From: ");
+            query.setAgeFrom(ttyin.readLine());
+            System.out.print("Age To: ");
+            query.setAgeTo(ttyin.readLine());
+            System.out.print("Salary From: ");
+            query.setSalaryFrom(ttyin.readLine());
+            System.out.print("Salary To: ");
+            query.setSalaryTo(ttyin.readLine());
 
-        /* build and display the query */
-        ttyout.write('\n');
-        ttyout.flush();
-        ttyout.write("Query Term:");
-        ttyout.write('\n');
-        ttyout.flush();
-        String[] colids = query.listColumnIdentifiers();
-        TermVar[] vars = query.makeVars();
-        AbstractTerm queryTerm = query.makeQuery(vars);
-        inter.unparseTerm(ttyout, query.makeVariableNames(colids, vars), queryTerm);
-        ttyout.write('\n');
-        ttyout.flush();
+            /* build and display the query */
+            System.out.println();
+            System.out.println("Query Term:");
+            String[] colids = query.listColumnIdentifiers();
+            TermVar[] vars = query.makeVars();
+            AbstractTerm queryTerm = query.makeQuery(vars);
+            Object opt=query.makeVariableNames(colids, vars);
+            System.out.println(inter.unparseTerm(queryTerm, opt));
 
-        /* execute the query and display the results */
-        ttyout.write('\n');
-        ttyout.flush();
-        ttyout.write("Result Table:");
-        ttyout.write('\n');
-        ttyout.flush();
-        for (int i = 0; i < colids.length; i++) {
-            if (i != 0)
-                ttyout.write('\t');
-            ttyout.write(colids[i]);
-        }
-        ttyout.write('\n');
-        ttyout.flush();
-
-        query.listRows(vars, queryTerm);
-        Object[][] rows = query.getRows();
-        for (int j = 0; j < rows.length; j++) {
-            Object[] row = rows[j];
-            for (int i = 0; i < row.length; i++) {
+            /* execute the query and display the results */
+            System.out.println();
+            System.out.println("Result Table:");
+            for (int i = 0; i < colids.length; i++) {
                 if (i != 0)
-                    ttyout.write('\t');
-                ttyout.write(row[i].toString());
+                    System.out.print('\t');
+                System.out.print(colids[i]);
             }
-            ttyout.write('\n');
-            ttyout.flush();
+            System.out.println();
+
+            query.listRows(vars, queryTerm);
+            Object[][] rows = query.getRows();
+            for (int j = 0; j < rows.length; j++) {
+                Object[] row = rows[j];
+                for (int i = 0; i < row.length; i++) {
+                    if (i != 0)
+                        System.out.print('\t');
+                    System.out.print(row[i]);
+                }
+                System.out.println();
+            }
+        } finally {
+            know.finiKnowledgebase();
         }
     }
 

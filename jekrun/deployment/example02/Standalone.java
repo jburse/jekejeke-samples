@@ -38,6 +38,11 @@ import java.io.StringWriter;
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  * <p/>
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ * <p/>
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -66,7 +71,7 @@ public final class Standalone extends JFrame implements ActionListener {
     }
 
     /**
-     * <p>do set up of the knowledge base.</p>
+     * <p>Do set up of the knowledge base.</p>
      */
     private void initKnowledgebase() {
         try {
@@ -74,7 +79,7 @@ public final class Standalone extends JFrame implements ActionListener {
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
             /* load the Prolog code */
-            Object consultGoal = inter.parseTerm("consult(library(example01/table))");
+            Object consultGoal = inter.parseTerm("consult(example01/table)");
             inter.iterator(consultGoal).next().close();
         } catch (InterpreterMessage x) {
             throw new RuntimeException(x);
@@ -116,10 +121,9 @@ public final class Standalone extends JFrame implements ActionListener {
                     }
                 });
             } else {
-                StringWriter sb = new StringWriter();
-                inter.unparseTerm(sb, query.makeVariableNames(colids, vars), queryTerm);
-                JOptionPane.showMessageDialog(this,
-                        sb.toString(),
+                Object opt=query.makeVariableNames(colids, vars);
+                String qstr=inter.unparseTerm(queryTerm, opt);
+                JOptionPane.showMessageDialog(this, qstr,
                         "Query Term", JOptionPane.PLAIN_MESSAGE);
             }
         } catch (Exception x) {
@@ -140,12 +144,6 @@ public final class Standalone extends JFrame implements ActionListener {
      * @param args The command line arguments, not used.
      */
     public static void main(String[] args) {
-        String laf = UIManager.getSystemLookAndFeelClassName();
-        try {
-            UIManager.setLookAndFeel(laf);
-        } catch (Exception x) {
-            throw new RuntimeException(x);
-        }
         Standalone standalone = new Standalone();
         standalone.pack();
         standalone.setMinimumSize(standalone.getSize());

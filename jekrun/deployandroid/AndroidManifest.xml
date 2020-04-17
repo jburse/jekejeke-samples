@@ -34,14 +34,25 @@
               android:targetSdkVersion="28"/>
     <!--<uses-feature android:name="com.sec.feature.spen_usp"
                   android:required="true"/ -->
+    <uses-feature
+            android:name="android.hardware.touchscreen"
+            android:required="false" />
+    <uses-feature
+            android:name="android.software.leanback"
+            android:required="true" />
     <application android:label="@string/deployandroid"
-                 android:icon="@drawable/deployandroid">
+                 android:icon="@drawable/deployandroid_icon"
+                 android:banner="@drawable/deployandroid_banner">
         <activity android:name="example07.Results"
                   android:configChanges="screenSize|mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation"
                   android:label="@string/deployandroid">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="example07.Criterias"

@@ -10,23 +10,29 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
+import jekpro.tools.call.InterpreterException;
+import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
+import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
 
 /**
  * <p>Java code for the results activity.</p>
- * <p>While the knowledge base is loading We use the
- * following layout with the buttons disabled:</p>
+ * <p>While the knowledge base is loading or a query
+ * is processed we use the following layout with the
+ * buttons disabled:</p>
  * <pre>
  *       ( Search ) ( Close )
- *       +------------ ProgressBar -------------+
+ *       +------------ Progress Bar ------------+
  *       |                                      |
  *       |                                      |
  *       +--------------------------------------+
  * <pre>
- * <p>After the knowledge base is loaded we use
- * the following layout with the buttons enabled:</p>
+ * <p>After the knowledge base is loaded or a query
+ * has been processed we use the following layout with
+ * the buttons enabled:</p>
  * <pre>
  *       [ Search ] [ Close ]
  *       +-------------- List  -----------------+
@@ -56,10 +62,16 @@ import jekpro.tools.term.TermVar;
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  * <p/>
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ * <p/>
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public final class Results extends Activity implements View.OnClickListener {
+    private Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
     private ListView list;
     private Button search;
     private Button close;
@@ -106,7 +118,7 @@ public final class Results extends Activity implements View.OnClickListener {
 
         startJob(new Runnable() {
             public void run() {
-                Data.initKnowledgebase();
+                initKnowledgebase();
             }
         }, new Runnable() {
             public void run() {
@@ -115,10 +127,28 @@ public final class Results extends Activity implements View.OnClickListener {
     }
 
     /**
+     * <p>Do set up of the knowledge base.</p>
+     */
+    private void initKnowledgebase() {
+        try {
+            /* setup the Prolog runtime */
+            Interpreter inter = know.iterable();
+            Knowledgebase.initKnowledgebase(inter);
+            /* load the Prolog code */
+            Object consultGoal = inter.parseTerm("consult(library(example07/table))");
+            inter.iterator(consultGoal).next().close();
+        } catch (InterpreterMessage x) {
+            throw new RuntimeException(x);
+        } catch (InterpreterException x) {
+            throw new RuntimeException(x);
+        }
+    }
+
+    /**
      * <p>Start a job.</p>
      *
-     * @param job  The job.
-     * @param job2 The job2.
+     * @param job  The long running job.
+     * @param job2 The GUI update job.
      */
     private void startJob(final Runnable job, final Runnable job2) {
         root.removeView(list);
@@ -181,7 +211,7 @@ public final class Results extends Activity implements View.OnClickListener {
         if (result != RESULT_OK)
             return;
 
-        Interpreter inter=Data.know.iterable();
+        Interpreter inter = know.iterable();
         final Query query = new Query(inter);
         query.setName(data.getStringExtra("name"));
         query.setAgeFrom(data.getStringExtra("fromage"));

@@ -8,7 +8,23 @@ import java.awt.event.ActionListener;
 
 /**
  * <p>Java code for the graphical user interface.</p>
- * <p>We use the following layout:</p>
+ * <p>While the knowledge base is loading or a query
+ * is processed We use the following layout with the
+ * buttons disabled:</p>
+ * <pre>
+ *       Firstname: [          ]
+ *       Name:      [          ]
+ *       Age:       From [   ] To [   ]
+ *       Salary:    From [     ] To [     ]
+ *                           ( Debug ) ( Search )
+ *       +------------ Progress Bar ------------+
+ *       |                                      |
+ *       |                                      |
+ *       +--------------------------------------+
+ * <pre>
+ * <p>After the knowledge base is loaded or a query
+ * has been processed we use the following layout with
+ * the buttons enabled:</p>
  * <pre>
  *       Firstname: [          ]
  *       Name:      [          ]
@@ -40,6 +56,11 @@ import java.awt.event.ActionListener;
  * giving away or letting of the execution of the library is prohibited.
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
+ * <p/>
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
  * <p/>
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
@@ -193,6 +214,9 @@ public final class Pane {
 
     /**
      * <p>Start a job.</p>
+     *
+     * @param job  The long running job.
+     * @param job2 The GUI update job.
      */
     public void startJob(final Runnable job, final Runnable job2) {
         ((CardLayout) cards.getLayout()).show(cards, CARD_PROGRESS);

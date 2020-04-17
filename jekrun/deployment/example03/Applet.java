@@ -39,6 +39,11 @@ import java.io.StringWriter;
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  * <p/>
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ * <p/>
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -115,10 +120,9 @@ public final class Applet extends JApplet implements ActionListener {
                     }
                 });
             } else {
-                StringWriter sb = new StringWriter();
-                inter.unparseTerm(sb, query.makeVariableNames(colids, vars), queryTerm);
-                JOptionPane.showMessageDialog(this,
-                        sb.toString(),
+                Object opt=query.makeVariableNames(colids, vars);
+                String qstr=inter.unparseTerm(queryTerm, opt);
+                JOptionPane.showMessageDialog(this, qstr,
                         "Query Term", JOptionPane.PLAIN_MESSAGE);
             }
         } catch (Exception x) {

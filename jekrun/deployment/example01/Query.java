@@ -34,6 +34,11 @@ import java.util.ArrayList;
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  * <p/>
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ * <p/>
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -181,8 +186,6 @@ public final class Query {
      */
     public Object makeVariableNames(String[] colids, TermVar[] vars) {
         Object res = Knowledgebase.OP_NIL;
-        res = new TermCompound(Knowledgebase.OP_CONS,
-                new TermCompound("context", Integer.valueOf(0)), res);
         res = new TermCompound(Knowledgebase.OP_CONS,
                 new TermCompound("back_quotes", "variable"), res);
         res = new TermCompound(Knowledgebase.OP_CONS,
