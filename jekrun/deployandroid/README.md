@@ -16,4 +16,4 @@ Feel free to fork for non-commercial attributed use. There is no warranty
 for the samples. You might try a pull request if you find issues, but
 there is also no service agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 18.09.2018 (updated 17.04.2020)(
+Jan Burse, 18.09.2018 (updated 17.04.2020)
