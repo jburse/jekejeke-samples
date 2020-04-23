@@ -65,7 +65,7 @@ runner:case(setof, 4, extend_struct, 'XLOG 2.4.2, XLOG 1a') :-
    R == 2-[2].
 runner:case(setof, 4, extend_struct, 'XLOG 2.4.2, XLOG 1b') :-
    findall(Y-L, setof(X, ((Y = 2; Y = 1; Y = 3), (X = 2; X = Y; X = 2)), L, [type(hash)]), [_, R|_]),
-   R == 1-[2, 1].
+   R == 1-[1, 2].
 runner:case(setof, 4, extend_struct, 'XLOG 2.4.2, XLOG 1c') :-
    findall(Y-L, setof(X, ((Y = 2; Y = 1; Y = 3), (X = 2; X = Y; X = 2)), L, [type(hash)]), [_, _, R|_]),
    R == 3-[2, 3].

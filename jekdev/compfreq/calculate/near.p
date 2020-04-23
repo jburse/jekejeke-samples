@@ -38,7 +38,7 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(advanced/approx)).
+:- use_module(library(standard/approx)).
 
 /* rational(X) */
 
