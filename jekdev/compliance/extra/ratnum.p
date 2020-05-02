@@ -519,22 +519,6 @@ runner:case(>=, 2, extra_ratnum, 'XLOG 6.5.6, XLOG 5') :-
 runner:case(>=, 2, extra_ratnum, 'XLOG 6.5.6, XLOG 6') :-
    -10 >= -10.
 
-/* number_compare(C, X, Y) */
-
-runner:ref(number_compare, 3, extra_ratnum, 'XLOG 6.5.7').
-runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 1') :-
-   number_compare(C, 5#2, 10#7), C == > .
-runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 2') :-
-   number_compare(C, -5#2, 3), C == < .
-runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 3') :-
-   number_compare(C, 4, 10#7), C == > .
-runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 4') :-
-   number_compare(C, 12, -6), C == > .
-runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 5') :-
-   number_compare(C, 2#3, 2#3), C == = .
-runner:case(number_compare, 3, extra_ratnum, 'XLOG 6.5.7, XLOG 6') :-
-   number_compare(C, -10, -10), C == = .
-
 /* min(X, Y) */
 
 runner:ref(min, -3, extra_ratnum, 'XLOG 6.5.8').

@@ -159,17 +159,3 @@ runner:case(epsilon32, -1, extra_intnum, 'XLOG 5.3.1, XLOG 1') :-
    \+ 1+epsilon32 =:= 1.
 runner:case(epsilon32, -1, extra_intnum, 'XLOG 5.3.1, XLOG 2') :-
    2+epsilon32 =:= 2.
-
-/****************************************************************/
-/* compare.p extras                                             */
-/****************************************************************/
-
-runner:ref(number_compare, 4, extra_intnum, 'XLOG 5.4.1').
-runner:case(number_compare, 4, extra_intnum, 'XLOG 5.4.1, XLOG 1') :-
-   number_compare(R, 0, 1), R == < .
-runner:case(number_compare, 4, extra_intnum, 'XLOG 5.4.1, XLOG 2') :-
-   number_compare(R, 1.0, 1), R == = .
-runner:case(number_compare, 4, extra_intnum, 'XLOG 5.4.1, XLOG 3') :-
-   number_compare(R, 3, 2.0), R == > .
-runner:case(number_compare, 4, extra_intnum, 'XLOG 5.4.1, XLOG 4') :-
-   number_compare(R, -1048576, -1024), R == < .

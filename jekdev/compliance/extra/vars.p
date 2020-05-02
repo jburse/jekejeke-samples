@@ -38,6 +38,8 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
+:- use_module(library(advanced/arith)).
+
 /* numbervars(T, N, M) */
 
 runner:ref(numbervars, 3, extra_vars, 'XLOG 3.1.1').
@@ -53,6 +55,10 @@ runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 3') :-
 runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 4') :-
    catch(numbervars(_, -2, _), error(E, _), true),
    E == representation_error(not_less_than_zero).
+
+/****************************************************************/
+/* logic.p extras                                               */
+/****************************************************************/
 
 /* A *-> B */
 
@@ -115,3 +121,38 @@ runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, XLOG 1') :-
    findall(X-Y, ((Y = 1; Y = 2), ((X = 1; X = 2) *-> true; true)), [_, _, _, _]).
 runner:case(soft_if_then_else, 3, extra_vars, 'XLOG 3.2.2, XLOG 2') :-
    findall(X-Y, ((Y = 1; Y = 2), ((X = 1, !; X = 2) *-> true; true)), [_, _]).
+
+/* forall(G, T) */
+
+alpha(1).
+alpha(2).
+alpha(3).
+beta(1, a).
+beta(2, b).
+beta(3, c).
+
+runner:ref(forall, 2, extra_vars, 'N208 8.10.4').
+runner:case(forall, 2, extra_vars, 'N208 8.10.4, XLOG 1') :-
+   forall(fail, true).
+runner:case(forall, 2, extra_vars, 'N208 8.10.4, XLOG 2') :-
+   forall(alpha(X), beta(X, _)).
+runner:case(forall, 2, extra_vars, 'N208 8.10.4, XLOG 3') :-
+   \+ forall(alpha(X), beta(_, X)).
+runner:case(forall, 2, extra_vars, 'N208 8.10.4, XLOG 4') :-
+   Y = foo(A, B, C), forall(between(1, 3, X), arg(X, Y, X)),
+   Y == foo(A, B, C).
+runner:case(forall, 2, extra_vars, 'N208 8.10.4, XLOG 5') :-
+   catch(forall(_, beta(_, _)), error(E, _), true),
+   E == instantiation_error.
+runner:case(forall, 2, extra_vars, 'N208 8.10.4, XLOG 6') :-
+   catch(forall(alpha(_), 1), error(E, _), true),
+   E == type_error(callable, 1).
+
+/* findall(T, G, L, R) */
+
+runner:ref(findall, 4, extra_vars, 'XLOG 3.2.3').
+runner:case(findall, 4, extra_vars, 'XLOG 3.2.3, XLOG 1') :-
+   findall(X, (X = 1; X = 2), S, T),
+   S = [1, 2|T].
+runner:case(findall, 3, extra_vars, 'XLOG 3.2.3, XLOG 2') :-
+   \+ findall(X, (X = 1; X = 2), [2, 1|T], T).

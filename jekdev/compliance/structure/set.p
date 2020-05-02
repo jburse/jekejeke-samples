@@ -81,6 +81,34 @@ runner:case(findall, 3, structure_set, 'ISO 8.10.1.4, ISO 9') :-
    catch(findall(_, 4, _), error(E, _), true),
    E == type_error(callable, 4).
 
+/* sort(L, R) */
+
+runner:ref(sort, 2, structure_set, 'Corr.2 8.4.3.4').
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 1') :-
+   sort([1, 1.0], L), L == [1.0, 1].
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 2') :-
+   sort([1.0, X, a, a, X], L), L == [X, 1.0, a].
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 3') :-
+   sort([north(a), shorter, short, foo(a, b)], L),
+   L == [short, shorter, north(a), foo(a, b)].
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, ISO 6') :-
+   sort([f(U), V, f(V), U], L),
+   (L == [U, V, f(U), f(V)]; L == [V, U, f(V), f(U)]).
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 4') :-
+   findall(Y, a(_, Y), L), sort(L, R), L = [A, B], (R == [A, B]; R == [B, A]).
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 5') :-
+   catch(sort(_, _), error(E, _), true),
+   E == instantiation_error.
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 6') :-
+   catch(sort([77|35], _), error(E, _), true),
+   nonvar(E), E = type_error(list, _).
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 7') :-
+   sort([a, 'A', b, 'B'], L),
+   L == ['A', 'B', a, b].
+runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 8') :-
+   sort([ü, u, œ, o], L),
+   L == [o, u, ü, œ].
+
 /* keysort(L, R) */
 
 runner:ref(keysort, 2, structure_set, 'Corr.2 8.4.4.4').
@@ -156,52 +184,24 @@ runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, ISO 14') :-
    E == type_error(callable, 1).
 
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 1a') :-
-   findall(Y-S, bagof(X, ((Y = 1; Y = 2; Y = 1), between(1, 3, X)), S), [R|_]),
-   R == 1-[1, 2, 3, 1, 2, 3].
+   findall(Y-S, bagof(X, ((Y = 2; Y = 1; Y = 2), (X = 3; X = 1; X = 2)), S), [R|_]),
+   R == 1-[3, 1, 2].
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 1b') :-
-   findall(Y-S, bagof(X, ((Y = 1; Y = 2; Y = 1), between(1, 3, X)), S), [_, R|_]),
-   R == 2-[1, 2, 3].
+   findall(Y-S, bagof(X, ((Y = 2; Y = 1; Y = 2), (X = 3; X = 1; X = 2)), S), [_, R|_]),
+   R == 2-[3, 1, 2, 3, 1, 2].
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 1c') :-
-   findall(Y-S, bagof(X, ((Y = 1; Y = 2; Y = 1), between(1, 3, X)), S), [_, _]).
+   findall(Y-S, bagof(X, ((Y = 2; Y = 1; Y = 2), (X = 3; X = 1; X = 2)), S), [_, _]).
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 2a') :-
-   findall((Y-S, A-B), bagof(X, ((Y = A; Y = B; Y = A),
-      between(1, 3, X)), S), [(R, A-B)|_]),
-   R == A-[1, 2, 3, 1, 2, 3].
+   findall((Y-S, A-B), bagof(X, ((Y = f(A); Y = B; Y = f(A)),
+      (X = 3; X = 1; X = 2)), S), [(R, A-B)|_]),
+   R == B-[3, 1, 2].
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 2b') :-
-   findall((Y-S, A-B), bagof(X, ((Y = A; Y = B; Y = A),
-      between(1, 3, X)), S), [_, (R, A-B)|_]),
-   R == B-[1, 2, 3].
+   findall((Y-S, A-B), bagof(X, ((Y = f(A); Y = B; Y = f(A)),
+      (X = 3; X = 1; X = 2)), S), [_, (R, A-B)|_]),
+   R == f(A)-[3, 1, 2, 3, 1, 2].
 runner:case(bagof, 3, structure_set, 'ISO 8.10.2.4, XLOG 2c') :-
-   findall((Y-S, A-B), bagof(X, ((Y = A; Y = B; Y = A),
-      between(1, 3, X)), S), [_, _]).
-
-/* sort(L, R) */
-
-runner:ref(sort, 2, structure_set, 'Corr.2 8.4.3.4').
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 1') :-
-   sort([1, 1.0], L), L == [1.0, 1].
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 2') :-
-   sort([1.0, X, a, a, X], L), L == [X, 1.0, a].
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 3') :-
-   sort([north(a), shorter, short, foo(a, b)], L),
-   L == [short, shorter, north(a), foo(a, b)].
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, ISO 6') :-
-   sort([f(U), V, f(V), U], L),
-   (L == [U, V, f(U), f(V)]; L == [V, U, f(V), f(U)]).
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 4') :-
-   findall(Y, a(_, Y), L), sort(L, R), L = [A, B], (R == [A, B]; R == [B, A]).
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 5') :-
-   catch(sort(_, _), error(E, _), true),
-   E == instantiation_error.
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 6') :-
-   catch(sort([77|35], _), error(E, _), true),
-   nonvar(E), E = type_error(list, _).
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 7') :-
-   sort([a, 'A', b, 'B'], L),
-   L == ['A', 'B', a, b].
-runner:case(sort, 2, structure_set, 'Corr.2 8.4.3.4, XLOG 8') :-
-   sort([ü, u, œ, o], L),
-   L == [o, u, ü, œ].
+   findall((Y-S, A-B), bagof(X, ((Y = f(A); Y = B; Y = f(A)),
+      (X = 3; X = 1; X = 2)), S), [_, _]).
 
 /* setof(T, A1^...^An^G, L) */
 
@@ -270,29 +270,3 @@ runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 23') :-
 runner:case(setof, 3, structure_set, 'ISO 8.10.2.4, ISO 24') :-
    setof(X-Xs, bagof(Y, d(X, Y), Xs), L),
    L == [1-[1, 2, 1], 2-[2, 1, 2]].
-
-/* forall(G, T) */
-
-alpha(1).
-alpha(2).
-alpha(3).
-beta(1, a).
-beta(2, b).
-beta(3, c).
-
-runner:ref(forall, 2, structure_set, 'N208 8.10.4').
-runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 1') :-
-   forall(fail, true).
-runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 2') :-
-   forall(alpha(X), beta(X, _)).
-runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 3') :-
-   \+ forall(alpha(X), beta(_, X)).
-runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 4') :-
-   Y = foo(A, B, C), forall(between(1, 3, X), arg(X, Y, X)),
-   Y == foo(A, B, C).
-runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 5') :-
-   catch(forall(_, beta(_, _)), error(E, _), true),
-   E == instantiation_error.
-runner:case(forall, 2, structure_set, 'N208 8.10.4, XLOG 6') :-
-   catch(forall(alpha(_), 1), error(E, _), true),
-   E == type_error(callable, 1).

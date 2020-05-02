@@ -69,3 +69,23 @@ runner:case(rationalize32, -2, calculate_near, 'XLOG 3.1.3, XLOG 2') :-
    X is rationalize32(8*(pi-3)), X == 4591#4053.
 runner:case(rationalize32, -2, calculate_near, 'XLOG 3.1.3, XLOG 3') :-
    X is rationalize32(903/(pi+903)), X == 10635#10672.
+
+/* number_compare(C, X, Y) */
+
+runner:ref(number_compare, 3, calculate_near, 'XLOG 3.1.4').
+runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 1') :-
+   number_compare(C, 5#2, 10#7), C == > .
+runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 2') :-
+   number_compare(C, -5#2, 3), C == < .
+runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 3') :-
+   number_compare(C, t(4), t(10#7)), C == > .
+runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 4') :-
+   number_compare(C, 12, -6), C == > .
+runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 5') :-
+   number_compare(C, t(2#3), t(2#3)), C == = .
+runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 6') :-
+   number_compare(C, -10, -10), C == = .
+runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 7') :-
+   number_compare(C, foo(a, b), north(a)), C == > .
+runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 6') :-
+   number_compare(C, foo(a, _), foo(b, _)), C == < .

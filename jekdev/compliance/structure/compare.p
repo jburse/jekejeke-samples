@@ -107,18 +107,18 @@ runner:case(@>=, 2, structure_compare, 'ISO 8.4.1.4, XLOG 1') :-
 
 runner:ref(compare, 3, structure_compare, 'Corr.2 8.4.2.4').
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 1') :-
-   compare(<, 1.0, 1).
+   compare(C, 1.0, 1), C == < .
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 2') :-
-   compare(<, aardvark, zebra).
+   compare(C, aardvark, zebra), C == < .
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 3') :-
-   compare(=, short, short).
+   compare(C, short, short), C == = .
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 4') :-
-   compare(=, X, X).
+   compare(C, X, X), C == = .
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 5') :-
-   compare(>, foo(a, b), north(a)).
+   compare(C, foo(a, b), north(a)), C == > .
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 6') :-
-   compare(<, foo(a, _), foo(b, _)).
+   compare(C, foo(a, _), foo(b, _)), C == < .
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 7') :-
-   compare(>, a, 'A').
+   compare(C, a, 'A'), C == > .
 runner:case(compare, 3, structure_compare, 'Corr.2 8.4.2.4, XLOG 8') :-
-   compare(>, œ, ü).
+   compare(C, œ, ü), C == > .
