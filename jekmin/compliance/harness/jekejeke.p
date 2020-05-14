@@ -108,7 +108,7 @@ run_tracker_debug :-
 
 % run_control
 run_control :-
-   list_cover_source.
+   control_online.
 
 % run_cover
 run_cover :-
