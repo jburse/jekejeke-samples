@@ -79,8 +79,7 @@ digits(Arabic) -->
 
 % digits2(+-Integer, -+List, +-List)
 digits2(Total) -->
-   {Rest #>= 0,
-    Total #= Value+Rest},
+   {Rest #>= 0, Total #= Value+Rest},
    digit(Value),
    digits2(Rest).
 digits2(0) --> [].

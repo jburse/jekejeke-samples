@@ -45,23 +45,23 @@
  * previous written agreement of the authors is forbidden.
  */
 
-:- if(current_prolog_flag(dialect,jekejeke)).
+:- if(current_prolog_flag(dialect, jekejeke)).
 
 :- package(library(natural)).
 
 :- endif.
 
-:- module(xgrun, [terminal/5,gap/1,(virtual)/3]).
+:- module(xgrun, [terminal/5, gap/1, (virtual)/3]).
 
 % :- mode terminal(?,+,?,+,?),
 %         gap(+),
 %         virtual(+,+,?).
 
-terminal(T, S, S, x(_,terminal,T,X), X).
+terminal(T, S, S, x(_, terminal, T, X), X).
 terminal(T, [T|S], S, X, X) :-
    gap(X).
 
-gap(x(gap,_,_,_)).
+gap(x(gap, _, _, _)).
 gap([]).
 
-virtual(NT, x(_,nonterminal,NT,X), X).
+virtual(NT, x(_, nonterminal, NT, X), X).

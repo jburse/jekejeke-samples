@@ -40,8 +40,7 @@
  * hex integer I.
  */
 % hex_codes(-+Integer, +-List)
-hex_codes(I, L) :-
-   ground(L), !,
+hex_codes(I, L) :- ground(L), !,
    codes_to_hex(L, I).
 hex_codes(I, L) :-
    hex_to_codes(I, L).
@@ -58,8 +57,7 @@ codes_to_hex([C|L], I, J) :-
    codes_to_hex(L, H, J).
 codes_to_hex([], I, I).
 
-hex_to_codes(I, L) :-
-   I < 0, !,
+hex_to_codes(I, L) :- I < 0, !,
    J is -I,
    hex_to_codes(J, [], R),
    L = [0'-|R].

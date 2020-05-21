@@ -45,7 +45,7 @@
  * previous written agreement of the authors is forbidden.
  */
 
-:- if(current_prolog_flag(dialect,jekejeke)).
+:- if(current_prolog_flag(dialect, jekejeke)).
 
 :- package(library(database)).
 
@@ -58,11 +58,8 @@
 
 % :-mode contains0(+,?).
 
-contains(X, Y) :-
-   contains0(X, Y).
-contains(X, Y) :-
-   contains0(X, W),
-   contains(W, Y).
+contains(X, Y) :- contains0(X, Y).
+contains(X, Y) :- contains0(X, W), contains(W, Y).
 
 contains0(africa, central_africa).
 contains0(africa, east_africa).

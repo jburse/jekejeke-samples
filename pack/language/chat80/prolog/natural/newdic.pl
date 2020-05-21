@@ -45,19 +45,25 @@
  * previous written agreement of the authors is forbidden.
  */
 
-:- if(current_prolog_flag(dialect,jekejeke)).
+:- if(current_prolog_flag(dialect, jekejeke)).
 
 :- package(library(natural)).
 
 :- endif.
 
-:- module(newdic, [word/1,conj/1,int_pron/2,int_art/4,
-                     det/4,number/3,quantifier_pron/3,prep/1,
-                     noun_form/3,verb_form/4,verb_type/2,
-                     rel_pron/2,poss_pron/4,pers_pron/5,
-                     terminator/2,name/1,loc_pred/2,adj/2,
-                     rel_adj/2,sup_adj/2,adverb/1,(~)/1,
-                     check_words/2]).
+:- module(newdic, [word/1, conj/1, int_pron/2, int_art/4,
+      
+      det/4, number/3, quantifier_pron/3, prep/1,
+      
+      noun_form/3, verb_form/4, verb_type/2,
+      
+      rel_pron/2, poss_pron/4, pers_pron/5,
+      
+      terminator/2, name/1, loc_pred/2, adj/2,
+      
+      rel_adj/2, sup_adj/2, adverb/1, (~)/1,
+      
+      check_words/2]).
 :- use_module('../database/chatops').
 :- use_module(templa).
 
@@ -102,67 +108,47 @@
 % =================================================================
 % General Dictionary
 
-word(Word) :-
-   ~(Word).
-word(Word) :-
-   conj(Word).
-word(Word) :-
-   adverb(Word).
-word(Word) :-
-   sup_adj(Word, _).
-word(Word) :-
-   rel_adj(Word, _).
-word(Word) :-
-   adj(Word, _).
-word(Word) :-
-   name(Word).
-word(Word) :-
-   terminator(Word, _).
-word(Word) :-
-   pers_pron(Word, _, _, _, _).
-word(Word) :-
-   poss_pron(Word, _, _, _).
-word(Word) :-
-   rel_pron(Word, _).
-word(Word) :-
-   verb_form(Word, _, _, _).
-word(Word) :-
-   noun_form(Word, _, _).
-word(Word) :-
-   prep(Word).
-word(Word) :-
-   quantifier_pron(Word, _, _).
-word(Word) :-
-   number(Word, _, _).
-word(Word) :-
-   det(Word, _, _, _).
-word(Word) :-
-   int_art(Word, _, _, _).
-word(Word) :-
-   int_pron(Word, _).
-word(Word) :-
-   loc_pred(Word, _).
+word(Word) :- ~(Word).
+word(Word) :- conj(Word).
+word(Word) :- adverb(Word).
+word(Word) :- sup_adj(Word, _).
+word(Word) :- rel_adj(Word, _).
+word(Word) :- adj(Word, _).
+word(Word) :- name(Word).
+word(Word) :- terminator(Word, _).
+word(Word) :- pers_pron(Word, _, _, _, _).
+word(Word) :- poss_pron(Word, _, _, _).
+word(Word) :- rel_pron(Word, _).
+word(Word) :- verb_form(Word, _, _, _).
+word(Word) :- noun_form(Word, _, _).
+word(Word) :- prep(Word).
+word(Word) :- quantifier_pron(Word, _, _).
+word(Word) :- number(Word, _, _).
+word(Word) :- det(Word, _, _, _).
+word(Word) :- int_art(Word, _, _, _).
+word(Word) :- int_pron(Word, _).
+word(Word) :- loc_pred(Word, _).
 
-~ how.
-~ whose.
-~ there.
-~ of.
+~how.
+~whose.
+~there.
+~of.
 ~('''').
 ~(',').
-~ s.
-~ than.
-~ at.
-~ the.
-~ not.
+~s.
+~than.
+~at.
+~the.
+~not.
 ~(as).
-~ that.
-~ less.
-~ more.
-~ least.
-~ most.
-~ many.
-~ where.
-~ when.
+~that.
+~less.
+~more.
+~least.
+~most.
+~many.
+~where.
+~when.
 conj(and).
 conj(or).
 
@@ -201,8 +187,7 @@ tr_number(nine, 9).
 tr_number(ten, 10).
 
 ag_number(1, sin).
-ag_number(N, plu) :-
-   N > 1.
+ag_number(N, plu) :- N > 1.
 
 quantifier_pron(everybody, every, person).
 quantifier_pron(everyone, every, person).
@@ -228,13 +213,10 @@ prep(from).
 prep(into).
 prep(through).
 
-noun_form(Plu, Sin, plu) :-
-   noun_plu(Plu, Sin).
-noun_form(Sin, Sin, sin) :-
-   noun_sin(Sin).
+noun_form(Plu, Sin, plu) :- noun_plu(Plu, Sin).
+noun_form(Sin, Sin, sin) :- noun_sin(Sin).
 
-verb_form(V, V, inf, _) :-
-   verb_root(V).
+verb_form(V, V, inf, _) :- verb_root(V).
 verb_form(V, V, pres+fin, Agmt) :-
    regular_pres(V),
    root_form(Agmt),
@@ -475,12 +457,9 @@ check_words([Word|Words], [RevWord|RevWords]) :-
    check_word(Word, RevWord),
    check_words(Words, RevWords).
 
-check_word(Word, Word) :-
-   word(Word), !.
+check_word(Word, Word) :- word(Word), !.
 check_word(Word, NewWord) :-
-   write('? '),
-   write(Word),
-   write(' -> (!. to abort) '), flush_output,
+   write('? '), write(Word), write(' -> (!. to abort) '), flush_output,
    read(NewWord0),
    NewWord0 \== !,
    check_word(NewWord0, NewWord).

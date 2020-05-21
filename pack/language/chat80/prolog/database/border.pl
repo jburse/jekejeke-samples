@@ -30,7 +30,7 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- if(current_prolog_flag(dialect,jekejeke)).
+:- if(current_prolog_flag(dialect, jekejeke)).
 
 :- package(library(database)).
 
@@ -56,10 +56,7 @@
 % Facts about Europe.
 % ------------------
 
-borders(X, C) :-
-   var(X),
-   nonvar(C), !,
-   borders(C, X).
+borders(X, C) :- var(X), nonvar(C), !, borders(C, X).
 
 borders(albania, greece).
 borders(albania, yugoslavia).

@@ -45,13 +45,13 @@
  * previous written agreement of the authors is forbidden.
  */
 
-:- if(current_prolog_flag(dialect,jekejeke)).
+:- if(current_prolog_flag(dialect, jekejeke)).
 
 :- package(library(database)).
 
 :- endif.
 
-:- module(ndtabl, [nd/3,nd/4,nd/5]).
+:- module(ndtabl, [nd/3, nd/4, nd/5]).
 
 :- discontiguous nd/3.
 :- discontiguous nd/4.

@@ -45,7 +45,7 @@
  * previous written agreement of the authors is forbidden.
  */
 
-:- if(current_prolog_flag(dialect,jekejeke)).
+:- if(current_prolog_flag(dialect, jekejeke)).
 
 :- package(library(natural)).
 
@@ -76,14 +76,14 @@ sentence(B, C, D, E, F) :-
 
 
 pp(B, C, D, E, F, F, G, H) :-
-   virtual(pp(B,C,D,E), G, H).
-pp(pp(B,C), D, E, F, G, H, I, J) :-
+   virtual(pp(B, C, D, E), G, H).
+pp(pp(B, C), D, E, F, G, H, I, J) :-
    prep(B, G, K, I, L),
    prep_case(M),
    np(C, _, M, _, D, E, F, K, H, L, J).
 
 
-topic(B, C, D, x(gap,nonterminal,pp(E,compl,F,G),H)) :-
+topic(B, C, D, x(gap, nonterminal, pp(E, compl, F, G), H)) :-
    pp(E, compl, F, G, B, I, D, J),
    opt_comma(I, C, J, H).
 
@@ -97,24 +97,24 @@ declarative(decl(B), C, D, E, F) :-
    s(B, _, C, D, E, F).
 
 
-wh_question(whq(B,C), D, E, F, G) :-
+wh_question(whq(B, C), D, E, F, G) :-
    variable_q(B, _, I, J, D, K, F, L),
    question(I, J, C, K, E, L, G).
 
 
 np(B, C, D, E, F, G, H, I, I, J, K) :-
-   virtual(np(B,C,D,E,F,G,H), J, K).
-np(np(B,C,[]), B, D, def, _, F, G, H, I, J, K) :-
+   virtual(np(B, C, D, E, F, G, H), J, K).
+np(np(B, C, []), B, D, def, _, F, G, H, I, J, K) :-
    is_pp(F),
    pers_pron(C, B, L, H, I, J, K),
    empty(G),
    role(L, decl, D).
-np(np(B,C,D), B, _, F, G, H, I, J, K, L, M) :-
+np(np(B, C, D), B, _, F, G, H, I, J, K, L, M) :-
    is_pp(H),
    np_head(C, B, F+N, O, D, J, P, L, Q),
    np_all(R),
    np_compls(N, B, G, O, R, I, P, K, Q, M).
-np(part(B,C), 3+D, _, indef, F, G, H, I, J, K, L) :-
+np(part(B, C), 3+D, _, indef, F, G, H, I, J, K, L) :-
    is_pp(G),
    determiner(B, D, indef, I, M, K, N),
    ~(of, M, O, N, P),
@@ -123,19 +123,19 @@ np(part(B,C), 3+D, _, indef, F, G, H, I, J, K, L) :-
    np(C, 3+plu, R, def, F, Q, H, O, J, P, L).
 
 
-variable_q(B, C, D, E, F, G, H, x(gap,nonterminal,np(I,C,E,_,_,L,M),N)) :-
+variable_q(B, C, D, E, F, G, H, x(gap, nonterminal, np(I, C, E, _, _, L, M), N)) :-
    whq(B, C, I, D, F, G, H, N),
    do_trace(L, M).
-variable_q(B, C, compl, D, E, F, G, x(gap,nonterminal,pp(pp(H,I),compl,J,K),L)) :-
+variable_q(B, C, compl, D, E, F, G, x(gap, nonterminal, pp(pp(H, I), compl, J, K), L)) :-
    prep(H, E, M, G, N),
    whq(B, C, I, _, M, F, N, L),
    do_trace(J, K),
    compl_case(D).
-variable_q(B, C, compl, D, E, F, G, x(gap,nonterminal,adv_phrase(pp(H,np(C,np_head(int_det(B),[],I),[])),J,K),L)) :-
+variable_q(B, C, compl, D, E, F, G, x(gap, nonterminal, adv_phrase(pp(H, np(C, np_head(int_det(B), [], I), [])), J, K), L)) :-
    context_pron(H, I, E, F, G, L),
    do_trace(J, K),
    verb_case(D).
-variable_q(B, _, compl, D, E, F, G, x(gap,nonterminal,pred(adj,value(H,wh(B)),I),J)) :-
+variable_q(B, _, compl, D, E, F, G, x(gap, nonterminal, pred(adj, value(H, wh(B)), I), J)) :-
    ~(how, E, K, G, L),
    adj(quant, H, K, F, L, J),
    empty(I),
@@ -143,14 +143,14 @@ variable_q(B, _, compl, D, E, F, G, x(gap,nonterminal,pred(adj,value(H,wh(B)),I)
 
 
 adv_phrase(B, C, D, E, E, F, G) :-
-   virtual(adv_phrase(B,C,D), F, G).
-adv_phrase(pp(B,C), D, E, F, G, H, I) :-
+   virtual(adv_phrase(B, C, D), F, G).
+adv_phrase(pp(B, C), D, E, F, G, H, I) :-
    loc_pred(B, F, J, H, K),
-   pp(pp(prep(of),C), compl, D, E, J, G, K, I).
+   pp(pp(prep(of), C), compl, D, E, J, G, K, I).
 
 
 pred(B, C, D, E, E, F, G) :-
-   virtual(pred(B,C,D), F, G).
+   virtual(pred(B, C, D), F, G).
 pred(_, C, D, E, F, G, H) :-
    adj_phrase(C, D, E, F, G, H).
 pred(neg, B, C, D, E, F, G) :-
@@ -165,7 +165,7 @@ whq(B, C, D, undef, E, F, G, H) :-
    int_det(B, C, E, I, G, J),
    s_all(K),
    np(D, C, _, _, subj, K, _, I, F, J, H).
-whq(B, 3+C, np(3+C,wh(B),[]), D, E, F, G, H) :-
+whq(B, 3+C, np(3+C, wh(B), []), D, E, F, G, H) :-
    int_pron(D, E, F, G, H).
 
 
@@ -176,16 +176,16 @@ int_det(B, 3+C, D, E, F, G) :-
 
 
 np_head0(B, C, D, E, E, F, G) :-
-   virtual(np_head0(B,C,D), F, G).
+   virtual(np_head0(B, C, D), F, G).
 np_head0(name(B), 3+sin, def+proper, C, D, E, F) :-
    name(B, C, D, E, F).
-np_head0(np_head(B,C,D), 3+E, F+common, G, H, I, J) :-
+np_head0(np_head(B, C, D), 3+E, F+common, G, H, I, J) :-
    determiner(B, E, F, G, K, I, L),
    adjs(C, K, M, L, N),
    noun(D, E, M, H, N, J).
-np_head0(B, C, def+proper, D, E, F, x(nogap,nonterminal,gen_marker,G)) :-
+np_head0(B, C, def+proper, D, E, F, x(nogap, nonterminal, gen_marker, G)) :-
    poss_pron(B, C, D, E, F, G).
-np_head0(np_head(B,[],C), 3+sin, indef+common, D, E, F, G) :-
+np_head0(np_head(B, [], C), 3+sin, indef+common, D, E, F, G) :-
    quantifier_pron(B, C, D, E, F, G).
 
 
@@ -196,7 +196,7 @@ gen_marker(B, C, D, E) :-
    an_s(F, C, G, E).
 
 
-whose(B, C, D, E, F, x(nogap,nonterminal,np_head0(wh(B),C,proper),x(nogap,nonterminal,gen_marker,G))) :-
+whose(B, C, D, E, F, x(nogap, nonterminal, np_head0(wh(B), C, proper), x(nogap, nonterminal, gen_marker, G))) :-
    ~(whose, D, E, F, G).
 
 
@@ -210,14 +210,14 @@ question(B, C, D, E, F, G, H) :-
 
 
 det(B, C, D, E, E, F, G) :-
-   virtual(det(B,C,D), F, G).
+   virtual(det(B, C, D), F, G).
 det(det(B), C, D, E, F, G, H) :-
    terminal(I, E, F, G, H),
    det(I, C, B, D).
 det(generic, _, generic, C, C, D, D).
 
 
-int_art(B, C, D, E, F, x(nogap,nonterminal,det(G,C,def),H)) :-
+int_art(B, C, D, E, F, x(nogap, nonterminal, det(G, C, def), H)) :-
    int_art(B, C, G, D, E, F, H).
 
 
@@ -233,20 +233,20 @@ yn_question(q(B), C, D, E, F) :-
 
 
 verb_form(B, C, D, E, F, F, G, H) :-
-   virtual(verb_form(B,C,D,E), G, H).
+   virtual(verb_form(B, C, D, E), G, H).
 verb_form(B, C, D, _, F, G, H, I) :-
    terminal(J, F, G, H, I),
    verb_form(J, B, C, D).
 
 
 neg(B, C, D, D, E, F) :-
-   virtual(neg(B,C), E, F).
+   virtual(neg(B, C), E, F).
 neg(aux+_, neg, C, D, E, F) :-
    ~(not, C, D, E, F).
 neg(_, pos, C, C, D, D).
 
 
-fronted_verb(B, C, D, E, F, x(gap,nonterminal,verb_form(G,H,I,J),x(nogap,nonterminal,neg(_,L),M))) :-
+fronted_verb(B, C, D, E, F, x(gap, nonterminal, verb_form(G, H, I, J), x(nogap, nonterminal, neg(_, L), M))) :-
    verb_form(G, H, I, _, D, O, F, P),
    verb_type(G, aux+_),
    role(B, J, C),
@@ -258,11 +258,11 @@ imperative(imp(B), C, D, E, F) :-
    s(B, _, G, D, H, F).
 
 
-imperative_verb(B, C, D, x(nogap,terminal,you,x(nogap,nonterminal,verb_form(E,imp+fin,2+sin,main),F))) :-
+imperative_verb(B, C, D, x(nogap, terminal, you, x(nogap, nonterminal, verb_form(E, imp+fin, 2+sin, main), F))) :-
    verb_form(E, inf, _, _, B, C, D, F).
 
 
-s(s(B,C,D,E), F, G, H, I, J) :-
+s(s(B, C, D, E), F, G, H, I, J) :-
    subj(B, K, L, G, M, I, N),
    verb(C, K, L, O, M, P, N, Q),
    empty(R),
@@ -297,11 +297,11 @@ np_compls(common, B, C, D, E, F, G, H, I, J) :-
 possessive(B, C, _, [], E, F, G, H, I, J, K, L, M, N) :-
    gen_case(K, O, M, P),
    np_head0(Q, R, S, O, T, P, U),
-   possessive(Q, R, S, V, [pp(poss,np(C,B,E))|V], F, G, H, I, J, T, L, U, N).
+   possessive(Q, R, S, V, [pp(poss, np(C, B, E))|V], F, G, H, I, J, T, L, U, N).
 possessive(B, C, D, E, F, B, C, D, E, F, G, G, H, H).
 
 
-gen_case(B, C, D, x(nogap,terminal,the,E)) :-
+gen_case(B, C, D, x(nogap, terminal, the, E)) :-
    gen_marker(B, C, D, E).
 
 
@@ -316,7 +316,7 @@ determiner(B, C, D, E, F, G, H) :-
    quant_phrase(B, C, D, E, F, G, H).
 
 
-quant_phrase(quant(B,C), D, E, F, G, H, I) :-
+quant_phrase(quant(B, C), D, E, F, G, H, I) :-
    quant(B, E, F, J, H, K),
    number(C, D, J, G, K, I).
 
@@ -391,14 +391,14 @@ pre_adj(B, C, D, E, F) :-
    sup_phrase(B, C, D, E, F).
 
 
-sup_phrase(sup(most,B), C, D, E, F) :-
+sup_phrase(sup(most, B), C, D, E, F) :-
    sup_adj(B, C, D, E, F).
-sup_phrase(sup(B,C), D, E, F, G) :-
+sup_phrase(sup(B, C), D, E, F, G) :-
    sup_adv(B, D, I, F, J),
    adj(quant, C, I, E, J, G).
 
 
-comp_phrase(comp(B,C,D), E, F, G, H, I) :-
+comp_phrase(comp(B, C, D), E, F, G, H, I) :-
    comp(B, C, F, J, H, K),
    np_no_trace(L),
    prep_case(M),
@@ -435,7 +435,7 @@ rel_rest(B, C, D, E, _, G, H, I, J, K) :-
 rel_rest(_, _, D, D, E, E, F, F, G, G).
 
 
-rel(B, rel(C,D), E, F, G, H, I) :-
+rel(B, rel(C, D), E, F, G, H, I) :-
    xopen(F, J, H, K),
    variable(B, C, J, L, K, M),
    s(D, N, L, O, M, P),
@@ -444,23 +444,23 @@ rel(B, rel(C,D), E, F, G, H, I) :-
    close(O, G, P, I).
 
 
-variable(B, C, D, E, F, x(gap,nonterminal,np(np(B,wh(C),[]),B,_,_,_,J,K),L)) :-
+variable(B, C, D, E, F, x(gap, nonterminal, np(np(B, wh(C), []), B, _, _, _, J, K), L)) :-
    ~(that, D, E, F, L),
    do_trace(J, K).
-variable(B, C, D, E, F, x(gap,nonterminal,np(G,H,I,_,_,L,M),N)) :-
+variable(B, C, D, E, F, x(gap, nonterminal, np(G, H, I, _, _, L, M), N)) :-
    wh(C, B, G, H, I, D, E, F, N),
    do_trace(L, M).
-variable(B, C, D, E, F, x(gap,nonterminal,pp(pp(G,H),compl,I,J),K)) :-
+variable(B, C, D, E, F, x(gap, nonterminal, pp(pp(G, H), compl, I, J), K)) :-
    prep(G, D, L, F, M),
    wh(C, B, H, _, O, L, E, M, K),
    do_trace(I, J),
    compl_case(O).
 
 
-wh(B, C, np(C,wh(B),[]), C, D, E, F, G, H) :-
+wh(B, C, np(C, wh(B), []), C, D, E, F, G, H) :-
    rel_pron(I, E, F, G, H),
    role(I, decl, D).
-wh(B, C, np(D,E,[pp(F,G)]), D, _, I, J, K, L) :-
+wh(B, C, np(D, E, [pp(F, G)]), D, _, I, J, K, L) :-
    np_head0(E, D, _+common, I, N, K, O),
    prep(F, N, P, O, Q),
    wh(B, C, G, _, _, P, J, Q, L).
@@ -486,7 +486,7 @@ reduced_rel_rest(B, C, D, E, _, G, H, I, J, K) :-
 reduced_rel_rest(_, _, D, D, E, E, F, F, G, G).
 
 
-reduced_rel(B, reduced_rel(C,D), E, F, G, H, I) :-
+reduced_rel(B, reduced_rel(C, D), E, F, G, H, I) :-
    xopen(F, J, H, K),
    reduced_wh(B, C, J, L, K, M),
    s(D, N, L, O, M, P),
@@ -495,21 +495,21 @@ reduced_rel(B, reduced_rel(C,D), E, F, G, H, I) :-
    close(O, G, P, I).
 
 
-reduced_wh(B, C, D, E, F, x(nogap,nonterminal,np(np(B,wh(C),[]),B,G,_,_,J,K),
-                             x(nogap,nonterminal,verb_form(be,pres+fin,B,main),
-                                x(nogap,nonterminal,neg(_,M),
-                                   x(nogap,nonterminal,pred(M,N,O),P))))) :-
+reduced_wh(B, C, D, E, F, x(nogap, nonterminal, np(np(B, wh(C), []), B, G, _, _, J, K),
+   x(nogap, nonterminal, verb_form(be, pres+fin, B, main),
+   x(nogap, nonterminal, neg(_, M),
+   x(nogap, nonterminal, pred(M, N, O), P))))) :-
    neg(_, M, D, R, F, S),
    pred(M, N, O, R, E, S, P),
    do_trace(J, K),
    subj_case(G).
-reduced_wh(B, C, D, E, F, x(nogap,nonterminal,np(np(B,wh(C),[]),B,G,_,_,J,K),
-                             x(nogap,nonterminal,verb(L,_,N,O),P))) :-
+reduced_wh(B, C, D, E, F, x(nogap, nonterminal, np(np(B, wh(C), []), B, G, _, _, J, K),
+   x(nogap, nonterminal, verb(L, _, N, O), P))) :-
    participle(L, N, O, D, E, F, P),
    do_trace(J, K),
    subj_case(G).
-reduced_wh(B, C, D, E, F, x(nogap,nonterminal,np(G,H,I,J,_,L,M),
-                             x(gap,nonterminal,np(np(B,wh(C),[]),B,N,_,_,Q,R),S))) :-
+reduced_wh(B, C, D, E, F, x(nogap, nonterminal, np(G, H, I, J, _, L, M),
+   x(gap, nonterminal, np(np(B, wh(C), []), B, N, _, _, Q, R), S))) :-
    s_all(T),
    subj_case(I),
    verb_case(N),
@@ -519,8 +519,8 @@ reduced_wh(B, C, D, E, F, x(nogap,nonterminal,np(G,H,I,J,_,L,M),
 
 
 verb(B, C, D, E, F, F, G, H) :-
-   virtual(verb(B,C,D,E), G, H).
-verb(verb(B,C,D+fin,E,F), G, H, C, I, J, K, L) :-
+   virtual(verb(B, C, D, E), G, H).
+verb(verb(B, C, D+fin, E, F), G, H, C, I, J, K, L) :-
    verb_form(M, D+fin, G, N, I, O, K, P),
    verb_type(M, Q),
    neg(Q, F, O, R, P, S),
@@ -557,7 +557,7 @@ passive(be, B, passive, C, D, E, F) :-
 passive(B, B, active, C, C, D, D).
 
 
-participle(verb(B,C,inf,D,E), F, C, G, H, I, J) :-
+participle(verb(B, C, inf, D, E), F, C, G, H, I, J) :-
    neg(_, E, G, L, I, M),
    verb_form(B, N, _, _, L, H, M, J),
    participle(N, C, D),
@@ -576,24 +576,24 @@ close(B, B, C, D) :-
    virtual(close, C, D).
 
 
-xopen(B, B, C, x(gap,nonterminal,close,C)).
+xopen(B, B, C, x(gap, nonterminal, close, C)).
 
 
 verb_args(_+C, D, E, F, G, H, I, J, K) :-
    advs(E, L, _, H, N, J, O),
    verb_args(C, D, L, F, G, N, I, O, K).
-verb_args(trans, active, [arg(dir,B)], _, D, E, F, G, H) :-
+verb_args(trans, active, [arg(dir, B)], _, D, E, F, G, H) :-
    verb_arg(np, B, D, E, F, G, H).
-verb_args(ditrans, _, [arg(C,D)|E], _, G, H, I, J, K) :-
+verb_args(ditrans, _, [arg(C, D)|E], _, G, H, I, J, K) :-
    verb_arg(np, D, L, H, M, J, N),
    object(C, E, L, G, M, I, N, K).
 verb_args(be, _, [void], C, C, D, E, F, G) :-
    terminal(there, D, E, F, G).
-verb_args(be, _, [arg(pred,C)], _, E, F, G, H, I) :-
+verb_args(be, _, [arg(pred, C)], _, E, F, G, H, I) :-
    pred_conj(_, C, E, F, G, H, I).
-verb_args(be, _, [arg(dir,C)], _, E, F, G, H, I) :-
+verb_args(be, _, [arg(dir, C)], _, E, F, G, H, I) :-
    verb_arg(np, C, E, F, G, H, I).
-verb_args(have, active, [arg(dir,B)], _, D, E, F, G, H) :-
+verb_args(have, active, [arg(dir, B)], _, D, E, F, G, H) :-
    verb_arg(np, B, D, E, F, G, H).
 verb_args(B, _, [], D, D, E, E, F, F) :-
    no_args(B).
@@ -606,7 +606,7 @@ object(B, C, D, E, F, G, H, I) :-
    obj(B, L, D, E, M, G, N, I).
 
 
-obj(ind, [arg(dir,B)], _, D, E, F, G, H) :-
+obj(ind, [arg(dir, B)], _, D, E, F, G, H) :-
    verb_arg(np, B, D, E, F, G, H).
 obj(dir, [], B, B, C, C, D, D).
 
@@ -647,7 +647,7 @@ no_args(ditrans).
 no_args(intrans).
 
 
-conj(conj(B,C), conj(B,D), E, F, conj(B,E,F), G, H, I, J) :-
+conj(conj(B, C), conj(B, D), E, F, conj(B, E, F), G, H, I, J) :-
    conj(B, C, D, G, H, I, J).
 
 
@@ -699,7 +699,7 @@ name(B, C, D, E, F) :-
    name(B).
 
 
-int_art(B, plu, quant(same,wh(B)), C, D, E, F) :-
+int_art(B, plu, quant(same, wh(B)), C, D, E, F) :-
    ~(how, C, G, E, H),
    ~(many, G, D, H, F).
 int_art(B, C, D, E, F, G, H) :-
@@ -767,5 +767,5 @@ loc_pred(B, C, D, E, F) :-
 
 ~(B, C, D, E, F) :-
    terminal(B, C, D, E, F),
-   ~ B.
+   ~B.
 

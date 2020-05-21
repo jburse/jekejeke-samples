@@ -51,42 +51,35 @@ sys_peek_stack :-
 % sys_pop_stack
 :- private sys_pop_stack/0.
 sys_pop_stack :-
-   retract(sys_stack([_,X|L])), !,
+   retract(sys_stack([_, X|L])), !,
    assertz(sys_stack([X|L])).
 sys_pop_stack :-
    retract(sys_stack([_])), !.
 sys_pop_stack :-
-   throw(error(syntax_error(unbalanced_directive),_)).
+   throw(error(syntax_error(unbalanced_directive), _)).
 
 % user:term_expansion(+Term, -Term)
 :- public user:term_expansion/2.
 :- multifile user:term_expansion/2.
-:- meta_predicate user:term_expansion(-1,-1).
+:- meta_predicate user:term_expansion(-1, -1).
 user:term_expansion((:- if(C)), unit) :- !,
-   (  sys_peek_stack
-   -> sys_push_stack(off)
-   ;  C
-   -> sys_push_stack(on)
+   (  sys_peek_stack -> sys_push_stack(off)
+   ;  C -> sys_push_stack(on)
    ;  sys_push_stack(off)).
 user:term_expansion((:- elif(C)), unit) :- !,
-   (  sys_peek_stack
-   -> D = off
-   ;  D = on), sys_pop_stack,
-   (  sys_peek_stack
-   -> sys_push_stack(off)
-   ;  D = off, C
-   -> sys_push_stack(on)
+   (sys_peek_stack -> D = off; D = on),
+   sys_pop_stack,
+   (  sys_peek_stack -> sys_push_stack(off)
+   ;  D = off, C -> sys_push_stack(on)
    ;  sys_push_stack(off)).
 user:term_expansion((:- else), unit) :- !,
-   (  sys_peek_stack
-   -> D = off
-   ;  D = on), sys_pop_stack,
-   (  sys_peek_stack
-   -> sys_push_stack(off)
-   ;  D = off
-   -> sys_push_stack(on)
+   (sys_peek_stack -> D = off; D = on),
+   sys_pop_stack,
+   (  sys_peek_stack -> sys_push_stack(off)
+   ;  D = off -> sys_push_stack(on)
    ;  sys_push_stack(off)).
-user:term_expansion((:- endif), unit) :- !, sys_pop_stack.
+user:term_expansion((:- endif), unit) :- !,
+   sys_pop_stack.
 user:term_expansion(unit, _) :- !, fail.
 user:term_expansion(_, unit) :- sys_peek_stack, !.
 

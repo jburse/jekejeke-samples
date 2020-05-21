@@ -52,22 +52,18 @@ get0(X) :-
 % get(-Integer)
 :- public get/1.
 get(Y) :-
-   get_code(X),
-   skip_blank(X, Y).
+   get_code(X), skip_blank(X, Y).
 
 % skip_blank(+Integer, -Integer)
 :- private skip_blank/2.
-skip_blank(-1, Y) :- !,
-   Y = -1.
+skip_blank(-1, Y) :- !, Y = -1.
 skip_blank(X, Y) :-
    code_class(X, T),
    T \== blank,
    T \== cntrl,
-   T \== inval, !,
-   Y = X.
+   T \== inval, !, Y = X.
 skip_blank(_, Y) :-
-   get_code(X),
-   skip_blank(X, Y).
+   get_code(X), skip_blank(X, Y).
 
 /**
  * tab(N):
@@ -77,7 +73,8 @@ skip_blank(_, Y) :-
 :- public tab/1.
 tab(N) :-
    between(1, N, _),
-   put(" "), fail.
+   put(" "),
+   fail.
 tab(_).
 
 /**
@@ -88,7 +85,8 @@ tab(_).
 :- public put/1.
 put(L) :-
    member(C, L),
-   put_code(C), fail.
+   put_code(C),
+   fail.
 put(_).
 
 /**
@@ -99,30 +97,25 @@ put(_).
  */
 % name(+-Atomic, -+List)
 :- public name/2.
-name(T, L) :-
-   ground(L), !,
+name(T, L) :- ground(L), !,
    list_to_name(L, T).
 name(T, L) :-
    name_to_list(T, L).
 
 % list_to_name(+List, -Atomic)
 :- private list_to_name/2.
-list_to_name([0'-,C|L], T) :-
-   code_digit(C, 10, _), !,
-   number_codes(T, [0'-,C|L]).
-list_to_name([0'+,C|L], T) :-
-   code_digit(C, 10, _), !,
+list_to_name([0'-, C|L], T) :- code_digit(C, 10, _), !,
+   number_codes(T, [0'-, C|L]).
+list_to_name([0'+, C|L], T) :- code_digit(C, 10, _), !,
    number_codes(T, [C|L]).
-list_to_name([C|L], T) :-
-   code_digit(C, 10, _), !,
+list_to_name([C|L], T) :- code_digit(C, 10, _), !,
    number_codes(T, [C|L]).
 list_to_name(L, T) :-
    atom_codes(T, L).
 
 % name_to_list(+Atomic, -List)
 :- private name_to_list/2.
-name_to_list(T, L) :-
-   number(T), !,
+name_to_list(T, L) :- number(T), !,
    number_codes(T, L).
 name_to_list(T, L) :-
    atom_codes(T, L).

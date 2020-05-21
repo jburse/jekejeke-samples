@@ -45,13 +45,13 @@
  * previous written agreement of the authors is forbidden.
  */
 
-:- if(current_prolog_flag(dialect,jekejeke)).
+:- if(current_prolog_flag(dialect, jekejeke)).
 
 :- package(library(database)).
 
 :- endif.
 
-:- module(aggreg, [aggregate/3,one_of/2,ratio/4,card/2]).
+:- module(aggreg, [aggregate/3, one_of/2, ratio/4, card/2]).
 :- use_module(chatops).
 
 :- current_prolog_flag(dialect, jekejeke)
@@ -152,12 +152,10 @@ u_total([V:_|R], T) :-
 u_sum(X--U, Y--U, Z--U) :- !,
    Z is X+Y.
 u_sum(X--U, Y--U1, Z--U) :-
-   ratio(U, U1, M, M1),
-   M > M1, !,
+   ratio(U, U1, M, M1), M > M1, !,
    Z is X+Y*M1//M.
 u_sum(X--U1, Y--U, Z--U) :-
-   ratio(U, U1, M, M1),
-   M > M1, !,
+   ratio(U, U1, M, M1), M > M1, !,
    Z is X*M1//M+Y.
 
 u_maxs([V:X|Set], List) :-
@@ -195,8 +193,7 @@ one_of([X|_], X).
 one_of([_|R], X) :-
    one_of(R, X).
 
-card(S, N) :-
-   length(S, N).
+card(S, N) :- length(S, N).
 
 ratio(thousand, million, 1, 1000).
 ratio(million, thousand, 1000, 1).

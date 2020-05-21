@@ -45,14 +45,15 @@
  * previous written agreement of the authors is forbidden.
  */
 
-:- if(current_prolog_flag(dialect,jekejeke)).
+:- if(current_prolog_flag(dialect, jekejeke)).
 
 :- package(library(natural)).
 
 :- endif.
 
-:- module(talkr, [write_tree/1,answer/1,satisfy/4,
-                    answer/2,check_answer/3]).
+:- module(talkr, [write_tree/1, answer/1, satisfy/4,
+      
+      answer/2, check_answer/3]).
 
 :- current_prolog_flag(dialect, jekejeke)
 -> use_module(library(edinburgh)); true.
@@ -74,64 +75,40 @@
 
 write_tree(T) :-
    numbervars(T, 0, _),
-   wt(T, 0), fail.
+   wt(T, 0),
+   fail.
 write_tree(_).
 
-wt((P:-Q), L) :- !,
-   L1 is L+3,
-   write(P),
-   tab(1),
-   write(:-), nl,
-   tab(L1),
-   wt(Q, L1).
-wt((P,Q), L) :- !,
-   L1 is L-2,
+wt((P :- Q), L) :- !, L1 is L+3,
+   write(P), tab(1), write(:-), nl,
+   tab(L1), wt(Q, L1).
+wt((P, Q), L) :- !, L1 is L-2,
    wt(P, L), nl,
-   tab(L1),
-   put("&"),
-   tab(1),
-   wt(Q, L).
-wt({P}, L) :-
-   complex(P), !,
-   L1 is L+2,
-   put("{"),
-   tab(1),
-   wt(P, L1),
-   tab(1),
-   put("}").
-wt(E, L) :-
-   decomp(E, H, P), !,
-   L1 is L+2,
+   tab(L1), put("&"), tab(1), wt(Q, L).
+wt({P}, L) :- complex(P), !, L1 is L+2,
+   put("{"), tab(1), wt(P, L1), tab(1), put("}").
+wt(E, L) :- decomp(E, H, P), !, L1 is L+2,
    header(H), nl,
-   tab(L1),
-   wt(P, L1).
-wt(E, _) :-
-   write(E).
+   tab(L1), wt(P, L1).
+wt(E, _) :- write(E).
 
 header([]).
-header([X|H]) :-
-   write(X),
-   tab(1),
-   header(H).
+header([X|H]) :- write(X), tab(1), header(H).
 
-decomp(setof(X,P,S), [S,=,setof,X], P).
-decomp(\+(P), [\+], P) :-
-   complex(P).
-decomp(numberof(X,P,N), [N,=,numberof,X], P).
-decomp(X^P, [exists,X|XX], P1) :-
-   othervars(P, XX, P1).
+decomp(setof(X, P, S), [S, =, setof, X], P).
+decomp(\+(P), [\+], P) :- complex(P).
+decomp(numberof(X, P, N), [N, =, numberof, X], P).
+decomp(X^P, [exists, X|XX], P1) :- othervars(P, XX, P1).
 
-othervars(X^P, [X|XX], P1) :- !,
-   othervars(P, XX, P1).
+othervars(X^P, [X|XX], P1) :- !, othervars(P, XX, P1).
 othervars(P, [], P).
 
-complex((_,_)).
+complex((_, _)).
 complex({_}).
-complex(setof(_,_,_)).
-complex(numberof(_,_,_)).
+complex(setof(_, _, _)).
+complex(numberof(_, _, _)).
 complex(_^_).
-complex(\+P) :-
-   complex(P).
+complex(\+ P) :- complex(P).
 
 % Query execution.
 
@@ -145,27 +122,19 @@ complex(\+P) :-
 % :-mode pickargs(+,+,+).
 % :-mode pick(+,?).
 
-respond([]) :-
-   write('Nothing satisfies your question.'), nl.
-respond([A|L]) :-
-   reply(A),
-   replies(L).
+respond([]) :- write('Nothing satisfies your question.'), nl.
+respond([A|L]) :- reply(A), replies(L).
 
-answer((answer([]):-E)) :- !,
-   holds(E, B),
-   yesno(B).
-answer((answer([X]):-E)) :- !,
-   seto(X, E, S),
-   respond(S).
-answer((answer(X):-E)) :-
-   seto(X, E, S),
-   respond(S).
+answer((answer([]) :- E)) :- !, holds(E, B), yesno(B).
+answer((answer([X]) :- E)) :- !, seto(X, E, S), respond(S).
+answer((answer(X) :- E)) :- seto(X, E, S), respond(S).
 
 seto(X, E, S) :-
-%	portray_clause(({X} :- E)),
+   %	portray_clause(({X} :- E)),
    phrase(satisfy(E, G), Vars),
-%	portray_clause(({X} :- G)),
-   (  setof(X, Vars^G, S) -> true
+   %	portray_clause(({X} :- G)),
+   (  setof(X, Vars^G, S)
+   -> true
    ;  S = []).
 
 holds(E, True) :-
@@ -174,28 +143,15 @@ holds(E, True) :-
    -> True = true
    ;  True = false).
 
-yesno(true) :-
-   write('Yes.').
-yesno(false) :-
-   write('No.').
+yesno(true) :- write('Yes.').
+yesno(false) :- write('No.').
 
-replies([]) :-
-   write('.').
-replies([A]) :-
-   write(' and '),
-   reply(A),
-   write('.').
-replies([A|X]) :-
-   write(', '),
-   reply(A),
-   replies(X).
+replies([]) :- write('.').
+replies([A]) :- write(' and '), reply(A), write('.').
+replies([A|X]) :- write(', '), reply(A), replies(X).
 
-reply(N--U) :- !,
-   write(N),
-   write(' '),
-   write(U).
-reply(X) :-
-   write(X).
+reply(N--U) :- !, write(N), write(' '), write(U).
+reply(X) :- write(X).
 
 %%	satisfy(+Term, -Goal)//
 %
@@ -204,61 +160,49 @@ reply(X) :-
 %	works. Hence, we now compile the term   into  a goal and compute
 %	the existentially quantified variables.
 
-satisfy((P0,Q0), (P,Q)) --> !,
-   satisfy(P0, P),
-   satisfy(Q0, Q).
-satisfy({P0}, (P->true)) --> !,
-   satisfy(P0, P).
-satisfy(X^P0, P) --> !,
-   satisfy(P0, P),
-   [X].
-satisfy(\+P0, \+P) --> !,
-   satisfy(P0, P).
-satisfy(numberof(X,P0,N), (setof(X,Vars^P,S),length(S,N))) --> !,
+satisfy((P0, Q0), (P, Q)) --> !, satisfy(P0, P), satisfy(Q0, Q).
+satisfy({P0}, (P -> true)) --> !, satisfy(P0, P).
+satisfy(X^P0, P) --> !, satisfy(P0, P), [X].
+satisfy(\+ P0, \+ P) --> !, satisfy(P0, P).
+satisfy(numberof(X, P0, N), (setof(X, Vars^P, S), length(S, N))) --> !,
    {phrase(satisfy(P0, P), Vars)},
-   [S], Vars.                                     % S is an internal variable!
-satisfy(setof(X,P0,S), setof(X,Vars^P,S)) --> !,
-   {phrase(satisfy(P0, P), Vars)}, Vars.
-satisfy(+P0, \+exceptionto(P)) --> !,
+   [S], Vars.                                           % S is an internal variable!
+satisfy(setof(X, P0, S), setof(X, Vars^P, S)) --> !,
+   {phrase(satisfy(P0, P), Vars)},
+   Vars.
+satisfy(+P0, \+ exceptionto(P)) --> !,
    satisfy(P0, P).
-satisfy(X<Y, X<Y) --> !.
-satisfy(X=<Y, X=<Y) --> !.
-satisfy(X>=Y, X>=Y) --> !.
-satisfy(X>Y, X>Y) --> !.
+satisfy(X < Y, X < Y) --> !.
+satisfy(X =< Y, X =< Y) --> !.
+satisfy(X >= Y, X >= Y) --> !.
+satisfy(X > Y, X > Y) --> !.
 satisfy(P, database(P)) --> [].
 
 exceptionto(P) :-
-   functor(P, F, N),
-   functor(P1, F, N),
+   functor(P, F, N), functor(P1, F, N),
    pickargs(N, P, P1),
    exception(P1).
 
-exception(P) :-
-   database(P), !, fail.
+exception(P) :- database(P), !, fail.
 exception(_).
 
 pickargs(0, _, _) :- !.
-pickargs(N, P, P1) :-
-   N1 is N-1,
+pickargs(N, P, P1) :- N1 is N-1,
    arg(N, P, S),
    pick(S, X),
    arg(N, P1, X),
    pickargs(N1, P, P1).
 
 pick([X|_], X).
-pick([_|S], X) :- !,
-   pick(S, X).
+pick([_|S], X) :- !, pick(S, X).
 pick([], _) :- !, fail.
 pick(X, X).
 
 % Version of answer/1 which returns answer
 
-answer((answer([]):-E), [B]) :- !,
-   holds(E, B).
-answer((answer([X]):-E), S) :- !,
-   seto(X, E, S).
-answer((answer(X):-E), S) :-
-   seto(X, E, S).
+answer((answer([]) :- E), [B]) :- !, holds(E, B).
+answer((answer([X]) :- E), S) :- !, seto(X, E, S).
+answer((answer(X) :- E), S) :- seto(X, E, S).
 
 check_answer(A, A, true) :- !.
 check_answer(_, _, 'wrong answer').

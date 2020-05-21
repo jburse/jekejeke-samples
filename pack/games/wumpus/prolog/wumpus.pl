@@ -56,7 +56,8 @@
 -> use_module(library(basic/random)); true.
 
 % wumpus
-wumpus :- preamble,
+wumpus :-
+   preamble,
    locate(L),
    play(L).
 
@@ -89,20 +90,18 @@ result(F, M, _, _) :-
    ;  write('HEE HEE HEE - THE WUMPUS''LL GETCHA NEXT TIME!!'), nl),
    write('SAME SET-UP (Y-N)? '), flush_output,
    read_line(I),
-   (  I \== 'Y'
-   -> locate(L)
-   ;  L = M),
+   (I \== 'Y' -> locate(L); L = M),
    play(L).
 
 % originally: 2500  REM-CHOOSE OPTION
 % choose(-Integer)
-choose(O) :- repeat,
+choose(O) :-
+   repeat,
    write('SHOOT OR MOVE (S-M)? '), flush_output,
    read_line(I),
-   (  'S' = I
-   -> O = 1
-   ;  'M' = I
-   -> O = 2; fail), !.
+   (  'S' = I -> O = 1
+   ;  'M' = I -> O = 2
+   ;  fail), !.
 
 /************************************************************/
 /* Move                                                     */
@@ -110,46 +109,38 @@ choose(O) :- repeat,
 
 % originally: 4000  REM- MOVE ROUTINE
 % move(+List, -List)
-move([X|L], [P|L]) :- repeat,
+move([X|L], [P|L]) :-
+   repeat,
    write('WHERE TO? '), flush_output,
-   read_line(H),
-   atom_number(H, P),
-   1 =< P,
-   P =< 20,
+   read_line(H), atom_number(H, P),
+   1 =< P, P =< 20,
    (  edge(X, P) -> true
    ;  P = X -> true
    ;  write('NOT POSSIBLE - '), fail), !.
 
 % originally: 4120  REM-CHECK FOR HAZARDS
 % check(+List, -List, -Integer)
-check([X,Y|L], R, F) :-
-   X = Y, !,
+check([X, Y|L], R, F) :- X = Y, !,
    write('...OOPS! BUMPED A WUMPUS!'), nl,
-   bump([X,Y|L], R, F).
-check([X,_,Z,T,_,_], _, -1) :-
-   (  X = Z
-   ;  X = T), !,
+   bump([X, Y|L], R, F).
+check([X, _, Z, T, _, _], _, -1) :- (X = Z; X = T), !,
    write('YYYIIIIEEEE . . . FELL IN PIT'), nl.
-check([X,Y,Z,T,U,V], L, F) :-
-   (  X = U
-   ;  X = V), !,
+check([X, Y, Z, T, U, V], L, F) :- (X = U; X = V), !,
    write('ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!'), nl,
    fna(P),
-   check([P,Y,Z,T,U,V], L, F).
+   check([P, Y, Z, T, U, V], L, F).
 check(L, L, 0).
 
 % originally: 3370  REM-MOVE WUMPUS ROUTINE
 % bump(+List, -List, -Integer)
-bump([X,Y|L], [X,P|L], F) :-
+bump([X, Y|L], [X, P|L], F) :-
    fnc(C),
-   (  C = 4
-   -> P = Y
+   (  C = 4 -> P = Y
    ;  findall(P, edge(Y, P), H),
       nth1(C, H, P)),
-   (  X = P
-   -> write('TSK TSK TSK- WUMPUS GOT YOU!'), nl,
-      F = -1
-   ;  F = 0).
+   (X = P
+-> write('TSK TSK TSK- WUMPUS GOT YOU!'), nl,
+   F = -1; F = 0).
 
 /************************************************************/
 /* Shoot                                                    */
@@ -171,9 +162,7 @@ missed(F, L, A, L, A, F).
 % ammo(+Integer, +Integer, -Integer, -Integer)
 ammo(0, A, B, F) :- !,
    B is A-1,
-   (  B = 0
-   -> F = -1
-   ;  F = 0).
+   (B = 0 -> F = -1; F = 0).
 ammo(F, A, A, F).
 
 % originally: 3120  REM-SHOOT ARROW
@@ -184,9 +173,7 @@ arrow([Y|P], X, L, F) :-
    hit(Z, L, P, F).
 
 % follow(+Integer, +Integer, -Integer)
-follow(X, Y, Z) :-
-   edge(X, Y), !,
-   Z = Y.
+follow(X, Y, Z) :- edge(X, Y), !, Z = Y.
 follow(X, _, Z) :-
    fnb(C),
    findall(Z, edge(X, Z), H),
@@ -194,33 +181,30 @@ follow(X, _, Z) :-
 
 % originally: 3290  REM-SEE IF ARROW IS AT L(1) OR L(2)
 % hit(+Integer, +List, +List, -Integer)
-hit(Z, [_,Y|_], _, 1) :-
-   Z = Y, !,
+hit(Z, [_, Y|_], _, 1) :- Z = Y, !,
    write('AHA! YOU GOT THE WUMPUS!'), nl.
-hit(Z, [X|_], _, -1) :-
-   Z = X, !,
+hit(Z, [X|_], _, -1) :- Z = X, !,
    write('OUCH! ARROW GOT YOU!'), nl.
 hit(Z, L, P, F) :-
    arrow(P, Z, L, F).
 
 % originally: 3020  REM-PATH OF ARROW
 % rooms(-Integer)
-rooms(N) :- repeat,
+rooms(N) :-
+   repeat,
    write('NO. OF ROOMS(1-5)? '), flush_output,
-   read_line(H),
-   atom_number(H, N),
-   1 =< N,
-   N =< 5, !.
+   read_line(H), atom_number(H, N),
+   1 =< N, N =< 5, !.
 
 % path(+Integer, +List, -List)
 path(0, _, []) :- !.
-path(N, L, [P|R]) :- repeat,
+path(N, L, [P|R]) :-
+   repeat,
    write('ROOM #? '), flush_output,
-   read_line(H),
-   atom_number(H, P),
-   (  L = [_,Q|_],
-      Q = P
-   -> write('ARROWS AREN''T THAT CROOKED - TRY ANOTHER ROOM'), nl, fail; true), !,
+   read_line(H), atom_number(H, P),
+   (L = [_, Q|_], Q = P
+-> write('ARROWS AREN''T THAT CROOKED - TRY ANOTHER ROOM'), nl,
+   fail; true), !,
    M is N-1,
    path(M, [P|L], R).
 
@@ -230,30 +214,22 @@ path(N, L, [P|R]) :- repeat,
 
 % originally: 2000  REM-PRINT LOCATION & HAZARD WARNINGS
 % location(+List)
-location([X,Y,Z,T,U,V]) :-
-   (  edge(X, Y)
-   -> write('I SMELL A WUMPUS!'), nl; true),
-   (  (  edge(X, Z)
-      ;  edge(X, T))
-   -> write('I FEEL A DRAFT'), nl; true),
-   (  (  edge(X, U)
-      ;  edge(X, V))
-   -> write('BATS NEARBY'), nl; true),
-   write('YOU ARE IN ROOM '),
-   write(X), nl,
-   write('TUNNELS LEAD TO'),
-   (  edge(X, R),
-      write(' '),
-      write(R), fail; true), nl.
+location([X, Y, Z, T, U, V]) :-
+   (edge(X, Y) -> write('I SMELL A WUMPUS!'), nl; true),
+   ((edge(X, Z); edge(X, T)) -> write('I FEEL A DRAFT'), nl; true),
+   ((edge(X, U); edge(X, V)) -> write('BATS NEARBY'), nl; true),
+   write('YOU ARE IN ROOM '), write(X), nl,
+   write('TUNNELS LEAD TO'), (edge(X, R), write(' '), write(R), fail; true), nl.
 
 % originally: 0200  REM-LOCATE L ARRAY ITEMS
 % originally: 0210  REM-1-YOU,2-WUMPUS,3&4-PITS,5&6-BATS
 % locate(-List)
 locate(L) :-
-   length(L, 6), repeat,
+   length(L, 6),
+   repeat,
    maplist(fna, L),
-   \+ (  append(R, [X|_], L),
-         member(X, R)), !.
+   \+ (append(R, [X|_], L),
+      member(X, R)), !.
 
 % fna(-Integer)
 fna(X) :-
@@ -337,7 +313,7 @@ edge(20, 19).
 preamble :-
    write('INSTRUCTIONS (Y-N)? '), flush_output,
    read_line(I),
-   (  I \== 'N' -> instructions; true).
+   (I \== 'N' -> instructions; true).
 
 % instructions
 instructions :-
@@ -345,13 +321,15 @@ instructions :-
    write('  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM'), nl,
    write('HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A'), nl,
    write('DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON''T KNOW'), nl,
-   write('WHAT A DODECAHEDRON IS, ASK SOMEONE)'), nl, nl,
+   write('WHAT A DODECAHEDRON IS, ASK SOMEONE)'), nl,
+   nl,
    write('     HAZARDS:'), nl,
    write(' BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM'), nl,
    write('     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)'), nl,
    write(' SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU'), nl,
    write('     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER'), nl,
-   write('     ROOM AT RANDOM. (WHICH MIGHT BE TROUBLESOME)'), nl, nl,
+   write('     ROOM AT RANDOM. (WHICH MIGHT BE TROUBLESOME)'), nl,
+   nl,
    write('     WUMPUS:'), nl,
    write(' THE WUMPUS IS NOT BOTHERED BY THE HAZARDS (HE HAS SUCKER'), nl,
    write(' FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY'), nl,
@@ -359,7 +337,8 @@ instructions :-
    write(' HIS ROOM OR YOUR SHOOTING AN ARROW.'), nl,
    write('     IF THE WUMPUS WAKES, HE MOVES (P=.75) ONE ROOM'), nl,
    write(' OR STAYS STILL (P=.25). AFTER THAT, IF HE IS WHERE YOU'), nl,
-   write(' ARE, HE EATS YOU UP (& YOU LOSE!)'), nl, nl,
+   write(' ARE, HE EATS YOU UP (& YOU LOSE!)'), nl,
+   nl,
    write('     YOU:'), nl,
    write(' EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW'), nl,
    write('   MOVING: YOU CAN GO ONE ROOM (THRU ONE TUNNEL)'), nl,
@@ -369,10 +348,12 @@ instructions :-
    write('   IF THE ARROW CAN''T GO THAT WAY (IE NO TUNNEL) IT MOVES'), nl,
    write('   AT RAMDOM TO THE NEXT ROOM.'), nl,
    write('     IF THE ARROW HITS THE WUMPUS, YOU WIN.'), nl,
-   write('     IF THE ARROW HITS YOU, YOU LOSE.'), nl, nl,
+   write('     IF THE ARROW HITS YOU, YOU LOSE.'), nl,
+   nl,
    write('    WARNINGS:'), nl,
    write('     WHEN YOU ARE ONE ROOM AWAY FROM WUMPUS OR HAZARD,'), nl,
    write('    THE COMPUTER SAYS:'), nl,
    write(' WUMPUS-  ''I SMELL A WUMPUS'''), nl,
    write(' BAT   -  ''BATS NEARBY'''), nl,
-   write(' PIT   -  ''I FEEL A DRAFT'''), nl, nl.
+   write(' PIT   -  ''I FEEL A DRAFT'''), nl,
+   nl.

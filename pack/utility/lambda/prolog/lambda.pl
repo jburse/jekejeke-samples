@@ -67,10 +67,13 @@
  */
 
 :- module(lambda, [
-                     ^ /3,^ /4,^ /5,^ /6,^ /7,^ /8,^ /9,
-                     (\)/1,(\)/2,(\)/3,(\)/4,(\)/5,(\)/6,(\)/7,
-                     +\ /2,+\ /3,+\ /4,+\ /5,+\ /6,+\ /7,
-                     op(201,xfx,+\)]).
+      ^ /3, ^ /4, ^ /5, ^ /6, ^ /7, ^ /8, ^ /9,
+      
+      (\)/1, (\)/2, (\)/3, (\)/4, (\)/5, (\)/6, (\)/7,
+      
+      +\ /2, +\ /3, +\ /4, +\ /5, +\ /6, +\ /7,
+      
+      op(201, xfx, +\)]).
 
 /** <module> Lambda expressions
 
@@ -146,7 +149,14 @@ http://www.complang.tuwien.ac.at/ulrich/Prolog-inedit/ISO-Hiord
 @author Ulrich Neumerkel
 */
 
-:- meta_predicate ^(?,0,?),^(?,1,?,?),^(?,2,?,?,?),^(?,3,?,?,?,?),^(?,4,?,?,?,?,?),^(?,5,?,?,?,?,?,?),^(?,6,?,?,?,?,?,?,?).
+:- meta_predicate
+   ^(?, 0, ?),
+   ^(?, 1, ?, ?),
+   ^(?, 2, ?, ?, ?),
+   ^(?, 3, ?, ?, ?, ?),
+   ^(?, 4, ?, ?, ?, ?, ?),
+   ^(?, 5, ?, ?, ?, ?, ?, ?),
+   ^(?, 6, ?, ?, ?, ?, ?, ?, ?).
 
 
 
@@ -165,50 +175,50 @@ http://www.complang.tuwien.ac.at/ulrich/Prolog-inedit/ISO-Hiord
 ^(V1, Goal, V1, V2, V3, V4, V5, V6, V7) :-
    call(Goal, V2, V3, V4, V5, V6, V7).
 
-:- meta_predicate \(0),\(1,?),\(2,?,?),\(3,?,?,?),\(4,?,?,?,?),\(5,?,?,?,?,?),\(6,?,?,?,?,?,?).
+:- meta_predicate
+   \(0),
+   \(1, ?),
+   \(2, ?, ?),
+   \(3, ?, ?, ?),
+   \(4, ?, ?, ?, ?),
+   \(5, ?, ?, ?, ?, ?),
+   \(6, ?, ?, ?, ?, ?, ?).
 
 \(FC) :-
-   copy_term(FC, C),
-   call(C).
+   copy_term(FC, C), call(C).
 \(FC, V1) :-
-   copy_term(FC, C),
-   call(C, V1).
+   copy_term(FC, C), call(C, V1).
 \(FC, V1, V2) :-
-   copy_term(FC, C),
-   call(C, V1, V2).
+   copy_term(FC, C), call(C, V1, V2).
 \(FC, V1, V2, V3) :-
-   copy_term(FC, C),
-   call(C, V1, V2, V3).
+   copy_term(FC, C), call(C, V1, V2, V3).
 \(FC, V1, V2, V3, V4) :-
-   copy_term(FC, C),
-   call(C, V1, V2, V3, V4).
+   copy_term(FC, C), call(C, V1, V2, V3, V4).
 \(FC, V1, V2, V3, V4, V5) :-
-   copy_term(FC, C),
-   call(C, V1, V2, V3, V4, V5).
+   copy_term(FC, C), call(C, V1, V2, V3, V4, V5).
 \(FC, V1, V2, V3, V4, V5, V6) :-
-   copy_term(FC, C),
-   call(C, V1, V2, V3, V4, V5, V6).
+   copy_term(FC, C), call(C, V1, V2, V3, V4, V5, V6).
 
-:- meta_predicate +\(?,0),+\(?,1,?),+\(?,2,?,?),+\(?,3,?,?,?),+\(?,4,?,?,?,?),+\(?,5,?,?,?,?,?),+\(?,6,?,?,?,?,?,?).
+:- meta_predicate
+   +\(?, 0),
+   +\(?, 1, ?),
+   +\(?, 2, ?, ?),
+   +\(?, 3, ?, ?, ?),
+   +\(?, 4, ?, ?, ?, ?),
+   +\(?, 5, ?, ?, ?, ?, ?),
+   +\(?, 6, ?, ?, ?, ?, ?, ?).
 
 +\(GV, FC) :-
-   copy_term(GV+FC, GV+C),
-   call(C).
+   copy_term(GV+FC, GV+C), call(C).
 +\(GV, FC, V1) :-
-   copy_term(GV+FC, GV+C),
-   call(C, V1).
+   copy_term(GV+FC, GV+C), call(C, V1).
 +\(GV, FC, V1, V2) :-
-   copy_term(GV+FC, GV+C),
-   call(C, V1, V2).
+   copy_term(GV+FC, GV+C), call(C, V1, V2).
 +\(GV, FC, V1, V2, V3) :-
-   copy_term(GV+FC, GV+C),
-   call(C, V1, V2, V3).
+   copy_term(GV+FC, GV+C), call(C, V1, V2, V3).
 +\(GV, FC, V1, V2, V3, V4) :-
-   copy_term(GV+FC, GV+C),
-   call(C, V1, V2, V3, V4).
+   copy_term(GV+FC, GV+C), call(C, V1, V2, V3, V4).
 +\(GV, FC, V1, V2, V3, V4, V5) :-
-   copy_term(GV+FC, GV+C),
-   call(C, V1, V2, V3, V4, V5).
+   copy_term(GV+FC, GV+C), call(C, V1, V2, V3, V4, V5).
 +\(GV, FC, V1, V2, V3, V4, V5, V6) :-
-   copy_term(GV+FC, GV+C),
-   call(C, V1, V2, V3, V4, V5, V6).
+   copy_term(GV+FC, GV+C), call(C, V1, V2, V3, V4, V5, V6).
