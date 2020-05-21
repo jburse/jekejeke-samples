@@ -31,8 +31,6 @@ The following samples have already been uploaded:
 The following samples have already been uploaded:
 - [benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark):
   Benchmark ISO Performance.
-- [benchdist](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchdist):
-  Benchmark Module "distributed".
 
 # Issues and Contributing
 
@@ -41,5 +39,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 18.05.20190
+Jan Burse, 18.05.20190 (Updated 21.05.20202)
 
