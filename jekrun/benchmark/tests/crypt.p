@@ -59,11 +59,10 @@ sum2([A|AL], [], Carry, [C|CL]) :-
 sum2([], [], Carry, [Carry]).
 
 % mult(+List, +Integer, -List)
-mult(AL, D, BL) :-
-   mult(AL, D, 0, BL).
+mult(AL, D, BL) :- mult(AL, D, 0, BL).
 
 % mult(+List, +Integer, +Integer, -List)
-mult([], _, Carry, [C,Cend]) :-
+mult([], _, Carry, [C, Cend]) :-
    C is Carry rem 10,
    Cend is Carry//10.
 mult([A|AL], D, Carry, [B|BL]) :-
@@ -74,8 +73,7 @@ mult([A|AL], D, Carry, [B|BL]) :-
 
 % zero(+List)
 zero([]).
-zero([0|L]) :-
-   zero(L).
+zero([0|L]) :- zero(L).
 
 % odd(-Integer)
 odd(1).
@@ -99,25 +97,10 @@ lefteven(8).
 
 % crypt
 crypt :-
-   odd(A),
-   even(B),
-   even(C),
-   even(E),
-   mult([C,B,A], E, [I,H,G,F|X]),
-   lefteven(F),
-   odd(G),
-   even(H),
-   even(I),
-   zero(X),
-   lefteven(D),
-   mult([C,B,A], D, [L,K,J|Y]),
-   lefteven(J),
-   odd(K),
-   even(L),
-   zero(Y),
-   sum2([I,H,G,F], [0,L,K,J], [P,O,N,M|Z]),
-   odd(M),
-   odd(N),
-   even(O),
-   even(P),
-   zero(Z).
+   odd(A), even(B), even(C), even(E),
+   mult([C, B, A], E, [I, H, G, F|X]),
+   lefteven(F), odd(G), even(H), even(I), zero(X), lefteven(D),
+   mult([C, B, A], D, [L, K, J|Y]),
+   lefteven(J), odd(K), even(L), zero(Y),
+   sum2([I, H, G, F], [0, L, K, J], [P, O, N, M|Z]),
+   odd(M), odd(N), even(O), even(P), zero(Z).

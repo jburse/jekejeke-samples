@@ -44,7 +44,7 @@ queens :-
    search(X, [], _).
 
 % dataqueens(-List)
-dataqueens([1,2,3,4,5,6,7,8,9]).
+dataqueens([1, 2, 3, 4, 5, 6, 7, 8, 9]).
 
 /*****************************************************************/
 /* Reduced Test Cases                                            */
@@ -56,7 +56,7 @@ rqueens :-
    search(X, [], _).
 
 % rdataqueens(-List)
-rdataqueens([1,2,3,4,5,6,7]).
+rdataqueens([1, 2, 3, 4, 5, 6, 7]).
 
 /*****************************************************************/
 /* The Solver                                                    */

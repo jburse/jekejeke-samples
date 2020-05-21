@@ -33,28 +33,28 @@
  */
 
 % move(+Board, +Player, -Board)
-move([[-,B,C],[D,E,F],[G,H,I]], P, [[P,B,C],[D,E,F],[G,H,I]]).
-move([[A,-,C],[D,E,F],[G,H,I]], P, [[A,P,C],[D,E,F],[G,H,I]]).
-move([[A,B,-],[D,E,F],[G,H,I]], P, [[A,B,P],[D,E,F],[G,H,I]]).
-move([[A,B,C],[-,E,F],[G,H,I]], P, [[A,B,C],[P,E,F],[G,H,I]]).
-move([[A,B,C],[D,-,F],[G,H,I]], P, [[A,B,C],[D,P,F],[G,H,I]]).
-move([[A,B,C],[D,E,-],[G,H,I]], P, [[A,B,C],[D,E,P],[G,H,I]]).
-move([[A,B,C],[D,E,F],[-,H,I]], P, [[A,B,C],[D,E,F],[P,H,I]]).
-move([[A,B,C],[D,E,F],[G,-,I]], P, [[A,B,C],[D,E,F],[G,P,I]]).
-move([[A,B,C],[D,E,F],[G,H,-]], P, [[A,B,C],[D,E,F],[G,H,P]]).
+move([[-, B, C], [D, E, F], [G, H, I]], P, [[P, B, C], [D, E, F], [G, H, I]]).
+move([[A, -, C], [D, E, F], [G, H, I]], P, [[A, P, C], [D, E, F], [G, H, I]]).
+move([[A, B, -], [D, E, F], [G, H, I]], P, [[A, B, P], [D, E, F], [G, H, I]]).
+move([[A, B, C], [-, E, F], [G, H, I]], P, [[A, B, C], [P, E, F], [G, H, I]]).
+move([[A, B, C], [D, -, F], [G, H, I]], P, [[A, B, C], [D, P, F], [G, H, I]]).
+move([[A, B, C], [D, E, -], [G, H, I]], P, [[A, B, C], [D, E, P], [G, H, I]]).
+move([[A, B, C], [D, E, F], [-, H, I]], P, [[A, B, C], [D, E, F], [P, H, I]]).
+move([[A, B, C], [D, E, F], [G, -, I]], P, [[A, B, C], [D, E, F], [G, P, I]]).
+move([[A, B, C], [D, E, F], [G, H, -]], P, [[A, B, C], [D, E, F], [G, H, P]]).
 
 % init(+Board)
-init([[-,-,-],[-,-,-],[-,-,-]]).
+init([[-, -, -], [-, -, -], [-, -, -]]).
 
 % win(+Board, +Player)
-win([[P,P,P],[_,_,_],[_,_,_]], P).
-win([[_,_,_],[P,P,P],[_,_,_]], P).
-win([[_,_,_],[_,_,_],[P,P,P]], P).
-win([[P,_,_],[P,_,_],[P,_,_]], P).
-win([[_,P,_],[_,P,_],[_,P,_]], P).
-win([[_,_,P],[_,_,P],[_,_,P]], P).
-win([[P,_,_],[_,P,_],[_,_,P]], P).
-win([[_,_,P],[_,P,_],[P,_,_]], P).
+win([[P, P, P], [_, _, _], [_, _, _]], P).
+win([[_, _, _], [P, P, P], [_, _, _]], P).
+win([[_, _, _], [_, _, _], [P, P, P]], P).
+win([[P, _, _], [P, _, _], [P, _, _]], P).
+win([[_, P, _], [_, P, _], [_, P, _]], P).
+win([[_, _, P], [_, _, P], [_, _, P]], P).
+win([[P, _, _], [_, P, _], [_, _, P]], P).
+win([[_, _, P], [_, P, _], [P, _, _]], P).
 
 % other(+Player, -Player).
 other(o, x).
@@ -74,5 +74,4 @@ best(X, P, Y) :-
 
 % tictac
 tictac :-
-   init(X),
-   best(X, x, _).
+   init(X), best(X, x, _).

@@ -57,10 +57,7 @@ times10(E) :-
 
 % deriv
 deriv :-
-   ops8(_),
-   divide10(_),
-   log10(_),
-   times10(_).
+   ops8(_), divide10(_), log10(_), times10(_).
 
 /*****************************************************************/
 /* Reduced Test Cases                                            */
@@ -84,10 +81,7 @@ times5(E) :-
 
 % rderiv
 rderiv :-
-   ops4(_),
-   divide5(_),
-   log5(_),
-   times5(_).
+   ops4(_), divide5(_), log5(_), times5(_).
 
 /*****************************************************************/
 /* The Derivator                                                 */

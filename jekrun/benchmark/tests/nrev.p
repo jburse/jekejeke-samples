@@ -41,37 +41,31 @@
 /*****************************************************************/
 
 % nrev
-nrev :-
-   datanrev(X),
-   rev(X, _).
+nrev :- datanrev(X), rev(X, _).
 
 % datanrev(-List)
-datanrev([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
-            21,22,23,24,25,26,27,28,29,30]).
+datanrev([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+   
+   21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).
 
 /*****************************************************************/
 /* Reduced Test Cases                                            */
 /*****************************************************************/
 
 % rnrev
-rnrev :-
-   rdatanrev(X),
-   rev(X, _).
+rnrev :- rdatanrev(X), rev(X, _).
 
 % rdatanrev(-List)
-rdatanrev([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]).
+rdatanrev([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]).
 
 /*****************************************************************/
-/* The Pre3dicates                                               */
+/* The Predicates                                               */
 /*****************************************************************/
 
 % rev(+List, -List)
 rev([], []).
-rev([X|Rest], Ans) :-
-   rev(Rest, L),
-   concatenate(L, [X], Ans).
+rev([X|Rest], Ans) :- rev(Rest, L), concatenate(L, [X], Ans).
 
 % concatenate(+List, +List, -List)
 concatenate([], L, L).
-concatenate([X|L1], L2, [X|L3]) :-
-   concatenate(L1, L2, L3).
+concatenate([X|L1], L2, [X|L3]) :- concatenate(L1, L2, L3).

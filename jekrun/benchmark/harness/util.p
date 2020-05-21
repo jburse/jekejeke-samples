@@ -31,15 +31,10 @@
  */
 
 for(_).
-for(N) :-
-   N > 1,
-   M is N-1,
-   for(M).
+for(N) :- N > 1, M is N-1, for(M).
 
-:- meta_predicate test(?,0).
-test(N, X) :-
-   for(N),
-   call(X), fail.
+:- meta_predicate test(?, 0).
+test(N, X) :- for(N), call(X), fail.
 test(_, _).
 
 show(T, G) :-
@@ -49,7 +44,7 @@ show(T, G) :-
    write(G),
    write(' gc) ms'), nl.
 
-:- meta_predicate bench(?,0,?,?).
+:- meta_predicate bench(?, 0, ?, ?).
 bench(M, X, T, G) :-
    uptime(T1),
    gctime(G1),
