@@ -52,13 +52,9 @@
 :- endif.
 
 :- module(templa, [property/9, thing/6, aggr_noun/4,
-      
       meta_noun/7, trans/9, intrans/6,
-      
       restriction/4, attribute/6, aggr_adj/4,
-      
       adjunction/4, measure/4, units/2,
-      
       chat_sign/2, comparator/5, name_template/2]).
 :- use_module('../database/chatops').
 :- use_module('../database/world0').
@@ -120,7 +116,6 @@ intrans(flow, feature&river, X, flows(X, Y),
    [slot(prep(through), feature&place&_, Y, _, free)], _).
 intrans(flow, feature&river, X, flows(X, Y, Z),
    [slot(prep(into), feature&place&_, Z, _, free),
-   
    slot(prep(from), feature&place&_, Y, _, free)], _).
 intrans(rise, feature&river, X, rises(X, Y),
    [slot(prep(in), feature&place&_, Y, _, free)], _).

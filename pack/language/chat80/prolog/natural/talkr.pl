@@ -52,7 +52,6 @@
 :- endif.
 
 :- module(talkr, [write_tree/1, answer/1, satisfy/4,
-      
       answer/2, check_answer/3]).
 
 :- current_prolog_flag(dialect, jekejeke)
