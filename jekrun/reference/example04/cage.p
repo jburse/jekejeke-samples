@@ -42,14 +42,12 @@
 
 adults(0, 1) :- !.
 adults(N, X) :-
-   N > 0,
-   M is N-1,
+   N > 0, M is N-1,
    adults(M, Y),
    babies(M, Z),
    X is Y+Z.
 
-year(X) :-
-   adults(12, X).
+year(X) :- adults(12, X).
 
 % ?- year(X).
 % X = 233

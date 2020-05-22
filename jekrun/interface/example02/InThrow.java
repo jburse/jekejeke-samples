@@ -7,9 +7,6 @@ import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermCompound;
 
-import java.io.IOException;
-import java.io.Writer;
-
 /**
  * <p>Java code for the Call-in Exception Handling example.</p>
  * <p/>
@@ -44,37 +41,38 @@ import java.io.Writer;
 public final class InThrow {
 
     /**
-     * <p>Runtime library variant of executing the example.</p>
+     * Consult the code that throws a ball and invoke it.
+     * Expected output:
      *
-     * @param args The command line arguments.
-     * @throws InterpreterException Exception in Jekejeke Prolog execution.
-     * @throws InterpreterMessage   Message in Jekejeke Prolog execution.
-     * @throws IOException          Problem writing to current output.
+     * 123
+     *
+     * @param args Not used.
+     * @throws InterpreterException Shit happens.
+     * @throws InterpreterMessage   Shit happens.
      */
     public static void main(String[] args) throws InterpreterMessage,
-            InterpreterException, IOException {
+            InterpreterException {
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
-        inter.setProperty(ToolkitLibrary.PROP_BASE_URL,
-                "/Projects/Jekejeke/Prototyping/samples/jekrun/interface/");
-        Object consultGoal = inter.parseTerm("consult('example02/throwin.p')");
-        inter.iterator(consultGoal).next().close();
-
         try {
-            Object throwGoal = "throw_ball";
-            inter.iterator(throwGoal).next().close();
-        } catch (InterpreterException capturedException) {
-            Object exceptionTerm = capturedException.getValue();
-            if (exceptionTerm instanceof TermCompound &&
-                    ((TermCompound) exceptionTerm).getArity() == 1 &&
-                    ((TermCompound) exceptionTerm).getFunctor().equals("ball")) {
-                Writer wr = (Writer)
-                        inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-                wr.write(inter.unparseTerm(((TermCompound) exceptionTerm).getArgWrapped(0)));
-                wr.write('\n');
-                wr.flush();
+            Knowledgebase.initKnowledgebase(inter);
+            Object consultGoal = inter.parseTerm("consult(example02/throwin)");
+            inter.iterator(consultGoal).next().close();
+
+            try {
+                Object throwGoal = "throw_ball";
+                inter.iterator(throwGoal).next().close();
+            } catch (InterpreterException capturedException) {
+                Object exceptionTerm = capturedException.getValue();
+                if (exceptionTerm instanceof TermCompound &&
+                        ((TermCompound) exceptionTerm).getArity() == 1 &&
+                        ((TermCompound) exceptionTerm).getFunctor().equals("ball")) {
+                    System.out.println(inter.unparseTerm(((TermCompound) exceptionTerm).getArgWrapped(0)));
+                }
             }
+        } finally {
+            know.finiKnowledgebase();
         }
     }
+
 }

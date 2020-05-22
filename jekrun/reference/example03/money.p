@@ -35,19 +35,18 @@
 
 % oneof(+List,-Elem,-List)
 oneof([X|Y], X, Y).
-oneof([X|Y], Z, [X|T]) :-
-   oneof(Y, Z, T).
+oneof([X|Y], Z, [X|T]) :- oneof(Y, Z, T).
 
 % assign(-List,+List)
 assign([], _).
-assign([X|Y], L) :-
-   oneof(L, X, R),
-   assign(Y, R).
+assign([X|Y], L) :- oneof(L, X, R), assign(Y, R).
 
 % puzzle(-List)
 puzzle(X) :-
-   X = [S,E,N,D,M,O,R,Y],
-   assign(X, [0,1,2,3,4,5,6,7,8,9]),
+   X = [S, E, N, D, M, O, R, Y],
+   assign(X, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
    M =\= 0,
    S =\= 0,
-   1000*S+100*E+10*N+D+1000*M+100*O+10*R+E =:= 10000*M+1000*O+100*N+10*E+Y.
+   1000*S+100*E+10*N+D+
+      1000*M+100*O+10*R+E =:=
+      10000*M+1000*O+100*N+10*E+Y.

@@ -36,12 +36,6 @@ public final class Mutex {
     private boolean locked;
 
     /**
-     * <p>Create a new mutex.</p>
-     */
-    public Mutex() {
-    }
-
-    /**
      * <p>Acquire the lock.</p>
      * <p>Acquiring a lock is not reentrant, the current implementation
      * is simple, we do not keep a counter, only a flag. So when the

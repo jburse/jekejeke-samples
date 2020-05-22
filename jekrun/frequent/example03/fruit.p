@@ -32,17 +32,15 @@
 
 :- use_module(library(standard/dcg)).
 
-:- meta_predicate repetition(2,?,?).
-repetition(G) --> G,
-   repetition(G).
+:- meta_predicate repetition(2, ?, ?).
+repetition(G) --> G, repetition(G).
 repetition(_) --> [].
 
 fruit --> "apple".
 fruit --> "orange".
 fruit --> "pear".
 
-fruits --> fruit,
-   repetition((  ",", fruit)).
+fruits --> fruit, repetition((",", fruit)).
 
 % ?- phrase(fruits,"appleorange").
 % No

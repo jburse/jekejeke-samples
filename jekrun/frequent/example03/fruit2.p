@@ -33,20 +33,15 @@
 :- use_module(library(experiment/abstract)).
 :- use_module(library(standard/dcg)).
 
-:- meta_predicate repetition(3,?,?,?).
-repetition(G, [X|Y]) -->
-   call(G, X),
-   repetition(G, Y).
+:- meta_predicate repetition(3, ?, ?, ?).
+repetition(G, [X|Y]) --> call(G, X), repetition(G, Y).
 repetition(_, []) --> [].
 
 fruit(apple) --> "apple".
 fruit(orange) --> "orange".
 fruit(pear) --> "pear".
 
-fruits([X|Y]) -->
-   fruit(X),
-   repetition(Z \ (  ",",
-                     fruit(Z)), Y).
+fruits([X|Y]) --> fruit(X), repetition(Z\(",", fruit(Z)), Y).
 
 % ?- phrase(fruits(L),"appleorange").
 % No

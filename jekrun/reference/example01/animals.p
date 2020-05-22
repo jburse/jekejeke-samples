@@ -34,28 +34,14 @@ motion(walk).
 skin(fur).
 diet(meat).
 
-class(mamal) :-
-   motion(walk),
-   skin(fur).
-class(fish) :-
-   motion(swim),
-   skin(scale).
-class(bird) :-
-   motion(fly),
-   skin(feather).
+class(mamal) :- motion(walk), skin(fur).
+class(fish) :- motion(swim), skin(scale).
+class(bird) :- motion(fly), skin(feather).
 
-animal(rodent) :-
-   class(mamal),
-   diet(plant).
-animal(cat) :-
-   class(mamal),
-   diet(meat).
-animal(salmon) :-
-   class(fish),
-   diet(meat).
-animal(eagle) :-
-   class(bird),
-   diet(meat).
+animal(rodent) :- class(mamal), diet(plant).
+animal(cat) :- class(mamal), diet(meat).
+animal(salmon) :- class(fish), diet(meat).
+animal(eagle) :- class(bird), diet(meat).
 
 % ?- animal(X)
 % X = cat ;

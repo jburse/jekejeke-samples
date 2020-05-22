@@ -40,8 +40,7 @@
 
 perfect2(X) :-
    Y is X//2,
-   aggregate_all(sum(Z), (  between(1, Y, Z),
-                            X rem Z =:= 0), X).
+   aggregate_all(sum(Z), (between(1, Y, Z), X rem Z =:= 0), X).
 
 %%% single CPU
 % ?- use_module(library(advanced/arith)).

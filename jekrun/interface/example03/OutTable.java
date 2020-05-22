@@ -6,9 +6,9 @@ import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -43,13 +43,13 @@ import java.util.Vector;
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public final class OutTable {
-    static Vector<String> employees = new Vector<String>();
+    static ArrayList<String> employees = new ArrayList<String>();
 
     static {
-        employees.addElement("bundy");
-        employees.addElement("canby");
-        employees.addElement("ozias");
-        employees.addElement("watson");
+        employees.add("bundy");
+        employees.add("canby");
+        employees.add("ozias");
+        employees.add("watson");
     }
 
     /**
@@ -59,53 +59,59 @@ public final class OutTable {
      * @return The employee, or null.
      */
     public static String employee(CallOut co) {
-        Enumeration<String> elements;
+        Iterator<String> elements;
         if (co.getFirst()) {
-            elements = employees.elements();
+            elements = employees.iterator();
             co.setData(elements);
         } else {
-            elements = (Enumeration<String>) co.getData();
+            elements = (Iterator<String>) co.getData();
         }
-        if (elements.hasMoreElements()) {
+        if (elements.hasNext()) {
             co.setRetry(true);
-            return elements.nextElement();
+            return elements.next();
         } else {
             return null;
         }
     }
 
     /**
-     * <p>Runtime library variant of executing the example.</p>
+     * Define a Java foreign predicate and invoke it.
+     * Expected output:
      *
-     * @param args The command line arguments.
-     * @throws InterpreterException Exception in Jekejeke Prolog execution.
-     * @throws InterpreterMessage   Message in Jekejeke Prolog execution.
-     * @throws IOException          Problem writing to current output.
+     * bundy
+     * canby
+     * ozias
+     * watson
+     *
+     * @param args Not used.
+     * @throws InterpreterException Shit happens.
+     * @throws InterpreterMessage   Shit happens.
      */
     public static void main(String[] args) throws InterpreterException,
-            InterpreterMessage, IOException {
+            InterpreterMessage {
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
+        try {
+            Knowledgebase.initKnowledgebase(inter);
 
-        Object foreignGoal = inter.parseTerm("use_package(foreign(" +
-                "jekpro/tools/call))");
-        inter.iterator(foreignGoal).next().close();
+            Object foreignGoal = inter.parseTerm("use_package(foreign(" +
+                    "jekpro/tools/call))");
+            inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = inter.parseTerm("foreign(employee/1, " +
-                "'example03.OutTable', employee('CallOut'))");
-        inter.iterator(foreignGoal).next().close();
+            foreignGoal = inter.parseTerm("foreign(employee/1, " +
+                    "'example03.OutTable', employee('CallOut'))");
+            inter.iterator(foreignGoal).next().close();
 
-        TermVar employeeVar = new TermVar();
-        TermCompound employeeGoal = new TermCompound("employee", employeeVar);
+            TermVar employeeVar = new TermVar();
+            TermCompound employeeGoal = new TermCompound("employee", employeeVar);
 
-        Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-        CallIn callin = inter.iterator(employeeGoal);
-        while (callin.hasNext()) {
-            callin.next();
-            wr.write(inter.unparseTerm(employeeVar));
-            wr.write('\n');
-            wr.flush();
+            CallIn callin = inter.iterator(employeeGoal);
+            while (callin.hasNext()) {
+                callin.next();
+                System.out.println(inter.unparseTerm(employeeVar));
+            }
+        } finally {
+            know.finiKnowledgebase();
         }
     }
 

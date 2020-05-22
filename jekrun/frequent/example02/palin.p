@@ -32,14 +32,9 @@
 
 :- use_module(library(standard/dcg)).
 
-palin -->
-   [_].
-palin -->
-   [Middle,
-    Middle].
-palin -->
-   [Border], palin,
-   [Border].
+palin --> [_].
+palin --> [Middle, Middle].
+palin --> [Border], palin, [Border].
 
 % ?- phrase(palin, "racecar").
 % Yes

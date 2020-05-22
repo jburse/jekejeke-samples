@@ -10,9 +10,6 @@ import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
 
-import java.io.IOException;
-import java.io.Writer;
-
 /**
  * <p>Java code for the Call-out Call-in Solution Counter example.</p>
  * <p/>
@@ -67,47 +64,50 @@ public class OutInCount {
     }
 
     /**
-     * <p>Runtime library variant of executing the example.</p>
+     * Define a Java foreign predicate and count it.
+     * Expected output:
      *
-     * @param args The command line arguments.
-     * @throws InterpreterException Exception in Jekejeke Prolog execution.
-     * @throws InterpreterMessage   Message in Jekejeke Prolog execution.
-     * @throws IOException          Problem writing to current output.
+     * 4
+     *
+     * @param args Not used.
+     * @throws InterpreterException Shit happens.
+     * @throws InterpreterMessage   Shit happens.
      */
     public static void main(String[] args) throws InterpreterException,
-            InterpreterMessage, IOException {
+            InterpreterMessage {
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
+        try {
+            Knowledgebase.initKnowledgebase(inter);
 
-        Object foreignGoal = inter.parseTerm("use_package(foreign(" +
-                "jekpro/tools/call))");
-        inter.iterator(foreignGoal).next().close();
+            Object foreignGoal = inter.parseTerm("use_package(foreign(" +
+                    "jekpro/tools/call))");
+            inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = inter.parseTerm("use_package(foreign(" +
-                "jekpro/tools/term))");
-        inter.iterator(foreignGoal).next().close();
+            foreignGoal = inter.parseTerm("use_package(foreign(" +
+                    "jekpro/tools/term))");
+            inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = inter.parseTerm("foreign(employee/1, " +
-                "'example03.OutTable', employee('CallOut'))");
-        inter.iterator(foreignGoal).next().close();
+            foreignGoal = inter.parseTerm("foreign(employee/1, " +
+                    "'example03.OutTable', employee('CallOut'))");
+            inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = inter.parseTerm("foreign(count/2, " +
-                "'example04.OutInCount', count('Interpreter', 'AbstractTerm'))");
-        inter.iterator(foreignGoal).next().close();
+            foreignGoal = inter.parseTerm("foreign(count/2, " +
+                    "'example04.OutInCount', count('Interpreter', 'AbstractTerm'))");
+            inter.iterator(foreignGoal).next().close();
 
-        TermVar employeeVar = new TermVar();
-        TermCompound employeeGoal = new TermCompound("employee", employeeVar);
-        TermVar countVar = new TermVar();
-        TermCompound countGoal = new TermCompound(inter, "count", employeeGoal, countVar);
+            TermVar employeeVar = new TermVar();
+            TermCompound employeeGoal = new TermCompound("employee", employeeVar);
+            TermVar countVar = new TermVar();
+            TermCompound countGoal = new TermCompound(inter, "count", employeeGoal, countVar);
 
-        Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-        CallIn callin = inter.iterator(countGoal);
-        callin.next();
-        wr.write(inter.unparseTerm(countVar));
-        wr.write('\n');
-        wr.flush();
-        callin.close();
+            CallIn callin = inter.iterator(countGoal);
+            callin.next();
+            System.out.println(inter.unparseTerm(countVar));
+            callin.close();
+        } finally {
+            know.finiKnowledgebase();
+        }
     }
 
 }

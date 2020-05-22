@@ -43,8 +43,7 @@
 
 adults(0, 1) :- !.
 adults(N, X) :-
-   N > 0,
-   M is N-1,
+   N > 0, M is N-1,
    adults(M, Y),
    both/nest2:babies(M, Z),
    X is Y+Z.
@@ -55,11 +54,9 @@ adults(N, X) :-
 
 babies(0, 0) :- !.
 babies(N, X) :-
-   N > 0,
-   M is N-1,
+   N > 0, M is N-1,
    both/cage2:adults(M, X).
 
 :- end_module.
 
-year2(X) :-
-   both/cage2:adults(12, X).
+year2(X) :- both/cage2:adults(12, X).

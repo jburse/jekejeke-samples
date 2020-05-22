@@ -45,56 +45,74 @@ import java.io.Writer;
  */
 public final class Combine {
 
+    /*
+     * Consult some data and run two queries interleaved.
+     * Expected output:
+     *
+     * p(a).
+     * q(1).
+     * p(b).
+     * q(2).
+     * p(c).
+     * p(d).
+     *
+     * @param args Not used.
+     * @throws InterpreterException Shit happens.
+     * @throws InterpreterMessage   Shit happens.
+     */
     public static void main(String[] args)
             throws InterpreterMessage, InterpreterException, IOException {
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
-        Interpreter inter2 = inter.iterable();
-        Knowledgebase.initKnowledgebase(inter);
-        inter.setProperty(ToolkitLibrary.PROP_BASE_URL,
-                "/Projects/Jekejeke/Prototyping/samples/jekrun/interface/");
-        Object consultGoal = inter.parseTerm("consult('example07/data.p')");
-        inter.iterator(consultGoal).next().close();
+        try {
 
-        TermVar pVar = new TermVar();
-        TermCompound pGoal = new TermCompound("p", pVar);
+            Interpreter inter2 = inter.iterable();
+            Knowledgebase.initKnowledgebase(inter);
+            Object consultGoal = inter.parseTerm("consult(example07/data)");
+            inter.iterator(consultGoal).next().close();
 
-        TermVar qVar = new TermVar();
-        TermCompound qGoal = new TermCompound("q", qVar);
+            TermVar pVar = new TermVar();
+            TermCompound pGoal = new TermCompound("p", pVar);
 
-        Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-        CallIn callin = inter.iterator(pGoal);
-        CallIn callin2 = inter2.iterator(qGoal);
-        boolean flip = true;
-        while (callin.hasNext() && callin2.hasNext()) {
-            if (flip) {
+            TermVar qVar = new TermVar();
+            TermCompound qGoal = new TermCompound("q", qVar);
+
+            Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
+            CallIn callin = inter.iterator(pGoal);
+            CallIn callin2 = inter2.iterator(qGoal);
+            boolean flip = true;
+            while (callin.hasNext() && callin2.hasNext()) {
+                if (flip) {
+                    callin.next();
+                    wr.write("p(");
+                    wr.write(inter.unparseTerm(pVar));
+                    wr.write(").\n");
+                    wr.flush();
+                } else {
+                    callin2.next();
+                    wr.write("q(");
+                    wr.write(inter.unparseTerm(qVar));
+                    wr.write(").\n");
+                    wr.flush();
+                }
+                flip = !flip;
+            }
+            while (callin.hasNext()) {
                 callin.next();
                 wr.write("p(");
                 wr.write(inter.unparseTerm(pVar));
                 wr.write(").\n");
                 wr.flush();
-            } else {
+            }
+            while (callin2.hasNext()) {
                 callin2.next();
                 wr.write("q(");
                 wr.write(inter.unparseTerm(qVar));
                 wr.write(").\n");
                 wr.flush();
             }
-            flip = !flip;
-        }
-        while (callin.hasNext()) {
-            callin.next();
-            wr.write("p(");
-            wr.write(inter.unparseTerm(pVar));
-            wr.write(").\n");
-            wr.flush();
-        }
-        while (callin2.hasNext()) {
-            callin2.next();
-            wr.write("q(");
-            wr.write(inter.unparseTerm(qVar));
-            wr.write(").\n");
-            wr.flush();
+        } finally {
+            know.finiKnowledgebase();
         }
     }
 

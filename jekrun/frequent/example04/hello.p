@@ -34,6 +34,7 @@
 
 :- module(hello, []).
 :- reexport(library(misc/http)).
+:- use_module(library(stream/xml)).
 
 /**
  * dispatch(O, P, R, S):
@@ -69,8 +70,9 @@ handle_hello(Name, Session) :-
 % send_hello(+Atom, +Socket)
 :- private send_hello/2.
 send_hello(Name, Response) :-
-   response_text(200, ['Content-Type'-'text/html; charset=UTF-8'], Response),
-   atom_split(Title, ' ', ['Hello',Name]),
+   response_text(200, ['Content-Type'-
+      'text/html; charset=UTF-8'], Response),
+   atom_split(Title, ' ', ['Hello', Name]),
    html_begin(Response, Title),
    write(Response, '  <center><img src="piglet.gif">\r\n'),
    write(Response, '<h1>Happy New Year 2019, '),
@@ -86,9 +88,7 @@ html_begin(Response, Title) :-
    write(Response, '  <head>\r\n'),
    write(Response, '      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\r\n'),
    write(Response, '      <meta name="viewport" content="width=device-width, initial-scale=1.0">\r\n'),
-   write(Response, '      <title>'),
-   html_escape(Response, Title),
-   write(Response, '</title>\r\n'),
+   write(Response, '      <title>'), html_escape(Response, Title), write(Response, '</title>\r\n'),
    write(Response, '  </head>\r\n'),
    write(Response, '  <body>\r\n').
 

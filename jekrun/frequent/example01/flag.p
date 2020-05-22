@@ -33,25 +33,23 @@
 :- use_module(library(experiment/abstract)).
 
 % between(+Integer,+Integer,-Integer)
-between(Lo, Hi, _) :-
-   Lo > Hi, !, fail.
+between(Lo, Hi, _) :- Lo > Hi, !, fail.
 between(Lo, _, Lo).
-between(Lo, Hi, X) :-
-   Lo2 is Lo+1,
-   between(Lo2, Hi, X).
+between(Lo, Hi, X) :- Lo2 is Lo+1, between(Lo2, Hi, X).
 
 % for1(+Integer, +Integer, +Closure)
-:- meta_predicate for1(?,?,1).
+:- meta_predicate for1(?, ?, 1).
 for1(Lo, Hi, Closure) :-
    between(Lo, Hi, Value),
-   call(Closure, Value), fail.
+   call(Closure, Value),
+   fail.
 for1(_, _, _).
 
 % flag
 flag :-
-   for1(1, 8, X \ (  for1(1, 8, Y \ (  0 =:= (X+Y)mod 2
-                                    -> write(x)
-                                    ;  write(o))), nl)).
+   for1(1, 8, X\
+      (for1(1, 8, Y\
+         (0 =:= (X+Y)mod 2 -> write(x); write(o))), nl)).
 
 % ?- flag.
 % xoxoxoxo

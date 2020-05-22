@@ -34,15 +34,12 @@
 
 :- package(library(example06)).
 
-:- module(dog, [bark/1,barking/2]).
+:- module(dog, [bark/1, barking/2]).
 
 bark(Self) :-
    arg(1, Self, Name),
    Self::barking(Barking),
-   write(Name),
-   write(' says '),
-   write(Barking),
-   write('.'), nl.
+   write(Name), write(' says '), write(Barking), write('.'), nl.
 
 barking(_, ruff).
 

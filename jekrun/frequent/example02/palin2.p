@@ -35,12 +35,9 @@
 palin([], [Middle]) -->
    [Middle].
 palin([Middle], []) -->
-   [Middle,
-    Middle].
+   [Middle, Middle].
 palin([Border|List], Middle) -->
-   [Border],
-   palin(List, Middle),
-   [Border].
+   [Border], palin(List, Middle), [Border].
 
 % ?- phrase(palin(X1, Y1), "racecar").
 % X1 = [114, 97, 99],

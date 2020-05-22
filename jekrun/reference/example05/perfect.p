@@ -39,8 +39,7 @@
 
 perfect(X) :-
    Y is X//2,
-   findall(Z, (  between(1, Y, Z),
-                 X rem Z =:= 0), L),
+   findall(Z, (between(1, Y, Z), X rem Z =:= 0), L),
    sum_list(L, 0, X).
 
 sum_list([], S, S).

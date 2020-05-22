@@ -42,6 +42,5 @@
 
 babies(0, 0) :- !.
 babies(N, X) :-
-   N > 0,
-   M is N-1,
+   N > 0, M is N-1,
    adults(M, X).

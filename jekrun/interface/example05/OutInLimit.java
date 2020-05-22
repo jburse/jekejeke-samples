@@ -7,9 +7,6 @@ import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
 
-import java.io.IOException;
-import java.io.Writer;
-
 /**
  * <p>Java code for the Call-out Call-in Solution Limiter example.</p>
  * <p/>
@@ -98,77 +95,82 @@ public class OutInLimit {
     }
 
     /**
-     * <p>Runtime library variant of executing the example.</p>
+     * Define a Java foreign predicate and limit it.
+     * Expected output:
      *
-     * @param args The command line arguments.
-     * @throws InterpreterException Exception in Jekejeke Prolog execution.
-     * @throws InterpreterMessage   Message in Jekejeke Prolog execution.
-     * @throws IOException          Problem writing to current output.
+     * bundy
+     * canby
+     * ozias
+     *
+     * bundy
+     *
+     * bundy
+     * canby
+     * ozias
+     * watson
+     *
+     * @param args Not used.
+     * @throws InterpreterException Shit happens.
+     * @throws InterpreterMessage   Shit happens.
      */
     public static void main(String[] args) throws InterpreterException,
-            InterpreterMessage, IOException {
+            InterpreterMessage {
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
+        try {
+            Knowledgebase.initKnowledgebase(inter);
 
-        Object foreignGoal = inter.parseTerm("use_package(foreign(" +
-                "jekpro/tools/call))");
-        inter.iterator(foreignGoal).next().close();
+            Object foreignGoal = inter.parseTerm("use_package(foreign(" +
+                    "jekpro/tools/call))");
+            inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = inter.parseTerm("use_package(foreign(" +
-                "jekpro/tools/term))");
-        inter.iterator(foreignGoal).next().close();
+            foreignGoal = inter.parseTerm("use_package(foreign(" +
+                    "jekpro/tools/term))");
+            inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = inter.parseTerm("foreign(employee/1, " +
-                "'example03.OutTable', employee('CallOut'))");
-        inter.iterator(foreignGoal).next().close();
+            foreignGoal = inter.parseTerm("foreign(employee/1, " +
+                    "'example03.OutTable', employee('CallOut'))");
+            inter.iterator(foreignGoal).next().close();
 
-        foreignGoal = inter.parseTerm("foreign(limit/2, " +
-                "'example05.OutInLimit', limit('Interpreter', 'CallOut'," +
-                "'AbstractTerm', 'int'))");
-        inter.iterator(foreignGoal).next().close();
+            foreignGoal = inter.parseTerm("foreign(limit/2, " +
+                    "'example05.OutInLimit', limit('Interpreter', 'CallOut'," +
+                    "'AbstractTerm', 'int'))");
+            inter.iterator(foreignGoal).next().close();
 
-        TermVar employeeVar = new TermVar();
-        TermCompound employeeGoal = new TermCompound("employee", employeeVar);
-        TermCompound limitGoal = new TermCompound("limit", employeeGoal, 3);
+            TermVar employeeVar = new TermVar();
+            TermCompound employeeGoal = new TermCompound("employee", employeeVar);
+            TermCompound limitGoal = new TermCompound("limit", employeeGoal, 3);
 
-        Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-        CallIn callin = inter.iterator(limitGoal);
-        while (callin.hasNext()) {
+            CallIn callin = inter.iterator(limitGoal);
+            while (callin.hasNext()) {
+                callin.next();
+                System.out.println(inter.unparseTerm(employeeVar));
+            }
+
+            System.out.println();
+
+            employeeVar = new TermVar();
+            employeeGoal = new TermCompound("employee", employeeVar);
+            limitGoal = new TermCompound("limit", employeeGoal, 4);
+            callin = inter.iterator(limitGoal);
             callin.next();
-            wr.write(inter.unparseTerm(employeeVar));
-            wr.write('\n');
-            wr.flush();
+            System.out.println(inter.unparseTerm(employeeVar));
+            callin.close();
+
+            System.out.println();
+
+            employeeVar = new TermVar();
+            employeeGoal = new TermCompound("employee", employeeVar);
+            limitGoal = new TermCompound("limit", employeeGoal, 6);
+
+            callin = inter.iterator(limitGoal);
+            while (callin.hasNext()) {
+                callin.next();
+                System.out.println(inter.unparseTerm(employeeVar));
+            }
+        } finally {
+            know.finiKnowledgebase();
         }
-
-        wr.write('\n');
-        wr.flush();
-
-        employeeVar = new TermVar();
-        employeeGoal = new TermCompound("employee", employeeVar);
-        limitGoal = new TermCompound("limit", employeeGoal, 4);
-        callin = inter.iterator(limitGoal);
-        callin.next();
-        wr.write(inter.unparseTerm(employeeVar));
-        wr.write('\n');
-        wr.flush();
-        callin.close();
-
-        wr.write('\n');
-        wr.flush();
-
-        employeeVar = new TermVar();
-        employeeGoal = new TermCompound("employee", employeeVar);
-        limitGoal = new TermCompound("limit", employeeGoal, 6);
-
-        callin = inter.iterator(limitGoal);
-        while (callin.hasNext()) {
-            callin.next();
-            wr.write(inter.unparseTerm(employeeVar));
-            wr.write('\n');
-            wr.flush();
-        }
-
     }
 
 }

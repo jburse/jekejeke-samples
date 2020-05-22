@@ -10,7 +10,6 @@ import jekpro.tools.term.TermCompound;
 import jekpro.tools.term.TermVar;
 
 import java.io.IOException;
-import java.io.Writer;
 
 /**
  * <p>Java code for the Call-in Employees Table example.</p>
@@ -46,33 +45,37 @@ import java.io.Writer;
 public final class InTable {
 
     /**
-     * <p>Runtime library variant of executing the example.</p>
+     * Consult the employees table and list the entries.
+     * Expected output:
      *
-     * @param args The command line arguments.
-     * @throws InterpreterException Exception in Jekejeke Prolog execution.
-     * @throws InterpreterMessage   Message in Jekejeke Prolog execution.
-     * @throws IOException          Problem writing to current output.
+     * bundy
+     * canby
+     * ozias
+     * watson
+     *
+     * @param args Not used.
+     * @throws InterpreterException Shit happens.
+     * @throws InterpreterMessage   Shit happens.
      */
     public static void main(String[] args)
-            throws InterpreterException, InterpreterMessage, IOException {
+            throws InterpreterException, InterpreterMessage {
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
-        Knowledgebase.initKnowledgebase(inter);
-        inter.setProperty(ToolkitLibrary.PROP_BASE_URL,
-                "/Projects/Jekejeke/Prototyping/samples/jekrun/interface/");
-        Object consultGoal = inter.parseTerm("consult('example01/tablein.p')");
-        inter.iterator(consultGoal).next().close();
+        try {
+            Knowledgebase.initKnowledgebase(inter);
+            Object consultGoal = inter.parseTerm("consult(example01/tablein)");
+            inter.iterator(consultGoal).next().close();
 
-        TermVar employeeVar = new TermVar();
-        TermCompound employeeGoal = new TermCompound("employee", employeeVar);
+            TermVar employeeVar = new TermVar();
+            TermCompound employeeGoal = new TermCompound("employee", employeeVar);
 
-        Writer wr = (Writer) inter.getProperty(ToolkitLibrary.PROP_SYS_CUR_OUTPUT);
-        CallIn callin = inter.iterator(employeeGoal);
-        while (callin.hasNext()) {
-            callin.next();
-            wr.write(inter.unparseTerm(employeeVar));
-            wr.write('\n');
-            wr.flush();
+            CallIn callin = inter.iterator(employeeGoal);
+            while (callin.hasNext()) {
+                callin.next();
+                System.out.println(inter.unparseTerm(employeeVar));
+            }
+        } finally {
+            know.finiKnowledgebase();
         }
     }
 
