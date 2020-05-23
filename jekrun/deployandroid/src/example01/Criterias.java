@@ -1,4 +1,4 @@
-package example07;
+package example01;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -62,6 +62,7 @@ public final class Criterias extends Activity implements View.OnClickListener {
         super.onCreate(bundle);
 
         TextView labelname = new TextView(this);
+        labelname.setTextAppearance(this, android.R.style.TextAppearance_Medium);
         labelname.setText("Name:");
         TableRow.LayoutParams layoutparams = new TableRow.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -93,6 +94,7 @@ public final class Criterias extends Activity implements View.OnClickListener {
         layout.addView(row, layoutparams3);
 
         TextView labelfromage = new TextView(this);
+        labelfromage.setTextAppearance(this, android.R.style.TextAppearance_Medium);
         labelfromage.setText("From Age:");
         layoutparams = new TableRow.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -119,6 +121,7 @@ public final class Criterias extends Activity implements View.OnClickListener {
         layout.addView(row, layoutparams3);
 
         TextView labeltoage = new TextView(this);
+        labeltoage.setTextAppearance(this, android.R.style.TextAppearance_Medium);
         labeltoage.setText("To Age:");
         layoutparams = new TableRow.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

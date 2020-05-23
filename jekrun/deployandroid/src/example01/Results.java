@@ -1,4 +1,4 @@
-package example07;
+package example01;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -104,7 +104,7 @@ public final class Results extends Activity implements View.OnClickListener {
         layout2.addView(close, layoutparams2);
 
         progress = new ProgressBar(this);
-        list = new ListView(Results.this);
+        list = new ListView(Results.this, null, 0, android.R.style.Widget_ListView_White);
 
         root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -135,7 +135,7 @@ public final class Results extends Activity implements View.OnClickListener {
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
             /* load the Prolog code */
-            Object consultGoal = inter.parseTerm("consult(library(example07/table))");
+            Object consultGoal = inter.parseTerm("consult(library(example01/table))");
             inter.iterator(consultGoal).next().close();
         } catch (InterpreterMessage x) {
             throw new RuntimeException(x);

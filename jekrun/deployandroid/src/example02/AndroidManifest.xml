@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--                                                                       -->
 <!-- Warranty & Liability                                                  -->
 <!-- To the extent permitted by applicable law and unless explicitly       -->
@@ -29,31 +29,36 @@
 <!-- Trademarks                                                            -->
 <!-- Jekejeke is a registered trademark of XLOG Technologies GmbH.         -->
 <!--                                                                       -->
-
-<!--
-                Sun Public License Notice
-
-The contents of this file are subject to the Sun Public License
-Version 1.0 (the "License"). You may not use this file except in
-compliance with the License. A copy of the License is available at
-http://www.sun.com/
-
-The Original Code is NetBeans. The Initial Developer of the Original
-Code is Sun Microsystems, Inc. Portions Copyright 1997-2000 Sun
-Microsystems, Inc. All Rights Reserved.
--->
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-         version="3.0">
-
-    <display-name>Deployment Study - Servlet</display-name>
-    <description>
-        The Web Application Deployment descriptor for the Java servlets.
-
-        Copyright 2011-2018, XLOG Technologies GmbH, Switzerland
-        Jekejeke Prolog 1.3.0 (a fast and small prolog interpreter)
-    </description>
-
-</web-app>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="mobile.foo.bar"
+      android:versionCode="10100"
+      android:versionName="1.1.0">
+    <supports-screens android:largeScreens="true"
+                      android:xlargeScreens="true"/>
+    <uses-sdk android:minSdkVersion="8"
+              android:targetSdkVersion="29"/>
+    <!--<uses-feature android:name="com.sec.feature.spen_usp"
+                  android:required="true"/ -->
+    <uses-feature
+            android:name="android.hardware.touchscreen"
+            android:required="false" />
+    <uses-feature
+            android:name="android.software.leanback"
+            android:required="true" />
+    <application android:label="@string/deployandroid"
+                 android:icon="@drawable/deployandroid_icon"
+                 android:banner="@drawable/deployandroid_banner">
+        <activity android:name="example01.Results"
+                  android:configChanges="screenSize|mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation"
+                  android:label="@string/deployandroid"
+                  android:theme="@style/BlackBackground">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="example01.Criterias"
+                  android:configChanges="screenSize|mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation">
+        </activity>
+    </application>
+</manifest>

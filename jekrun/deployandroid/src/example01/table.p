@@ -22,17 +22,19 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-
-:- use_module(library(system/thread)).
 
 % employee(Name, Age)
 employee('Иванов', 53).
 employee('Беляев', 53).
 employee('Fischer', 62).
-employee('Schmitt', 25) :-
-   thread_sleep(5000).
+employee('Schmitt', 25).
 employee('Βουτσάς', 22).
 

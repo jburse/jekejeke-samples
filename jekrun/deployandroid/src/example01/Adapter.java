@@ -1,4 +1,4 @@
-package example07;
+package example01;
 
 import android.view.Gravity;
 import android.view.View;
@@ -97,6 +97,7 @@ public final class Adapter extends BaseAdapter {
             for (int j = 0; j < cols.length; j++) {
                 String col = cols[j];
                 TextView text = new TextView(viewGroup.getContext());
+                text.setTextAppearance(viewGroup.getContext(), android.R.style.TextAppearance_Medium_Inverse);
                 LinearLayout.LayoutParams layoutparams2;
                 if (col.endsWith("#")) {
                     layoutparams2 = new LinearLayout.LayoutParams(
