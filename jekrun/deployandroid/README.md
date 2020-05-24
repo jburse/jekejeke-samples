@@ -9,7 +9,7 @@ table query. In this folder we have collected the Android tutorial examples.
 We provide the following tutorial examples:
 - [example01](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployandroid/src/example01/):
   The application consists of a graphical user interface for a mobile device.
-- [example02](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployandroid/src/example01/):
+- [example02](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployandroid/src/example02/):
   The application consists of a graphical user interface for a TV device.
 
 # Issues and Contributing
