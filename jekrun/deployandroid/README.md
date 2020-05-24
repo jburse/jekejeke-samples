@@ -4,7 +4,7 @@ We will show various methods how the Jekejeke Prolog runtime can
 be practically deployed. As a running example, we will use a dynamic
 table query. In this folder we have collected the Android tutorial examples.
 
-# Android Deployment
+# Deployment Methods Android
 
 We provide the following tutorial examples:
 - [example01](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployandroid/src/example01/):

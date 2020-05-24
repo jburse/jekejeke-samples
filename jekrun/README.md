@@ -12,7 +12,7 @@ that are from some tutorials or samples that perform some benchmark.
 
 The following samples have already been uploaded:
 - [deployandroid](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployandroid):
-  Android Deployment Method Example.
+  Deployment Methods Android Example.
 - [deployment](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployment):
   Deployment Methods Examples.
 

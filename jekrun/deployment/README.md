@@ -4,7 +4,7 @@ We will show various methods how the Jekejeke Prolog runtime can
 be practically deployed. As a running example, we will use a dynamic
 table query. In this folder we have collected the Swing tutorial examples.
 
-# Swing Deployment
+# Deployment Methods
 
 We provide the following tutorial examples:
 - [example01](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployment/example01/):
