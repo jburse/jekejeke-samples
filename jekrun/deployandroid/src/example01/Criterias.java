@@ -62,7 +62,8 @@ public final class Criterias extends Activity implements View.OnClickListener {
         super.onCreate(bundle);
 
         TextView labelname = new TextView(this);
-        labelname.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+        labelname.setTextAppearance(this,
+                  android.R.style.TextAppearance_Medium);
         labelname.setText("Name:");
         TableRow.LayoutParams layoutparams = new TableRow.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,

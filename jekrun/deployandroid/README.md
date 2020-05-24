@@ -7,8 +7,10 @@ table query. In this folder we have collected the Android tutorial examples.
 # Android Deployment
 
 We provide the following tutorial examples:
-- [example07](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployandroid/src/example07/):
+- [example01](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployandroid/src/example01/):
   The application consists of a graphical user interface for a mobile device.
+- [example02](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployandroid/src/example01/):
+  The application consists of a graphical user interface for a TV device.
 
 # Issues and Contributing
 
@@ -16,4 +18,4 @@ Feel free to fork for non-commercial attributed use. There is no warranty
 for the samples. You might try a pull request if you find issues, but
 there is also no service agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 18.09.2018 (updated 17.04.2020)
+Jan Burse, 18.09.2018 (updated 24.05.2020)
