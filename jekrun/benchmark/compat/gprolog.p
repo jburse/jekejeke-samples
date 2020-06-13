@@ -30,7 +30,7 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-% ?- consult('C:\\Projects\\Jekejeke\\Prototyping\\samples\\jekrun\\benchmark\\harness\\gprolog.p').
+% ?- consult('C:\\Projects\\Jekejeke\\Prototyping\\samples\\jekrun\\benchmark\\compat\\gprolog.p').
 
 uptime(X) :-
    real_time(X).
