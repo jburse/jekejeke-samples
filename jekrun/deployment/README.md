@@ -13,8 +13,6 @@ We provide the following tutorial examples:
   The application consists of a Swing frame.
 - [example03](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployment/example03/):
   The application consists of a Swing applet.
-- [example04](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployment/example04/):
-  The application consists of a Java server page.
 - [example05](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployment/example05/):
   The application consists of a graphical user interface that communicates with the Java server page.
 - [example06](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployment/example06/):
