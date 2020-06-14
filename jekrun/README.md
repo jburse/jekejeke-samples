@@ -11,8 +11,10 @@ that are from some tutorials or samples that perform some benchmark.
 # Deployment Samples
 
 The following samples have already been uploaded:
+- [deployweb](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployweb):
+  Deployment Methods Web Example.
 - [deployandroid](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployandroid):
-  Deployment Methods Android Example.
+  Deployment Methods Android Examples.
 - [deployment](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployment):
   Deployment Methods Examples.
 
