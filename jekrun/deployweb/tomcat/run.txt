@@ -1,0 +1,4 @@
+set CATALINA_HOME=D:\Software\Java2\apache-tomcat-8.5.15
+set JAVA_HOME=D:\Software\Java\jdk-8u251
+set CATALINA_OPTS=-Dorg.apache.jasper.compiler.Parser.STRICT_QUOTE_ESCAPING=false
+%CATALINA_HOME%\bin\catalina.bat run

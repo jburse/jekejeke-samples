@@ -1,4 +1,4 @@
-package example01;
+package example03;
 
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
@@ -7,7 +7,7 @@ import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.Knowledgebase;
 
 /**
- * <p>Java code for the data holder.</p>
+ * <p>Java code for the child2 holder.</p>
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -37,7 +37,7 @@ import jekpro.tools.term.Knowledgebase;
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-public final class Data {
+public final class Child2 {
     public static Knowledgebase know;
 
     /**
@@ -50,10 +50,10 @@ public final class Data {
             throws InterpreterMessage, InterpreterException {
         if (know != null)
             return;
-        synchronized(Data.class) {
+        synchronized(Child2.class) {
             if (know != null)
                 return;
-            know = new Knowledgebase(ToolkitLibrary.DEFAULT, Data.class);
+            know = new Knowledgebase(ToolkitLibrary.DEFAULT, Child2.class);
             /* setup the Prolog runtime */
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);

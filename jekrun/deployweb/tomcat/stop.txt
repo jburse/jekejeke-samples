@@ -1,0 +1,3 @@
+set CATALINA_HOME=D:\Software\Java2\apache-tomcat-8.5.15
+set JAVA_HOME=D:\Software\Java\jdk-8u251
+%CATALINA_HOME%\bin\shutdown.bat
