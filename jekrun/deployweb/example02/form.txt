@@ -115,20 +115,24 @@
             query.setSalaryFrom(salaryfrom);
             query.setSalaryTo(salaryto);
 
-            String[] cols = query.listColumnIdentifiers();
             jekpro.tools.term.TermVar[] vars = query.makeVars();
             Object queryTerm = query.makeQuery(vars);
             query.listRows(vars, queryTerm);
-            Object[][] rows = query.getRows();
+
 %><table border=1><%
 %><tr><%
+            /* flesh out the table headaer */
+            String[] cols = query.listColumnIdentifiers();
             for (int i = 0; i < cols.length; i++) {
 %><th><%=matula.util.system.ForeignXml.sysTextEscape(cols[i])%></th><%
             }
 %></tr><%
+
+            Object[][] rows = query.getRows();
             for (int j = 0; j < rows.length; j++) {
 %><tr><%
                 Object[] row = rows[j];
+                /* flesh out a table row */
                 for (int i = 0; i < row.length; i++) {
                     if (cols[i].endsWith("#")) {
 %><td align="right"><%=matula.util.system.ForeignXml.sysTextEscape(

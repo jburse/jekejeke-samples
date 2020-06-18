@@ -52,8 +52,8 @@ public final class Terminal {
      * @throws InterpreterMessage   Shit happens.
      * @throws IOException          Shit happens.
      */
-    public static void main(String[] args) throws InterpreterException,
-            InterpreterMessage, IOException {
+    public static void main(String[] args)
+            throws InterpreterException, InterpreterMessage, IOException {
         /* setup the Prolog runtime */
         Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
         Interpreter inter = know.iterable();
@@ -82,25 +82,28 @@ public final class Terminal {
             /* build and display the query */
             System.out.println();
             System.out.println("Query Term:");
-            String[] colids = query.listColumnIdentifiers();
+            String[] cols = query.listColumnIdentifiers();
             TermVar[] vars = query.makeVars();
             AbstractTerm queryTerm = query.makeQuery(vars);
-            Object opt=query.makeVariableNames(colids, vars);
+            Object opt = query.makeVariableNames(cols, vars);
             System.out.println(inter.unparseTerm(queryTerm, opt));
 
             /* execute the query and display the results */
             System.out.println();
             System.out.println("Result Table:");
-            for (int i = 0; i < colids.length; i++) {
+
+            /* flesh out the table header */
+            for (int i = 0; i < cols.length; i++) {
                 if (i != 0)
                     System.out.print('\t');
-                System.out.print(colids[i]);
+                System.out.print(cols[i]);
             }
             System.out.println();
 
             query.listRows(vars, queryTerm);
             Object[][] rows = query.getRows();
             for (int j = 0; j < rows.length; j++) {
+                /* flesh out a table row */
                 Object[] row = rows[j];
                 for (int i = 0; i < row.length; i++) {
                     if (i != 0)

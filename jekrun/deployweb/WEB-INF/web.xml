@@ -48,12 +48,22 @@ Microsystems, Inc. All Rights Reserved.
                       http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-    <display-name>Deployment Study - Servlet</display-name>
+    <display-name>Deployment Methods Web</display-name>
     <description>
         The Web Application Deployment descriptor for the Java servlets.
 
-        Copyright 2011-2018, XLOG Technologies GmbH, Switzerland
-        Jekejeke Prolog 1.3.0 (a fast and small prolog interpreter)
+        Copyright 2011-2020, XLOG Technologies GmbH, Switzerland
+        Jekejeke Prolog 1.4.5 (a fast and small prolog interpreter)
     </description>
+
+    <servlet>
+        <servlet-name>plain_servlet</servlet-name>
+        <servlet-class>example01.Plain</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>plain_servlet</servlet-name>
+        <url-pattern>/servlet/Plain</url-pattern>
+    </servlet-mapping>
 
 </web-app>
