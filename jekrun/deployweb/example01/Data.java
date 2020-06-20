@@ -8,7 +8,7 @@ import jekpro.tools.term.Knowledgebase;
 
 /**
  * <p>Java code for the data holder.</p>
- *
+ * <p>
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
@@ -38,22 +38,22 @@ import jekpro.tools.term.Knowledgebase;
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public final class Data {
-    public static Knowledgebase know;
+    private static Knowledgebase know;
 
     /**
      * <p>If necessary do set up of the knowledge base.</p>
      *
-     * @throws InterpreterMessage Initialization problem.
+     * @throws InterpreterMessage   Initialization problem.
      * @throws InterpreterException Initialization problem.
      */
-    public static void initKnowledgebase()
+    public static Knowledgebase getKnowledgebase()
             throws InterpreterMessage, InterpreterException {
         if (know != null)
-            return;
-        synchronized(Data.class) {
+            return know;
+        synchronized (Data.class) {
             if (know != null)
-                return;
-            know = new Knowledgebase(ToolkitLibrary.DEFAULT, Data.class);
+                return know;
+            know = new Knowledgebase(ToolkitLibrary.DEFAULT, Data.class.getClassLoader());
             /* setup the Prolog runtime */
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
@@ -61,6 +61,7 @@ public final class Data {
             Object consultGoal = inter.parseTerm("consult(library(example01/table))");
             inter.iterator(consultGoal).next().close();
         }
+        return know;
     }
 
 }

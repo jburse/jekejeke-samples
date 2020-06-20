@@ -29,7 +29,6 @@
 <!-- Trademarks                                                            -->
 <!-- Jekejeke is a registered trademark of XLOG Technologies GmbH.         -->
 <!--                                                                       -->
-
 <!--
                 Sun Public License Notice
 
@@ -63,7 +62,7 @@ Microsystems, Inc. All Rights Reserved.
 
     <servlet-mapping>
         <servlet-name>plain_servlet</servlet-name>
-        <url-pattern>/servlet/Plain</url-pattern>
+        <url-pattern>/servlet/example01.Plain</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -104,8 +104,8 @@
 <%
     if (request.getParameter("search") != null) {
         try {
-            example01.Data.initKnowledgebase();
-            jekpro.tools.call.Interpreter inter = example01.Data.know.iterable();
+            jekpro.tools.term.Knowledgebase know = example03.Child.getKnowledgebase();
+            jekpro.tools.call.Interpreter inter = know.iterable();
 
             example01.Query query = new example01.Query(inter);
             query.setFirstname(firstname);

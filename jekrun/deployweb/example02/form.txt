@@ -32,8 +32,8 @@
 <!--                                                                       -->
 <html>
 <head>
-  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-  <title>Deployment Study - Servlet</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Deployment Study - Servlet</title>
 </head>
 <body>
 <h1>Deployment Study - Servlet</h1>
@@ -104,8 +104,8 @@
 <%
     if (request.getParameter("search") != null) {
         try {
-            example01.Data.initKnowledgebase();
-            jekpro.tools.call.Interpreter inter = example01.Data.know.iterable();
+            jekpro.tools.term.Knowledgebase know = example01.Data.getKnowledgebase();
+            jekpro.tools.call.Interpreter inter = know.iterable();
 
             example01.Query query = new example01.Query(inter);
             query.setFirstname(firstname);

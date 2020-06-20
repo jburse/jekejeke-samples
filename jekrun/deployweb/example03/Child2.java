@@ -1,6 +1,5 @@
 package example03;
 
-import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
 import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
@@ -8,7 +7,7 @@ import jekpro.tools.term.Knowledgebase;
 
 /**
  * <p>Java code for the child2 holder.</p>
- *
+ * <p>
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
@@ -38,29 +37,31 @@ import jekpro.tools.term.Knowledgebase;
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public final class Child2 {
-    public static Knowledgebase know;
+    private static Knowledgebase know;
 
     /**
      * <p>If necessary do set up of the knowledge base.</p>
      *
-     * @throws InterpreterMessage Initialization problem.
+     * @throws InterpreterMessage   Initialization problem.
      * @throws InterpreterException Initialization problem.
      */
-    public static void initKnowledgebase()
+    public static Knowledgebase getKnowledgebase()
             throws InterpreterMessage, InterpreterException {
         if (know != null)
-            return;
-        synchronized(Child2.class) {
+            return know;
+        synchronized (Child2.class) {
             if (know != null)
-                return;
-            know = new Knowledgebase(ToolkitLibrary.DEFAULT, Child2.class);
-            /* setup the Prolog runtime */
+                return know;
+            Knowledgebase parent = Parent.getKnowledgebase();
+            know = new Knowledgebase(parent, Child2.class.getClassLoader());
+            /* setup the child */
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
             /* load the Prolog code */
-            Object consultGoal = inter.parseTerm("consult(library(example01/table))");
+            Object consultGoal = inter.parseTerm("consult(library(example03/table2))");
             inter.iterator(consultGoal).next().close();
         }
+        return know;
     }
 
 }

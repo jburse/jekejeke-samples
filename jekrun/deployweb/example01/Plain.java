@@ -1,6 +1,7 @@
 package example01;
 
 import jekpro.tools.call.Interpreter;
+import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
 
 import javax.servlet.http.HttpServlet;
@@ -61,10 +62,10 @@ public final class Plain extends HttpServlet {
         String salaryto = request.getParameter("salaryto");
         PrintWriter wr = response.getWriter();
         try {
-            Data.initKnowledgebase();
-            Interpreter inter = Data.know.iterable();
+            Knowledgebase know = Data.getKnowledgebase();
+            Interpreter inter = know.iterable();
 
-            Query query = new example01.Query(inter);
+            Query query = new Query(inter);
             query.setFirstname((firstname != null ? firstname : ""));
             query.setName((name != null ? name : ""));
             query.setAgeFrom((agefrom != null ? agefrom : ""));
