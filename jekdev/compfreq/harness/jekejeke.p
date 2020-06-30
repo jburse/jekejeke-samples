@@ -55,15 +55,6 @@ run_diagnose :-
 /* Report Generation                                                */
 /********************************************************************/
 
-% run_report
-run_report :-
-   set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/10_dev/15_stdy/08_compfreq/09_results/'),
-   result_batch('../../../../../../../repo/docs/10_dev/08_compfreq/'),
-   set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/10_dev/15_stdy/08_compfreq/09_results/'),
-   result_batch('../../../../../../../../repo/en/docs/10_dev/08_compfreq/').
-
 % run_summary
 run_summary :-
    set_prolog_flag(sys_locale, de),
@@ -73,3 +64,11 @@ run_summary :-
    set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/10_dev/15_stdy/08_compfreq/'),
    summary_batch(false).
 
+% run_report
+run_report :-
+   set_prolog_flag(sys_locale, de),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/10_dev/15_stdy/08_compfreq/09_results/'),
+   result_batch('../../../../../../../repo/docs/10_dev/08_compfreq/'),
+   set_prolog_flag(sys_locale, en),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/10_dev/15_stdy/08_compfreq/09_results/'),
+   result_batch('../../../../../../../../repo/en/docs/10_dev/08_compfreq/').

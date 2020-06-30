@@ -39,7 +39,7 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(advanced/aggregate)).
-:- use_module(library(advanced/arith)).
+:- use_module(library(standard/arith)).
 :- use_module(library(basic/lists)).
 :- use_module(library(arithmetic/ratio)).
 :- use_module(library(standard/approx)).
