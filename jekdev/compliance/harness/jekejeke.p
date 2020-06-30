@@ -47,21 +47,6 @@ run_test :-
    set_prolog_flag(base_url, '/Projects/Jekejeke/Prototyping/samples/jekdev/compliance/classes/stream'),
    time((runner_batch, nl)).
 
-% run_test_debug
-run_test_debug :-
-   write('% running test cases.'), nl,
-   set_prolog_flag(base_url, '/Projects/Jekejeke/Prototyping/samples/jekdev/compliance/classes/stream'),
-   time((runner_batch_debug, nl)).
-
-% run_test2
-run_test2 :-
-   write('% running test cases.'), nl,
-   make_directory('/files/classes/'),
-   make_directory('/files/classes/stream/'),
-   set_prolog_flag(base_url, '/files/classes/stream'),
-   %   time((runner_batch_debug, nl)).
-   time((runner_batch, nl)).
-
 % run_diagnose
 run_diagnose :-
    diagnose_online.
@@ -69,15 +54,6 @@ run_diagnose :-
 /********************************************************************/
 /* Report Generation                                                */
 /********************************************************************/
-
-% run_report
-run_report :-
-   set_prolog_flag(sys_locale, de),
-   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/10_dev/15_stdy/07_compliance/09_results/'),
-   result_batch('../../../../../../../repo/docs/10_dev/07_compliance/'),
-   set_prolog_flag(sys_locale, en),
-   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/09_results/'),
-   result_batch('../../../../../../../../repo/en/docs/10_dev/07_compliance/').
 
 % run_summary
 run_summary :-
@@ -88,5 +64,11 @@ run_summary :-
    set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/'),
    summary_batch(false).
 
-
-
+% run_report
+run_report :-
+   set_prolog_flag(sys_locale, de),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/docs/10_dev/15_stdy/07_compliance/09_results/'),
+   result_batch('../../../../../../../repo/docs/10_dev/07_compliance/'),
+   set_prolog_flag(sys_locale, en),
+   set_prolog_flag(base_url, '/D:/Projects/Shop/Prototyping3/webapps/idatab/prod/en/docs/10_dev/15_stdy/07_compliance/09_results/'),
+   result_batch('../../../../../../../../repo/en/docs/10_dev/07_compliance/').

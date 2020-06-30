@@ -38,7 +38,7 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(advanced/arith)).
+:- use_module(library(standard/arith)).
 
 /* numbervars(T, N, M) */
 

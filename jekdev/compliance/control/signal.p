@@ -43,6 +43,7 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(system/charsio)).
+:- use_module(library(advanced/signal)).
 
 /****************************************************************/
 /* Signal Handling                                              */

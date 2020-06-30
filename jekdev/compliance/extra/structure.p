@@ -84,7 +84,7 @@ runner:case(compare, 4, extra_structure, 'XLOG 1.1.1, XLOG 12') :-
 /* derived from callable/1 test cases. */
 runner:ref(reference, 1, extra_structure, 'XLOG 1.2.1').
 runner:case(reference, 1, extra_structure, 'XLOG 1.2.1, XLOG 1') :-
-   surrogate_new(R), reference(R).
+   current_input(R), reference(R).
 runner:case(reference, 1, extra_structure, 'XLOG 1.2.1, XLOG 2') :-
    \+ reference(3).
 runner:case(reference, 1, extra_structure, 'XLOG 1.2.1, XLOG 3') :-

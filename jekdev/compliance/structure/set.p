@@ -48,7 +48,7 @@
 :- use_module(library(basic/lists)).
 :- ensure_loaded('../harness/data').
 
-:- use_module(library(advanced/arith)).
+:- use_module(library(standard/arith)).
 
 /****************************************************************/
 /* Set Predicates                                               */

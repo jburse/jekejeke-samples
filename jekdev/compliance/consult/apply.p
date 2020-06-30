@@ -36,7 +36,7 @@
 
 :- use_package(library(jekdev/reference/testing)).
 
-:- use_module(library(advanced/arith)).
+:- use_module(library(standard/arith)).
 
 :- multifile runner:ref/4.
 :- discontiguous runner:ref/4.
