@@ -30,11 +30,12 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- package(library(example04)).
+:- package(library(example01)).
 
 :- module(hello, []).
-:- reexport(library(misc/http)).
+:- reexport(library(container/http)).
 :- use_module(library(stream/xml)).
+:- use_module(library(advanced/signal)).
 
 /**
  * dispatch(O, P, R, S):
@@ -44,12 +45,12 @@
 % dispatch(+Object, +Spec, +Request, +Socket)
 :- override dispatch/4.
 :- public dispatch/4.
-dispatch(_, '/example04/piglet.gif', Request, Session) :- !,
-   dispatch_binary(library(example04/piglet), Request, Session).
-dispatch(_, '/example04/hello.jsp', Request, Session) :- !,
+dispatch(_, '/example01/piglet.gif', Request, Session) :- !,
+   dispatch_binary(library(example01/piglet), Request, Session).
+dispatch(_, '/example01/hello.jsp', Request, Session) :- !,
    dispatch_hello(Request, Session).
 dispatch(Object, Spec, Request, Session) :-
-   misc/http:dispatch(Object, Spec, Request, Session).
+   container/http:dispatch(Object, Spec, Request, Session).
 
 % dispatch_hello(+Request, +Socket)
 :- private dispatch_hello/2.
@@ -98,6 +99,6 @@ html_end(Response) :-
    write(Response, '   </body>\r\n'),
    write(Response, '</html>\r\n').
 
-% ?- run_http(example04/hello, 8085), write('.'), flush_output, fail; true.
+% ?- run_http(example01/hello, 'localhost:8085'), write('.'), flush_output, fail; true.
 
-% Point browser to: http://localhost:8085/example04/hello.jsp?name=Fritz
+% Point browser to: http://localhost:8085/example01/hello.jsp?name=Fritz
