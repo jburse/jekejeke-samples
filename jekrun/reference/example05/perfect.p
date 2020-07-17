@@ -35,7 +35,7 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(advanced/arith)).
+:- use_module(library(standard/arith)).
 
 perfect(X) :-
    Y is X//2,
@@ -48,7 +48,7 @@ sum_list([X|Y], H, S) :-
    sum_list(Y, J, S).
 
 %%% single CPU
-% ?- use_module(library(advanced/arith)).
+% ?- use_module(library(standard/arith)).
 
 % ?- time((between(1,20000,X), perfect(X), fail; true)).
 % % Up 10,940 ms, GC 74 ms, Thread Cpu 10,859 ms (Current 03/05/19 02:40:06)
