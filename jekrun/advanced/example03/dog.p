@@ -38,9 +38,10 @@
 % barking(+Dog, -Atom)
 barking(_, woof).
 
+% bark(+Dog)
 bark(Self) :-
-   Self::barking(Barking),
-   write(Self), write(' says '), write(Barking), write('.'), nl.
+   Self::barking(Voice),
+   write(Self), write(' says '), write(Voice), write('.'), nl.
 
 % ?- example03/beagle::bark.
 % example03/beagle says woof.

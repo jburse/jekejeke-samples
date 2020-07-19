@@ -1,6 +1,6 @@
 /**
  * Prolog code for the object oriented programming example.
- * Example 1: Prolog Single Dispatch
+ * Example 4: Call-Out Java Object
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -31,19 +31,13 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- package(library(example01)).
+:- package(library(example04)).
 
-:- module(dog, [bark/1]).
+:- module(main, [dog_bark/1, beagle_new/1, rottweiler_new/1]).
 
-% bark(+Dog)
-bark(Self) :-
-   Self::barking(Voice),
-   write(Self), write(' says '), write(Voice), write('.'), nl.
+:- virtual dog_bark/1.
+:- foreign(dog_bark/1, example04/'Dog', bark).
 
-% ?- example01/beagle::bark.
-% example01/beagle says woof.
-% Yes
+:- foreign_constructor(beagle_new/1, example04/'Beagle', new).
 
-% ?- example01/rottweiler::bark.
-% example01/rottweiler says ruff.
-% Yes
+:- foreign_constructor(rottweiler_new/1, example04/'Rottweiler', new).

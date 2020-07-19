@@ -36,25 +36,32 @@
 :- module(dog, [bark/1, name/2, set_name/3]).
 :- use_module(library(basic/proxy)).
 
+% name(+Dog, -Atom)
 name(Self, Name) :-
    arg(1, Self, Name).
 
+% set_name(+Dog, +Atom, -Dog)
 set_name(Self, Name, Self2) :-
    set_arg(1, Self, Name, Self2).
 
+% bark(+Dog)
 bark(Self) :-
-   Self::barking(Barking),
+   Self::barking(Voice),
    Self::name(Name),
-   write(Name), write(' says '), write(Barking), write('.'), nl.
+   write(Name), write(' says '), write(Voice), write('.'), nl.
 
 % ?- example02/beagle(sally)::bark.
 % sally says woof.
 % Yes
 
-% ?- example02/rottweiler(brutus)::bark.
-% brutus says ruff.
+% ?- example02/beagle(coco)::bark.
+% coco says woof.
 % Yes
 
-% ?- example02/rottweiler(brutus)::set_name(coco, X), X::bark.
-% coco says ruff.
+% ?- example02/rottweiler(zeus)::bark.
+% zeus says ruff.
+% Yes
+
+% ?- example02/rottweiler(zeus)::set_name(appolo, X), X::bark.
+% appolo says ruff.
 % X = example02/rottweiler(coco)
