@@ -1,6 +1,6 @@
 /**
  * Prolog code for the object oriented programming example.
- * Example 4: Call-Out Java Object
+ * Example 6: Call-In Proxy Instances
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -31,21 +31,10 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- package(library(example04)).
+:- package(library(example06)).
 
-:- module(main, [dog_bark/1, beagle_new/1, rottweiler_new/1]).
+:- module(beagle, [new/1]).
+:- reexport(foreign(example06/'InterfaceDog')).
+:- use_module(library(basic/proxy)).
 
-:- virtual dog_bark/1.
-:- foreign(dog_bark/1, example04/'Dog', bark).
-
-:- foreign_constructor(beagle_new/1, example04/'Beagle', new).
-
-:- foreign_constructor(rottweiler_new/1, example04/'Rottweiler', new).
-
-% ?- beagle_new(X), dog_bark(X).
-% example04.Beagle@37b37c04 says woof.
-% X = 0r37b37c04
-
-% ?- rottweiler_new(X), dog_bark(X).
-% example04.Rottweiler@129aa3b9 says ruff.
-% X = 0r129aa3b9
+new(X) :- sys_new_instance(example06/beagle, X).
