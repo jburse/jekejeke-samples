@@ -38,7 +38,8 @@
 :- use_module(library(basic/proxy)).
 
 % new(-Dog)
-new(X) :- sys_new_instance(example06/rottweiler, X).
+new(X) :-
+   sys_new_instance(example06/rottweiler, X).
 
 % barking(+Dog, -Atom)
 :- override barking/2.

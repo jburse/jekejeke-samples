@@ -38,4 +38,5 @@
 :- use_module(library(basic/proxy)).
 
 % new(-Dog)
-new(X) :- sys_new_instance(example06/beagle, X).
+new(X) :-
+   sys_new_instance(example06/beagle, X).
