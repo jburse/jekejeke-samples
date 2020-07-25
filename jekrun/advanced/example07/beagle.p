@@ -31,11 +31,13 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- package(library(example06)).
+:- package(library(example07)).
 
-:- module(beagle, [new/1]).
-:- reexport(foreign(example06/'InterfaceDog')).
+:- module(beagle, [new/2]).
+:- reexport(foreign(example07/'InterfaceDog')).
 :- use_module(library(basic/proxy)).
 
-% new(-Dog)
-new(X) :- sys_new_instance(example06/beagle, X).
+% new(+Atom, -Dog)
+new(N, X) :-
+   sys_new_instance(example07/beagle, X),
+   X::set_value(N).

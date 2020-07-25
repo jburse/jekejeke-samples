@@ -33,9 +33,13 @@
 
 :- package(library(example06)).
 
-:- module(beagle, [new/1]).
+:- module(rottweiler, [new/1, barking/2]).
 :- reexport(foreign(example06/'InterfaceDog')).
 :- use_module(library(basic/proxy)).
 
 % new(-Dog)
-new(X) :- sys_new_instance(example06/beagle, X).
+new(X) :- sys_new_instance(example06/rottweiler, X).
+
+% barking(+Dog, -Atom)
+:- override barking/2.
+barking(_, ruff).
