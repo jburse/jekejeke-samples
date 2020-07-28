@@ -50,4 +50,14 @@ public abstract class Dog {
         wr.flush();
     }
 
+/*
+?- example05/'Beagle':new(X), X::bark.
+example05.Beagle@df379f7 says woof.
+X = 0rdf379f7
+
+?- example05/'Rottweiler':new(X), X::bark.
+example05.Rottweiler@76e7b207 says ruff.
+X = 0r76e7b207
+*/
+
 }

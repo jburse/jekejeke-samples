@@ -50,3 +50,7 @@ bark(Self) :-
 % ?- example01/rottweiler::bark.
 % example01/rottweiler says ruff.
 % Yes
+
+% ?- example03/chihuahua::bark.
+% example03/chihuahua says woof woof.
+% Yes

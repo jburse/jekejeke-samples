@@ -51,4 +51,18 @@ public interface InterfaceDog extends InterfacePivot {
         wr.flush();
     }
 
+/*
+?- example07/beagle:new(sara,X), X::bark.
+sara says woof.
+X = 0r3ec0fffe
+
+?- example07/rottweiler:new(apollo,X), X::bark.
+apollo says ruff.
+X = 0r22b67793
+
+?- example07/rottweiler:new(apollo,X), X::set_value(zeus), X::bark.
+zeus says ruff.
+X = 0r36a26d03
+*/
+
 }
