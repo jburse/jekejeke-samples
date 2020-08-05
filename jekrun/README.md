@@ -11,11 +11,11 @@ that are from some tutorials or samples that perform some benchmark.
 # Deployment Samples
 
 The following samples have already been uploaded:
-- [deployweb](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployweb):
+- [deployweb](deployweb):
   Deployment Methods Web Example.
-- [deployandroid](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployandroid):
+- [deployandroid](deployandroid):
   Deployment Methods Android Examples.
-- [deployment](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/deployment):
+- [deployment](deployment):
   Deployment Methods Examples.
 
 # Tutorial Samples
@@ -43,5 +43,5 @@ Feel free to fork for non-commercial attributed use. There
 request if you find issues, but there is also no service
 agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 18.05.20190 (Updated 04.08.2020)
+Jan Burse, 18.05.2019 (Updated 04.08.2020)
 
