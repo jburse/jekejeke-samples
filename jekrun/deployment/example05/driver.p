@@ -21,16 +21,22 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
 :- use_package(foreign(jekpro/tools/call)).
 :- use_package(foreign(java/sql)).
-:- use_package(foreign(example06)).
+:- use_package(foreign(example05)).
+:- use_module(library(advanced/signal)).
 
 % drive(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
-drive(F, N, AF, AT, SF, ST, employee(X,Y,Z,T)) :-
+drive(F, N, AF, AT, SF, ST, employee(X, Y, Z, T)) :-
    str_cond(F, 'firstname = ', [], L1),
    str_cond(N, 'name = ', L1, L2),
    num_cond(AF, 'age >= ', L2, L3),
@@ -40,7 +46,7 @@ drive(F, N, AF, AT, SF, ST, employee(X,Y,Z,T)) :-
    make_where(L6, W),
    atom_concat('SELECT * FROM employee', W, Q),
    setup_call_cleanup(create_statement(S),
-      execute_query(S, Q, [X,Y,Z,T]),
+      execute_query(S, Q, [X, Y, Z, T]),
       close_statement(S)).
 
 % str_cond(+String, +ColumnOperator, +WhereList, -WhereList).
@@ -77,7 +83,7 @@ make_rest([COL|W], S3) :-
 
 % execute_query(+Statement, +String, -List)
 :- foreign(execute_query/3, 'StatementAPI',
-      executeQuery('CallOut','Statement','String')).
+      executeQuery('CallOut', 'Statement', 'String')).
 
 % close_statement(+Statement)
 :- foreign(close_statement/1, 'StatementAPI', closeStatement('Statement')).

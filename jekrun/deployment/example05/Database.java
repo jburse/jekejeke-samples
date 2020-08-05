@@ -1,7 +1,7 @@
-package example06;
+package example05;
 
 import jekpro.platform.headless.ToolkitLibrary;
-import example05.Stub;
+import example04.Stub;
 import jekpro.tools.call.Interpreter;
 import jekpro.tools.call.InterpreterException;
 import jekpro.tools.call.InterpreterMessage;
@@ -80,7 +80,7 @@ public final class Database extends JFrame implements ActionListener {
             Interpreter inter = know.iterable();
             Knowledgebase.initKnowledgebase(inter);
             /* load the Prolog code */
-            Object consultGoal = inter.parseTerm("consult(library(example06/driver))");
+            Object consultGoal = inter.parseTerm("consult(library(example05/driver))");
             inter.iterator(consultGoal).next().close();
         } catch (InterpreterMessage x) {
             throw new RuntimeException(x);

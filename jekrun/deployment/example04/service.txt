@@ -36,8 +36,8 @@
     String salaryfrom = request.getParameter("salaryfrom");
     String salaryto = request.getParameter("salaryto");
     try {
-        example04.Data.initKnowledgebase();
-        jekpro.tools.call.Interpreter inter = example04.Data.know.iterable();
+        jekpro.tools.term.Knowledgebase know = example04.Data.getKnowledgebase();
+        jekpro.tools.call.Interpreter inter = know.iterable();
 
         example01.Query query = new example01.Query(inter);
         query.setFirstname(firstname);
@@ -53,13 +53,11 @@
         Object[][] rows = query.getRows();
         for (int j = 0; j < rows.length; j++) {
             Object[] args = rows[j];
-%><%=new jekpro.tools.term.TermCompound("employee", args).toString(
-        jekpro.tools.call.Interpreter.FLAG_QUOTED)%>.
+%><%=new jekpro.tools.term.TermCompound("employee", args).toString()%>.
 <%
         }
     } catch (Exception x) {
-%><%=new jekpro.tools.term.TermCompound("exception", x.toString()).toString(
-        jekpro.tools.call.Interpreter.FLAG_QUOTED)%>.
+%><%=new jekpro.tools.term.TermCompound("exception", x.toString()).toString()%>.
 <%
     }
 %>

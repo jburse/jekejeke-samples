@@ -1,4 +1,4 @@
-package example06;
+package example05;
 
 import jekpro.tools.call.CallOut;
 import jekpro.tools.call.InterpreterMessage;

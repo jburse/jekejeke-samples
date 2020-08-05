@@ -21,42 +21,41 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_package(foreign(example05)).
+:- use_package(foreign(example04)).
+:- use_module(library(advanced/signal)).
 
 % act(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
 act(F, N, AF, AT, SF, ST, R) :-
    encode_parameter(F, F8),
-   atom_concat('http://localhost:8082/example05/service.jsp?firstname=', F8, A1),
+   atom_concat('http://localhost:8082/example04/service.jsp?firstname=', F8, A1),
    atom_concat(A1, '&name=', A2),
-   encode_parameter(N, N8),
-   atom_concat(A2, N8, A3),
+   encode_parameter(N, N8), atom_concat(A2, N8, A3),
    atom_concat(A3, '&agefrom=', A4),
-   encode_parameter(AF, AF8),
-   atom_concat(A4, AF8, A5),
+   encode_parameter(AF, AF8), atom_concat(A4, AF8, A5),
    atom_concat(A5, '&ageto=', A6),
-   encode_parameter(AT, AT8),
-   atom_concat(A6, AT8, A7),
+   encode_parameter(AT, AT8), atom_concat(A6, AT8, A7),
    atom_concat(A7, '&salaryfrom=', A8),
-   encode_parameter(SF, SF8),
-   atom_concat(A8, SF8, A9),
+   encode_parameter(SF, SF8), atom_concat(A8, SF8, A9),
    atom_concat(A9, '&salaryto=', A10),
-   encode_parameter(ST, ST8),
-   atom_concat(A10, ST8, A11),
+   encode_parameter(ST, ST8), atom_concat(A10, ST8, A11),
    setup_call_cleanup(open(A11, read, S),
       fetch(S, R),
       close(S)).
 
 % fetch(+Stream, -Compound)
-fetch(S, R) :- repeat,
-   read(S, T),
+fetch(S, R) :- repeat, read(S, T),
    (  T = end_of_file, !, fail
-   ;  T = exception(E),
-      throw(error(
-               resource_error(service_exception,E),_))
+   ;  T = exception(E), throw(error(
+         resource_error(service_exception, E), _))
    ;  T = R).
 
 /***********************************************************/
