@@ -11,15 +11,15 @@ for compliance, or samples that are from some tutorials.
 # Compliance Samples
 
 The following compliance samples have already been uploaded:
-- [compliance](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/compliance):
+- [compliance](compliance):
   ISO core compliance test suite.
-- [compfreq](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/compfreq):
+- [compfreq](compfreq):
   Module system test suite.
 
 # Tutorial Samples
 
 The following tutorial samples have already been uploaded:
-- [reference](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/reference):
+- [reference](reference):
   Tutorial for the Language Reference.
 
 # Issues and Contributing
