@@ -30,12 +30,10 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-rev(X, Y) :-
-   rev(X, [], Y).
+rev(X, Y) :- rev(X, [], Y).
 
 rev([], X, X).
-rev([X|Y], Z, T) :-
-   rev(Y, [X|Z], T).
+rev([X|Y], Z, T) :- rev(Y, [X|Z], T).
 
 % ?- rev([1,2,3], X).
 % X = [3,2,1]

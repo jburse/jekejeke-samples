@@ -38,7 +38,8 @@
 
 % remove_count
 remove_count :-
-   retract(count(_, _, _)), fail.
+   retract(count(_, _, _)),
+   fail.
 remove_count.
 
 % add_count(+CallExitRedoFail, +CallExitRedoFail, -CallExitRedoFail)
@@ -74,16 +75,14 @@ goal_tracing(P, Q) :-
 show :-
    write('Pred\tCall\tExit\tRedo\tFail'), nl,
    count(F, A, R-S-T-U),
-   write(F/A),
-   write('\t'),
-   write(R),
-   write('\t'),
-   write(S),
-   write('\t'),
-   write(T),
-   write('\t'),
-   write(U), nl, fail.
+   write(F/A), write('\t'),
+   write(R), write('\t'),
+   write(S), write('\t'),
+   write(T), write('\t'),
+   write(U), nl,
+   fail.
 show.
 
 % reset
-reset :- remove_count.
+reset :-
+   remove_count.

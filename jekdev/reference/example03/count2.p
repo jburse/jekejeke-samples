@@ -44,12 +44,14 @@
 
 % remove_count_predicate
 remove_count_predicate :-
-   retract(count_predicate(_, _, _)), fail.
+   retract(count_predicate(_, _, _)),
+   fail.
 remove_count_predicate.
 
 % remove_count_source
 remove_count_source :-
-   retract(count_source(_, _, _, _, _)), fail.
+   retract(count_source(_, _, _, _, _)),
+   fail.
 remove_count_source.
 
 % add_count2(+CallExitRedoFail, +CallExitRedoFail, -CallExitRedoFail)
@@ -100,44 +102,35 @@ goal_tracing(P, Q) :-
 % show_shortname(+Path)
 show_shortname(O) :-
    source_property(O, short_name(S)), !,
-   write(S),
-   write('\t').
+   write(S), write('\t').
 show_shortname(_) :-
    write('\t').
 
 % show_callsite(+Fun,+Arity)
 show_callsite(F, A) :-
    count_source(F, A, O, L, R-S-T-U),
-   write('\t'),
-   show_shortname(O),
-   write(L),
-   write('\t'),
-   write(R),
-   write('\t'),
-   write(S),
-   write('\t'),
-   write(T),
-   write('\t'),
-   write(U), nl, fail.
+   write('\t'), show_shortname(O), write(L), write('\t'),
+   write(R), write('\t'),
+   write(S), write('\t'),
+   write(T), write('\t'),
+   write(U), nl,
+   fail.
 show_callsite(_, _).
 
 % show
 show2 :-
    write('Pred\tSource\tLine\tCall\tExit\tRedo\tFail'), nl,
    count_predicate(F, A, R-S-T-U),
-   write(F/A),
-   write('\t'),
-   write('\t'),
-   write('\t'),
-   write(R),
-   write('\t'),
-   write(S),
-   write('\t'),
-   write(T),
-   write('\t'),
+   write(F/A), write('\t'), write('\t'), write('\t'),
+   write(R), write('\t'),
+   write(S), write('\t'),
+   write(T), write('\t'),
    write(U), nl,
-   show_callsite(F, A), fail.
+   show_callsite(F, A),
+   fail.
 show2.
 
 % reset
-reset2 :- remove_count_predicate, remove_count_source.
+reset2 :-
+   remove_count_predicate,
+   remove_count_source.

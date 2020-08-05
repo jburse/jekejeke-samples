@@ -30,8 +30,8 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-data([1,2]).
-data([4,3]).
+data([1, 2]).
+data([4, 3]).
 
 % ?- data(X).
 %   X = [1,2] ;
