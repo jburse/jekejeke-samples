@@ -7,11 +7,11 @@ table query. In this folder we have collected the Swing tutorial examples.
 # Deployment Methods
 
 We provide the following tutorial examples:
-- [example01](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployweb/example01/):
+- [Example 1](example01):
   The application consists of a servlet "Plain"".
-- [example02](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployweb/example02/):
+- [Example 2](example02):
   The application consists of a Java server page "form"".
-- [example03](http://github.com/jburse/jekejeke-samples/blob/master/jekrun/deployweb/example03/):
+- [Example 3](example03):
   The application consists of a Java server page "shared"".
 
 # Issues and Contributing
