@@ -21,19 +21,19 @@ The following samples have already been uploaded:
 # Tutorial Samples
 
 The following samples have already been uploaded:
-- [reference](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/reference):
+- [reference](reference):
   Tutorial for the Language Reference.
-- [interface](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/interface):
+- [interface](interface):
   Tutorial for the Programming Interface.
-- [frequent](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/frequent):
+- [frequent](frequent):
   Tutorial for the Frequent Predicates.
-- [advanced](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/advanced):
+- [advanced](advanced):
   Tutorial for the Programming Advanced.
 
 # Benchmark Samples
 
 The following samples have already been uploaded:
-- [benchmark](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/benchmark):
+- [benchmark](benchmark):
   Benchmark ISO Performance.
 
 # Issues and Contributing
