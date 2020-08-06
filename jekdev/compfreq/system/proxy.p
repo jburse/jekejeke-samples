@@ -52,7 +52,7 @@
 :- end_module.
 
 :- begin_module(gamma).
-:- reexport(foreign(jekpro/tools/proxy/'InterfaceSlots')).
+:- reexport(foreign(jekpro/tools/proxy/'InterfacePivot')).
 :- end_module.
 
 :- use_module(library(basic/proxy)).
@@ -64,20 +64,23 @@ runner:case(sys_new_instance, 2, system_proxy, 'XLOG 1.4.1, XLOG 1 Error') :-
 runner:case(sys_new_instance, 2, system_proxy, 'XLOG 1.4.1, XLOG 2 Java') :-
    sys_new_instance(alpha, X),
    reference(X).
-runner:case(sys_new_instance, 2, system_proxy, 'XLOG 1.4.1, XLOG 3 Error') :-
-   catch(sys_new_instance(gamma, _), error(E, _), true),
-   E = existence_error(proxy, _).
-
-runner:ref(sys_new_instance, 3, system_proxy, 'XLOG 1.4.2').
-runner:case(sys_new_instance, 3, system_proxy, 'XLOG 1.4.2, XLOG 1 Error') :-
-   catch(sys_new_instance(_, 7, _), error(E, _), true),
-   E == instantiation_error.
-runner:case(sys_new_instance, 3, system_proxy, 'XLOG 1.4.2, XLOG 2 Error') :-
-   catch(sys_new_instance(alpha, 7, _), error(E, _), true),
-   E = existence_error(proxy, _).
-runner:case(sys_new_instance, 3, system_proxy, 'XLOG 1.4.2, XLOG 3 Java') :-
-   sys_new_instance(gamma, 7, X),
+runner:case(sys_new_instance, 2, system_proxy, 'XLOG 1.4.1, XLOG 3 Java') :-
+   sys_new_instance(gamma, X),
    reference(X).
+
+runner:ref(set_value, 2, system_proxy, 'XLOG 1.4.2').
+runner:case(set_value, 2, system_proxy, 'XLOG 1.4.2, XLOG 1 Error') :-
+   sys_new_instance(alpha, X),
+   catch(X::set_value(foo), error(E, _), true),
+   E == existence_error(procedure, system/proxy/alpha:set_value/2).
+runner:case(set_value, 2, system_proxy, 'XLOG 1.4.2, XLOG 2 Java') :-
+   sys_new_instance(gamma, X),
+   \+ X::value(_).
+runner:case(set_value, 2, system_proxy, 'XLOG 1.4.2, XLOG 3 Java') :-
+   sys_new_instance(gamma, X),
+   X::set_value(foo),
+   X::value(Y),
+   Y == foo.
 
 runner:ref(sys_assignable_from, 2, system_proxy, 'XLOG 1.4.3').
 runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 1.4.3, XLOG 1 Error') :-
@@ -106,3 +109,15 @@ runner:case(sys_instance_of, 2, system_proxy, 'XLOG 1.4.4, XLOG 4 Java') :-
 runner:case(sys_instance_of, 2, system_proxy, 'XLOG 1.4.4, XLOG 5 Java') :-
    sys_new_instance(alpha, X),
    \+ sys_instance_of(X, java/util/'Iterator').
+
+runner:ref(sys_get_class, 2, system_quali, 'XLOG 1.4.5').
+runner:case(sys_get_class, 2, system_quali, 'XLOG 1.4.5, XLOG 1 Error') :-
+   catch(sys_get_class(_, _), error(E, _), true),
+   E == instantiation_error.
+runner:case(functor, 2, system_quali, 'XLOG 1.4.5, XLOG 2 Compound') :-
+   sys_get_class(beta(3, 7), X),
+   X == beta.
+runner:case(functor, 2, system_quali, 'XLOG 1.4.5, XLOG 3 Reference') :-
+   current_error(X),
+   sys_get_class(X, Y),
+   reference(Y).
