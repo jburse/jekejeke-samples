@@ -39,6 +39,7 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(standard/arith)).
+:- use_module(library(system/charsio)).
 
 /* numbervars(T, N, M) */
 
@@ -156,3 +157,66 @@ runner:case(findall, 4, extra_vars, 'XLOG 3.2.3, XLOG 1') :-
    S = [1, 2|T].
 runner:case(findall, 3, extra_vars, 'XLOG 3.2.3, XLOG 2') :-
    \+ findall(X, (X = 1; X = 2), [2, 1|T], T).
+
+/****************************************************************/
+/* reflect.p extras                                             */
+/****************************************************************/
+
+/* callable_property(C, P) */
+
+runner:ref(callable_property, 2, extra_vars, 'XLOG 3.2.4').
+runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 1') :-
+   callable_property(here, sys_context(C)),
+   \+ C = ''.
+runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 2') :-
+   set_callable_property(H, sys_context(''), here),
+   H = here.
+runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 3') :-
+   set_callable_property(H, sys_context(''), here),
+   callable_property(H, sys_context(C)),
+   C = ''.
+runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 4') :-
+   catch(callable_property(1, sys_context(_)), error(E, _), true),
+   E == type_error(callable, 1).
+
+/* dot syntax */
+
+:- op(200, xfy, '.').
+:- set_oper_property(infix('.'), sys_alias(sys_dot)).
+:- op(200, xfy, sys_dot).
+:- set_oper_property(infix(sys_dot), sys_portray('.')).
+
+runner:ref(dot_syntax, 2, extra_vars, 'XLOG 3.2.5').
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 1') :-
+   with_output_to(atom(A), write_canonical(foo.bar)),
+   A == 'sys_dot(foo, bar)'.
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 2') :-
+   with_output_to(atom(A), write(foo.bar)),
+   A == 'foo.bar'.
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 3') :-
+   with_output_to(atom(A), write_canonical([foo|bar])),
+   A == '''.''(foo, bar)'.
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 4') :-
+   with_output_to(atom(A), write([foo|bar])),
+   A == '[foo|bar]'.
+
+/* set syntax */
+
+:- op(300, fx, {}).
+:- set_oper_property(prefix({}), sys_alias(sys_set)).
+:- op(300, fx, sys_set).
+:- set_oper_property(prefix(sys_set), sys_portray({})).
+
+runner:ref(set_syntax, 2, extra_vars, 'XLOG 3.2.6').
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.2.6, XLOG 1') :-
+   with_output_to(atom(A), write_canonical({}foo)),
+   A == 'sys_set(foo)'.
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.2.6, XLOG 2') :-
+   with_output_to(atom(A), write({}foo)),
+   A == '{}foo'.
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.2.6, XLOG 3') :-
+   with_output_to(atom(A), write_canonical({foo})),
+   A == '{}(foo)'.
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.2.6, XLOG 4') :-
+   with_output_to(atom(A), write({foo})),
+   A == '{foo}'.

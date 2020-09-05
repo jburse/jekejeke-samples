@@ -105,10 +105,24 @@ runner:case(stream_property, 2, stream_open, 'ISO 8.11.8, XLOG 3') :-
 
 runner:ref(set_stream_position, 2, stream_open, 'ISO 8.11.9').
 runner:case(set_stream_position, 2, stream_open, 'ISO 8.11.9, XLOG 1') :-
-   open('../data2.txt', write, D, [type(binary)]), put_byte(D, 65), put_byte(D, 66), put_byte(D, 67), close(D),
-   open('../data2.txt', read, E, [type(binary), reposition(true)]), set_stream_position(E, 1), get_byte(E, C), close(E),
+   open('../data2.txt', write, D, [type(binary)]),
+   put_byte(D, 65),
+   put_byte(D, 66),
+   put_byte(D, 67),
+   close(D),
+   open('../data2.txt', read, E, [type(binary), reposition(true)]),
+   set_stream_position(E, 1),
+   get_byte(E, C),
+   close(E),
    C == 66.
 runner:case(set_stream_position, 2, stream_open, 'ISO 8.11.9, XLOG 2') :-
-   open('../data2.txt', write, D, [type(binary), reposition(true)]), set_stream_position(D, 1), put_byte(D, 68), close(D),
-   open('../data2.txt', read, E, [type(binary)]), get_byte(E, A), get_byte(E, B), get_byte(E, C), close(E),
+   open('../data2.txt', write, D, [type(binary), reposition(true)]),
+   set_stream_position(D, 1),
+   put_byte(D, 68),
+   close(D),
+   open('../data2.txt', read, E, [type(binary)]),
+   get_byte(E, A),
+   get_byte(E, B),
+   get_byte(E, C),
+   close(E),
    A == 65, B == 68, C == 67.
