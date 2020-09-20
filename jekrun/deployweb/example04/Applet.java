@@ -51,7 +51,7 @@ public final class Applet extends JApplet implements ActionListener {
     private final Pane pane = new Pane();
 
     /**
-     * appletviewer -J-Djava.security.policy=<path>\example04\applet.policy <path>\example04\page.html
+     * appletviewer -J-Djava.security.policy=<path>\example04\allperm.policy <path>\example04\page.html
      */
 
     /**
