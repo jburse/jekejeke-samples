@@ -1,24 +1,21 @@
 package example04;
 
-import example01.Data;
 import example01.Query;
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
-import jekpro.tools.call.InterpreterException;
-import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.util.concurrent.Callable;
 
 /**
  * <p>Java code for the Java applet.</p>
- *
+ * <p>
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
@@ -47,47 +44,40 @@ import java.io.StringWriter;
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
-public final class Applet extends JApplet implements ActionListener {
+public final class Applet extends JFrame implements ActionListener {
+    private final Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
     private final Pane pane = new Pane();
-
-    /**
-     * appletviewer -J-Djava.security.policy=<path>\example04\allperm.policy <path>\example04\page.html
-     */
 
     /**
      * <p>Setup the knowledgebase and init the pane.</p>
      */
-    public Applet() {
+    private Applet() {
         /* init the pane */
         pane.initPane(getRootPane(), this);
+        setTitle("Deployment Web - Applet");
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         /* load the Prolog */
-        pane.startJob(new Runnable() {
-            public void run() {
+        pane.startJob(new Callable() {
+            public Object call() throws Exception {
                 initKnowledgebase();
+                return null;
             }
-        }, new Runnable() {
-            public void run() {
-            }
-        });
+        }, this);
     }
 
     /**
-     * <p>do set up of the knowledge base.</p>
+     * <p>Do set up of the knowledge base.</p>
      */
-    private void initKnowledgebase() {
-        try {
-            Data.getKnowledgebase();
-        } catch (Exception x) {
-            /* simple problem exception handling */
-            StringWriter sr = new StringWriter();
-            x.printStackTrace(new PrintWriter(sr));
-            JTextArea textarea = new JTextArea(sr.toString(), 8, 40);
-            textarea.setLineWrap(true);
-            JOptionPane.showMessageDialog(this,
-                    new JScrollPane(textarea),
-                    "Problem Report", JOptionPane.ERROR_MESSAGE);
-        }
+    private void initKnowledgebase() throws Exception {
+        know.setProperty(Knowledgebase.PROP_SYS_HINT,
+                Integer.valueOf(Knowledgebase.HINT_MASK_LMTD));
+        /* setup the Prolog runtime */
+        Interpreter inter = know.iterable();
+        Knowledgebase.initKnowledgebase(inter);
+        /* load the Prolog code */
+        Object consultGoal = inter.parseTerm("consult(library(example01/table))");
+        inter.iterator(consultGoal).next().close();
     }
 
     /**
@@ -97,9 +87,7 @@ public final class Applet extends JApplet implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         try {
-            Knowledgebase know = Data.getKnowledgebase();
             Interpreter inter = know.iterable();
-
             final Query query = new Query(inter);
             /* retrieve the search criteria and build the query */
             query.setFirstname(pane.getFirstName());
@@ -113,33 +101,46 @@ public final class Applet extends JApplet implements ActionListener {
             final AbstractTerm queryTerm = query.makeQuery(vars);
             if ("search".equals(e.getActionCommand())) {
                 /* execute the query and populate the results */
-                pane.disableButtons();
-                pane.startJob(new Runnable() {
-                    public void run() {
+                pane.startJob(new Callable() {
+                    public Object call() throws Exception {
                         query.listRows(vars, queryTerm);
+                        SwingUtilities.invokeAndWait(new Runnable() {
+                            public void run() {
+                                Object[][] rows = query.getRows();
+                                pane.setResult(colids, rows);
+                            }
+                        });
+                        return null;
                     }
-                }, new Runnable() {
-                    public void run() {
-                        Object[][] rows = query.getRows();
-                        pane.setResult(colids, rows);
-                    }
-                });
+                }, this);
             } else {
-                Object opt=query.makeVariableNames(colids, vars);
-                String qstr=inter.unparseTerm(queryTerm, opt);
+                Object opt = query.makeVariableNames(colids, vars);
+                String qstr = inter.unparseTerm(queryTerm, opt);
                 JOptionPane.showMessageDialog(this, qstr,
                         "Query Term", JOptionPane.PLAIN_MESSAGE);
             }
         } catch (Exception x) {
-            /* simple problem exception handling */
-            StringWriter sr = new StringWriter();
-            x.printStackTrace(new PrintWriter(sr));
-            JTextArea textarea = new JTextArea(sr.toString(), 8, 40);
-            textarea.setLineWrap(true);
-            JOptionPane.showMessageDialog(this,
-                    new JScrollPane(textarea),
-                    "Problem Report", JOptionPane.ERROR_MESSAGE);
+            pane.showError(x, this);
         }
+    }
+
+    /**
+     * <p>Main method shows the standalone frame.</p>
+     *
+     * @param args The command line arguments, not used.
+     * @throws Exception Initialization Error.
+     */
+    public static void main(String[] args) throws Exception {
+//        String laf = UIManager.getSystemLookAndFeelClassName();
+//        UIManager.setLookAndFeel(laf);
+        Applet applet = new Applet();
+        applet.pack();
+        applet.setMinimumSize(applet.getSize());
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle r = ge.getMaximumWindowBounds();
+        applet.setBounds(r);
+//        applet.setLocationRelativeTo(JOptionPane.getRootFrame());
+        applet.setVisible(true);
     }
 
 }

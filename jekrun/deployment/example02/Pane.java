@@ -5,6 +5,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.concurrent.Callable;
 
 /**
  * <p>Java code for the graphical user interface.</p>
@@ -80,6 +83,8 @@ public final class Pane {
     private final JButton debug = new JButton();
     private final JPanel cards = new JPanel(new CardLayout());
     private final JProgressBar progress = new JProgressBar();
+
+    private Exception exception;
 
     /**
      * <p>Layout the pane.</p>
@@ -205,29 +210,30 @@ public final class Pane {
     }
 
     /**
-     * <p>Disable the button.</p>
-     */
-    public void disableButtons() {
-        search.setEnabled(false);
-        debug.setEnabled(false);
-    }
-
-    /**
      * <p>Start a job.</p>
      *
-     * @param job  The long running job.
-     * @param job2 The GUI update job.
+     * @param job The long running job.
+     * @param c   The parent component.
      */
-    public void startJob(final Runnable job, final Runnable job2) {
+    public void startJob(final Callable job, final Component c) {
         ((CardLayout) cards.getLayout()).show(cards, CARD_PROGRESS);
         progress.setIndeterminate(true);
 
-        new Thread(new Runnable() {
+        search.setEnabled(false);
+        debug.setEnabled(false);
+
+        Thread thread = new Thread(new Runnable() {
             public void run() {
-                job.run();
+                try {
+                    job.call();
+                    exception = null;
+                } catch (Exception e) {
+                    exception = e;
+                }
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        job2.run();
+                        if (exception != null)
+                            showError(exception, c);
 
                         ((CardLayout) cards.getLayout()).show(cards, CARD_SCROLLPANE);
                         progress.setIndeterminate(false);
@@ -237,7 +243,8 @@ public final class Pane {
                     }
                 });
             }
-        }).start();
+        });
+        thread.start();
     }
 
     /**
@@ -315,6 +322,23 @@ public final class Pane {
         /* set the rows */
         for (int i = 0; i < rows.length; i++)
             ((DefaultTableModel) result.getModel()).addRow(rows[i]);
+    }
+
+    /**
+     * <p>Show an error.</p>
+     *
+     * @param x The error.
+     * @param c The parent component.
+     */
+    public void showError(Exception x, Component c) {
+        /* simple problem exception handling */
+        StringWriter sr = new StringWriter();
+        x.printStackTrace(new PrintWriter(sr));
+        JTextArea textarea = new JTextArea(sr.toString(), 8, 40);
+        textarea.setLineWrap(true);
+        JOptionPane.showMessageDialog(c,
+                new JScrollPane(textarea),
+                "Problem Report", JOptionPane.ERROR_MESSAGE);
     }
 
 }

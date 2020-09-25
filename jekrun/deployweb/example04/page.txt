@@ -31,18 +31,16 @@
 <!--                                                                       -->
 <html>
 <head>
-  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-  <title>Deployment Web - Applet</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Deployment Web - Applet</title>
+    <script src="https://cjrtnc.leaningtech.com/20200206/loader.js"></script>
 </head>
 <body>
 <h1>Deployment Web - Applet</h1>
-<applet
-        codebase="../"
-        archive="WEB-INF/classes/,WEB-INF/lib/interpreter.jar"
-        code="example04.Applet"
-        width="450"
-        height="390">
-Applet could not be loaded.
-</applet>
 </body>
+<script>
+    cheerpjInit();
+    cheerpjCreateDisplay(600,480);
+    cheerpjRunJar("/app/deployweb/example04/archive.jar");
+</script>
 </html>

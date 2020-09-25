@@ -1,19 +1,16 @@
 package example02;
 
+import example01.Query;
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
-import jekpro.tools.call.InterpreterException;
-import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
-import example01.Query;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.util.concurrent.Callable;
 
 /**
  * <p>Java code for the Java standalone.</p>
@@ -47,8 +44,8 @@ import java.io.StringWriter;
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 public final class Standalone extends JFrame implements ActionListener {
-    private Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
-    private Pane pane = new Pane();
+    private final Knowledgebase know = new Knowledgebase(ToolkitLibrary.DEFAULT);
+    private final Pane pane = new Pane();
 
     /**
      * <p>Setup the knowledgebase and init the pane.</p>
@@ -60,32 +57,24 @@ public final class Standalone extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         /* load the Prolog */
-        pane.startJob(new Runnable() {
-            public void run() {
+        pane.startJob(new Callable() {
+            public Object call() throws Exception {
                 initKnowledgebase();
+                return null;
             }
-        }, new Runnable() {
-            public void run() {
-            }
-        });
+        }, this);
     }
 
     /**
      * <p>Do set up of the knowledge base.</p>
      */
-    private void initKnowledgebase() {
-        try {
-            /* setup the Prolog runtime */
-            Interpreter inter = know.iterable();
-            Knowledgebase.initKnowledgebase(inter);
-            /* load the Prolog code */
-            Object consultGoal = inter.parseTerm("consult(example01/table)");
-            inter.iterator(consultGoal).next().close();
-        } catch (InterpreterMessage x) {
-            throw new RuntimeException(x);
-        } catch (InterpreterException x) {
-            throw new RuntimeException(x);
-        }
+    private void initKnowledgebase() throws Exception {
+        /* setup the Prolog runtime */
+        Interpreter inter = know.iterable();
+        Knowledgebase.initKnowledgebase(inter);
+        /* load the Prolog code */
+        Object consultGoal = inter.parseTerm("consult(example01/table)");
+        inter.iterator(consultGoal).next().close();
     }
 
     /**
@@ -109,32 +98,26 @@ public final class Standalone extends JFrame implements ActionListener {
             final AbstractTerm queryTerm = query.makeQuery(vars);
             if ("search".equals(e.getActionCommand())) {
                 /* execute the query and populate the results */
-                pane.disableButtons();
-                pane.startJob(new Runnable() {
-                    public void run() {
+                pane.startJob(new Callable() {
+                    public Object call() throws Exception {
                         query.listRows(vars, queryTerm);
+                        SwingUtilities.invokeAndWait(new Runnable() {
+                            public void run() {
+                                Object[][] rows = query.getRows();
+                                pane.setResult(colids, rows);
+                            }
+                        });
+                        return null;
                     }
-                }, new Runnable() {
-                    public void run() {
-                        Object[][] rows = query.getRows();
-                        pane.setResult(colids, rows);
-                    }
-                });
+                }, this);
             } else {
-                Object opt=query.makeVariableNames(colids, vars);
-                String qstr=inter.unparseTerm(queryTerm, opt);
+                Object opt = query.makeVariableNames(colids, vars);
+                String qstr = inter.unparseTerm(queryTerm, opt);
                 JOptionPane.showMessageDialog(this, qstr,
                         "Query Term", JOptionPane.PLAIN_MESSAGE);
             }
         } catch (Exception x) {
-            /* simple problem exception handling */
-            StringWriter sr = new StringWriter();
-            x.printStackTrace(new PrintWriter(sr));
-            JTextArea textarea = new JTextArea(sr.toString(), 8, 40);
-            textarea.setLineWrap(true);
-            JOptionPane.showMessageDialog(this,
-                    new JScrollPane(textarea),
-                    "Problem Report", JOptionPane.ERROR_MESSAGE);
+            pane.showError(x, this);
         }
     }
 
@@ -142,8 +125,11 @@ public final class Standalone extends JFrame implements ActionListener {
      * <p>Main method shows the standalone frame.</p>
      *
      * @param args The command line arguments, not used.
+     * @throws Exception Initialization Error.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        String laf = UIManager.getSystemLookAndFeelClassName();
+        UIManager.setLookAndFeel(laf);
         Standalone standalone = new Standalone();
         standalone.pack();
         standalone.setMinimumSize(standalone.getSize());

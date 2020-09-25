@@ -1,24 +1,23 @@
 package example05;
 
-import jekpro.platform.headless.ToolkitLibrary;
+import example02.Pane;
 import example04.Stub;
+import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
-import jekpro.tools.call.InterpreterException;
-import jekpro.tools.call.InterpreterMessage;
 import jekpro.tools.term.AbstractTerm;
 import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
-import example02.Pane;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.concurrent.Callable;
 
 /**
  * <p>Java code for the Java client.</p>
- *
+ * <p>
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
@@ -60,33 +59,25 @@ public final class Database extends JFrame implements ActionListener {
         setTitle("Deployment Study - Database");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        /* load the Prolog */
-        pane.startJob(new Runnable() {
-            public void run() {
-                initKnowledgebase();
-            }
-        }, new Runnable() {
-            public void run() {
-            }
-        });
+            /* load the Prolog */
+            pane.startJob(new Callable() {
+                public Object call() throws Exception {
+                    initKnowledgebase();
+                    return null;
+                }
+            }, this);
     }
 
     /**
      * <p>do set up of the knowledge base.</p>
      */
-    private void initKnowledgebase() {
-        try {
-            /* setup the Prolog runtime */
-            Interpreter inter = know.iterable();
-            Knowledgebase.initKnowledgebase(inter);
-            /* load the Prolog code */
-            Object consultGoal = inter.parseTerm("consult(library(example05/driver))");
-            inter.iterator(consultGoal).next().close();
-        } catch (InterpreterMessage x) {
-            throw new RuntimeException(x);
-        } catch (InterpreterException x) {
-            throw new RuntimeException(x);
-        }
+    private void initKnowledgebase() throws Exception {
+        /* setup the Prolog runtime */
+        Interpreter inter = know.iterable();
+        Knowledgebase.initKnowledgebase(inter);
+        /* load the Prolog code */
+        Object consultGoal = inter.parseTerm("consult(example05/driver)");
+        inter.iterator(consultGoal).next().close();
     }
 
     /**
@@ -110,32 +101,26 @@ public final class Database extends JFrame implements ActionListener {
             final AbstractTerm queryTerm = stub.makeQuery(vars);
             if ("search".equals(e.getActionCommand())) {
                 /* execute the query and populate the results */
-                pane.disableButtons();
-                pane.startJob(new Runnable() {
-                    public void run() {
+                pane.startJob(new Callable() {
+                    public Object call() throws Exception {
                         stub.listRows(vars, queryTerm);
+                        SwingUtilities.invokeAndWait(new Runnable() {
+                            public void run() {
+                                Object[][] rows = stub.getRows();
+                                pane.setResult(colids, rows);
+                            }
+                        });
+                        return null;
                     }
-                }, new Runnable() {
-                    public void run() {
-                        Object[][] rows = stub.getRows();
-                        pane.setResult(colids, rows);
-                    }
-                });
+                }, this);
             } else {
-                Object opt=stub.makeVariableNames(colids, vars);
-                String qstr=inter.unparseTerm(queryTerm, opt);
+                Object opt = stub.makeVariableNames(colids, vars);
+                String qstr = inter.unparseTerm(queryTerm, opt);
                 JOptionPane.showMessageDialog(this, qstr,
                         "Query Term", JOptionPane.PLAIN_MESSAGE);
             }
         } catch (Exception x) {
-            /* simple problem exception handling */
-            StringWriter sr = new StringWriter();
-            x.printStackTrace(new PrintWriter(sr));
-            JTextArea textarea = new JTextArea(sr.toString(), 8, 40);
-            textarea.setLineWrap(true);
-            JOptionPane.showMessageDialog(this,
-                    new JScrollPane(textarea),
-                    "Problem Report", JOptionPane.ERROR_MESSAGE);
+            pane.showError(x, this);
         }
     }
 
@@ -143,14 +128,11 @@ public final class Database extends JFrame implements ActionListener {
      * <p>Main method shows the standalone frame.</p>
      *
      * @param args The command line arguments, not used.
+     * @throws Exception Initialization Error.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String laf = UIManager.getSystemLookAndFeelClassName();
-        try {
-            UIManager.setLookAndFeel(laf);
-        } catch (Exception x) {
-            throw new RuntimeException(x);
-        }
+        UIManager.setLookAndFeel(laf);
         Database database = new Database();
         database.pack();
         database.setMinimumSize(database.getSize());

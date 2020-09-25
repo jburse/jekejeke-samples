@@ -11,7 +11,7 @@ import java.util.Properties;
 /**
  * <p>Java code for the API of the JDBC example.</p>
  * <p>This class provides an API to statement objects.</p>
- *
+ * <p>
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
@@ -118,7 +118,7 @@ public final class StatementAPI {
                         val = col;
                     } else {
                         throw new InterpreterMessage(
-                            InterpreterMessage.representationError(OP_SQL_STATEMENT));
+                                InterpreterMessage.representationError(OP_SQL_STATEMENT));
                     }
                     valList = new TermCompound(Knowledgebase.OP_CONS,
                             val, valList);
@@ -129,7 +129,7 @@ public final class StatementAPI {
             return null;
         } catch (SQLException x) {
             throw new InterpreterMessage(
-                InterpreterMessage.resourceError(OP_SQL_STATEMENT));
+                    InterpreterMessage.resourceError(OP_SQL_STATEMENT));
         }
     }
 

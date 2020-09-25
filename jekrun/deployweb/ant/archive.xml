@@ -1,0 +1,23 @@
+<project name="deployweb_to_archive" default="main">
+
+    <target name="main" depends="example04_archive">
+    </target>
+
+    <target name="example04_archive">
+        <jar destfile="../example04/archive.jar"
+             basedir="../WEB-INF/classes"
+             includes="**/*.propertiesx,
+                    **/*.txt,
+                    **/*.class,
+                    **/*.p,
+                    **/*.gif,
+                    **/*.png">
+            <zipfileset src="../WEB-INF/lib/interpreter.jar"/>
+            <manifest>
+                <attribute name="Main-Class"
+                           value="example04.Applet"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
