@@ -95,7 +95,7 @@ runner:case(dif, 2, term_delay, 'Term 1.0.8, 1.2, XLOG 5') :-
 runner:case(dif, 2, term_delay, 'Term 1.0.8, 1.2, XLOG 6') :-
    call_residue((dif((Y, Z), (Z, T)), Z = T), L),
    L == [dif(Y, T)].
-runner:case(dif, 2, term_delay, 'Term 1.0.8, 1.2, XLOG 7') :-
+runner:case(dif, 2, term_delay, 'Term 1.1.6, 1.2, XLOG 7') :-
    call_residue((dif(X, f(Y)), Y = X), L),
    L == [dif(Y, f(Y))].
 
@@ -116,37 +116,37 @@ runner:case(unifiable, 3, term_delay, 'Term 1.1.6, 1.3, XLOG 5') :-
    L == [X-f(X)].
 
 % dif_with_occurs_check(+Term, +Term)
-runner:ref(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4').
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 1') :-
+runner:ref(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4').
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, XLOG 1') :-
    call_residue(dif_with_occurs_check(f(X, X), f(Y, Z)), L),
    L == [dif_with_occurs_check((Y, X), (Z, Y))].
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 2') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, XLOG 2') :-
    dif_with_occurs_check(f, f(_, _)).
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 3') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, XLOG 3') :-
    dif_with_occurs_check(f(X, Y), g(X, Y)).
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, XLOG 4') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, XLOG 4') :-
    \+ dif_with_occurs_check(f(X, Y), f(X, Y)).
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, SWI7 2') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, SWI7 2') :-
    dif_with_occurs_check(1, X), \+ X = 1.
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, SWI7 3') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, SWI7 3') :-
    dif_with_occurs_check(1, X), dif_with_occurs_check(X, 2), \+ X = 1, \+ X = 2.
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, SWI7 4') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, SWI7 4') :-
    dif_with_occurs_check(X, Y), X = 1, \+ Y = 1.
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, SWI7 5') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, SWI7 5') :-
    dif_with_occurs_check(X, Y), \+ X = Y.
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, SWI7 6') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, SWI7 6') :-
    dif_with_occurs_check(X-Z, a-b), dif_with_occurs_check(X-_, b-b),
    X = a, \+ Z = b.
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.0, 1.4, SWI7 7') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, SWI7 7') :-
    dif_with_occurs_check(X-Z, a-b), dif_with_occurs_check(X-Y, b-b),
    Y = b, Z = b, \+ X = a, \+ X = b.
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.8, 1.4, XLOG 5') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, XLOG 5') :-
    call_residue((dif_with_occurs_check((Y, Z), (Z, T)), T = Z), L),
    L == [dif_with_occurs_check(Y, Z)].
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.8, 1.4, XLOG 6') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, XLOG 6') :-
    call_residue((dif_with_occurs_check((Y, Z), (Z, T)), Z = T), L),
    L == [dif_with_occurs_check(Y, T)].
-runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.0.8, 1.4, XLOG 7') :-
+runner:case(dif_with_occurs_check, 2, term_delay, 'Term 1.1.6, 1.4, XLOG 7') :-
    call_residue((dif_with_occurs_check(X, f(Y)), Y = X), L),
    L == [].
 

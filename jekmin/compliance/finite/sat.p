@@ -241,3 +241,34 @@ runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 5b') :-
 runner:case(weighted_maximum, 3, finite_sat, 'CLP(B) 1.0.8, 1.8, XLOG 5c') :-
    findall(X-Y-Z, (sat((X =< Y)*(Y =< Z)), weighted_maximum([1, -1, 1], [X, Y, Z], _)), L),
    L = [_, _].
+
+% nary/1
+runner:ref(nary, 1, finite_sat, 'CLP(B) 1.1.6, 1.9').
+runner:case(nary, 1, finite_sat, 'CLP(B) 1.1.6, 1.9, XLOG 1') :-
+   catch(sat(+(_)), error(E, _), true),
+   E == instantiation_error.
+runner:case(nary, 1, finite_sat, 'CLP(B) 1.1.6, 1.9, XLOG 2') :-
+   catch(sat(*(foo)), error(E, _), true),
+   E == type_error(list, foo).
+runner:case(nary, 1, finite_sat, 'CLP(B) 1.1.6, 1.9, XLOG 3') :-
+   call_residue(sat(+([X, Y, Z])), L),
+   L == [sat((X -> 1; Y -> 1; Z -> 1; 0))].
+runner:case(nary, 1, finite_sat, 'CLP(B) 1.1.6, 1.9, XLOG 4') :-
+   sat(*([X, Y, Z])),
+   X == 1, Y == 1, Z == 1.
+runner:case(nary, 1, finite_sat, 'CLP(B) 1.1.6, 1.9, XLOG 5') :-
+   sat(+([X, Y, *([~X, ~Y])])).
+runner:case(nary, 1, finite_sat, 'CLP(B) 1.1.6, 1.9, XLOG 6') :-
+   \+ sat(*([X, Y, +([~X, ~Y])])).
+
+% sat_count/2
+runner:ref(sat_count, 2, finite_sat, 'CLP(B) 1.1.6, 1.10').
+runner:case(sat_count, 2, finite_sat, 'CLP(B) 1.1.6, 1.10, XLOG 1') :-
+   catch(sat_count(foo, _), error(E, _), true),
+   E == type_error(sat_expr, foo).
+runner:case(sat_count, 2, finite_sat, 'CLP(B) 1.1.6, 1.10, XLOG 2') :-
+   sat_count(X+Y, C), sat_count(X*Y, D),
+   C == 3, D == 1.
+runner:case(sat_count, 2, finite_sat, 'CLP(B) 1.1.6, 1.10, XLOG 3') :-
+   sat(X+Y), sat_count(~X* ~Y, C),
+   C == 0.
