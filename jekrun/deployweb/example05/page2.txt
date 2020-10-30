@@ -1,3 +1,4 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!--                                                                       -->
 <!-- Warranty & Liability                                                  -->
 <!-- To the extent permitted by applicable law and unless explicitly       -->
@@ -28,44 +29,18 @@
 <!-- Trademarks                                                            -->
 <!-- Jekejeke is a registered trademark of XLOG Technologies GmbH.         -->
 <!--                                                                       -->
-<project name="archive" default="main">
-
-    <target name="main" depends="example04_archive,
-                                 example05_archive">
-    </target>
-
-    <target name="example04_archive">
-        <jar destfile="../example04/archive.jar"
-             basedir="../WEB-INF/classes"
-             includes="**/*.properties,
-                    **/*.txt,
-                    **/*.class,
-                    **/*.p,
-                    **/*.gif,
-                    **/*.png">
-            <zipfileset src="../WEB-INF/lib/interpreter.jar"/>
-            <manifest>
-                <attribute name="Main-Class"
-                           value="example04.Applet"/>
-            </manifest>
-        </jar>
-    </target>
-
-    <target name="example05_archive">
-        <jar destfile="../example05/archive2.jar"
-             basedir="../WEB-INF/classes"
-             includes="**/*.properties,
-                    **/*.txt,
-                    **/*.class,
-                    **/*.p,
-                    **/*.gif,
-                    **/*.png">
-            <zipfileset src="../WEB-INF/lib/interpreter.jar"/>
-            <manifest>
-                <attribute name="Main-Class"
-                           value="example05.Client"/>
-            </manifest>
-        </jar>
-    </target>
-
-</project>
+<html>
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Deployment Web - Client</title>
+    <script src="https://cjrtnc.leaningtech.com/20201027/loader.js"></script>
+</head>
+<body>
+<h1>Deployment Web - Client</h1>
+</body>
+<script>
+    cheerpjInit({javaProperties:["java.protocol.handler.pkgs=com.leaningtech.handlers"]});
+    cheerpjCreateDisplay(600,480);
+    cheerpjRunJar("/app/deployweb/example05/archive2.jar");
+</script>
+</html>

@@ -1,4 +1,4 @@
-package example04;
+package example05;
 
 import jekpro.tools.call.CallIn;
 import jekpro.tools.call.Interpreter;
@@ -13,7 +13,7 @@ import matula.util.system.ForeignUri;
 import java.util.ArrayList;
 
 /**
- * <p>Java code for the stub.</p>
+ * <p>Java code for the stub interpreter.</p>
  * <p/>
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -57,13 +57,12 @@ public final class Stub {
     private String salaryfrom;
     private String salaryto;
     private final String functor;
-    private Interpreter inter;
+    private final Interpreter inter;
     private Object[][] rows;
 
     /**
      * <p>Create a stub for a given functor.</p>
      *
-     * @param f The functor.
      * @param i The interpreter.
      */
     public Stub(String f, Interpreter i) {
@@ -227,31 +226,5 @@ public final class Stub {
     public Object[][] getRows() {
         return rows;
     }
-
-    /**
-     * <p>Java foreign predicate to encode a parameter.</p>
-     *
-     * @param s The paremeter.
-     * @return The encoded paremeter.
-     */
-    public static String encodeParameter(String s) {
-        return ForeignUri.encode(s, false,
-                ForeignUri.NEEDS_COMP, ForeignUri.ENCODING_UTF8);
-    }
-
-    /**
-     * <p>Some tests.</p>
-     *
-     * @param args Not used.
-     */
-    /*
-    public static void main(String[] args) {
-        String comp = "Сергей";
-        System.out.println("comp=" + comp);
-        comp = ForeignUri.encode(comp, true,
-                ForeignUri.NEEDS_COMP, ForeignUri.ENCODING_UTF8);
-        System.out.println("encode(comp)=" + comp);
-    }
-    */
 
 }

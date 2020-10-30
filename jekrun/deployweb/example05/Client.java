@@ -1,6 +1,6 @@
-package example04;
+package example05;
 
-import example02.Pane;
+import example04.Pane;
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
 import jekpro.tools.term.AbstractTerm;
@@ -8,10 +8,9 @@ import jekpro.tools.term.Knowledgebase;
 import jekpro.tools.term.TermVar;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.concurrent.Callable;
 
 /**
@@ -71,11 +70,13 @@ public final class Client extends JFrame implements ActionListener {
      * <p>do set up of the knowledge base.</p>
      */
     private void initKnowledgebase() throws Exception {
+        know.setProperty(Knowledgebase.PROP_SYS_HINT,
+                Integer.valueOf(Knowledgebase.HINT_MASK_LMTD));
         /* setup the Prolog runtime */
         Interpreter inter = know.iterable();
         Knowledgebase.initKnowledgebase(inter);
         /* load the Prolog code */
-        Object consultGoal = inter.parseTerm("consult(example04/agent)");
+        Object consultGoal = inter.parseTerm("consult(library(example05/agent))");
         inter.iterator(consultGoal).next().close();
     }
 
@@ -132,9 +133,12 @@ public final class Client extends JFrame implements ActionListener {
         String laf = UIManager.getSystemLookAndFeelClassName();
         UIManager.setLookAndFeel(laf);
         Client client = new Client();
+        client.setUndecorated(true);
         client.pack();
         client.setMinimumSize(client.getSize());
-        client.setLocationRelativeTo(JOptionPane.getRootFrame());
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle bounds = env.getMaximumWindowBounds();
+        client.setBounds(bounds);
         client.setVisible(true);
     }
 

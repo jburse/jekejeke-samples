@@ -128,18 +128,17 @@ public final class Applet extends JFrame implements ActionListener {
      * <p>Main method shows the standalone frame.</p>
      *
      * @param args The command line arguments, not used.
-     * @throws Exception Initialization Error.
      */
     public static void main(String[] args) throws Exception {
-//        String laf = UIManager.getSystemLookAndFeelClassName();
-//        UIManager.setLookAndFeel(laf);
+        String laf = UIManager.getSystemLookAndFeelClassName();
+        UIManager.setLookAndFeel(laf);
         Applet applet = new Applet();
+        applet.setUndecorated(true);
         applet.pack();
         applet.setMinimumSize(applet.getSize());
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle r = ge.getMaximumWindowBounds();
-        applet.setBounds(r);
-//        applet.setLocationRelativeTo(JOptionPane.getRootFrame());
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle bounds = env.getMaximumWindowBounds();
+        applet.setBounds(bounds);
         applet.setVisible(true);
     }
 

@@ -55,7 +55,7 @@ public final class Query {
     private String ageto;
     private String salaryfrom;
     private String salaryto;
-    private Interpreter inter;
+    private final Interpreter inter;
     private Object[][] rows;
 
     /**

@@ -40,4 +40,3 @@ employee('Berta', 'Schmitt', 25, 14500).
 employee('Carla', 'Fischer', 50, 22000).
 employee('Κώστας', 'Βουτσάς', 22, 11000).
 employee('Έλενα', 'Βουτσάς', 34, 16500).
-

@@ -33,7 +33,7 @@
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>Deployment Web - Applet</title>
-    <script src="https://cjrtnc.leaningtech.com/20200206/loader.js"></script>
+    <script src="https://cjrtnc.leaningtech.com/20201027/loader.js"></script>
 </head>
 <body>
 <h1>Deployment Web - Applet</h1>
