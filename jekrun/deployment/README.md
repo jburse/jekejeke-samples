@@ -12,10 +12,6 @@ We provide the following tutorial examples:
 - [Example 2](example02):
   The application consists of a Swing frame.
 - [Example 3](example03):
-  The application consists of a Swing applet.
-- [Example 4](example04):
-  The application consists of a graphical user interface that communicates with the Java server page.
-- [Example 5](example05):
    The application consists of a graphical user interface that communicates with a JDBC database.
 
 # Issues and Contributing
@@ -24,4 +20,4 @@ Feel free to fork for non-commercial attributed use. There is no warranty
 for the samples. You might try a pull request if you find issues, but
 there is also no service agreement by us. Note also that Jekejeke is a trademark.
 
-Jan Burse, 18.09.2018
+Jan Burse, 18.09.2018 (Updated 31.10.2020)
