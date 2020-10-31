@@ -37,21 +37,21 @@
 
 % act(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
 act(F, N, AF, AT, SF, ST, R) :-
-    make_link('http://localhost:8080/deployweb/servlet/example01.Plain',
-         ['firstname'-F,
-          'name'-N,
-          'agefrom'-AF,
-          'ageto'-AT,
-          'salaryfrom'-SF,
-          'salaryto'-ST], '', L),
-    setup_call_cleanup(open(L, read, T),
-                       fetch(T, R),
-                       close(T)).
+   make_link('http://localhost:8080/deployweb/servlet/example01.Plain',
+      [firstname-F,
+      name-N,
+      agefrom-AF,
+      ageto-AT,
+      salaryfrom-SF,
+      salaryto-ST], '', L),
+   setup_call_cleanup(open(L, read, T),
+      fetch(T, R),
+      close(T)).
 
 % fetch(+Stream, -Compound)
-fetch(T, employee(F,N,A,S)) :-
-    read_line(T, _),
-    repeat,
-    (read_line(T, L) ->
-        atom_split(L, '\t', [F,N,A,S]);
-    !, fail).
+fetch(T, employee(F, N, A, S)) :-
+   read_line(T, _),
+   repeat,
+   (  read_line(T, L)
+   -> atom_split(L, '\t', [F, N, A, S])
+   ;  !, fail).

@@ -31,12 +31,12 @@
  */
 
 % employee(Firstname, Name, Age, Salary)
-employee('Сергей',  'Иванов',     53,   18500).
-employee('Сергей',  'Беляев',     53,   19000).
-employee('Anna',    'Fischer',    36,   17000).
-employee('Berta',   'Schmitt',    25,   14500).
-employee('Carla',   'Fischer',    50,   22000).
-employee('Κώστας',  'Βουτσάς',    22,   11000).
-employee('Έλενα',   'Βουτσάς',    34,   16500).
-employee('ณัฐพงษ์',  'สายริยา',    28,   35000).
-employee('ธีระศักดิ์',  'โพธิ์อ้น',    26,   32000).
+employee('Сергей', 'Иванов', 53, 18500).
+employee('Сергей', 'Беляев', 53, 19000).
+employee('Anna', 'Fischer', 36, 17000).
+employee('Berta', 'Schmitt', 25, 14500).
+employee('Carla', 'Fischer', 50, 22000).
+employee('Κώστας', 'Βουτσάς', 22, 11000).
+employee('Έλενα', 'Βουτσάς', 34, 16500).
+employee(ณัฐพงษ์, สายริยา, 28, 35000).
+employee(ธีระศักดิ์, โพธิ์อ้น, 26, 32000).

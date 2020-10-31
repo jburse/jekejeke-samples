@@ -1,4 +1,4 @@
-package example05;
+package example03;
 
 import example02.Pane;
 import example04.Stub;
@@ -11,8 +11,6 @@ import jekpro.tools.term.TermVar;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.concurrent.Callable;
 
 /**
