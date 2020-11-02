@@ -41,6 +41,6 @@
 <script>
     cheerpjInit({javaProperties:["java.protocol.handler.pkgs=com.leaningtech.handlers"]});
     cheerpjCreateDisplay(600,480);
-    cheerpjRunJar("/app/deployweb/example05/archive2.jar");
+    cheerpjRunJar("/app/deployweb/example05/archive2.jar", document.URL);
 </script>
 </html>

@@ -30,20 +30,21 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_package(foreign(example04)).
 :- use_module(library(advanced/signal)).
 :- use_module(library(system/uri)).
 :- use_module(library(stream/console)).
 
 % act(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
 act(F, N, AF, AT, SF, ST, R) :-
-   make_link('http://localhost:8080/deployweb/servlet/example01.Plain',
+   make_link('../servlet/example01.Plain',
       [firstname-F,
       name-N,
       agefrom-AF,
       ageto-AT,
       salaryfrom-SF,
-      salaryto-ST], '', L),
+      salaryto-ST], '', H),
+   current_prolog_flag(base_url, B),
+   follow_uri(B, H, L),
    setup_call_cleanup(open(L, read, T),
       fetch(T, R),
       close(T)).

@@ -50,8 +50,10 @@ public final class Client extends JFrame implements ActionListener {
 
     /**
      * <p>Setup the knowledgebase and init the pane.</p>
+     *
+     * @param b The document URL.
      */
-    private Client() {
+    private Client(String b) {
         /* init the pane */
         pane.initPane(getRootPane(), this);
         setTitle("Deployment Study - Client");
@@ -60,7 +62,7 @@ public final class Client extends JFrame implements ActionListener {
         /* load the Prolog */
         pane.startJob(new Callable() {
             public Object call() throws Exception {
-                initKnowledgebase();
+                initKnowledgebase(b);
                 return null;
             }
         }, this);
@@ -68,13 +70,16 @@ public final class Client extends JFrame implements ActionListener {
 
     /**
      * <p>do set up of the knowledge base.</p>
+     *
+     * @param b The document URL.
      */
-    private void initKnowledgebase() throws Exception {
+    private void initKnowledgebase(String b) throws Exception {
         know.setProperty(Knowledgebase.PROP_SYS_HINT,
                 Integer.valueOf(Knowledgebase.HINT_MASK_LMTD));
         /* setup the Prolog runtime */
         Interpreter inter = know.iterable();
         Knowledgebase.initKnowledgebase(inter);
+        know.setProperty(Knowledgebase.PROP_BASE_URL, b);
         /* load the Prolog code */
         Object consultGoal = inter.parseTerm("consult(library(example05/agent))");
         inter.iterator(consultGoal).next().close();
@@ -127,12 +132,12 @@ public final class Client extends JFrame implements ActionListener {
     /**
      * <p>Main method shows the standalone frame.</p>
      *
-     * @param args The command line arguments, not used.
+     * @param args The argument must be the document URL.
      */
     public static void main(String[] args) throws Exception {
         String laf = UIManager.getSystemLookAndFeelClassName();
         UIManager.setLookAndFeel(laf);
-        Client client = new Client();
+        Client client = new Client(args[0]);
         client.setUndecorated(true);
         client.pack();
         client.setMinimumSize(client.getSize());
