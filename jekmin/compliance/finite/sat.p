@@ -36,7 +36,7 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(finite/clpb)).
+:- use_module(library(boole/clpb)).
 :- use_module(library(misc/residue)).
 :- use_module(library(basic/lists)).
 

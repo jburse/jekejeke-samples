@@ -81,8 +81,9 @@ tracker:text(library(finite/linform)).
 tracker:text(library(finite/reify)).
 tracker:text(library(finite/enum)).
 
-tracker:text(library(finite/clpb)).
-tracker:text(library(finite/tree)).
+tracker:text(library(boole/clpb)).
+tracker:text(library(boole/tree)).
+tracker:text(library(boole/pseudo)).
 
 tracker:text(library(misc/elem)).
 
