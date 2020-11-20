@@ -1,5 +1,5 @@
 /**
- * Prolog code for the compliance assessment suite.
+ * Prolog code for the calculate function test cases.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,20 +30,19 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded('../system/connect').
-:- ensure_loaded('../system/load').
-:- ensure_loaded('../system/notation').
-:- ensure_loaded('../system/proxy').
-:- ensure_loaded('../system/quali').
-:- ensure_loaded('../system/rewrite').
+:- use_package(library(jekdev/reference/testing)).
 
-:- ensure_loaded('../extend/grammar').
-:- ensure_loaded('../extend/hiord').
-:- ensure_loaded('../extend/invoke').
-:- ensure_loaded('../extend/struct').
-:- ensure_loaded('../extend/codec').
-:- ensure_loaded('../extend/tabel').
+:- multifile runner:ref/4.
+:- discontiguous runner:ref/4.
 
-:- ensure_loaded('../calculate/near').
-:- ensure_loaded('../calculate/collection').
-:- ensure_loaded('../calculate/function').
+:- multifile runner:case/4.
+:- discontiguous runner:case/4.
+
+:- use_module(library(experiment/maps)).
+:- use_module(library(experiment/ordmaps)).
+
+/* bar(X) */
+
+runner:ref(bar, 1, calculate_function, 'XLOG 3.3.1').
+runner:case(bar, 1, calculate_function, 'XLOG 3.3.1, XLOG 1') :-
+   true.
