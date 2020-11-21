@@ -41,8 +41,52 @@
 :- use_module(library(experiment/maps)).
 :- use_module(library(experiment/ordmaps)).
 
-/* bar(X) */
+/* maps */
 
-runner:ref(bar, 1, calculate_function, 'XLOG 3.3.1').
-runner:case(bar, 1, calculate_function, 'XLOG 3.3.1, XLOG 1') :-
-   true.
+runner:ref(get, 3, calculate_function, 'XLOG 3.4.1').
+runner:case(get, 3, calculate_function, 'XLOG 3.4.1, XLOG 1') :-
+   get([3-a, 1-b, 2-c], 1, X),
+   X == b.
+runner:case(get, 3, calculate_function, 'XLOG 3.4.1, XLOG 2') :-
+   \+ get([3-a, 1-b, 2-c], 4, _).
+
+runner:ref(put, 4, calculate_function, 'XLOG 3.4.2').
+runner:case(put, 4, calculate_function, 'XLOG 3.4.2, XLOG 1') :-
+   put([3-a, 1-b, 2-c], 1, d, X),
+   X == [3-a, 1-d, 2-c].
+runner:case(put, 4, calculate_function, 'XLOG 3.4.2, XLOG 2') :-
+   put([3-a, 1-b, 2-c], 4, d, X),
+   X == [3-a, 1-b, 2-c, 4-d].
+
+runner:ref(remove, 3, calculate_function, 'XLOG 3.4.3').
+runner:case(remove, 3, calculate_function, 'XLOG 3.4.3, XLOG 1') :-
+   remove([3-a, 1-b, 2-c], 1, X),
+   X == [3-a, 2-c].
+runner:case(remove, 3, calculate_function, 'XLOG 3.4.3, XLOG 2') :-
+   remove([3-a, 1-b, 2-c], 4, X),
+   X = [3-a, 1-b, 2-c].
+
+/* ordmaps */
+
+runner:ref(ord_get, 3, calculate_function, 'XLOG 3.5.1').
+runner:case(ord_get, 3, calculate_function, 'XLOG 3.5.1, XLOG 1') :-
+   ord_get([1-a, 2-b, 3-c], 2, X),
+   X == b.
+runner:case(ord_get, 3, calculate_function, 'XLOG 3.5.1, XLOG 2') :-
+   \+ ord_get([1-a, 2-b, 4-c], 3, _).
+
+runner:ref(ord_put, 4, calculate_function, 'XLOG 3.5.2').
+runner:case(ord_put, 4, calculate_function, 'XLOG 3.5.2, XLOG 1') :-
+   ord_put([1-a, 2-b, 3-c], 2, d, X),
+   X == [1-a, 2-d, 3-c].
+runner:case(ord_put, 4, calculate_function, 'XLOG 3.5.2, XLOG 2') :-
+   ord_put([1-a, 2-b, 4-c], 3, d, X),
+   X == [1-a, 2-b, 3-d, 4-c].
+
+runner:ref(ord_remove, 3, calculate_function, 'XLOG 3.5.3').
+runner:case(ord_remove, 3, calculate_function, 'XLOG 3.5.3, XLOG 1') :-
+   ord_remove([1-a, 2-b, 3-c], 2, X),
+   X == [1-a, 3-c].
+runner:case(ord_remove, 3, calculate_function, 'XLOG 3.5.3, XLOG 2') :-
+   ord_remove([1-a, 2-b, 4-c], 3, X),
+   X == [1-a, 2-b, 4-c].

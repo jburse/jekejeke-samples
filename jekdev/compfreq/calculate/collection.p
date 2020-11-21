@@ -41,6 +41,8 @@
 :- use_module(library(advanced/sets)).
 :- use_module(library(advanced/ordsets)).
 
+/* sets */
+
 runner:ref(contains, 2, calculate_collection, 'XLOG 3.2.1').
 runner:case(contains, 2, calculate_collection, 'XLOG 3.2.1, XLOG 1') :-
    contains([1, 2, 3, 2], 2).
@@ -112,3 +114,71 @@ runner:case(equal, 2, calculate_collection, 'XLOG 3.2.10, XLOG 1') :-
    \+ equal([2, 3], [1, 2, 3, 4]).
 runner:case(equal, 2, calculate_collection, 'XLOG 3.2.10, XLOG 2') :-
    \+ equal([1, 3], [2, 4]).
+
+/* ordsets */
+
+runner:ref(ord_contains, 2, calculate_collection, 'XLOG 3.3.1').
+runner:case(ord_contains, 2, calculate_collection, 'XLOG 3.3.1, XLOG 1') :-
+   ord_contains([1, 2, 3], 2).
+runner:case(ord_contains, 2, calculate_collection, 'XLOG 3.3.1, XLOG 2') :-
+   \+ ord_contains([1, 2, 4], 3).
+
+runner:ref(ord_delete, 3, calculate_collection, 'XLOG 3.3.2').
+runner:case(ord_delete, 3, calculate_collection, 'XLOG 3.3.2, XLOG 1') :-
+   ord_delete([1, 2, 3], 2, X),
+   X == [1, 3].
+runner:case(ord_delete, 3, calculate_collection, 'XLOG 3.3.2, XLOG 2') :-
+   ord_delete([1, 2, 4], 3, X),
+   X == [1, 2, 4].
+
+runner:ref(ord_add, 3, calculate_collection, 'XLOG 3.3.3').
+runner:case(ord_add, 3, calculate_collection, 'XLOG 3.3.3, XLOG 1') :-
+   ord_add([1, 2, 3], 2, X),
+   X == [1, 2, 3].
+runner:case(ord_add, 3, calculate_collection, 'XLOG 3.3.3, XLOG 2') :-
+   ord_add([1, 2, 4], 3, X),
+   X == [1, 2, 3, 4].
+
+runner:ref(ord_subtract, 3, calculate_collection, 'XLOG 3.3.4').
+runner:case(ord_subtract, 3, calculate_collection, 'XLOG 3.3.4, XLOG 1') :-
+   ord_subtract([1, 2, 3], [2, 3, 4], X),
+   X == [1].
+runner:case(ord_subtract, 3, calculate_collection, 'XLOG 3.3.4, XLOG 2') :-
+   ord_subtract([1, 3], [2, 4], X),
+   X == [1, 3].
+
+runner:ref(ord_intersection, 3, calculate_collection, 'XLOG 3.3.5').
+runner:case(ord_intersection, 3, calculate_collection, 'XLOG 3.3.5, XLOG 1') :-
+   ord_intersection([1, 2, 3], [2, 3, 4], X),
+   X == [2, 3].
+runner:case(ord_intersection, 3, calculate_collection, 'XLOG 3.3.5, XLOG 2') :-
+   ord_intersection([1, 3], [2, 4], X),
+   X == [].
+
+runner:ref(ord_union, 3, calculate_collection, 'XLOG 3.3.6').
+runner:case(ord_union, 3, calculate_collection, 'XLOG 3.3.6, XLOG 1') :-
+   ord_union([1, 2, 3], [2, 3, 4], X),
+   X = [1, 2, 3, 4].
+runner:case(ord_union, 3, calculate_collection, 'XLOG 3.3.6, XLOG 2') :-
+   ord_union([1, 3], [2, 4], X),
+   X = [1, 2, 3, 4].
+
+runner:ref(ord_symdiff, 3, calculate_collection, 'XLOG 3.3.7').
+runner:case(ord_symdiff, 3, calculate_collection, 'XLOG 3.3.7, XLOG 1') :-
+   ord_symdiff([1, 2, 3], [2, 3, 4], X),
+   X == [1, 4].
+runner:case(ord_symdiff, 3, calculate_collection, 'XLOG 3.3.7, XLOG 2') :-
+   ord_symdiff([1, 3], [2, 4], X),
+   X == [1, 2, 3, 4].
+
+runner:ref(ord_subset, 2, calculate_collection, 'XLOG 3.3.8').
+runner:case(ord_subset, 2, calculate_collection, 'XLOG 3.3.8, XLOG 1') :-
+   ord_subset([2, 3], [1, 2, 3, 4]).
+runner:case(ord_subset, 2, calculate_collection, 'XLOG 3.3.8, XLOG 2') :-
+   \+ ord_subset([1, 3], [2, 4]).
+
+runner:ref(ord_disjoint, 2, calculate_collection, 'XLOG 3.3.9').
+runner:case(ord_disjoint, 2, calculate_collection, 'XLOG 3.3.9, XLOG 1') :-
+   \+ ord_disjoint([2, 3], [1, 2, 3, 4]).
+runner:case(ord_disjoint, 2, calculate_collection, 'XLOG 3.3.9, XLOG 2') :-
+   ord_disjoint([1, 3], [2, 4]).
