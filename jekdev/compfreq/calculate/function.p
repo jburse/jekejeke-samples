@@ -49,6 +49,9 @@ runner:case(get, 3, calculate_function, 'XLOG 3.4.1, XLOG 1') :-
    X == b.
 runner:case(get, 3, calculate_function, 'XLOG 3.4.1, XLOG 2') :-
    \+ get([3-a, 1-b, 2-c], 4, _).
+runner:case(get, 3, calculate_function, 'XLOG 3.4.1, XLOG 3') :-
+   catch(get([3-a, 1-b|_], 4, _), error(E, _), true),
+   E == instantiation_error.
 
 runner:ref(put, 4, calculate_function, 'XLOG 3.4.2').
 runner:case(put, 4, calculate_function, 'XLOG 3.4.2, XLOG 1') :-
@@ -57,6 +60,9 @@ runner:case(put, 4, calculate_function, 'XLOG 3.4.2, XLOG 1') :-
 runner:case(put, 4, calculate_function, 'XLOG 3.4.2, XLOG 2') :-
    put([3-a, 1-b, 2-c], 4, d, X),
    X == [3-a, 1-b, 2-c, 4-d].
+runner:case(put, 4, calculate_function, 'XLOG 3.4.2, XLOG 3') :-
+   catch(put([3-a, 1-b|foo], 4, d, _), error(E, _), true),
+   E == type_error(list, foo).
 
 runner:ref(remove, 3, calculate_function, 'XLOG 3.4.3').
 runner:case(remove, 3, calculate_function, 'XLOG 3.4.3, XLOG 1') :-
@@ -65,6 +71,9 @@ runner:case(remove, 3, calculate_function, 'XLOG 3.4.3, XLOG 1') :-
 runner:case(remove, 3, calculate_function, 'XLOG 3.4.3, XLOG 2') :-
    remove([3-a, 1-b, 2-c], 4, X),
    X = [3-a, 1-b, 2-c].
+runner:case(remove, 3, calculate_function, 'XLOG 3.4.3, XLOG 3') :-
+   catch(remove([3-a, 1-b|_], 4, _), error(E, _), true),
+   E == instantiation_error.
 
 /* ordmaps */
 

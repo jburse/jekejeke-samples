@@ -41,6 +41,10 @@
 :- use_module(library(standard/arith)).
 :- use_module(library(system/charsio)).
 
+/****************************************************************/
+/* vars.p extras                                               */
+/****************************************************************/
+
 /* numbervars(T, N, M) */
 
 runner:ref(numbervars, 3, extra_vars, 'XLOG 3.1.1').
@@ -56,6 +60,14 @@ runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 3') :-
 runner:case(numbervars, 3, extra_vars, 'XLOG 3.1.1, XLOG 4') :-
    catch(numbervars(_, -2, _), error(E, _), true),
    E == representation_error(not_less_than_zero).
+
+/* nonground(X, Y) */
+
+runner:ref(nonground, 2, extra_vars, 'XLOG 3.1.2').
+runner:case(nonground, 2, extra_vars, 'XLOG 3.1.2, XLOG 1') :-
+   \+ nonground(foo, _).
+runner:case(nonground, 2, extra_vars, 'XLOG 3.1.2, XLOG 2') :-
+   nonground(bar(X, _, X), Z), Z == X.
 
 /****************************************************************/
 /* logic.p extras                                               */
@@ -164,18 +176,18 @@ runner:case(findall, 3, extra_vars, 'XLOG 3.2.3, XLOG 2') :-
 
 /* callable_property(C, P) */
 
-runner:ref(callable_property, 2, extra_vars, 'XLOG 3.2.4').
-runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 1') :-
+runner:ref(callable_property, 2, extra_vars, 'XLOG 3.3.1').
+runner:case(callable_property, 2, extra_vars, 'XLOG 3.3.1, XLOG 1') :-
    callable_property(here, sys_context(C)),
    \+ C = ''.
-runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 2') :-
+runner:case(callable_property, 2, extra_vars, 'XLOG 3.3.1, XLOG 2') :-
    set_callable_property(H, sys_context(''), here),
    H = here.
-runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 3') :-
+runner:case(callable_property, 2, extra_vars, 'XLOG 3.3.1, XLOG 3') :-
    set_callable_property(H, sys_context(''), here),
    callable_property(H, sys_context(C)),
    C = ''.
-runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 4') :-
+runner:case(callable_property, 2, extra_vars, 'XLOG 3.3.1, XLOG 4') :-
    catch(callable_property(1, sys_context(_)), error(E, _), true),
    E == type_error(callable, 1).
 
@@ -186,17 +198,17 @@ runner:case(callable_property, 2, extra_vars, 'XLOG 3.2.4, XLOG 4') :-
 :- op(200, xfy, sys_dot).
 :- set_oper_property(infix(sys_dot), sys_portray('.')).
 
-runner:ref(dot_syntax, 2, extra_vars, 'XLOG 3.2.5').
-runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 1') :-
+runner:ref(dot_syntax, 2, extra_vars, 'XLOG 3.3.2').
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 1') :-
    with_output_to(atom(A), write_canonical(foo.bar)),
    A == 'sys_dot(foo, bar)'.
-runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 2') :-
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 2') :-
    with_output_to(atom(A), write(foo.bar)),
    A == 'foo.bar'.
-runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 3') :-
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 3') :-
    with_output_to(atom(A), write_canonical([foo|bar])),
    A == '''.''(foo, bar)'.
-runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 4') :-
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 4') :-
    with_output_to(atom(A), write([foo|bar])),
    A == '[foo|bar]'.
 
@@ -207,16 +219,16 @@ runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.2.5, XLOG 4') :-
 :- op(300, fx, sys_set).
 :- set_oper_property(prefix(sys_set), sys_portray({})).
 
-runner:ref(set_syntax, 2, extra_vars, 'XLOG 3.2.6').
-runner:case(set_syntax, 2, extra_vars, 'XLOG 3.2.6, XLOG 1') :-
+runner:ref(set_syntax, 2, extra_vars, 'XLOG 3.3.3').
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.3.3, XLOG 1') :-
    with_output_to(atom(A), write_canonical({}foo)),
    A == 'sys_set(foo)'.
-runner:case(set_syntax, 2, extra_vars, 'XLOG 3.2.6, XLOG 2') :-
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.3.3, XLOG 2') :-
    with_output_to(atom(A), write({}foo)),
    A == '{}foo'.
-runner:case(set_syntax, 2, extra_vars, 'XLOG 3.2.6, XLOG 3') :-
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.3.3, XLOG 3') :-
    with_output_to(atom(A), write_canonical({foo})),
    A == '{}(foo)'.
-runner:case(set_syntax, 2, extra_vars, 'XLOG 3.2.6, XLOG 4') :-
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.3.3, XLOG 4') :-
    with_output_to(atom(A), write({foo})),
    A == '{foo}'.
