@@ -47,3 +47,4 @@
 :- ensure_loaded('../calculate/near').
 :- ensure_loaded('../calculate/collection').
 :- ensure_loaded('../calculate/function').
+:- ensure_loaded('../calculate/stable').
