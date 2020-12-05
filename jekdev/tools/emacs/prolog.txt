@@ -8,7 +8,7 @@
 ;;          Stefan Bruda <stefan(at)bruda(dot)ca>
 ;;          * See below for more details
 ;; Maintainer: Stefan Bruda <stefan(at)bruda(dot)ca>
-;; Keywords: prolog major mode sicstus swi mercury
+;; Keywords: prolog major mode sicstus swi jekejeke mercury
 
 (defvar prolog-mode-version "1.22"
   "Prolog mode version number.")
@@ -339,11 +339,13 @@ eclipse - Eclipse Prolog
 mercury - Mercury
 sicstus - SICStus Prolog
 swi     - SWI Prolog
+jekejeke - Jekejeke Prolog
 gnu     - GNU Prolog"
   :version "24.1"
   :group 'prolog
   :type '(choice (const :tag "SICStus" :value sicstus)
                  (const :tag "SWI Prolog" :value swi)
+                 (const :tag "Jekejeke Prolog" :value jekejeke)
                  (const :tag "GNU Prolog" :value gnu)
                  (const :tag "ECLiPSe Prolog" :value eclipse)
                  ;; Mercury shouldn't be needed since we have a separate
@@ -357,6 +359,7 @@ gnu     - GNU Prolog"
 (defcustom prolog-system-version
   '((sicstus  (3 . 6))
     (swi      (0 . 0))
+    (jekejeke (0 . 0))
     (mercury  (0 . 0))
     (eclipse  (3 . 7))
     (gnu      (0 . 0)))
@@ -430,6 +433,9 @@ Legal values:
      ("discontiguous" "dynamic" "ensure_loaded" "export" "export_list" "import"
       "meta_predicate" "module" "module_transparent" "multifile" "require"
       "use_module" "volatile"))
+    (jekejeke
+     ("discontiguous" "dynamic" "thread_local" "ensure_loaded" "public"
+      "private" "meta_predicate" "module" "multifile" "use_module"))
     (gnu
      ("built_in" "char_conversion" "discontiguous" "dynamic" "ensure_linked"
       "ensure_loaded" "foreign" "include" "initialization" "multifile" "op"
@@ -555,6 +561,7 @@ the first column (i.e., DCG heads) inserts ` -->' and newline."
     (mercury nil)
     (sicstus "sicstus")
     (swi ,(if (not (executable-find "swipl")) "pl" "swipl"))
+    (jekejeke "jekrun4")
     (gnu "gprolog")
     (t ,(let ((names '("prolog" "gprolog" "swipl" "pl")))
  	  (while (and names
@@ -569,6 +576,7 @@ the first column (i.e., DCG heads) inserts ` -->' and newline."
 
 (defcustom prolog-program-switches
   '((sicstus ("-i"))
+    (jekejeke ("-h"))
     (t nil))
   "Alist of switches given to inferior Prolog run with `run-prolog'."
   :version "24.1"
@@ -584,6 +592,7 @@ the first column (i.e., DCG heads) inserts ` -->' and newline."
                        "prolog:zap_file(%m,%b,consult,%l)."
                      "prolog:zap_file(%m,%b,consult).")))
     (swi "[%f].")
+    (jekejeke "[%f].")
     (gnu     "[%f].")
     (t "reconsult(%f)."))
   "Alist of strings defining predicate for reconsulting.
@@ -607,6 +616,7 @@ Some parts of the string are replaced:
                        "prolog:zap_file(%m,%b,compile,%l)."
                      "prolog:zap_file(%m,%b,compile).")))
     (swi "[%f].")
+    (jekejeke "[%f].")
     (t "compile(%f)."))
   "Alist of strings and lists defining predicate for recompilation.
 
@@ -635,6 +645,7 @@ nil means send actual operating system end of file."
   '((eclipse "^[a-zA-Z0-9()]* *\\?- \\|^\\[[a-zA-Z]* [0-9]*\\]:")
     (sicstus "| [ ?][- ] *")
     (swi "^\\(\\[[a-zA-Z]*\\] \\)?[1-9]?[0-9]*[ ]?\\?- \\|^| +")
+    (jekejeke "^\\?-")
     (gnu "^| \\?-")
     (t "^|? *\\?-"))
   "Alist of prompts of the prolog system command line."
@@ -1115,6 +1126,7 @@ Commands:
                            ((eq prolog-system 'eclipse) "[ECLiPSe]")
                            ((eq prolog-system 'sicstus) "[SICStus]")
                            ((eq prolog-system 'swi) "[SWI]")
+                           ((eq prolog-system 'jekejeke) "[JEKEJEKE]")
                            ((eq prolog-system 'gnu) "[GNU]")
                            (t ""))))
   (prolog-mode-variables)
