@@ -85,7 +85,7 @@ tracker:text(library(boole/clpb)).
 tracker:text(library(boole/tree)).
 tracker:text(library(boole/pseudo)).
 
-tracker:text(library(misc/elem)).
+tracker:text(library(experiment/elem)).
 
 tracker:text(library(term/herbrand)).
 tracker:text(library(term/suspend)).

@@ -110,22 +110,22 @@ runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 1'
    L == [X in 10..15 #\/ B #= 0, X in inf..4\/21..sup #\/ B #= 1, B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 2') :-
    call_residue((X in 10..20 #<==> B, X #= 15 #<==> B), L),
-   L == [X in inf..9\/21..sup #\/ B #= 1, X #= 15 #\/ B #= 0, B in 0..1].
+   L == [X #= 15 #\/ B #= 0, X in inf..9\/21..sup #\/ B #= 1, B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 3') :-
    call_residue((X #\= 15 #<==> B, X in 10..20 #<==> B), L),
    L == [X in 10..14\/16..20], B == 1.
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 4') :-
    call_residue((X in 10..20 #<==> B, X #> 4 #<==> B), L),
-   L == [X #=< 20, X in 10..20 #\/ B #= 0, X #=< 4 #\/ B #= 1, B in 0..1].
+   L == [X #=< 20, X #=< 4 #\/ B #= 1, X in 10..20 #\/ B #= 0, B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 5') :-
    call_residue((X #=< 20 #<==> B, X in 5..15 #<==> B), L),
-   L == [X #> 4, X #> 20 #\/ B #= 1, X in 5..15 #\/ B #= 0, B in 0..1].
+   L == [X #> 4, X in 5..15 #\/ B #= 0, X #> 20 #\/ B #= 1, B in 0..1].
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 6') :-
    call_residue((X #= 3 #<==> B, X #= 7 #<==> B), L),
    L == [X in inf..2\/4..6\/8..sup], B == 0.
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 7') :-
    call_residue((X #= 3 #<==> B, X #\= 7 #<==> B), L),
-   L == [X in 3..7, X #= 3 #\/ B #= 0, X #= 7 #\/ B #= 1, B in 0..1].
+   L == [X in 3..7, X #= 7 #\/ B #= 1, X #= 3 #\/ B #= 0, B in 0..1].
 /* in & at */
 runner:case('sys_in sys_reify_in', 6, finite_guard, 'CLP(FD) 0.8.4, 5.4, XLOG 8') :-
    call_residue((X in 10..20 #<==> B, X in 5..15), L),

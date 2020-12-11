@@ -190,19 +190,19 @@ runner:case('sys_var sys_set', 7, finite_sets, 'CLP(FD) 0.8.3, 2.11, XLOG 3') :-
 runner:ref('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12').
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 1') :-
    call_residue((X+Y in 1..100, X in 1..100), L),
-   permutation(L, [Y in -99..99, X in 1..100, X+Y in 1..100]).
+   equal(L, [Y in -99..99, X in 1..100, X+Y in 1..100]).
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 2') :-
    call_residue((X+Y in 1..100, Y in 1..100), L),
-   permutation(L, [Y in 1..100, X+Y in 1..100]).
+   equal(L, [Y in 1..100, X+Y in 1..100]).
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 3') :-
    call_residue((3*X+Y in 1..100, X in 1..100), L),
-   permutation(L, [Y in -299..97, X in 1..100, 3*X+Y in 1..100]).
+   equal(L, [Y in -299..97, X in 1..100, 3*X+Y in 1..100]).
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 4') :-
    call_residue((X+3*Y in 1..100, X in 1..100), L),
-   permutation(L, [Y in -33..33, X in 1..100, X+3*Y in 1..100]).
+   equal(L, [Y in -33..33, X in 1..100, X+3*Y in 1..100]).
 runner:case('sys_in sys_set', 8, finite_sets, 'CLP(FD) 0.8.3, 2.12, XLOG 5') :-
    call_residue((3*X+2*Y in 1..100, X in 1..100), L),
-   permutation(L, [Y in -149..48, X in 1..100, 3*X+2*Y in 1..100]).
+   equal(L, [Y in -149..48, X in 1..100, 3*X+2*Y in 1..100]).
 
 % sys_set_agent(+Ref, +Wrap, +Prod, +Set, +Bound)
 % sys_set_agent(+Ref, +Wrap, +Prod, +Set, +Bound)
