@@ -106,7 +106,7 @@ runner:case(number_compare, 3, calculate_near, 'XLOG 3.1.4, XLOG 6') :-
 runner:ref(random_permutation, 2, calculate_near, 'XLOG 3.2.1').
 runner:case(random_permutation, 2, calculate_near, 'XLOG 3.2.1, XLOG 1') :-
    random_permutation([a, b, c], X),
-   equal(X, [a, b, c]).
+   eq_equal(X, [a, b, c]).
 runner:case(random_permutation, 2, calculate_near, 'XLOG 3.2.1, XLOG 2') :-
    catch(random_permutation([a|_], _), error(E, _), true),
    E == instantiation_error.
@@ -116,7 +116,7 @@ runner:case(random_permutation, 2, calculate_near, 'XLOG 3.2.1, XLOG 2') :-
 runner:ref(random_member, 2, calculate_near, 'XLOG 3.2.2').
 runner:case(random_member, 2, calculate_near, 'XLOG 3.2.2, XLOG 1') :-
    random_member(X, [a, b, c]),
-   contains([a, b, c], X).
+   eq_contains([a, b, c], X).
 runner:case(random_member, 2, calculate_near, 'XLOG 3.2.2, XLOG 2') :-
    \+ random_member(_, []).
 runner:case(random_member, 2, calculate_near, 'XLOG 3.2.2, XLOG 3') :-
@@ -128,10 +128,10 @@ runner:case(random_member, 2, calculate_near, 'XLOG 3.2.2, XLOG 3') :-
 runner:ref(random_select, 3, calculate_near, 'XLOG 3.2.3').
 runner:case(random_select, 3, calculate_near, 'XLOG 3.2.3, XLOG 1') :-
    random_select(X, [a, b, c], Y),
-   delete([a, b, c], X, Y).
+   eq_delete([a, b, c], X, Y).
 runner:case(random_select, 3, calculate_near, 'XLOG 3.2.3, XLOG 2') :-
    random_select(c, X, [a, b]),
-   equal(X, [a, b, c]).
+   eq_equal(X, [a, b, c]).
 runner:case(random_select, 3, calculate_near, 'XLOG 3.2.3, XLOG 3') :-
    \+ random_select(_, [], _).
 runner:case(random_select, 3, calculate_near, 'XLOG 3.2.3, XLOG 4') :-

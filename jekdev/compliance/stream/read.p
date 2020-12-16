@@ -153,8 +153,8 @@ runner:case(read_term, 2, stream_read, 'ISO 8.14.1.4, ISO 1') :-
 runner:case(read_term, 2, stream_read, 'ISO 8.14.1.4, ISO 2') :-
    with_input_from(atom('foo(A+Roger,A+_). term2. '), read_term(X,
       [variables(VL), variable_names(VN), singletons(VS)])), X = foo(X1+X2, X1+X3),
-   equal(VL, [X1, X2, X3]),
-   equal(VN, ['A' = X1, 'Roger' = X2]),
+   eq_equal(VL, [X1, X2, X3]),
+   eq_equal(VN, ['A' = X1, 'Roger' = X2]),
    VS == ['Roger' = X2].
 runner:case(read_term, 2, stream_read, 'ISO 6.3.4.3, XLOG 1') :-
    op(9, xf, e),

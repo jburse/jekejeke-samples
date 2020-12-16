@@ -45,36 +45,36 @@
 /* maps.p extras                                                */
 /****************************************************************/
 
-runner:ref(get, 3, calculate_function, 'XLOG 3.6.1').
-runner:case(get, 3, calculate_function, 'XLOG 3.6.1, XLOG 1') :-
-   get([3-a, 1-b, 2-c], 1, X),
+runner:ref(eq_get, 3, calculate_function, 'XLOG 3.6.1').
+runner:case(eq_get, 3, calculate_function, 'XLOG 3.6.1, XLOG 1') :-
+   eq_get([3-a, 1-b, 2-c], 1, X),
    X == b.
-runner:case(get, 3, calculate_function, 'XLOG 3.6.1, XLOG 2') :-
-   \+ get([3-a, 1-b, 2-c], 4, _).
-runner:case(get, 3, calculate_function, 'XLOG 3.6.1, XLOG 3') :-
-   catch(get([3-a, 1-b|_], 4, _), error(E, _), true),
+runner:case(eq_get, 3, calculate_function, 'XLOG 3.6.1, XLOG 2') :-
+   \+ eq_get([3-a, 1-b, 2-c], 4, _).
+runner:case(eq_get, 3, calculate_function, 'XLOG 3.6.1, XLOG 3') :-
+   catch(eq_get([3-a, 1-b|_], 4, _), error(E, _), true),
    E == instantiation_error.
 
-runner:ref(put, 4, calculate_function, 'XLOG 3.6.2').
-runner:case(put, 4, calculate_function, 'XLOG 3.6.2, XLOG 1') :-
-   put([3-a, 1-b, 2-c], 1, d, X),
+runner:ref(eq_put, 4, calculate_function, 'XLOG 3.6.2').
+runner:case(eq_put, 4, calculate_function, 'XLOG 3.6.2, XLOG 1') :-
+   eq_put([3-a, 1-b, 2-c], 1, d, X),
    X == [3-a, 1-d, 2-c].
-runner:case(put, 4, calculate_function, 'XLOG 3.6.2, XLOG 2') :-
-   put([3-a, 1-b, 2-c], 4, d, X),
+runner:case(eq_put, 4, calculate_function, 'XLOG 3.6.2, XLOG 2') :-
+   eq_put([3-a, 1-b, 2-c], 4, d, X),
    X == [3-a, 1-b, 2-c, 4-d].
-runner:case(put, 4, calculate_function, 'XLOG 3.6.2, XLOG 3') :-
-   catch(put([3-a, 1-b|foo], 4, d, _), error(E, _), true),
+runner:case(eq_put, 4, calculate_function, 'XLOG 3.6.2, XLOG 3') :-
+   catch(eq_put([3-a, 1-b|foo], 4, d, _), error(E, _), true),
    E == type_error(list, foo).
 
-runner:ref(remove, 3, calculate_function, 'XLOG 3.6.3').
-runner:case(remove, 3, calculate_function, 'XLOG 3.6.3, XLOG 1') :-
-   remove([3-a, 1-b, 2-c], 1, X),
+runner:ref(eq_remove, 3, calculate_function, 'XLOG 3.6.3').
+runner:case(eq_remove, 3, calculate_function, 'XLOG 3.6.3, XLOG 1') :-
+   eq_remove([3-a, 1-b, 2-c], 1, X),
    X == [3-a, 2-c].
-runner:case(remove, 3, calculate_function, 'XLOG 3.6.3, XLOG 2') :-
-   remove([3-a, 1-b, 2-c], 4, X),
+runner:case(eq_remove, 3, calculate_function, 'XLOG 3.6.3, XLOG 2') :-
+   eq_remove([3-a, 1-b, 2-c], 4, X),
    X = [3-a, 1-b, 2-c].
-runner:case(remove, 3, calculate_function, 'XLOG 3.6.3, XLOG 3') :-
-   catch(remove([3-a, 1-b|_], 4, _), error(E, _), true),
+runner:case(eq_remove, 3, calculate_function, 'XLOG 3.6.3, XLOG 3') :-
+   catch(eq_remove([3-a, 1-b|_], 4, _), error(E, _), true),
    E == instantiation_error.
 
 /****************************************************************/
