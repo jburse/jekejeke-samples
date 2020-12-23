@@ -38,8 +38,8 @@
 :- multifile runner:case/4.
 :- discontiguous runner:case/4.
 
-:- use_module(library(advanced/sets)).
-:- use_module(library(advanced/ordsets)).
+:- use_module(library(experiment/sets)).
+:- use_module(library(experiment/ordsets)).
 
 /****************************************************************/
 /* sets.p extras                                                */

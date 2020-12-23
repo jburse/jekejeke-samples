@@ -41,7 +41,7 @@
 :- use_module(library(standard/approx)).
 :- use_module(library(basic/lists)).
 :- use_module(library(basic/random)).
-:- use_module(library(advanced/sets)).
+:- use_module(library(experiment/sets)).
 
 /****************************************************************/
 /* approx.p extras                                              */

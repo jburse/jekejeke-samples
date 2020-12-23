@@ -45,7 +45,7 @@
 
 :- use_module(library(stream/console)).
 :- use_module(library(system/charsio)).
-:- use_module(library(advanced/sets)).
+:- use_module(library(experiment/sets)).
 
 /****************************************************************/
 /* Term Input / Output                                          */
