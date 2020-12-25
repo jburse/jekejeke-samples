@@ -109,32 +109,32 @@ runner:case(sys_goal_globals, 2, system_rewrite, 'XLOG 1.6.5, XLOG 2') :-
    sys_goal_globals(Z^(p(X, Z), q(Z, Y)), G),
    G == [X, Y].
 
-/* sys_extend_args(F, A, G) */
-/* sys_extend_args(F, A, B, G) */
+/* sys_extend_term(F, A, G) */
+/* sys_extend_term(F, A, B, G) */
 /* etc.. */
 
-runner:ref(sys_extend_args, 3, system_rewrite, 'XLOG 1.6.6').
-runner:case(sys_extend_args, 3, system_rewrite, 'XLOG 1.6.6, XLOG 1') :-
-   sys_extend_args(integer, 3, X),
+runner:ref(sys_extend_term, 3, system_rewrite, 'XLOG 1.6.6').
+runner:case(sys_extend_term, 3, system_rewrite, 'XLOG 1.6.6, XLOG 1') :-
+   sys_extend_term(integer, [3], X),
    X == integer(3).
-runner:case(sys_extend_args, 3, system_rewrite, 'XLOG 1.6.6, XLOG 2') :-
-   sys_extend_args(functor(F, c), 0, X),
+runner:case(sys_extend_term, 3, system_rewrite, 'XLOG 1.6.6, XLOG 2') :-
+   sys_extend_term(functor(F, c), [0], X),
    X == functor(F, c, 0).
-runner:case(sys_extend_args, 3, system_rewrite, 'XLOG 1.6.6, XLOG 3') :-
-   sys_extend_args(;, A = 1, B = 2, R),
+runner:case(sys_extend_term, 3, system_rewrite, 'XLOG 1.6.6, XLOG 3') :-
+   sys_extend_term(;, [A = 1, B = 2], R),
    R == (A = 1; B = 2).
 
-/* sys_shrink_args(F, A, G) */
-/* sys_shrink_args(F, A, B, G) */
+/* sys_shrink_term(F, A, G) */
+/* sys_shrink_term(F, A, B, G) */
 /* etc.. */
 
-runner:ref(sys_shrink_args, 3, system_rewrite, 'XLOG 1.6.7').
-runner:case(sys_shrink_args, 3, system_rewrite, 'XLOG 1.6.7, XLOG 1') :-
-   sys_shrink_args(X, Y, integer(3)),
-   X == integer, Y == 3.
-runner:case(sys_shrink_args, 3, system_rewrite, 'XLOG 1.6.7, XLOG 2') :-
-   sys_shrink_args(X, Y, functor(F, c, 0)),
-   X == functor(F, c), Y == 0.
-runner:case(sys_shrink_args, 3, system_rewrite, 'XLOG 1.6.7, XLOG 3') :-
-   sys_shrink_args(X, Y, Z, (A = 1; B = 2)),
-   X == ;, Y == (A = 1), Z == (B = 2).
+runner:ref(sys_shrink_term, 3, system_rewrite, 'XLOG 1.6.7').
+runner:case(sys_shrink_term, 3, system_rewrite, 'XLOG 1.6.7, XLOG 1') :-
+   sys_shrink_term(integer(3), 1, X, Y),
+   X == integer, Y == [3].
+runner:case(sys_shrink_term, 3, system_rewrite, 'XLOG 1.6.7, XLOG 2') :-
+   sys_shrink_term(functor(F, c, 0), 1, X, Y),
+   X == functor(F, c), Y == [0].
+runner:case(sys_shrink_term, 3, system_rewrite, 'XLOG 1.6.7, XLOG 3') :-
+   sys_shrink_term((A = 1; B = 2), 2, X, Y),
+   X == ;, Y == [A = 1, B = 2].
