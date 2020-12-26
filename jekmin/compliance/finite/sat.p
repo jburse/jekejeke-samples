@@ -104,20 +104,6 @@ runner:case(labeling, 1, finite_sat, 'CLP(B) 0.9.4, 1.3, XLOG 3c') :-
 runner:case(labeling, 1, finite_sat, 'CLP(B) 0.9.4, 1.3, XLOG 4') :-
    sat(X =< Y), sat(X =< ~Y), sat(~X =< Y), sat(~X =< ~Y), \+ labeling([X, Y]).
 
-% count/2
-runner:ref(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4').
-runner:case(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 1') :-
-   catch(count(_, _), error(E, _), true),
-   E == instantiation_error.
-runner:case(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 2') :-
-   catch(count(foo, _), error(E, _), true),
-   E == type_error(list, foo).
-runner:case(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 3') :-
-   sat(X =< Y), sat(Y =< Z), sat(Z =< X), count([X, Y, Z], N), N == 2.
-runner:case(count, 2, finite_sat, 'CLP(B) 0.9.4, 1.4, XLOG 4') :-
-   sat(X =< Y), sat(X =< ~Y), sat(~X =< Y), sat(~X =< ~Y),
-   count([X, Y], N), N == 0.
-
 % card/2
 runner:ref(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5').
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 1') :-
@@ -143,7 +129,7 @@ runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 5d') :-
    findall(L, (length(L, 3), sat(card([2], L)), labeling(L)), R),
    R = [_, _, _].
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.5, 1.5, XLOG 6') :-
-   length(L, 6), sat(card([3], L)), count(L, N), N == 20.
+   length(L, 6), sat_count(card([3], L), N), N == 20.
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 7') :-
    sat(card([2], [X0, X1, X1])), X0 == 0, X1 == 1.
 runner:case(card, 2, finite_sat, 'CLP(B) 0.9.6, 1.5, XLOG 8a') :-

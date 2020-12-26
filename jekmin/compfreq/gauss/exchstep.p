@@ -39,7 +39,7 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(groebner/generic)).
-:- use_module(library(advanced/arith)).
+:- use_module(library(standard/arith)).
 :- use_module(library(misc/residue)).
 
 % mat_cons/3

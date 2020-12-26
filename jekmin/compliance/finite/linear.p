@@ -39,7 +39,7 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(misc/residue)).
-:- use_module(library(advanced/sets)).
+:- use_module(library(experiment/sets)).
 :- use_module(library(finite/clpfd)).
 % :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
 
@@ -112,19 +112,19 @@ runner:case('sys_var sys_lin', 6, finite_linear, 'CLP(FD) 0.8.3, 1.4, XLOG 3') :
 runner:ref('sys_in sys_lin', 7, finite_linear, 'CLP(FD) 0.8.3, 1.5').
 runner:case('sys_in sys_lin', 7, finite_linear, 'CLP(FD) 0.8.3, 1.5, XLOG 1') :-
    call_residue((X+Y #= 50, X in 1..100), L),
-   equal(L, [Y in -50..49, X in 1..100, Y #= -X+50]).
+   eq_equal(L, [Y in -50..49, X in 1..100, Y #= -X+50]).
 runner:case('sys_in sys_lin', 7, finite_linear, 'CLP(FD) 0.8.3, 1.5, XLOG 2') :-
    call_residue((X+Y #= 50, Y in 1..100), L),
-   equal(L, [Y in 1..100, Y #= -X+50]).
+   eq_equal(L, [Y in 1..100, Y #= -X+50]).
 runner:case('sys_in sys_lin', 7, finite_linear, 'CLP(FD) 0.8.3, 1.5, XLOG 3') :-
    call_residue((X in 1..100, 3*X+Y #= 50), L),
-   equal(L, [Y in -250..47, X in 1..100, Y #= - (3*X)+50]).
+   eq_equal(L, [Y in -250..47, X in 1..100, Y #= - (3*X)+50]).
 runner:case('sys_in sys_lin', 7, finite_linear, 'CLP(FD) 0.8.3, 1.5, XLOG 4') :-
    call_residue((X+2*Y #= 50, X in 1..100), L),
-   equal(L, [Y in -25..24, X in 1..100, 2*Y #= -X+50]).
+   eq_equal(L, [Y in -25..24, X in 1..100, 2*Y #= -X+50]).
 runner:case('sys_in sys_lin', 7, finite_linear, 'CLP(FD) 0.8.3, 1.5, XLOG 5') :-
    call_residue((X in 1..100, 3*X+2*Y #= 50), L),
-   equal(L, [Y in -125..23, X in 1..100, 2*Y #= - (3*X)+50]).
+   eq_equal(L, [Y in -125..23, X in 1..100, 2*Y #= - (3*X)+50]).
 
 % sys_lin_agent(+Ref, +Wrap, +Prod, +Integer)
 % sys_lin_agent(+Ref, +Wrap, +Prod, +Integer)
@@ -159,7 +159,7 @@ runner:ref('sys_const sys_mulv', 5, finite_linear, 'CLP(FD) 0.8.3, 1.8').
 runner:case('sys_const sys_mulv', 5, finite_linear, 'CLP(FD) 0.8.3, 1.8, XLOG 1') :-
    call_residue((X*Y #= Z, Y = 2), L), L == [2*X #= Z].
 runner:case('sys_const sys_mulv', 5, finite_linear, 'CLP(FD) 0.8.3, 1.8, XLOG 2') :-
-   call_residue((Z #= X*Y, Z = 12), L), equal(L, [Y in -12..12, 12 #= X*Y]).
+   call_residue((Z #= X*Y, Z = 12), L), eq_equal(L, [Y in -12..12, 12 #= X*Y]).
 runner:case('sys_const sys_mulv', 5, finite_linear, 'CLP(FD) 0.8.3, 1.8, XLOG 3') :-
    X*Y #= 12, X = 3, Y == 4.
 runner:case('sys_const sys_mulv', 5, finite_linear, 'CLP(FD) 0.8.3, 1.8, XLOG 4') :-
@@ -191,34 +191,34 @@ runner:case('sys_var sys_mulv', 5, finite_linear, 'CLP(FD) 0.8.3, 1.9, XLOG 4') 
 runner:ref('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10').
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 1') :-
    call_residue((X in 3..6, Y in 4..8, Z #= X*Y), L),
-   equal(L, [Z in 12..48, X in 3..6, Y in 4..8, Z #= X*Y]).
+   eq_equal(L, [Z in 12..48, X in 3..6, Y in 4..8, Z #= X*Y]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 2') :-
    call_residue((Z #= X*Y, X in 3..6, Y in 4..8), L),
-   equal(L, [Y in 4..8, Z in 12..48, X in 3..6, Z #= X*Y]).
+   eq_equal(L, [Y in 4..8, Z in 12..48, X in 3..6, Z #= X*Y]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 3') :-
    call_residue((X*Y #= Z, X in 3..6, Z in 12..48), L),
-   equal(L, [Z in 12..48, X in 3..6, Y in 2..16, X*Y #= Z]).
+   eq_equal(L, [Z in 12..48, X in 3..6, Y in 2..16, X*Y #= Z]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 4') :-
    call_residue((X in 3..6, Z in 12..48, X*Y #= Z), L),
-   equal(L, [Y in 2..16, X in 3..6, Z in 12..48, X*Y #= Z]).
+   eq_equal(L, [Y in 2..16, X in 3..6, Z in 12..48, X*Y #= Z]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 5') :-
    call_residue((X*Y #= 100, X in 1..20), L),
-   equal(L, [Y in 5..100, X in 1..20, 100 #= X*Y]).
+   eq_equal(L, [Y in 5..100, X in 1..20, 100 #= X*Y]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 6') :-
    call_residue((X in 1..20, X*Y #= 100), L),
-   equal(L, [Y in 5..100, X in 1..20, 100 #= X*Y]).
+   eq_equal(L, [Y in 5..100, X in 1..20, 100 #= X*Y]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 7') :-
    call_residue((Y #= X*X, X in 5..10), L),
-   equal(L, [X in 5..10, Y in 25..100, Y #= X*X]).
+   eq_equal(L, [X in 5..10, Y in 25..100, Y #= X*X]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 8') :-
    call_residue((X in 5..10, Y #= X*X), L),
-   equal(L, [Y in 25..100, X in 5..10, Y #= X*X]).
+   eq_equal(L, [Y in 25..100, X in 5..10, Y #= X*X]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 9') :-
    call_residue((X*X #= Y, Y in 20..80), L),
-   equal(L, [Y in 20..80, X in -8..8, X*X #= Y]).
+   eq_equal(L, [Y in 20..80, X in -8..8, X*X #= Y]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 10') :-
    call_residue((Y in 20..80, X*X #= Y), L),
-   equal(L, [X in -8..8, Y in 20..80, X*X #= Y]).
+   eq_equal(L, [X in -8..8, Y in 20..80, X*X #= Y]).
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 11') :-
    X*Y #= X, X in 10..20, Y == 1.
 runner:case('sys_in sys_mulv', 6, finite_linear, 'CLP(FD) 0.8.3, 1.10, XLOG 12') :-

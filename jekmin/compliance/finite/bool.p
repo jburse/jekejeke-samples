@@ -40,7 +40,7 @@
 
 :- use_module(library(misc/residue)).
 :- use_module(library(finite/clpfd)).
-:- use_module(library(advanced/sets)).
+:- use_module(library(experiment/sets)).
 % :- ensure_loaded('file:/Projects/Jekejeke/Prototyping/experiment/other/clp/ordered/clpfd.p').
 
 % sys_bool(+Expr, +Expr, +Var)
@@ -95,7 +95,7 @@ runner:ref(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2').
 /* #<==> */
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 1') :-
    call_residue(((X #<==> Y) #<==> B, B = 0), L),
-   equal(L, [Y in 0..1, X in 0..1, Y #\= X]).
+   eq_equal(L, [Y in 0..1, X in 0..1, Y #\= X]).
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 2') :-
    (X #<==> Y) #<==> B, B = 1, X == Y.
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 3') :-
@@ -105,7 +105,7 @@ runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 4') :-
    (X #<== Y) #<==> B, B = 0, X == 0, Y == 1.
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 5') :-
    call_residue(((X #<== Y) #<==> B, B = 1), L),
-   equal(L, [Y in 0..1, X in 0..1, Y #=< X]).
+   eq_equal(L, [Y in 0..1, X in 0..1, Y #=< X]).
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 6') :-
    (X #<== Y) #<==> B, X = 0, Y = 0, B == 1.
 /* #==> */
@@ -118,7 +118,7 @@ runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 9') :-
 /* #\/ */
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 10') :-
    call_residue((X #\/ Y #<==> B, B = 1), L),
-   equal(L, [Y in 0..1, X in 0..1, Y #\= -X]).
+   eq_equal(L, [Y in 0..1, X in 0..1, Y #\= -X]).
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 11') :-
    X #\/ Y #<==> B, X = 1, Y = 0, B == 1.
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 12') :-
@@ -126,7 +126,7 @@ runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 12') :-
 /* #/\ */
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 13') :-
    call_residue((X #/\ Y #<==> B, B = 0), L),
-   equal(L, [Y in 0..1, X in 0..1, Y #\= -X+2]).
+   eq_equal(L, [Y in 0..1, X in 0..1, Y #\= -X+2]).
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 14') :-
    X #/\ Y #<==> B, B = 1, X == 1, Y == 1.
 runner:case(sys_reify_bool, 3, finite_bool, 'CLP(FD) 0.8.4, 4.2, XLOG 15') :-
