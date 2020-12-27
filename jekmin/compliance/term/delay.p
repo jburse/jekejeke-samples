@@ -222,3 +222,12 @@ runner:case(when, 2, term_delay, 'Term 1.0.0, 1.7, XLOG 9') :-
 runner:case(when, 2, term_delay, 'Term 1.0.0, 1.7, XLOG 10') :-
    catch(when(_, true), error(E, _), true),
    E == instantiation_error.
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.7, XLOG 11') :-
+   call_residue((when((nonvar(X), nonvar(Y)), X < Y), Y = 1), L),
+   L == [when((nonvar(X), nonvar(1)), X < 1)].
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.7, XLOG 12') :-
+   call_residue((when((nonvar(X); ground(Y)), atom_codes(X, Y)), Y = [65|R]), L),
+   L == [when((nonvar(X); ground([R])), atom_codes(X, [65|R]))].
+runner:case(when, 2, term_delay, 'Term 1.0.0, 1.7, XLOG 13') :-
+   call_residue((when((nonvar(X); ground(Y)), atom_codes(X, Y)), Y = [C, 65|R]), L),
+   L == [when((nonvar(X); ground([C, R])), atom_codes(X, [C, 65|R]))].
