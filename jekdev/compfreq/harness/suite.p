@@ -32,10 +32,9 @@
 
 :- ensure_loaded('../system/connect').
 :- ensure_loaded('../system/load').
-:- ensure_loaded('../system/notation').
+:- ensure_loaded('../system/rewrite').
 :- ensure_loaded('../system/proxy').
 :- ensure_loaded('../system/quali').
-:- ensure_loaded('../system/rewrite').
 
 :- ensure_loaded('../extend/grammar').
 :- ensure_loaded('../extend/hiord').

@@ -249,6 +249,20 @@ runner:case(\=, 2, structure_term, 'ISO 8.2.3.4, ISO 8') :-
 runner:case(\=, 2, structure_term, 'ISO 8.2.3.4, ISO 9') :-
    f(X, Y, X) \= f(a(X), a(Y), Y, 2).
 
+/* subsumes_term(X, Y) */
+
+runner:ref(subsumes_term, 2, structure_term, 'ISO 8.2.4.4').
+runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 1') :-
+   subsumes_term(a, a).
+runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 2') :-
+   subsumes_term(f(_, _), f(Z, Z)).
+runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 3') :-
+   \+ subsumes_term(f(Z, Z), f(_, _)).
+runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 4') :-
+   \+ subsumes_term(g(X), g(f(X))).
+runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 6') :-
+   subsumes_term(X, Y), subsumes_term(Y, f(X)).
+
 /* copy_term(X, Y) */
 
 runner:ref(copy_term, 2, structure_term, 'ISO 8.5.4.4').
