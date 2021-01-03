@@ -19,3 +19,4 @@
 
 :- ensure_loaded('../term/delay').
 :- ensure_loaded('../term/api').
+:- ensure_loaded('../term/cross').
