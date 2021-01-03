@@ -57,6 +57,8 @@
 
 :- use_module(library(basic/proxy)).
 
+/* sys_new_instance(M, R) */
+
 runner:ref(sys_new_instance, 2, system_proxy, 'XLOG 1.4.1').
 runner:case(sys_new_instance, 2, system_proxy, 'XLOG 1.4.1, XLOG 1 Error') :-
    catch(sys_new_instance(_, _), error(E, _), true),
@@ -67,6 +69,8 @@ runner:case(sys_new_instance, 2, system_proxy, 'XLOG 1.4.1, XLOG 2 Java') :-
 runner:case(sys_new_instance, 2, system_proxy, 'XLOG 1.4.1, XLOG 3 Java') :-
    sys_new_instance(gamma, X),
    reference(X).
+
+/* set_value(O, V) */
 
 runner:ref(set_value, 2, system_proxy, 'XLOG 1.4.2').
 runner:case(set_value, 2, system_proxy, 'XLOG 1.4.2, XLOG 1 Error') :-
@@ -81,6 +85,8 @@ runner:case(set_value, 2, system_proxy, 'XLOG 1.4.2, XLOG 3 Java') :-
    X::set_value(foo),
    X::value(Y),
    Y == foo.
+
+/* sys_assignable_from(N, M) */
 
 runner:ref(sys_assignable_from, 2, system_proxy, 'XLOG 1.4.3').
 runner:case(sys_assignable_from, 2, system_proxy, 'XLOG 1.4.3, XLOG 1 Error') :-
@@ -110,14 +116,37 @@ runner:case(sys_instance_of, 2, system_proxy, 'XLOG 1.4.4, XLOG 5 Java') :-
    sys_new_instance(alpha, X),
    \+ sys_instance_of(X, java/util/'Iterator').
 
-runner:ref(sys_get_class, 2, system_quali, 'XLOG 1.4.5').
-runner:case(sys_get_class, 2, system_quali, 'XLOG 1.4.5, XLOG 1 Error') :-
+/* sys_instance_of(O, N) */
+
+runner:ref(sys_get_class, 2, system_proxy, 'XLOG 1.4.5').
+runner:case(sys_get_class, 2, system_proxy, 'XLOG 1.4.5, XLOG 1 Error') :-
    catch(sys_get_class(_, _), error(E, _), true),
    E == instantiation_error.
-runner:case(functor, 2, system_quali, 'XLOG 1.4.5, XLOG 2 Compound') :-
+runner:case(functor, 2, system_proxy, 'XLOG 1.4.5, XLOG 2 Compound') :-
    sys_get_class(beta(3, 7), X),
    X == beta.
-runner:case(functor, 2, system_quali, 'XLOG 1.4.5, XLOG 3 Reference') :-
+runner:case(functor, 2, system_proxy, 'XLOG 1.4.5, XLOG 3 Reference') :-
    current_error(X),
    sys_get_class(X, Y),
    reference(Y).
+
+/* arg(N, O, A) */
+
+runner:ref(arg, 3, system_proxy, 'XLOG 1.4.6').
+runner:case(arg, 3, system_proxy, 'XLOG 1.4.6, XLOG 1') :-
+   arg(1, foo(a, b), X),
+   X == a.
+runner:case(arg, 3, system_proxy, 'XLOG 1.4.6, XLOG 2') :-
+   arg(1, mod/foo(a, b), X),
+   X == a.
+
+/* set_arg(N, O, A, P) */
+
+runner:ref(set_arg, 4, system_proxy, 'XLOG 1.4.7').
+runner:case(set_arg, 4, system_proxy, 'XLOG 1.4.7, XLOG 1') :-
+   set_arg(1, foo(a, b), c, X),
+   X == foo(c, b).
+runner:case(set_arg, 4, system_proxy, 'XLOG 1.4.7, XLOG 1') :-
+   set_arg(1, mod/foo(a, b), c, X),
+   X == mod/foo(c, b).
+

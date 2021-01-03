@@ -395,3 +395,36 @@ runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 10') :-
 runner:case(set_arg, 4, extra_structure, 'XLOG 1.5.1, XLOG 11') :-
    catch(set_arg(0, 3, c, _), error(E, _), true),
    nonvar(E), E = type_error(_, 3).
+
+/* sys_extend_term(F, L, T) */
+
+runner:ref(sys_extend_term, 3, extra_structure, 'XLOG 1.5.2').
+runner:case(sys_extend_term, 3, extra_structure, 'XLOG 1.5.2, XLOG 1') :-
+   sys_extend_term(integer, [3], X),
+   X == integer(3).
+runner:case(sys_extend_term, 3, extra_structure, 'XLOG 1.5.2, XLOG 2') :-
+   sys_extend_term(functor(F, c), [0], X),
+   X == functor(F, c, 0).
+runner:case(sys_extend_term, 3, extra_structure, 'XLOG 1.5.2, XLOG 3') :-
+   sys_extend_term(;, [A = 1, B = 2], R),
+   R == (A = 1; B = 2).
+runner:case(sys_extend_term, 3, extra_structure, 'XLOG 1.5.2, XLOG 4') :-
+   catch(sys_extend_term(3.1415, [foo], _), error(E, _), true),
+   E == type_error(callable, 3.1415).
+
+/* sys_shrink_term(T, N, F, L) */
+
+runner:ref(sys_shrink_term, 3, extra_structure, 'XLOG 1.5.3').
+runner:case(sys_shrink_term, 3, extra_structure, 'XLOG 1.5.3, XLOG 1') :-
+   sys_shrink_term(integer(3), 1, X, Y),
+   X == integer, Y == [3].
+runner:case(sys_shrink_term, 3, extra_structure, 'XLOG 1.5.3, XLOG 2') :-
+   sys_shrink_term(functor(F, c, 0), 1, X, Y),
+   X == functor(F, c), Y == [0].
+runner:case(sys_shrink_term, 3, extra_structure, 'XLOG 1.5.3, XLOG 3') :-
+   sys_shrink_term((A = 1; B = 2), 2, X, Y),
+   X == ;, Y == [A = 1, B = 2].
+runner:case(sys_shrink_term, 3, extra_structure, 'XLOG 1.5.3, XLOG 4') :-
+   \+ sys_shrink_term(foo(bar), 2, _, _).
+runner:case(sys_shrink_term, 3, extra_structure, 'XLOG 1.5.3, XLOG 5') :-
+   \+ sys_shrink_term(3.1415, 1, _, _).

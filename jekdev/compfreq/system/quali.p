@@ -40,6 +40,8 @@
 
 :- use_module(library(runtime/quali)).
 
+/* var(X) */
+
 runner:ref(var, 1, system_quali, 'XLOG 1.5.1').
 /* traditional notation */
 runner:case(var, 1, system_quali, 'XLOG 1.5.1, XLOG 1 Module') :-
@@ -67,6 +69,8 @@ runner:case(var, 1, system_quali, 'XLOG 1.5.1, XLOG 10 Receiver') :-
 runner:case(var, 1, system_quali, 'XLOG 1.5.1, XLOG 11 Receiver') :-
    \+ var(geometry/point(3, 7)::getx(_)).
 
+/* callable(X) */
+
 runner:ref(callable, 1, system_quali, 'XLOG 1.5.2').
 /* traditional notation */
 runner:case(callable, 1, system_quali, 'XLOG 1.5.2, XLOG 1 Module') :-
@@ -93,6 +97,8 @@ runner:case(callable, 1, system_quali, 'XLOG 1.5.2, XLOG 10 Receiver') :-
    \+ callable(geometry/point(3, 7)::_).
 runner:case(callable, 1, system_quali, 'XLOG 1.5.2, XLOG 11 Receiver') :-
    callable(geometry/point(3, 7)::getx(_)).
+
+/* functor(X, F, A) */
 
 runner:ref(functor, 3, system_quali, 'XLOG 1.5.3').
 /* traditional notation */
@@ -153,6 +159,8 @@ runner:case(functor, 3, system_quali, 'XLOG 1.5.3, XLOG 15 Receiver') :-
 runner:case(functor, 3, system_quali, 'XLOG 1.5.3, XLOG 16 Receiver') :-
    functor(T, M/bar:baz, 1),
    T = M/bar:baz(_).
+
+/* X =.. Y */
 
 runner:ref(=.., 2, system_quali, 'XLOG 1.5.4').
 /* traditional notation */
@@ -215,3 +223,29 @@ runner:case(=.., 2, system_quali, 'XLOG 1.5.4, XLOG 18 Receiver') :-
 runner:case(=.., 2, system_quali, 'XLOG 1.5.4, XLOG 19 Receiver') :-
    T =.. [M/bar:baz, N/bar(1, 2)],
    T == M/bar:baz(N/bar(1, 2)).
+
+/* sys_extend_term(F, L, T) */
+
+runner:ref(sys_extend_term, 3, system_quali, 'XLOG 1.5.5').
+runner:case(sys_extend_term, 3, system_quali, 'XLOG 1.5.5, XLOG 1') :-
+   sys_extend_term(functor(F, c), [0], X),
+   X == functor(F, c, 0).
+runner:case(sys_extend_term, 3, system_quali, 'XLOG 1.5.5, XLOG 2') :-
+   sys_extend_term(mod:functor(F, c), [0], X),
+   X == mod:functor(F, c, 0).
+runner:case(sys_extend_term, 3, system_quali, 'XLOG 1.5.5, XLOG 3') :-
+   sys_extend_term(obj(1)::functor(F, c), [0], X),
+   X == obj(1)::functor(F, c, 0).
+
+/* sys_shrink_term(T, N, F, L) */
+
+runner:ref(sys_shrink_term, 4, system_quali, 'XLOG 1.5.6').
+runner:case(sys_shrink_term, 4, system_quali, 'XLOG 1.5.6, XLOG 1') :-
+   sys_shrink_term(functor(F, c, 0), 1, X, Y),
+   X == functor(F, c), Y == [0].
+runner:case(sys_shrink_term, 4, system_quali, 'XLOG 1.5.6, XLOG 2') :-
+   sys_shrink_term(mod:functor(F, c, 0), 1, X, Y),
+   X == mod:functor(F, c), Y == [0].
+runner:case(sys_shrink_term, 4, system_quali, 'XLOG 1.5.6, XLOG 3') :-
+   sys_shrink_term(obj(1)::functor(F, c, 0), 1, X, Y),
+   X == obj(1)::functor(F, c), Y == [0].
