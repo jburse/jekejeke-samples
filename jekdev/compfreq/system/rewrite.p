@@ -39,6 +39,8 @@
 :- discontiguous runner:case/4.
 
 :- use_module(library(advanced/abstract)).
+:- use_module(library(advanced/signal)).
+:- use_module(library(basic/lists)).
 
 :- multifile goal_expansion/2.
 :- meta_predicate goal_expansion(0, 0).
@@ -108,3 +110,43 @@ runner:case(sys_goal_globals, 2, system_rewrite, 'XLOG 1.6.5, XLOG 1') :-
 runner:case(sys_goal_globals, 2, system_rewrite, 'XLOG 1.6.5, XLOG 2') :-
    sys_goal_globals(Z^(p(X, Z), q(Z, Y)), G),
    G == [X, Y].
+
+/****************************************************************/
+/* Occurs Check                                                 */
+/****************************************************************/
+
+/**
+ * with_occurs_check(G):
+ * The predicate succeeds when ever G succeeds with the occurs check on.
+ * The goal should be semi-deterministic, otherwise the occurs check
+ * flag change leaks into the continuation.
+ */
+% with_occurs_check(+Goal)
+:- private with_occurs_check/1.
+:- meta_predicate with_occurs_check(0).
+with_occurs_check(G) :-
+   current_prolog_flag(occurs_check, F),
+   setup_call_cleanup(
+      set_prolog_flag(occurs_check, true),
+      G,
+      set_prolog_flag(occurs_check, F)).
+
+/* clause head, occurs_check=true */
+
+:- private add/3.
+add(n, X, X).
+add(s(X), Y, s(Z)) :- add(X, Y, Z).
+
+runner:ref(head_flag, 2, system_rewrite, 'XLOG 1.7.1').
+runner:case(head_flag, 2, system_rewrite, 'XLOG 1.7.1, XLOG 1') :-
+   add(s(n), X, X).
+runner:case(head_flag, 2, system_rewrite, 'XLOG 1.7.1, XLOG 2') :-
+   \+ with_occurs_check(add(s(n), X, X)).
+
+/* library call, occurs_check=true */
+
+runner:ref(library_flag, 2, system_rewrite, 'XLOG 1.7.2').
+runner:case(library_flag, 2, system_rewrite, 'XLOG 1.7.2, XLOG 1') :-
+   append([foo], X, X).
+runner:case(library_flag, 2, system_rewrite, 'XLOG 1.7.2, XLOG 1') :-
+   \+ with_occurs_check(append([foo], X, X)).

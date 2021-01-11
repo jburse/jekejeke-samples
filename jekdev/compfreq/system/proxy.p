@@ -149,4 +149,3 @@ runner:case(set_arg, 4, system_proxy, 'XLOG 1.4.7, XLOG 1') :-
 runner:case(set_arg, 4, system_proxy, 'XLOG 1.4.7, XLOG 1') :-
    set_arg(1, mod/foo(a, b), c, X),
    X == mod/foo(c, b).
-

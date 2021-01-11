@@ -40,6 +40,7 @@
 
 :- use_module(library(standard/arith)).
 :- use_module(library(system/charsio)).
+:- use_module(library(advanced/signal)).
 
 /****************************************************************/
 /* vars.p extras                                               */
@@ -171,7 +172,7 @@ runner:case(findall, 3, extra_vars, 'XLOG 3.2.3, XLOG 2') :-
    \+ findall(X, (X = 1; X = 2), [2, 1|T], T).
 
 /****************************************************************/
-/* reflect.p extras                                             */
+/* call.p extras                                                */
 /****************************************************************/
 
 /* callable_property(C, P) */
@@ -191,6 +192,10 @@ runner:case(callable_property, 2, extra_vars, 'XLOG 3.3.1, XLOG 4') :-
    catch(callable_property(1, sys_context(_)), error(E, _), true),
    E == type_error(callable, 1).
 
+/****************************************************************/
+/* Syntax extras                                                */
+/****************************************************************/
+
 /* dot syntax */
 
 :- op(200, xfy, '.').
@@ -198,17 +203,17 @@ runner:case(callable_property, 2, extra_vars, 'XLOG 3.3.1, XLOG 4') :-
 :- op(200, xfy, sys_dot).
 :- set_oper_property(infix(sys_dot), sys_portray('.')).
 
-runner:ref(dot_syntax, 2, extra_vars, 'XLOG 3.3.2').
-runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 1') :-
+runner:ref(dot_syntax, 2, extra_vars, 'XLOG 3.4.1').
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.4.1, XLOG 1') :-
    with_output_to(atom(A), write_canonical(foo.bar)),
    A == 'sys_dot(foo, bar)'.
-runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 2') :-
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.4.1, XLOG 2') :-
    with_output_to(atom(A), write(foo.bar)),
    A == 'foo.bar'.
-runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 3') :-
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.4.1, XLOG 3') :-
    with_output_to(atom(A), write_canonical([foo|bar])),
    A == '''.''(foo, bar)'.
-runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 4') :-
+runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.4.1, XLOG 4') :-
    with_output_to(atom(A), write([foo|bar])),
    A == '[foo|bar]'.
 
@@ -219,16 +224,52 @@ runner:case(dot_syntax, 2, extra_vars, 'XLOG 3.3.2, XLOG 4') :-
 :- op(300, fx, sys_set).
 :- set_oper_property(prefix(sys_set), sys_portray({})).
 
-runner:ref(set_syntax, 2, extra_vars, 'XLOG 3.3.3').
-runner:case(set_syntax, 2, extra_vars, 'XLOG 3.3.3, XLOG 1') :-
+runner:ref(set_syntax, 2, extra_vars, 'XLOG 3.4.2').
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.4.2, XLOG 1') :-
    with_output_to(atom(A), write_canonical({}foo)),
    A == 'sys_set(foo)'.
-runner:case(set_syntax, 2, extra_vars, 'XLOG 3.3.3, XLOG 2') :-
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.4.2, XLOG 2') :-
    with_output_to(atom(A), write({}foo)),
    A == '{}foo'.
-runner:case(set_syntax, 2, extra_vars, 'XLOG 3.3.3, XLOG 3') :-
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.4.2, XLOG 3') :-
    with_output_to(atom(A), write_canonical({foo})),
    A == '{}(foo)'.
-runner:case(set_syntax, 2, extra_vars, 'XLOG 3.3.3, XLOG 4') :-
+runner:case(set_syntax, 2, extra_vars, 'XLOG 3.4.2, XLOG 4') :-
    with_output_to(atom(A), write({foo})),
    A == '{foo}'.
+
+/****************************************************************/
+/* Occurs Check                                                 */
+/****************************************************************/
+
+/**
+ * with_occurs_check(G):
+ * The predicate succeeds when ever G succeeds with the occurs check on.
+ * The goal should be semi-deterministic, otherwise the occurs check
+ * flag change leaks into the continuation.
+ */
+% with_occurs_check(+Goal)
+:- private with_occurs_check/1.
+:- meta_predicate with_occurs_check(0).
+with_occurs_check(G) :-
+   current_prolog_flag(occurs_check, F),
+   setup_call_cleanup(
+      set_prolog_flag(occurs_check, true),
+      G,
+      set_prolog_flag(occurs_check, F)).
+
+/* X = Y, occurs_check=true */
+
+runner:ref(unify_flag, 2, extra_vars, 'XLOG 3.5.1').
+runner:case(unify_flag, 2, extra_vars, 'XLOG 3.5.1, XLOG 1') :-
+   X = f(X).
+runner:case(unify_flag, 2, extra_vars, 'XLOG 3.5.1, XLOG 2') :-
+   \+ with_occurs_check(X = f(X)).
+
+/* X \= Y, occurs_check=true */
+
+runner:ref(not_unify_flag, 2, extra_vars, 'XLOG 3.5.2').
+runner:case(not_unify_flag, 2, extra_vars, 'XLOG 3.5.2, XLOG 1') :-
+   \+ X \= f(X).
+runner:case(not_unify_flag, 2, extra_vars, 'XLOG 3.5.2, XLOG 2') :-
+   with_occurs_check(X \= f(X)).
