@@ -148,5 +148,5 @@ runner:case(head_flag, 2, system_rewrite, 'XLOG 1.7.1, XLOG 2') :-
 runner:ref(library_flag, 2, system_rewrite, 'XLOG 1.7.2').
 runner:case(library_flag, 2, system_rewrite, 'XLOG 1.7.2, XLOG 1') :-
    append([foo], X, X).
-runner:case(library_flag, 2, system_rewrite, 'XLOG 1.7.2, XLOG 1') :-
+runner:case(library_flag, 2, system_rewrite, 'XLOG 1.7.2, XLOG 2') :-
    \+ with_occurs_check(append([foo], X, X)).
