@@ -95,6 +95,9 @@ runner:case(eq_intersection, 3, calculate_collection, 'XLOG 3.4.5, XLOG 2') :-
    eq_intersection([1, 3], [2, 4], X),
    X == [].
 runner:case(eq_intersection, 3, calculate_collection, 'XLOG 3.4.5, XLOG 3') :-
+   eq_intersection([_, B], [B, _], X),
+   X == [B].
+runner:case(eq_intersection, 3, calculate_collection, 'XLOG 3.4.5, XLOG 4') :-
    catch(eq_intersection([1|_], [2, 4], _), error(E, _), true),
    E == instantiation_error.
 
@@ -106,6 +109,9 @@ runner:case(eq_union, 3, calculate_collection, 'XLOG 3.4.6, XLOG 2') :-
    eq_union([1, 3], [2, 4], X),
    X == [1, 3, 2, 4].
 runner:case(eq_union, 3, calculate_collection, 'XLOG 3.4.6, XLOG 3') :-
+   eq_union([A, B], [B, C], X),
+   X == [A, B, C].
+runner:case(eq_union, 3, calculate_collection, 'XLOG 3.4.6, XLOG 4') :-
    catch(eq_union([1, 3], [2|foo], _), error(E, _), true),
    E == type_error(list, foo).
 

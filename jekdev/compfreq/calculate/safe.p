@@ -1,5 +1,5 @@
 /**
- * Prolog code for the compliance assessment suite.
+ * Prolog code for the calculate safe test cases.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,21 +30,39 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded('../system/connect').
-:- ensure_loaded('../system/load').
-:- ensure_loaded('../system/rewrite').
-:- ensure_loaded('../system/proxy').
-:- ensure_loaded('../system/quali').
+:- use_package(library(jekdev/reference/testing)).
 
-:- ensure_loaded('../extend/grammar').
-:- ensure_loaded('../extend/hiord').
-:- ensure_loaded('../extend/invoke').
-:- ensure_loaded('../extend/struct').
-:- ensure_loaded('../extend/codec').
-:- ensure_loaded('../extend/tabel').
+:- multifile runner:ref/4.
+:- discontiguous runner:ref/4.
 
-:- ensure_loaded('../calculate/near').
-:- ensure_loaded('../calculate/collection').
-:- ensure_loaded('../calculate/function').
-:- ensure_loaded('../calculate/stable').
-:- ensure_loaded('../calculate/safe').
+:- multifile runner:case/4.
+:- discontiguous runner:case/4.
+
+:- use_module(library(basic/lists)).
+
+/****************************************************************/
+/* lists.p II                                                   */
+/****************************************************************/
+
+runner:ref(intersection, 3, calculate_safe, 'XLOG 3.9.1').
+runner:case(intersection, 3, calculate_safe, 'XLOG 3.9.1, XLOG 1') :-
+   intersection([1, 2, 3], [2, 3, 4], X),
+   X == [2, 3].
+runner:case(intersection, 3, calculate_safe, 'XLOG 3.9.1, XLOG 2') :-
+   intersection([1, 3], [2, 4], X),
+   X == [].
+runner:case(intersection, 3, calculate_safe, 'XLOG 3.9.1, XLOG 3') :-
+   catch(intersection([1|_], [2, 4], _), error(E, _), true),
+   E == instantiation_error.
+
+runner:ref(union, 3, calculate_safe, 'XLOG 3.9.2').
+runner:case(union, 3, calculate_safe, 'XLOG 3.9.2, XLOG 1') :-
+   union([1, 2, 3], [2, 3, 4], X),
+   X == [1, 2, 3, 4].
+runner:case(union, 3, calculate_safe, 'XLOG 3.9.2, XLOG 2') :-
+   union([1, 3], [2, 4], X),
+   X == [1, 3, 2, 4].
+runner:case(union, 3, calculate_safe, 'XLOG 3.9.2, XLOG 3') :-
+   catch(union([1|foo], [2, 4], _), error(E, _), true),
+   E == type_error(list, foo).
+
