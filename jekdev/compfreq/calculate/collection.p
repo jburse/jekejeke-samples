@@ -84,6 +84,9 @@ runner:case(eq_subtract, 3, calculate_collection, 'XLOG 3.4.4, XLOG 2') :-
    eq_subtract([1, 3], [2, 4], X),
    X == [1, 3].
 runner:case(eq_subtract, 3, calculate_collection, 'XLOG 3.4.4, XLOG 3') :-
+   eq_subtract([A, B], [B, _], X),
+   X == [A].
+runner:case(eq_subtract, 3, calculate_collection, 'XLOG 3.4.4, XLOG 4') :-
    catch(eq_subtract([1|foo], [2, 4], _), error(E, _), true),
    E == type_error(list, foo).
 
@@ -123,6 +126,9 @@ runner:case(eq_symdiff, 3, calculate_collection, 'XLOG 3.4.7, XLOG 2') :-
    eq_symdiff([1, 3], [2, 4], X),
    X == [1, 3, 2, 4].
 runner:case(eq_symdiff, 3, calculate_collection, 'XLOG 3.4.7, XLOG 3') :-
+   eq_symdiff([A, B], [B, C], X),
+   X == [A, C].
+runner:case(eq_symdiff, 3, calculate_collection, 'XLOG 3.4.7, XLOG 4') :-
    catch(eq_symdiff([1, 3], [2|_], _), error(E, _), true),
    E == instantiation_error.
 
@@ -131,7 +137,9 @@ runner:case(eq_subset, 2, calculate_collection, 'XLOG 3.4.8, XLOG 1') :-
    eq_subset([2, 3], [1, 2, 3, 4]).
 runner:case(eq_subset, 2, calculate_collection, 'XLOG 3.4.8, XLOG 2') :-
    \+ eq_subset([1, 3], [2, 4]).
-runner:case(eq_subset, 2, calculate_collection, 'XLOG 3.4.8, XLOG 2') :-
+runner:case(eq_subset, 2, calculate_collection, 'XLOG 3.4.8, XLOG 3') :-
+   eq_subset([B], [_, B, _]).
+runner:case(eq_subset, 2, calculate_collection, 'XLOG 3.4.8, XLOG 4') :-
    catch(eq_subset([2|foo], [1, 2, 3, 4]), error(E, _), true),
    E == type_error(list, foo).
 
@@ -141,6 +149,8 @@ runner:case(eq_disjoint, 2, calculate_collection, 'XLOG 3.4.9, XLOG 1') :-
 runner:case(eq_disjoint, 2, calculate_collection, 'XLOG 3.4.9, XLOG 2') :-
    eq_disjoint([1, 3], [2, 4]).
 runner:case(eq_disjoint, 2, calculate_collection, 'XLOG 3.4.9, XLOG 3') :-
+   \+ eq_disjoint([B], [_, B, _]).
+runner:case(eq_disjoint, 2, calculate_collection, 'XLOG 3.4.9, XLOG 4') :-
    catch(eq_disjoint([1, 3], [2|_]), error(E, _), true),
    E = instantiation_error.
 
@@ -150,6 +160,8 @@ runner:case(eq_equal, 2, calculate_collection, 'XLOG 3.4.10, XLOG 1') :-
 runner:case(eq_equal, 2, calculate_collection, 'XLOG 3.4.10, XLOG 2') :-
    \+ eq_equal([1, 3], [2, 4]).
 runner:case(eq_equal, 2, calculate_collection, 'XLOG 3.4.10, XLOG 3') :-
+   \+ eq_equal([B], [_, B, _]).
+runner:case(eq_equal, 2, calculate_collection, 'XLOG 3.4.10, XLOG 4') :-
    catch(eq_equal([2, 3], [3, 2|foo]), error(E, _), true),
    E == type_error(list, foo).
 
