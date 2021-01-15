@@ -30,7 +30,7 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(experiment/abstract)).
+:- use_module(library(advanced/abstract)).
 :- use_module(library(standard/dcg)).
 
 :- meta_predicate repetition(3, ?, ?, ?).

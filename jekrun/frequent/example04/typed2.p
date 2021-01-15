@@ -1,5 +1,5 @@
 /**
- * Prolog code for the closure without bindings example.
+ * Prolog code for the type inference with explicit occurs check.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,34 +30,30 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(advanced/abstract)).
+:- use_module(library(basic/lists)).
 
-% between(+Integer,+Integer,-Integer)
-between(Lo, Hi, _) :- Lo > Hi, !, fail.
-between(Lo, _, Lo).
-between(Lo, Hi, X) :- Lo2 is Lo+1, between(Lo2, Hi, X).
+% typed2(+Expr, +List, -Type)
+typed2(X, C, A) :- var(X), !,
+   member(Y-B, C), Y == X, !,
+   B = A.
+typed2(lam(X, T), C, (A -> B)) :-
+   typed2(T, [X-A|C], B).
+typed2(app(S, T), C, B) :-
+   typed2(S, C, (A -> B)),
+   typed2(T, C, A).
 
-% for1(+Integer, +Integer, +Closure)
-:- meta_predicate for1(?, ?, 1).
-for1(Lo, Hi, Closure) :-
-   between(Lo, Hi, Value),
-   call(Closure, Value),
-   fail.
-for1(_, _, _).
+% ?- typed2(app(X,X), [X-A], B).
+% A = <cyclic term>
 
-% flag
-flag :-
-   for1(1, 8, X\
-      (for1(1, 8, Y\
-         (0 =:= (X+Y)mod 2 -> write(x); write(o))), nl)).
-
-% ?- flag.
-% xoxoxoxo
-% oxoxoxox
-% xoxoxoxo
-% oxoxoxox
-% xoxoxoxo
-% oxoxoxox
-% xoxoxoxo
-% oxoxoxox
+% ?- set_prolog_flag(occurs_check, true).
 % Yes
+
+% ?- typed2(app(X,X), [X-A], B).
+% No
+
+% ?- typed2(app(X,Y), [X-A,Y-B], C).
+% A = (B -> C)
+
+% ?- typed2(lam(X,lam(Y,app(Y,X))), [], A).
+% A = (_A -> (_A -> _B) -> _B)
+
