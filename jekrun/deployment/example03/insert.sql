@@ -29,12 +29,12 @@
 -- Jekejeke is a registered trademark of XLOG Technologies GmbH. 
 --
 
-INSERT INTO employee(firstname, name, age, salary) VALUES (N'Сергей', N'Иванов', 53, 18500);
-INSERT INTO employee(firstname, name, age, salary) VALUES (N'Сергей', N'Беляев', 53, 19000);
-INSERT INTO employee(firstname, name, age, salary) VALUES ('Hans', 'Fischer', 62, 21500);
-INSERT INTO employee(firstname, name, age, salary) VALUES (N'Филипп', N'Иванов', 32, 15000);
-INSERT INTO employee(firstname, name, age, salary) VALUES ('Anna', 'Fischer', 36, 17000);
-INSERT INTO employee(firstname, name, age, salary) VALUES ('Berta', 'Schmitt', 25, 14500);
-INSERT INTO employee(firstname, name, age, salary) VALUES ('Carla', 'Fischer', 50, 22000);
-INSERT INTO employee(firstname, name, age, salary) VALUES (N'Κώστας', N'Βουτσάς', 22, 11000);
-INSERT INTO employee(firstname, name, age, salary) VALUES (N'Έλενα', N'Βουτσάς', 34, 16500);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES (N'Сергей', N'Иванов', 53, 18500);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES (N'Сергей', N'Беляев', 53, 19000);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES ('Hans', 'Fischer', 62, 21500);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES (N'Филипп', N'Иванов', 32, 15000);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES ('Anna', 'Fischer', 36, 17000);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES ('Berta', 'Schmitt', 25, 14500);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES ('Carla', 'Fischer', 50, 22000);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES (N'Κώστας', N'Βουτσάς', 22, 11000);
+INSERT INTO demo.employee(firstname, name, age, salary) VALUES (N'Έλενα', N'Βουτσάς', 34, 16500);

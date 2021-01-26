@@ -29,7 +29,7 @@
 -- Jekejeke is a registered trademark of XLOG Technologies GmbH.
 --
 
-CREATE TABLE employee (
+CREATE TABLE demo.employee (
    firstname NVARCHAR(50) NOT NULL,
    name NVARCHAR(50) NOT NULL,
    age INTEGER NOT NULL,

@@ -1,7 +1,6 @@
 package example03;
 
 import example02.Pane;
-import example04.Stub;
 import jekpro.platform.headless.ToolkitLibrary;
 import jekpro.tools.call.Interpreter;
 import jekpro.tools.term.AbstractTerm;
@@ -74,7 +73,7 @@ public final class Database extends JFrame implements ActionListener {
         Interpreter inter = know.iterable();
         Knowledgebase.initKnowledgebase(inter);
         /* load the Prolog code */
-        Object consultGoal = inter.parseTerm("consult(example05/driver)");
+        Object consultGoal = inter.parseTerm("consult(example03/driver)");
         inter.iterator(consultGoal).next().close();
     }
 

@@ -32,7 +32,7 @@
 
 :- use_package(foreign(jekpro/tools/call)).
 :- use_package(foreign(java/sql)).
-:- use_package(foreign(example05)).
+:- use_package(foreign(example03)).
 :- use_module(library(advanced/signal)).
 
 % drive(+Firstname, +Name, +AgeFrom, +AgeTo, +SalaryFrom, +SalaryTo, -Compound)
