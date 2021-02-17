@@ -1,6 +1,4 @@
 /**
- * Prolog code for the compliance assessment suite.
- *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
@@ -30,36 +28,43 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded('../control/pred').
-:- ensure_loaded('../control/kernel').
-:- ensure_loaded('../control/logical').
-:- ensure_loaded('../control/signal').
+:- use_package(library(jekdev/reference/testing)).
 
-:- ensure_loaded('../consult/file').
-:- ensure_loaded('../consult/data').
-:- ensure_loaded('../consult/apply').
+:- multifile runner:ref/4.
+:- discontiguous runner:ref/4.
 
-:- ensure_loaded('../arithmetic/basic').
-:- ensure_loaded('../arithmetic/moddiv').
-:- ensure_loaded('../arithmetic/sincos').
-:- ensure_loaded('../arithmetic/bitwise').
-:- ensure_loaded('../arithmetic/eqless').
+:- multifile runner:case/4.
+:- discontiguous runner:case/4.
 
-:- ensure_loaded('../structure/intatom').
-:- ensure_loaded('../structure/compare').
-:- ensure_loaded('../structure/term').
-:- ensure_loaded('../structure/string').
-:- ensure_loaded('../structure/set').
+/****************************************************************/
+/* Stream Control                                               */
+/****************************************************************/
 
-:- ensure_loaded('../stream/text').
-:- ensure_loaded('../stream/binary').
-:- ensure_loaded('../stream/read').
-:- ensure_loaded('../stream/open').
-:- ensure_loaded('../stream/match').
+/* subsumes_term(X, Y) */
 
-:- ensure_loaded('../extra/structure').
-:- ensure_loaded('../extra/regex').
-:- ensure_loaded('../extra/vars').
-:- ensure_loaded('../extra/block').
-:- ensure_loaded('../extra/intnum').
-:- ensure_loaded('../extra/ratnum').
+runner:ref(subsumes, 2, stream_match, 'XLOG 4.1.1').
+runner:case(subsumes, 2, stream_match, 'XLOG 4.1.1, XLOG 1') :-
+   subsumes(a, a).
+runner:case(subsumes, 2, stream_match, 'XLOG 4.1.1, XLOG 2') :-
+   subsumes(f(A, B), f(Z, Z)), A == Z, B == Z.
+runner:case(subsumes, 2, stream_match, 'XLOG 4.1.1, XLOG 3') :-
+   \+ subsumes(f(Z, Z), f(_, _)).
+runner:case(subsumes, 2, stream_match, 'XLOG 4.1.1, XLOG 4') :-
+   \+ subsumes(g(X), g(f(X))).
+runner:case(subsumes, 2, stream_match, 'XLOG 4.1.1, XLOG 6') :-
+   subsumes(X, Y), \+ subsumes(Y, f(X)).
+
+/* ?-(X, Y) */
+
+:- dynamic pattern/2.
+pattern(f(_), foo).
+pattern(f(_), X) ?- X = bar.
+pattern(f(_), baz).
+
+runner:ref(?-, 2, stream_match, 'XLOG 4.1.2').
+runner:case(?-, 2, stream_match, 'XLOG 4.1.2, XLOG 1') :-
+   findall(X, pattern(_, X), L),
+   L == [foo, baz].
+runner:case(?-, 2, stream_match, 'XLOG 4.1.2, XLOG 2') :-
+   findall(X, clause(pattern(_, X), _), L),
+   L = [foo, _, baz].

@@ -45,10 +45,6 @@
 /* Stream Control                                               */
 /****************************************************************/
 
-/* absolute_file_name(R, S) */
-
-/* absolute_file_name(R, S, O) */
-
 /* current_input(S), ISO 8.11.1 */
 
 /* current_output(S), ISO 8.11.2 */

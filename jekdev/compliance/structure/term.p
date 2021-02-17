@@ -255,7 +255,7 @@ runner:ref(subsumes_term, 2, structure_term, 'ISO 8.2.4.4').
 runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 1') :-
    subsumes_term(a, a).
 runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 2') :-
-   subsumes_term(f(_, _), f(Z, Z)).
+   subsumes_term(f(A, B), f(Z, Z)), A \== B.
 runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 3') :-
    \+ subsumes_term(f(Z, Z), f(_, _)).
 runner:case(subsumes_term, 2, structure_term, 'ISO 8.2.4.4, ISO 4') :-
