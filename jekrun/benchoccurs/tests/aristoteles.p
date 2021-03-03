@@ -34,6 +34,8 @@
 
 :- ensure_loaded(prepare).
 :- ensure_loaded(koutsoukou).
+:- ensure_loaded(prover).
+:- ensure_loaded(prover2).
 
 % form(+Form, -Form)
 form(A∈B, P) :-
@@ -60,3 +62,21 @@ form((A, B), (C, D)) :-
    form(B, D).
 form(-A, -B) :-
    form(A, B).
+
+aristo :-
+   case(I, _, F),
+   form(F, G),
+   \+ prove(G, 3, _),
+   write(I),
+   write(' failure.'),
+   nl,
+   fail; true.
+
+aristo2 :-
+   case(I, _, F),
+   form(F, G),
+   \+ prove2(G, 3, _),
+   write(I),
+   write(' failure.'),
+   nl,
+   fail; true.

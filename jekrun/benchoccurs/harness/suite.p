@@ -34,8 +34,8 @@
 
 :- ensure_loaded('../tests/peano').
 :- ensure_loaded('../tests/peano2').
-:- ensure_loaded('../tests/prover').
-:- ensure_loaded('../tests/prover2').
+:- ensure_loaded('../tests/aristoteles').
+:- ensure_loaded('../tests/pelletier').
 
 /*****************************************************************/
 /* Normal Test Cases                                             */

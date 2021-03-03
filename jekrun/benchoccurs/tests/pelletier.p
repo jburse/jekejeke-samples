@@ -29,6 +29,8 @@
  */
 
 :- ensure_loaded(prepare).
+:- ensure_loaded(prover).
+:- ensure_loaded(prover2).
 
 pcase(1, 'Pelletier p18', exist(A, all(B, (p(A) -: p(B))))).
 pcase(2, 'Pelletier p19', exist(A, all(B, all(C, ((p(B) -: q(C)) -:
@@ -51,3 +53,19 @@ pcase(11, 'Pelletier p28', (all(A, (p(A) -: all(B, q(B)))),
    (all(C, (q(C); r(C))) -: exist(D, (q(D), r(D)))),
    (exist(E, r(E)) -: all(F, (l(F) -: m(F)))) -:
       all(G, (p(G), l(G) -: m(G))))).
+
+pelle :-
+   pcase(I, _, F),
+   \+ prove(F, 5, _),
+   write(I),
+   write(' failure.'),
+   nl,
+   fail; true.
+
+pelle2 :-
+   pcase(I, _, F),
+   \+ prove2(F, 5, _),
+   write(I),
+   write(' failure.'),
+   nl,
+   fail; true.

@@ -1,6 +1,10 @@
 /**
  * Beckert & Posegga's Algorithm, unify_with_occurs_check/2 call
  *
+ * Beckert, B., Posegga, J. leanTAP: Lean tableau-based deduction.
+ * J Autom Reasoning 15, 339–358 (1995).
+ * https://www.researchgate.net/publication/2250669
+ *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
@@ -34,26 +38,6 @@
 :- use_module(library(standard/arith)).
 
 :- ensure_loaded(prepare).
-:- ensure_loaded(aristoteles).
-:- ensure_loaded(koutsoukou).
-:- ensure_loaded(pelletier).
-
-aristo :-
-   case(I, _, F),
-   form(F, G),
-   \+ prove(G, 3, _),
-   write(I),
-   write(' failure.'),
-   nl,
-   fail; true.
-
-pelle :-
-   pcase(I, _, F),
-   \+ prove(F, 5, _),
-   write(I),
-   write(' failure.'),
-   nl,
-   fail; true.
 
 /**
  * prove(A, M, N):
