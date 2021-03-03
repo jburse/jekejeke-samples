@@ -1,6 +1,24 @@
 /**
  * Peano Arithmetic Factorial, unify_with_occurs_check/2 call.
  *
+ * Peano numerals 0’..’ can be represented as s(..s(n)) in Prolog.
+ * The Peano arithmetic addition and multiplication can be realized
+ * as predicates add/3 and mul/3. Peano arithmetic can prove 1+x ≠ x,
+ * but without the occurs check we could derive:
+ *
+ * ?- add2(s(n),X,X).
+ * X = &lt;cyclic term&gt;
+ *
+ * The occurs checks prevents such a derivation:
+ *
+ * ?- set_prolog_flag(occurs_check,true).
+ * Yes
+ *
+ * ?- add2(s(n),X,X).
+ * No
+ *
+ * The factorial can be realized by a predicate fac/2.
+ *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties

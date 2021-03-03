@@ -1,7 +1,5 @@
 /**
- * Maslov Calculus over Herbrandisized Formulas
- * Explicit unify_with_occurs_check/2 call
- * https://stackoverflow.com/q/63798877/502187
+ * Beckert & Posegga's Algorithm, unify_with_occurs_check/2 call
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly

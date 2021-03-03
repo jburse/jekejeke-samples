@@ -1,7 +1,5 @@
 /**
- * Maslov Calculus over Herbrandisized Formulas
- * Prolog flag occurs_check
- * https://stackoverflow.com/q/63798877/502187
+ * Beckert & Posegga's Algorithm, occurs_check flag
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
