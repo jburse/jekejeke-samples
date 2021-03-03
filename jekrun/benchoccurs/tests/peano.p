@@ -1,5 +1,5 @@
 /**
- * The Prolog text that defines the test suite.
+ * Peano Arithmetic Factorial, unify_with_occurs_check/2 call.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,32 +30,14 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded(util).
+add(n, X, Y) :- unify_with_occurs_check(X, Y).
+add(s(X), Y, s(Z)) :- add(X, Y, Z).
 
-:- ensure_loaded('../tests/peano').
-:- ensure_loaded('../tests/peano2').
-:- ensure_loaded('../tests/prover').
-:- ensure_loaded('../tests/prover2').
+mul(n, _, n).
+mul(s(X), Y, Z) :- mul(X, Y, H), add(Y, H, Z).
 
-/*****************************************************************/
-/* Normal Test Cases                                             */
-/*****************************************************************/
+fac(n, s(n)).
+fac(s(X), Y) :- fac(X, H), mul(s(X), H, Y).
 
-suite :-
-   bench(3001, dummy, _, _),
-   bench(120, peano, T1, G1),
-   set_prolog_flag(occurs_check, true),
-   bench(120, peano2, T2, G2),
-   set_prolog_flag(occurs_check, false),
-   bench(100, aristo, T3, G3),
-   set_prolog_flag(occurs_check, true),
-   bench(100, aristo2, T4, G4),
-   set_prolog_flag(occurs_check, false),
-   bench(4, pelle, T5, G5),
-   set_prolog_flag(occurs_check, true),
-   bench(4, pelle2, T6, G6),
-   set_prolog_flag(occurs_check, false),
-   T is T1+T2+T3+T4+T5+T6,
-   G is G1+G2+G3+G4+G5+G6,
-   write('Total'),
-   show(T, G), nl.
+peano :-
+   fac(s(s(s(s(s(s(s(s(n)))))))), _).

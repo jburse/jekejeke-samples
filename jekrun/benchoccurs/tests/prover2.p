@@ -1,6 +1,6 @@
 /**
  * Maslov Calculus over Herbrandisized Formulas
- * Explicit unify_with_occurs_check/2 call
+ * Prolog flag occurs_check
  * https://stackoverflow.com/q/63798877/502187
  *
  * Warranty & Liability
@@ -38,46 +38,54 @@
 :- ensure_loaded(prepare).
 :- ensure_loaded(aristoteles).
 :- ensure_loaded(koutsoukou).
+:- ensure_loaded(pelletier).
 
-local :-
+aristo2 :-
    case(I, _, F),
    form(F, G),
-   \+ local(G, 3, _),
+   \+ prove2(G, 3, _),
+   write(I),
+   write(' failure.'),
+   nl,
+   fail; true.
+
+pelle2 :-
+   pcase(I, _, F),
+   \+ prove2(F, 5, _),
    write(I),
    write(' failure.'),
    nl,
    fail; true.
 
 /**
- * local(A, M, N):
+ * prove2(A, M, N):
  * The predicate succeeds whenever a Maslov proof for A can be found.
  * The number of tryed exist/2 rule applications is successively incremented.
  * The parameter M is the maximum number of existential applications,
  * and the result N is the effectively used number.
  */
-% local(+Form, +Integer, -Integer)
-local(A, M, N) :-
+% prove2(+Form, +Integer, -Integer)
+prove2(A, M, N) :-
    norm(A, B),
    herbrand(B, [], 0, _, C),
    between(0, M, N),
-   local([C], [], N, _).
+   prove2([C], [], N, _).
 
 /**
- * local(L, V, N, M):
+ * prove2(L, V, N, M):
  * The predicate succeeds whenever a Maslov proof for L can be found.
  * The parameter V is for the current exist/2 environment and the
  * parameter N and M controll the number exist/2 rule applications.
  */
-% local(+List, +List, +Integer, -Integer)
-local(L, V, N, M) :- select(or(A, B), L, R), !,
-   local([A, B|R], V, N, M).
-local(L, V, N, M) :- select(and(A, B), L, R), !,
-   local([A|R], V, N, H),
-   local([B|R], V, H, M).
-local(L, V, N, M) :- N > 0, H is N-1,
+% prove2(+List, +List, +Integer, -Integer)
+prove2(L, V, N, M) :- select(or(A, B), L, R), !,
+   prove2([A, B|R], V, N, M).
+prove2(L, V, N, M) :- select(and(A, B), L, R), !,
+   prove2([A|R], V, N, H),
+   prove2([B|R], V, H, M).
+prove2(L, V, N, M) :- N > 0, H is N-1,
    member(exist(A, B), L),
    copy_term(exist(A, B)-V, exist(C, D)-V),
-   local([D|L], [C|V], H, M).
-local(L, _, N, N) :- select(pos(A), L, R),
-   member(neg(B), R),
-   unify_with_occurs_check(A, B).
+   prove2([D|L], [C|V], H, M).
+prove2(L, _, N, N) :- select(pos(A), L, R),
+   member(neg(A), R).

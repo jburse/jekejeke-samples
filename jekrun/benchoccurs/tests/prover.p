@@ -1,6 +1,6 @@
 /**
  * Maslov Calculus over Herbrandisized Formulas
- * Prolog flag occurs_check
+ * Explicit unify_with_occurs_check/2 call
  * https://stackoverflow.com/q/63798877/502187
  *
  * Warranty & Liability
@@ -38,45 +38,55 @@
 :- ensure_loaded(prepare).
 :- ensure_loaded(aristoteles).
 :- ensure_loaded(koutsoukou).
+:- ensure_loaded(pelletier).
 
-global :-
+aristo :-
    case(I, _, F),
    form(F, G),
-   \+ global(G, 3, _),
+   \+ prove(G, 3, _),
+   write(I),
+   write(' failure.'),
+   nl,
+   fail; true.
+
+pelle :-
+   pcase(I, _, F),
+   \+ prove(F, 5, _),
    write(I),
    write(' failure.'),
    nl,
    fail; true.
 
 /**
- * global(A, M, N):
+ * prove(A, M, N):
  * The predicate succeeds whenever a Maslov proof for A can be found.
  * The number of tryed exist/2 rule applications is successively incremented.
  * The parameter M is the maximum number of existential applications,
  * and the result N is the effectively used number.
  */
-% global(+Form, +Integer, -Integer)
-global(A, M, N) :-
+% prove(+Form, +Integer, -Integer)
+prove(A, M, N) :-
    norm(A, B),
    herbrand(B, [], 0, _, C),
    between(0, M, N),
-   global([C], [], N, _).
+   prove([C], [], N, _).
 
 /**
- * global(L, V, N, M):
+ * prove(L, V, N, M):
  * The predicate succeeds whenever a Maslov proof for L can be found.
  * The parameter V is for the current exist/2 environment and the
  * parameter N and M controll the number exist/2 rule applications.
  */
-% global(+List, +List, +Integer, -Integer)
-global(L, V, N, M) :- select(or(A, B), L, R), !,
-   global([A, B|R], V, N, M).
-global(L, V, N, M) :- select(and(A, B), L, R), !,
-   global([A|R], V, N, H),
-   global([B|R], V, H, M).
-global(L, V, N, M) :- N > 0, H is N-1,
+% prove(+List, +List, +Integer, -Integer)
+prove(L, V, N, M) :- select(or(A, B), L, R), !,
+   prove([A, B|R], V, N, M).
+prove(L, V, N, M) :- select(and(A, B), L, R), !,
+   prove([A|R], V, N, H),
+   prove([B|R], V, H, M).
+prove(L, V, N, M) :- N > 0, H is N-1,
    member(exist(A, B), L),
    copy_term(exist(A, B)-V, exist(C, D)-V),
-   global([D|L], [C|V], H, M).
-global(L, _, N, N) :- select(pos(A), L, R),
-   member(neg(A), R).
+   prove([D|L], [C|V], H, M).
+prove(L, _, N, N) :- select(pos(A), L, R),
+   member(neg(B), R),
+   unify_with_occurs_check(A, B).

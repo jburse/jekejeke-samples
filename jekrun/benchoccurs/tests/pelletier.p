@@ -1,6 +1,4 @@
 /**
- * The Prolog text that defines the test suite.
- *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
  * otherwise agreed upon, XLOG Technologies GmbH makes no warranties
@@ -30,32 +28,26 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- ensure_loaded(util).
+:- ensure_loaded(prepare).
 
-:- ensure_loaded('../tests/peano').
-:- ensure_loaded('../tests/peano2').
-:- ensure_loaded('../tests/prover').
-:- ensure_loaded('../tests/prover2').
-
-/*****************************************************************/
-/* Normal Test Cases                                             */
-/*****************************************************************/
-
-suite :-
-   bench(3001, dummy, _, _),
-   bench(120, peano, T1, G1),
-   set_prolog_flag(occurs_check, true),
-   bench(120, peano2, T2, G2),
-   set_prolog_flag(occurs_check, false),
-   bench(100, aristo, T3, G3),
-   set_prolog_flag(occurs_check, true),
-   bench(100, aristo2, T4, G4),
-   set_prolog_flag(occurs_check, false),
-   bench(4, pelle, T5, G5),
-   set_prolog_flag(occurs_check, true),
-   bench(4, pelle2, T6, G6),
-   set_prolog_flag(occurs_check, false),
-   T is T1+T2+T3+T4+T5+T6,
-   G is G1+G2+G3+G4+G5+G6,
-   write('Total'),
-   show(T, G), nl.
+pcase(1, 'Pelletier p18', exist(A, all(B, (p(A) -: p(B))))).
+pcase(2, 'Pelletier p19', exist(A, all(B, all(C, ((p(B) -: q(C)) -:
+      (p(A) -: q(A))))))).
+pcase(3, 'Pelletier p20', (all(A, all(B, exist(C, all(D, (p(A), q(B) -:
+         r(C), u(D)))))) -: (exist(E, exist(F, (p(E), q(F)))) -:
+         exist(G, r(G))))).
+pcase(7, 'Pelletier p24', (-exist(A, (u(A), q(A))), all(B, (p(B) -:
+         q(B); r(B))), -exist(C, (p(C) -: exist(D, q(D)))),
+   all(E, (q(E), r(E) -: u(E))) -: exist(F, (p(F), r(F))))).
+pcase(8, 'Pelletier p25', (exist(A, p(A)), all(B, (u(B) -:
+         -g(B), r(B))), all(C, (p(C) -: g(C), u(C))),
+   (all(D, (p(D) -: q(D))); exist(E, (q(E), p(E)))) -:
+      exist(F, (q(F), p(F))))).
+pcase(10, 'Pelletier p27', (exist(A, (p(A), -q(A))), all(B, (p(B) -:
+         r(B))), all(C, (u(C), v(C) -: p(C))),
+   exist(D, (r(D), -q(D))) -: (all(E, (v(E) -: -r(E))) -:
+         all(F, (u(F) -: -v(F)))))).
+pcase(11, 'Pelletier p28', (all(A, (p(A) -: all(B, q(B)))),
+   (all(C, (q(C); r(C))) -: exist(D, (q(D), r(D)))),
+   (exist(E, r(E)) -: all(F, (l(F) -: m(F)))) -:
+      all(G, (p(G), l(G) -: m(G))))).
