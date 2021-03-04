@@ -1,8 +1,8 @@
 # What is this?
 
 This directory contains test cases for the Prolog ISO core
-functionality. We test some pure Prolog problems. We don't
-test assert or file I/O.
+functionality. We test some side effect free Prolog problems.
+We don't test assert or file I/O.
 
 After loading the files use the following predicates to run the test
 cases. For slower devices such as Android use the r-predicates:
