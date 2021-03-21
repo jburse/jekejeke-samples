@@ -41,6 +41,7 @@
 :- discontiguous runner:ref/4.
 
 :- multifile runner:case/4.
+:- dynamic runner:case/4.
 :- discontiguous runner:case/4.
 
 :- use_module(library(stream/console)).
@@ -187,7 +188,7 @@ runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 1') :-
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 2') :-
    A = Roger, with_output_to(atom(R), write_term(foo(A+Roger, A+H),
       [variable_names(['A' = A, 'Roger' = Roger, '_' = H])])),
-   R == 'foo(Roger+Roger, Roger+_)'.
+   R == 'foo(A+A, A+_)'.
 runner:case(variable_names, 1, stream_read, 'Corr 3, 7.10.4, XLOG 3') :-
    A = foo, with_output_to(atom(R), write_term(foo(A+Roger, A+H),
       [variable_names(['A' = A, 'Roger' = Roger, '_' = H])])),
