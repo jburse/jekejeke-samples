@@ -45,6 +45,7 @@
 
             <Host name="localhost"  appBase="webapps"
                   unpackWARs="true" autoDeploy="true">
+                <!-- deployweb -->
                 <Context docBase="C:\Projects\Jekejeke\Prototyping\samples\jekrun\deployweb"
                          path="/deployweb"
                          reloadable="true">

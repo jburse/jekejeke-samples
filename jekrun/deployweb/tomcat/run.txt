@@ -1,4 +1,4 @@
-set CATALINA_HOME=D:\Software\Java2\apache-tomcat-8.5.15
-set JAVA_HOME=D:\Software\Java\jdk-8u261
-set CATALINA_OPTS=-Dorg.apache.jasper.compiler.Parser.STRICT_QUOTE_ESCAPING=false
+set CATALINA_HOME=D:\Software\Java3\apache-tomcat-10.0.4
+set JAVA_HOME=D:\Software\Java3\jdk11.0.10
+set CATALINA_OPTS=--add-opens java.base/jdk.internal.loader=ALL-UNNAMED
 %CATALINA_HOME%\bin\catalina.bat run
