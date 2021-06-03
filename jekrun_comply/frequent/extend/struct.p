@@ -36,6 +36,7 @@
 :- discontiguous runner:ref/4.
 
 :- multifile runner:case/4.
+:- dynamic runner:case/4.
 :- discontiguous runner:case/4.
 
 :- use_module(library(advanced/aggregate)).
@@ -108,7 +109,7 @@ runner:case(bagof_tree, 4, extend_struct, 'XLOG 2.4.3, XLOG 1') :-
    R == ['0'-[3, 1], 'A'-[3, 1], a-[3, 1], £ -[3, 1]].
 runner:case(bagof_tree, 4, extend_struct, 'XLOG 2.4.3, XLOG 2') :-
    findall(Y-S, bagof(X, (member(Y, [a, 'A', £, '0']),
-      (X = 3; X = 1)), S, [type(collator), locale(en_UK)]), R),
+      (X = 3; X = 1)), S, [type(collator), locale(en_GB)]), R),
    R == [£ -[3, 1], '0'-[3, 1], a-[3, 1], 'A'-[3, 1]].
 runner:case(bagof_tree, 4, extend_struct, 'XLOG 2.4.3, XLOG 3') :-
    findall(Y-S, bagof(X, (member(Y, [a, 'A', £, '0']),
@@ -116,7 +117,7 @@ runner:case(bagof_tree, 4, extend_struct, 'XLOG 2.4.3, XLOG 3') :-
    R == [£ -[3, 1], a-[3, 1], 'A'-[3, 1], '0'-[3, 1]].
 runner:case(bagof_tree, 4, extend_struct, 'XLOG 2.4.3, XLOG 4') :-
    findall(Y-S, bagof(X, (member(Y, [a, 'A', £, '0']),
-      (X = 3; X = 1)), S, [type(collator), locale(en_UK), reverse(true)]), R),
+      (X = 3; X = 1)), S, [type(collator), locale(en_GB), reverse(true)]), R),
    R == ['A'-[3, 1], a-[3, 1], '0'-[3, 1], £ -[3, 1]].
 
 /* setof(T, A1^...^An^G, L, O), with tree or collator */
@@ -129,7 +130,7 @@ runner:case(setof_tree, 4, extend_struct, 'XLOG 2.4.4, XLOG 1') :-
    R == ['0'-[1, 3], 'A'-[1, 3], a-[1, 3], £ -[1, 3]].
 runner:case(setof_tree, 4, extend_struct, 'XLOG 2.4.4, XLOG 2') :-
    findall(Y-S, setof(X, (member(Y, [a, 'A', £, '0']),
-      (X = 3; X = 1)), S, [type(collator), locale(en_UK)]), R),
+      (X = 3; X = 1)), S, [type(collator), locale(en_GB)]), R),
    R == [£ -[1, 3], '0'-[1, 3], a-[1, 3], 'A'-[1, 3]].
 runner:case(setof_tree, 4, extend_struct, 'XLOG 2.4.4, XLOG 3') :-
    findall(Y-S, setof(X, (member(Y, [a, 'A', £, '0']),
@@ -137,7 +138,7 @@ runner:case(setof_tree, 4, extend_struct, 'XLOG 2.4.4, XLOG 3') :-
    R == [£ -[1, 3], a-[1, 3], 'A'-[1, 3], '0'-[1, 3]].
 runner:case(setof_tree, 4, extend_struct, 'XLOG 2.4.4, XLOG 4') :-
    findall(Y-S, setof(X, (member(Y, [a, 'A', £, '0']),
-      (X = 3; X = 1)), S, [type(collator), locale(en_UK), reverse(true)]), R),
+      (X = 3; X = 1)), S, [type(collator), locale(en_GB), reverse(true)]), R),
    R == ['A'-[1, 3], a-[1, 3], '0'-[1, 3], £ -[1, 3]].
 
 /* type(callback) */
@@ -296,7 +297,7 @@ runner:case(aggregate_tree, 4, extend_struct, 'XLOG 2.5.5, XLOG 1') :-
    R == ['0'-3, 'A'-3, a-3, £ -3].
 runner:case(aggregate_tree, 4, extend_struct, 'XLOG 2.5.5, XLOG 2') :-
    findall(Y-N, aggregate(max(X), (member(Y, [a, 'A', £, '0']),
-      (X = 2; X = 1; X = 3)), N, [type(collator), locale(en_UK)]), R),
+      (X = 2; X = 1; X = 3)), N, [type(collator), locale(en_GB)]), R),
    R == [£ -3, '0'-3, a-3, 'A'-3].
 runner:case(aggregate_tree, 4, extend_struct, 'XLOG 2.5.5, XLOG 3') :-
    findall(Y-N, aggregate(max(X), (member(Y, [a, 'A', £, '0']),
@@ -304,7 +305,7 @@ runner:case(aggregate_tree, 4, extend_struct, 'XLOG 2.5.5, XLOG 3') :-
    R == [£ -3, a-3, 'A'-3, '0'-3].
 runner:case(aggregate_tree, 4, extend_struct, 'XLOG 2.5.5, XLOG 4') :-
    findall(Y-N, aggregate(max(X), (member(Y, [a, 'A', £, '0']),
-      (X = 2; X = 1; X = 3)), N, [type(collator), locale(en_UK), reverse(true)]), R),
+      (X = 2; X = 1; X = 3)), N, [type(collator), locale(en_GB), reverse(true)]), R),
    R == ['A'-3, a-3, '0'-3, £ -3].
 
 /* type(callback) */

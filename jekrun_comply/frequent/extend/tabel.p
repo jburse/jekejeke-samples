@@ -36,6 +36,7 @@
 :- discontiguous runner:ref/4.
 
 :- multifile runner:case/4.
+:- dynamic runner:case/4.
 :- discontiguous runner:case/4.
 
 :- use_module(library(advanced/tabling)).
@@ -246,7 +247,7 @@ runner:case(table_aggr_as, 2, extend_tabel, 'XLOG 2.6.4, XLOG 5b') :-
 table_test51(Y) :-
    member(Y, [a, 'A', £, '0']).
 
-:- table table_test52/1 as [type(collator), locale(en_UK)].
+:- table table_test52/1 as [type(collator), locale(en_GB)].
 table_test52(Y) :-
    member(Y, [a, 'A', £, '0']).
 
@@ -254,7 +255,7 @@ table_test52(Y) :-
 table_test53(Y) :-
    member(Y, [a, 'A', £, '0']).
 
-:- table table_test54/1 as [type(collator), locale(en_UK), reverse(true)].
+:- table table_test54/1 as [type(collator), locale(en_GB), reverse(true)].
 table_test54(Y) :-
    member(Y, [a, 'A', £, '0']).
 
@@ -276,7 +277,7 @@ runner:case(table_as_tree, 2, extend_tabel, 'XLOG 2.6.5, XLOG 4') :-
 table_test61(Y, X) :-
    member(Y, [a, 'A', £, '0']), (X = 2; X = 1; X = 3).
 
-:- table table_test62(_, max) as [type(collator), locale(en_UK)].
+:- table table_test62(_, max) as [type(collator), locale(en_GB)].
 table_test62(Y, X) :-
    member(Y, [a, 'A', £, '0']), (X = 2; X = 1; X = 3).
 
@@ -284,7 +285,7 @@ table_test62(Y, X) :-
 table_test63(Y, X) :-
    member(Y, [a, 'A', £, '0']), (X = 2; X = 1; X = 3).
 
-:- table table_test64(_, max) as [type(collator), locale(en_UK), reverse(true)].
+:- table table_test64(_, max) as [type(collator), locale(en_GB), reverse(true)].
 table_test64(Y, X) :-
    member(Y, [a, 'A', £, '0']), (X = 2; X = 1; X = 3).
 

@@ -36,6 +36,7 @@
 :- discontiguous runner:ref/4.
 
 :- multifile runner:case/4.
+:- dynamic runner:case/4.
 :- discontiguous runner:case/4.
 
 :- use_module(library(standard/approx)).
