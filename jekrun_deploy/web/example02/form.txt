@@ -76,22 +76,22 @@
     <tr>
         <td>Age:</td>
         <td>From:</td>
-        <td><input style="text-align: right;" name="agefrom"
+        <td><input style="text-align: right" name="agefrom"
     type="text" size="3"
     value="<%=matula.util.system.ForeignXml.sysTextEscape(agefrom)%>"></td>
         <td>To:</td>
-        <td><input style="text-align: right;" name="ageto"
+        <td><input style="text-align: right" name="ageto"
     type="text" size="3"
     value="<%=matula.util.system.ForeignXml.sysTextEscape(ageto)%>"></td>
     </tr>
     <tr>
         <td>Salary:</td>
         <td>From:</td>
-        <td><input style="text-align: right;" name="salaryfrom"
+        <td><input style="text-align: right" name="salaryfrom"
     type="text" size="6"
     value="<%=matula.util.system.ForeignXml.sysTextEscape(salaryfrom)%>"></td>
         <td>To:</td>
-        <td><input style="text-align: right;" name="salaryto"
+        <td><input style="text-align: right" name="salaryto"
     type="text" size="6"
     value="<%=matula.util.system.ForeignXml.sysTextEscape(salaryto)%>"></td>
     </tr>
