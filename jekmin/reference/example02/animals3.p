@@ -32,35 +32,19 @@
 
 :- use_module(library(minimal/delta)).
 
-:- multifile motion/1,skin/1,diet/1.
-:- thread_local motion/1,skin/1,class/1,diet/1,animal/1.
+:- multifile motion/1, skin/1, diet/1.
+:- thread_local motion/1, skin/1, class/1, diet/1, animal/1.
 
-post(class(mamal)) <=
-   posted(motion(walk)),
-   posted(skin(fur)).
-post(class(fish)) <=
-   posted(motion(swim)),
-   posted(skin(scale)).
-post(class(bird)) <=
-   posted(motion(fly)),
-   posted(skin(feather)).
+post(class(mamal)) <= posted(motion(walk)), posted(skin(fur)).
+post(class(fish)) <= posted(motion(swim)), posted(skin(scale)).
+post(class(bird)) <= posted(motion(fly)), posted(skin(feather)).
 
-post(animal(rodent)) <=
-   posted(class(mamal)),
-   posted(diet(plant)).
-post(animal(cat)) <=
-   posted(class(mamal)),
-   posted(diet(meat)).
-post(animal(salmon)) <=
-   posted(class(fish)),
-   posted(diet(meat)).
-post(animal(eagle)) <=
-   posted(class(bird)),
-   posted(diet(meat)).
+post(animal(rodent)) <= posted(class(mamal)), posted(diet(plant)).
+post(animal(cat)) <= posted(class(mamal)), posted(diet(meat)).
+post(animal(salmon)) <= posted(class(fish)), posted(diet(meat)).
+post(animal(eagle)) <= posted(class(bird)), posted(diet(meat)).
 
-write('The animal is '),
-write(X), nl <=
-   posted(animal(X)).
+write('The animal is '), write(X), nl <= posted(animal(X)).
 
 % ?- use_module(library(minimal/delta)).
 % % 0 consults and 0 unloads in 0 ms.

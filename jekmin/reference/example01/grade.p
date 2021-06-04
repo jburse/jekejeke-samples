@@ -33,12 +33,8 @@
 :- use_module(library(minimal/hypo)).
 
 /* must take german and can choose between french and italian */
-grade(S) :-
-   take(S, german),
-   take(S, french).
-grade(S) :-
-   take(S, german),
-   take(S, italian).
+grade(S) :- take(S, german), take(S, french).
+grade(S) :- take(S, german), take(S, italian).
 
 /* hans has already taken french */
 :- multifile take/2.

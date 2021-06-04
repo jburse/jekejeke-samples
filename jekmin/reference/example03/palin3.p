@@ -1,5 +1,5 @@
 /**
- * Prolog code for the revisited DCG with attributes example.
+ * Palindromes in via chart DCG.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -21,36 +21,42 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
 :- use_module(library(minimal/chart)).
-:- use_module(library(experiment/ref)).
 
-:- static palin/5.
+:- multifile 'D'/3.
+:- thread_local 'D'/3, palin/4.
+:- forward palin/5.
 
-palin([], [Middle]) ==>
+palin([], [Middle]) ==:
    [Middle].
-palin([Middle], []) ==>
+palin([Middle], []) ==:
    [Middle, Middle].
-palin([Border|List], Middle) ==>
-   [Border],
-   palin(List, Middle),
-   [Border].
+palin([Border|List], Middle) ==:
+   [Border], palin(List, Middle), [Border].
 
-% ?- use_module(library(minimal/hypo)).
+% ?- use_module(library(minimal/chart)).
+% % 0 consults and 0 unloads in 0 ms.
+% Yes
 
-% ?- <= chart("bert", _), listing('D'/2).
-% :- thread_local 'D'/2.
-% 'D'(116, 3).
-% 'D'(114, 2).
-% 'D'(101, 1).
-% 'D'(98, 0).
+% ?- words("bert", 0, _), listing('D'/3).
+% :- thread_local 'D'/3.
+% 'D'(116, 3, 4).
+% 'D'(114, 2, 3).
+% 'D'(101, 1, 2).
+% 'D'(98, 0, 1).
 
-% ?- <= chart("racecar", N), chart(palin(X1,Y1), N).
-% X1 = [114,97,99],
-% Y1 = [101]
+% ?- words("racecar", 0, N), chart(palin(X,Y), 0, N).
+% X = [114,97,99],
+% Y = [101]
 
-% ?- <= chart("bert", N), chart(palin(X1,Y1), N).
+% ?- words("bert", 0, N), chart(palin(X,Y), 0, N).
 % No

@@ -1,5 +1,6 @@
 /**
- * Prolog code for the little solver.
+ * Prolog code for the type inference
+ * with subject to occurs check.
  *
  * Warranty & Liability
  * To the extent permitted by applicable law and unless explicitly
@@ -30,54 +31,27 @@
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
 
-:- use_module(library(minimal/delta)).
-:- use_module(library(basic/lists)).
-:- use_module(library(experiment/sets)).
+:- use_module(library(experiment/maps)).
+:- use_module(library(term/herbrand)).
 
-% bound(+Atom, +Elem)
-:- multifile bound/2.
-:- thread_local bound/2.
+/*******************************************************/
+/* Type Inference for Simple Types                     */
+/*******************************************************/
 
-true <=
-   phaseout_posted(bound(X, C)), bound(X, C), !.
-fail <=
-   posted(bound(X, _)), bound(X, _).
+% typed2(+Expression, +Context, -Type)
+typed2(X, C, T) :- var(X), !, eq_get(C, X, T).
+typed2(lam(X, E), C, (S -> T)) :- typed2(E, [X-S|C], T).
+typed2(app(E, F), C, T) :- sto(S), typed2(E, C, (S -> T)), typed2(F, C, S).
 
-% domain(+Atom, +List)
-:- multifile domain/2.
-:- thread_local domain/2.
+% ?- sto((A,B,C)), typed2(app(E,F), [E-A,F-B], C).
+% A = (B->C),
+% sto(C),
+% sto(B)
 
-fail <=
-   posted(domain(_, [])), !.
-post(bound(X, C)) <=
-   phaseout_posted(domain(X, [C])), !.
-true <=
-   phaseout_posted(domain(X, D)), posted(bound(X, C)),
-   member(C, D), !.
-fail <=
-   posted(domain(X, _)), posted(bound(X, _)).
-post(domain(X, F)) <=
-   phaseout_posted(domain(X, D)), phaseout(domain(X, E)),
-   eq_intersection(D, E, F).
-
-% ?- use_module(library(minimal/delta)).
-% Yes
-
-% ?- post(domain(x, [1])), listing(bound/2), listing(domain/2).
-% bound(x, 1).
-% Yes
-
-% ?- post(domain(x, [1,2,3])), post(domain(y, [2,3,4])),
-%    listing(bound/2), listing(domain/2).
-% domain(x, [1,2,3]).
-% domain(y, [2,3,4]).
-% Yes
-
-% ?- post(domain(x, [1,2,3])), post(domain(x, [2,3,4])),
-%   listing(bound/2), listing(domain/2).
-% domain(x, [2,3]).
-% Yes
-
-% ?- post(domain(x, [1,2,3])), post(bound(x,4)),
-%    listing(bound/2), listing(domain/2).
+% ?- sto((A,B)), typed2(app(F,F), [F-A], B).
 % No
+
+% ?- sto(A), typed2(lam(X,lam(Y,app(Y,X))), [], A).
+% A = (_A->(_A->_B)->_B),
+% sto(_B),
+% sto(_A)

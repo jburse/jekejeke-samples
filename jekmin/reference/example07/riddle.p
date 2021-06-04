@@ -26,6 +26,11 @@
  * The library can be distributed as part of your applications and libraries
  * for execution provided this comment remains unchanged.
  *
+ * Restrictions
+ * Only to be distributed with programs that add significant and primary
+ * functionality to the library. Not to be distributed with additional
+ * software intended to replace any components of the library.
+ *
  * Trademarks
  * Jekejeke is a registered trademark of XLOG Technologies GmbH.
  */
@@ -35,28 +40,27 @@
 :- ensure_loaded(golfer).
 
 solve(Golfers) :-
-   Golfers = [Fred,Joe,Bob,Tom],
+   Golfers = [Fred, Joe, Bob, Tom],
 
    new(Fred),
    new(Joe),
    new(Bob),
    new(Tom),
 
-   all_different([position(Fred),position(Joe),position(Bob),position(Tom)]),
-   all_different([color(Fred),color(Joe),color(Bob),color(Tom)]),
+   all_different([position(Fred), position(Joe), position(Bob), position(Tom)]),
+   all_different([color(Fred), color(Joe), color(Bob), color(Tom)]),
 
    position(Joe) #= 2,
-   color(Bob) #= 3,                               /* plaid */
+   color(Bob) #= 3,                                     /* plaid */
    position(Tom) #\= 1,
    position(Tom) #\= 4,
-   color(Tom) #\= 4,                              /* orange */
+   color(Tom) #\= 4,                                    /* orange */
 
    member(Golfer, Golfers),
    position(Golfer) #= position(Fred)+1,
-   color(Golfer) #= 2,                            /* blue */
+   color(Golfer) #= 2,                                  /* blue */
 
-   term_variables(Golfers, L),
-   label(L).
+   term_variables(Golfers, L), label(L).
 
 % ?- solve(X).
 % X = [golfer(1,4),golfer(2,2),golfer(4,3),golfer(3,1)] ;
