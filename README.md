@@ -1,35 +1,16 @@
-# What is this?
+## Source Code Examples
 
-This repostory contains Prolog text samples for Jekejeke
-Prolog. Here and then you might see other artefacts
-such as Java code, SQL code, XML documents, etc...
+**Runtime Library:**
+- Examples for the Jekejeke Runtime Library. [More...](jekrun)
+- Examples for the Jekejeke Runtime Library Deployment. [More...](jekrun_deploy)
+- Examples for the Jekejeke Runtime Library Benchmark. [More...](jekrun_bench)
+- Examples for the Jekejeke Runtime Library Compliance. [More...](jekrun_comply)
 
-The samples are organized along the main components of Jekejeke
-Prolog. We thus find samples for the Runtime Library, the Development
-Enviroment, the Minlog Extension and Prolog Packages.
+**Development Environment:**
+- Examples for the Jekejeke Development Environment. [More...](jekdev)
+- Examples for the Jekejeke Development Environment Deployment. [More...](jekdev_deploy)
 
-# Prolog Packages
-
-This directory contains our currated Prolog packages:
-- [pack](https://github.com/jburse/jekejeke-samples/tree/master/pack/):
-  Various Prolog packages Volume Nr. 1.
-
-# System Samples
-
-The following samples have already been uploaded:
-- [jekrun](https://github.com/jburse/jekejeke-samples/tree/master/jekrun/):
-  Samples for the Runtime Library.
-- [jekdev](https://github.com/jburse/jekejeke-samples/tree/master/jekdev/):
-  Samples for the Development Environment.
-- [jekmin](https://github.com/jburse/jekejeke-samples/tree/master/jekmin/):
-  Samples for the Minlog Extension.
-
-# Issues and Contributing
-
-Feel free to fork for non-commercial attributed use. There
- is no warranty for the samples. You might try a pull
-request if you find issues, but there is also no service
-agreement by us. Note also that Jekejeke is a trademark.
-
-Jan Burse, 24.02.2018 (Updated 18.05.2019)
-
+**Minlog Extension:**
+- Examples for the Jekejeke Minimal Logic Extension. [More...](jekmin)
+- Examples for the Jekejeke Minimal Logic Extension Benchmark. [More...](jekmin_bench)
+- Examples for the Jekejeke Minimal Logic Extension Compliance. [More...](jekmin_comply)
